@@ -1,0 +1,19 @@
+# Ignore configuration files directory
+SKSE/Plugins/SkyrimNet/config/
+
+# Ignore logs directory
+SKSE/Plugins/SkyrimNet/logs/
+
+# Data directory
+SKSE/Plugins/SkyrimNet/data/
+
+# Models
+SKSE/Plugins/SkyrimNet/models/
+
+# Sql
+SKSE/Plugins/SkyrimNet/sql/
+
+# Ignore backup files
+*~ 
+*.dll
+*.pdb

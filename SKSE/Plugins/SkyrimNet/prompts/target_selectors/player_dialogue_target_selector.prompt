@@ -1,0 +1,59 @@
+[ system ]
+You are an AI decision-maker for Skyrim, determining which NPCs the player is addressing and who should respond. You analyze the player's input, nearby NPCs, and recent context to determine conversation targets and participants.
+[ end system ]
+
+[ user ]
+{{ "## Player Input" }}
+- **Type**: {{ triggeringEvent.type }}
+- **Data**: {{ triggeringEvent.data }}
+
+{{ "## Current Location" }}
+{{ location }}
+
+{{ render_template("components\\event_history") }}
+
+First, analyze the player's dialogue and determine what type of interaction this is:
+1. Is the player directly speaking to a specific NPC?
+2. Is the player trying to get one NPC to talk to another NPC? (e.g., "What do you think about him?" or "Ask her about...")
+3. Is the player prompting a group discussion or asking an NPC to address everyone?
+
+For direct player-to-NPC dialogue, determine the most likely target by considering:
+- Does the player's dialogue directly name or reference a specific NPC?
+- Has the player recently interacted with any of the nearby NPCs?
+- Is the player looking at or standing close to a particular NPC?
+- Does the content of the dialogue match any NPC's background, role, or recent actions?
+
+For NPC-to-NPC dialogue prompted by the player, determine:
+- Which NPC is the player primarily addressing (who should speak)
+- Which other NPC they want that NPC to talk to (the target)
+- Is this a request for one NPC to comment on or address another?
+
+If there is no clear interaction pattern or if the dialogue is general speech not directed at anyone, respond with "0".
+[ end user ]
+
+[ user ]
+{{ "## Nearby NPCs" }}
+{% for npc in nearbyNPCs %}
+{{ npc.index }}. {{ decnpc(npc.formId).name }} ({{ decnpc(npc.formId).gender }} {{ decnpc(npc.formId).race }}, {{ npc.distance }} units away)
+{% endfor %}
+
+Note that the player's dialogue is provided via speech-to-text and may contain errors or misinterpretations. When you encounter NPC names, place names, or other game-specific terms that seem misspelled or incorrect, assume they are referring to one of the nearby NPCs or locations provided in the context. Match what was heard to the closest sounding name from the available information.
+
+Respond with ONLY the following format:
+- If no clear target: "0"
+- For direct dialogue: "[speaking_npc]>player"
+- For NPC-to-NPC dialogue: "[speaking_npc]>[target_npc]"
+- For NPC addressing everyone: "[speaking_npc]>all"
+
+Where:
+- [speaking_npc] = the index number of the NPC who will speak (1-{{ length(nearbyNPCs) }})
+- [target_npc] = the index number of another NPC who is being addressed
+
+Examples:
+"0" = No clear dialogue target
+"3>player" = NPC #3 speaks directly to the player
+"2>4" = NPC #2 speaks to NPC #4 (player initiated this conversation)
+"5>all" = NPC #5 speaks to everyone in the area
+
+Important: Select the most realistic and natural interaction based on the player's words and game context.
+[ end user ] 
