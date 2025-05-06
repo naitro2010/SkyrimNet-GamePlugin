@@ -16,4 +16,13 @@ SKSE/Plugins/SkyrimNet/sql/
 # Ignore backup files
 *~ 
 *.dll
-*.pdb
+
+# Webui Virtual environment
+webui/venv/
+
+# Python byte-complied stuff
+**/__pycache__/
+
+# VSCode
+**/.vscode/
+
