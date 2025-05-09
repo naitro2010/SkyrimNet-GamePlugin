@@ -23,21 +23,62 @@ class Prompt_Editor_Tabs():
 
 def prompt_editor(file_name: File_Names) -> None:
     with st.expander(label=file_name.name_nice):
+
         loaded_text = ""
         try:
             with open(file_name.full_path, "r") as f:
                 loaded_text = f.read()
         except Exception as e:
-            st.echo("Failed to load file: "+str(e))
-        modified_text = st.text_area("", value=loaded_text, height=250, key=file_name.full_path+"text")
-        if not st.button("Save", key=file_name.full_path+"save"):
+            st.echo(ui_str.error_file_load.format(str(e)))
+            return
+    # check to see if a .bak file exists, and if not, copy the existing file to create one
+        bak_file_path = file_name.full_path + ".bak"
+        if not os.path.isfile(bak_file_path):
+            try:
+                with open(bak_file_path, "w") as f:
+                    f.write(loaded_text)
+            except Exception as e:
+                st.echo(ui_str.error_file_save_backup.format(str(e)))
+                return
+        
+        modified_text = st.text_area(
+            label=file_name.name_nice, 
+            value=loaded_text, 
+            height=250,
+            label_visibility="hidden",
+            key=file_name.full_path+"text")
+
+        c_save, c_revert = st.columns(2) #buttons side by side
+        with c_save:
+            save_button = st.button(ui_str.button_save, key=file_name.full_path+"save")
+        with c_revert:
+            revert_button = st.button(ui_str.button_revert, key=file_name.full_path+"revert")
+            
+        if not (save_button or revert_button):
             return
         
+        if revert_button:
+            # copy the .bak file to the original file
+            try:
+                with open(bak_file_path, "r") as f:
+                    reverted_text = f.read()
+            except Exception as e:
+                st.echo(ui_str.error_file_load_backup.format(str(e)))
+                return
+            try:
+                with open(file_name.full_path, "w") as f:
+                    f.write(reverted_text)
+            except Exception as e:
+                st.echo(ui_str.error_file_save.format(str(e)))
+            st.rerun()
+
         try:
             with open(file_name.full_path, "w") as f:
                 f.write(modified_text)
         except Exception as e:
-            st.echo("Failed to save file: "+str(e))
+            st.echo(ui_str.error_file_save.format(str(e)))
+            return
+        #has to be rerun after saving
         st.rerun()
 
 def generate_prompt_editors():
@@ -66,7 +107,7 @@ def generate_prompt_editors():
     for tl_item, tl_value in enumerate(sorted_tabs_list):
         tabs_dict[tl_value].tab_context = _tabs[tl_item]
 
-    for key, values in tabs_dict.items():
+    for values in tabs_dict.values():
         with values.tab_context:
             for item in values.files:
                 prompt_editor(item)

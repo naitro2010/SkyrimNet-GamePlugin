@@ -1,0 +1,4 @@
+{{ "## Recent Events" }}
+{% for event in events %}
+{% if isValidActor(event.originatingActor) %} - [{{ short_time(event.gameTimeStr) }}] ({{ event.type }}){% if event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_stt" %} {{ decnpc(event.originatingActor).name }}{% if isValidActor(event.targetActor) %} to {{ decnpc(event.targetActor).name }}{% endif %}{% else %} {{ decnpc(event.originatingActor).name }}{% endif %}: {{ event.data }} {% endif %}
+{% endfor %}
