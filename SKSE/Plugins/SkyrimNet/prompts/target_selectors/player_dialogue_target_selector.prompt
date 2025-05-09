@@ -16,6 +16,7 @@ First, analyze the player's dialogue and determine what type of interaction this
 1. Is the player directly speaking to a specific NPC?
 2. Is the player trying to get one NPC to talk to another NPC? (e.g., "What do you think about him?" or "Ask her about...")
 3. Is the player prompting a group discussion or asking an NPC to address everyone?
+4. Favor NPCs who are closer to the player or the ongoing situation. This is a strong factor.
 
 For direct player-to-NPC dialogue, determine the most likely target by considering:
 - Does the player's dialogue directly name or reference a specific NPC?
@@ -32,12 +33,15 @@ If there is no clear interaction pattern or if the dialogue is general speech no
 [ end user ]
 
 [ user ]
+{{ "## TEST "}}
+MQ102 STAGE={{ get_quest_stage("MQ102") }}
+{% if get_quest_stage("MQ102") == 10 %}
+It's alive!! 
+{% endif %}
 {{ "## Nearby NPCs" }}
 {% for npc in nearbyNPCs %}
-{{ npc.index }}. {{ decnpc(npc.formId).name }} ({{ decnpc(npc.formId).gender }} {{ decnpc(npc.formId).race }}, {{ npc.distance }} units away)
+{{ npc.id }}. {{ decnpc(npc.formId).name }} ({{ decnpc(npc.formId).gender }} {{ decnpc(npc.formId).race }}, {{ npc.distance }} units away)
 {% endfor %}
-
-Note that the player's dialogue is provided via speech-to-text and may contain errors or misinterpretations. When you encounter NPC names, place names, or other game-specific terms that seem misspelled or incorrect, assume they are referring to one of the nearby NPCs or locations provided in the context. Match what was heard to the closest sounding name from the available information.
 
 Respond with ONLY the following format:
 - If no clear target: "0"

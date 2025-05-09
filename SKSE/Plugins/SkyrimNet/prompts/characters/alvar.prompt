@@ -1,0 +1,4 @@
+{% extends "components\\character_bio_full.prompt" %}
+{% if get_quest_stage("MQ102") == 10 %}
+Alvar has recently heard that Dragons might be about!
+{% endif %}

@@ -19,10 +19,11 @@ Your goal is to maintain conversational flow and narrative coherence. Favor dial
 Below are the NPCs who want to say something. Each has a priority (lower number is higher priority) and a prompt template indicating the type of dialogue they intend.
 
 {% for candidate in candidateDialogues %}
-{{ candidate.index }}. **{{ decnpc(candidate.formId).name }}** ({{decnpc(candidate.formId).gender}} {{ decnpc(candidate.formId).race }})
+{{ candidate.id }}. **{{ decnpc(candidate.formId).name }}** ({{decnpc(candidate.formId).gender}} {{ decnpc(candidate.formId).race }})
    - Priority: {{ candidate.priority }}
    - Intended Prompt: '{{ candidate.prompt }}'
    - Current State: {{ candidate.state }}
+   - Distance: {{ candidate.distance }} units away
 {% endfor %}
 [ end user ]
 
@@ -30,9 +31,10 @@ Below are the NPCs who want to say something. Each has a priority (lower number 
 Review the candidates and the recent event history. Decide which *single* NPC should speak now. Consider:
 
 1. **Priority**: Lower numbers mean higher priority. This is a strong factor.
-2. **Relevance**: Choose NPCs whose intended dialogue is clearly related to the ongoing situation, recent events, or the player’s current activity. Avoid unrelated or jarring interjections.
-3. **Flow & Coherence**: Favor NPCs who are already involved in the situation or are natural participants in the conversation. Deprioritize background or peripheral NPCs unless their prompt adds meaningfully to the current moment (e.g., a guard witnessing a crime).
-4. **Pacing**: If the conversation feels complete or the player appears engaged in other actions, it may be best for no one to speak.
+2. **Distance**: Favor NPCs who are closer to the player or the ongoing situation. This is a strong factor.
+3. **Relevance**: Choose NPCs whose intended dialogue is clearly related to the ongoing situation, recent events, or the player’s current activity. Avoid unrelated or jarring interjections.
+4. **Flow & Coherence**: Favor NPCs who are already involved in the situation or are natural participants in the conversation. Deprioritize background or peripheral NPCs unless their prompt adds meaningfully to the current moment (e.g., a guard witnessing a crime).
+5. **Pacing**: If the conversation feels complete or the player appears engaged in other actions, it may be best for no one to speak.
 
 If no candidate is a good fit—due to irrelevance, awkward timing, or mismatch with the current tone—respond with "0".
 

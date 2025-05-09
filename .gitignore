@@ -17,3 +17,5 @@ SKSE/Plugins/SkyrimNet/sql/
 *~ 
 *.dll
 *.pdb
+# Ignore vscode settings
+.vscode
