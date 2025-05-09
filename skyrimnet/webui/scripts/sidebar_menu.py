@@ -4,6 +4,8 @@ import logging
 
 import streamlit as st
 
+from datatypes import webui_strings
+
 logger = logging.getLogger(__name__)
 
 class menu_entry(TypedDict):
@@ -25,6 +27,9 @@ def generate_sidebar():
     '''
     menu_items = {}
     pages_list:list[str] = glob.glob('pages/*.py')
+
+    st.sidebar.subheader(webui_strings.app_title, anchor=False)
+    st.sidebar.write("---")
 
     if not len(pages_list):
         st.sidebar.write("No Pages Found")

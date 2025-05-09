@@ -17,7 +17,8 @@ First, analyze the player's dialogue and determine what type of interaction this
 2. Is the player trying to get one NPC to talk to another NPC? (e.g., "What do you think about him?" or "Ask her about...")
 3. Is the player prompting a group discussion or asking an NPC to address everyone?
 
-For direct player-to-NPC dialogue, determine the most likely target by considering:
+For direct player-to-NPC dialogue, dete    #modified_text = st.text_area(file_name.name_nice, value="", height=400)
+rmine the most likely target by considering:
 - Does the player's dialogue directly name or reference a specific NPC?
 - Has the player recently interacted with any of the nearby NPCs?
 - Is the player looking at or standing close to a particular NPC?
