@@ -1,4 +1,8 @@
+{% block character_bio_full %}
 ## Character Bio
 - Name: {{ decnpc(npc.formId).name }}
 - Gender: {{ decnpc(npc.formId).gender }}
 - Race: {{ decnpc(npc.formId).race }}
+{% block character_specifics %}
+{% endblock %}
+{% endblock %}
