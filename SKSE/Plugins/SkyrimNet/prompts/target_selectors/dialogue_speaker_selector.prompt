@@ -32,7 +32,7 @@ Review the candidates and the recent event history. Decide which *single* NPC sh
 
 1. **Priority**: Lower numbers mean higher priority. This is a strong factor.
 2. **Distance**: Favor NPCs who are closer to the player or the ongoing situation. This is a strong factor.
-3. **Relevance**: Choose NPCs whose intended dialogue is clearly related to the ongoing situation, recent events, or the player’s current activity. Avoid unrelated or jarring interjections.
+3. **Relevance**: Choose NPCs whose intended dialogue is clearly related to the ongoing situation, recent events, or the player’s current activity. Avoid unrelated or jarring interjections. This is a strong factor.
 4. **Flow & Coherence**: Favor NPCs who are already involved in the situation or are natural participants in the conversation. Deprioritize background or peripheral NPCs unless their prompt adds meaningfully to the current moment (e.g., a guard witnessing a crime).
 5. **Pacing**: If the conversation feels complete or the player appears engaged in other actions, it may be best for no one to speak.
 

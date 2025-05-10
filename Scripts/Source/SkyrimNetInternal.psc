@@ -51,3 +51,48 @@ Function ServeFood_Execute(Actor akActor, string contextJson, string paramsJson)
     Debug.Notification(akActor.GetDisplayName() + " says: Here you go, " + targetName + ". Have some " + foodItem + ".")
     ; Future prompt requests and/or completion signals can go here.
 EndFunction
+
+
+; Eligibility function for an "Animation<type>" action
+bool Function Animation_IsEligible(Actor akActor, string contextJson, string paramsJson) global
+    Debug.Trace("[SkyrimNetInternal] Animation_IsEligible called for " + akActor.GetDisplayName())
+
+    if akActor.IsInCombat()
+        Debug.Trace("[SkyrimNetInternal] Animation_IsEligible: " + akActor.GetDisplayName() + " is in combat. Cannot animate.")
+        return false
+    endif
+
+    Debug.Trace("[SkyrimNetInternal] Animation_IsEligible: " + akActor.GetDisplayName() + " is eligible to animate.")
+    return true
+EndFunction
+
+
+Function AnimationSlapActor(Actor akOriginator, string contextJson, string paramsJson) global
+    actor akTarget = SkyrimNetApi.GetJsonActor(paramsJson, "target", Game.GetPlayer())
+    sound slapSound = Game.GetFormFromFile(0x0E98, "SkyrimNet.esp") as Sound
+    if (!akOriginator || !akTarget)
+        Debug.Trace("[SkyrimNetInternal] AnimationSlapActor: akOriginator or akTarget is null")
+        return
+    endif
+    Debug.Trace("[SkyrimNetInternal] AnimationSlapActor: Slapping " + akTarget.GetDisplayName() + " with " + akOriginator.GetDisplayName())
+    akTarget.SetDontMove()
+    akOriginator.MoveTo(akTarget, 40.0 * Math.Sin(akTarget.GetAngleZ()), 40.0 * Math.Cos(akTarget.GetAngleZ()))
+    akOriginator.SetAngle(0.0, 0.0, akTarget.GetAngleZ()+180.0)
+    debug.sendanimationevent(akOriginator, "SMplayerslaps")
+    slapSound.play(akTarget)
+    utility.wait(0.8)
+    akOriginator.pushactoraway(akTarget,1)
+    akTarget.SetDontMove(false)
+EndFunction
+
+Function AnimationPrayer(Actor akOriginator, string contextJson, string paramsJson) global
+    GlobalVariable prayAnimationGlobal = Game.GetFormFromFile(0x0E99, "SkyrimNet.esp") as GlobalVariable
+    if (!akOriginator)
+        Debug.Trace("[SkyrimNetInternal] AnimationPrayer: akOriginator is null")
+        return
+    endif
+    Debug.Trace("[SkyrimNetInternal] AnimationPrayer: Praying with " + akOriginator.GetDisplayName())
+    PrayAnimationGlobal.SetValue(10)
+    Utility.wait(5)
+    PrayAnimationGlobal.SetValue(0)
+EndFunction

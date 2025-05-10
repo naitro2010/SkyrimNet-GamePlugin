@@ -2,7 +2,22 @@ Scriptname skynet_PlayerScript extends ReferenceAlias
 
 skynet_MainController Property skynet  Auto
 
+Function RegisterAnimationActions()
+    SkyrimNetApi.RegisterAction("AnimationSlapActor", "Slap an actor with a sound effect.", \
+                                "SkyrimNetInternal", "Animation_IsEligible", \
+                                "SkyrimNetInternal", "AnimationSlapActor", \
+                                "", "PAPYRUS", \
+                                1, "{\"target\": \"Actor\"}")
+    SkyrimNetApi.RegisterAction("AnimationPrayer", "Pray with an animation.", \
+                                "SkyrimNetInternal", "Animation_IsEligible", \
+                                "SkyrimNetInternal", "AnimationPrayer", \
+                                "", "PAPYRUS", \
+                                4, "")
+EndFunction
+
+
 Event OnPlayerLoadGame()
+  RegisterAnimationActions()
   Debug.Trace("[SkyrimNet] (PlayerScript) OnPlayerLoadGame called")
   SkyrimnetApi.RegisterDecorator("ExampleDecorator", "SkyrimNetInternal", "ExampleDecorator")
   SkyrimnetApi.RegisterDecorator("ExampleDecorator2", "SkyrimNetInternal", "ExampleDecorator2")
