@@ -45,7 +45,7 @@ def prompt_editor(file_name: File_Names) -> None:
             label=file_name.name_nice, 
             value=loaded_text, 
             height=250,
-            label_visibility="hidden",
+            label_visibility="collapsed",
             key=file_name.full_path+"text")
 
         c_save, c_revert = st.columns(2) #buttons side by side
@@ -63,20 +63,20 @@ def prompt_editor(file_name: File_Names) -> None:
                 with open(bak_file_path, "r") as f:
                     reverted_text = f.read()
             except Exception as e:
-                st.echo(ui_str.error_file_load_backup.format(str(e)))
+                st.error(ui_str.error_file_load_backup.format(str(e)))
                 return
             try:
                 with open(file_name.full_path, "w") as f:
                     f.write(reverted_text)
             except Exception as e:
-                st.echo(ui_str.error_file_save.format(str(e)))
+                st.error(ui_str.error_file_save.format(str(e)))
             st.rerun()
 
         try:
             with open(file_name.full_path, "w") as f:
                 f.write(modified_text)
         except Exception as e:
-            st.echo(ui_str.error_file_save.format(str(e)))
+            st.error(ui_str.error_file_save.format(str(e)))
             return
         #has to be rerun after saving
         st.rerun()

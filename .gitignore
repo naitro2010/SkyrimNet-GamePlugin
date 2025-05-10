@@ -16,6 +16,7 @@ SKSE/Plugins/SkyrimNet/sql/
 # Ignore backup files
 *~ 
 *.dll
+<<<<<<< HEAD
 
 # Webui Virtual environment
 webui/venv/
@@ -26,3 +27,8 @@ webui/venv/
 # VSCode
 **/.vscode/
 
+=======
+*.pdb
+# Ignore vscode settings
+.vscode
+>>>>>>> origin/main
