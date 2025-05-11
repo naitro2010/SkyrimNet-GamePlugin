@@ -32,3 +32,4 @@ webui/venv/
 # Ignore vscode settings
 .vscode
 >>>>>>> origin/main
+*.bak
