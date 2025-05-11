@@ -4,6 +4,7 @@ from scripts import generate_sidebar, generate_prompt_editors
 
 def main():
     generate_sidebar()
+    st.subheader("Prompts", anchor=False)
     generate_prompt_editors()
 
 if __name__ == "__main__":
