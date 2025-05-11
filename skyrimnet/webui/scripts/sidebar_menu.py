@@ -1,10 +1,11 @@
 from typing import TypedDict
 import glob
 import logging
-
+from bidict import bidict
 import streamlit as st
 
 from datatypes import webui_strings
+from dependencies import load_db_list
 
 logger = logging.getLogger(__name__)
 
@@ -12,7 +13,6 @@ class menu_entry(TypedDict):
     path: str
     description: str
 
-@st.cache_data(ttl=1)
 def generate_sidebar():
     '''
     Generates the menu list based off the files in the 
@@ -25,11 +25,31 @@ def generate_sidebar():
 
     pages without an number_description.py will be ignored
     '''
-    menu_items = {}
-    pages_list:list[str] = glob.glob('pages/*.py')
 
     st.sidebar.subheader(webui_strings.app_title, anchor=False)
+
+    if "db_dict" not in st.session_state:
+        load_db_list()
+
+    db_dict:bidict = st.session_state["db_dict"]
+    db_cur:str = st.session_state["db_current"]
+    db_list:list[str] = list(db_dict.keys())
+
+    db_sel = st.sidebar.selectbox(
+        label="Select PC:", 
+        options=db_dict.keys(),
+        index=db_list.index(db_dict.inv[db_cur]),
+        key="db_current_sel")
+    
+    if db_sel != db_cur:
+        st.session_state["db_current"] = db_dict[db_sel]
     st.sidebar.write("---")
+    gen_sidebar_menu()
+
+@st.cache_data(ttl=1)
+def gen_sidebar_menu():
+    menu_items = {}
+    pages_list:list[str] = glob.glob('pages/*.py')
 
     if not len(pages_list):
         st.sidebar.write("No Pages Found")
