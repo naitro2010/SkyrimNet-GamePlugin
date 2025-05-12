@@ -5,13 +5,13 @@ You are an AI assistant that analyzes events in the game Skyrim to determine whi
 [ user ]
 {{ "# NPC MEMORY CONTEXT" }}
 {{ "## NPC Information" }}
-- Name: {{ decnpc(npc.formId).name }}
+- Name: {{ decnpc(npc.UUID).name }}
 - Current Location: {{ location }}
 - Current Mood: {{ mood }}
 
 {{ "## Nearby NPCs" }}
 {% for nearbyNPC in nearbyNPCs %}
-- {{ decnpc(nearbyNPC.formId).name }}
+- {{ decnpc(nearbyNPC.UUID).name }}
 {% endfor %}
 
 {{ "## Recent Events" }}
