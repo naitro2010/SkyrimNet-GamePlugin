@@ -19,7 +19,7 @@ Your goal is to maintain conversational flow and narrative coherence. Favor dial
 Below are the NPCs who want to say something. Each has a priority (lower number is higher priority) and a prompt template indicating the type of dialogue they intend.
 
 {% for candidate in candidateDialogues %}
-{{ candidate.id }}. **{{ decnpc(candidate.formId).name }}** ({{decnpc(candidate.formId).gender}} {{ decnpc(candidate.formId).race }})
+{{ candidate.id }}. **{{ decnpc(candidate.UUID).name }}** ({{decnpc(candidate.UUID).gender}} {{ decnpc(candidate.UUID).race }})
    - Priority: {{ candidate.priority }}
    - Intended Prompt: '{{ candidate.prompt }}'
    - Current State: {{ candidate.state }}

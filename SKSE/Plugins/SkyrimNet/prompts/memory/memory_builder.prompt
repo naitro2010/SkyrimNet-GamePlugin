@@ -5,8 +5,8 @@ You are an AI assistant that summarizes game events into memories from an NPC's 
 [ user ]
 {{ "# MEMORY FORMATION" }}
 {{ "## NPC Information" }}
-- NPC Name: {{ decnpc(actorFormId).name }}
-- NPC Race: {{ decnpc(actorFormId).race }}
+- NPC Name: {{ decnpc(actorUUID).name }}
+- NPC Race: {{ decnpc(actorUUID).race }}
 
 {{ "## Events to Summarize as Memory" }}
 {% for event in events %}
@@ -32,7 +32,7 @@ You are an AI assistant that summarizes game events into memories from an NPC's 
 
 [ user ]
 {{ "# TASK" }}
-Summarize these events into a memory from {{ decnpc(actorFormId).name }}'s perspective. The memory should:
+Summarize these events into a memory from {{ decnpc(actorUUID).name }}'s perspective. The memory should:
 1. Be written in first person (from the NPC's perspective)
 2. Focus on what the NPC would remember about these events
 3. Include emotional reactions based on the 'Emotional Impact'

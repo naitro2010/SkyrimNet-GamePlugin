@@ -4,11 +4,11 @@ You are an AI assistant that analyzes an NPC's recent experiences in Skyrim to d
 
 [ user ]
 {{ "# NPC INFORMATION" }}
-- Name: {{ decnpc(npc.formId).name }}
-- Race: {{ decnpc(npc.formId).race }}
-- Gender: {{ decnpc(npc.formId).gender }}
-- Class: {{ decnpc(npc.formId).class }}
-- Base Disposition: {{ decnpc(npc.formId).disposition }}
+- Name: {{ decnpc(npc.UUID).name }}
+- Race: {{ decnpc(npc.UUID).race }}
+- Gender: {{ decnpc(npc.UUID).gender }}
+- Class: {{ decnpc(npc.UUID).class }}
+- Base Disposition: {{ decnpc(npc.UUID).disposition }}
 - Current Location: {{ location }}
 - Personality: {{ npcPersonality }}
 

@@ -33,14 +33,9 @@ If there is no clear interaction pattern or if the dialogue is general speech no
 [ end user ]
 
 [ user ]
-{{ "## TEST "}}
-MQ102 STAGE={{ get_quest_stage("MQ102") }}
-{% if get_quest_stage("MQ102") == 10 %}
-It's alive!! 
-{% endif %}
 {{ "## Nearby NPCs" }}
 {% for npc in nearbyNPCs %}
-{{ npc.id }}. {{ decnpc(npc.formId).name }} ({{ decnpc(npc.formId).gender }} {{ decnpc(npc.formId).race }}, {{ npc.distance }} units away)
+{{ npc.id }}. {{ decnpc(npc.UUID).name }} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ npc.distance }} units away)
 {% endfor %}
 
 Respond with ONLY the following format:
