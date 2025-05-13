@@ -28,21 +28,25 @@ def generate_sidebar():
 
     st.sidebar.subheader(webui_strings.app_title, anchor=False)
 
+    results = ""
     if "db_dict" not in st.session_state:
-        load_db_list()
+        results = load_db_list()
 
-    db_dict:bidict = st.session_state["db_dict"]
-    db_cur:str = st.session_state["db_current"]
-    db_list:list[str] = list(db_dict.keys())
+    if results:
+        st.sidebar.write(results)
+    else:
+        db_dict:bidict = st.session_state["db_dict"]
+        db_cur:str = st.session_state["db_current"]
+        db_list:list[str] = list(db_dict.keys())
 
-    db_sel = st.sidebar.selectbox(
-        label="Select PC:", 
-        options=db_dict.keys(),
-        index=db_list.index(db_dict.inv[db_cur]),
-        key="db_current_sel")
-    
-    if db_sel != db_cur:
-        st.session_state["db_current"] = db_dict[db_sel]
+        db_sel = st.sidebar.selectbox(
+            label="Select PC:", 
+            options=db_dict.keys(),
+            index=db_list.index(db_dict.inv[db_cur]),
+            key="db_current_sel")
+        
+        if db_sel != db_cur:
+            st.session_state["db_current"] = db_dict[db_sel]
     st.sidebar.write("---")
     gen_sidebar_menu()
 

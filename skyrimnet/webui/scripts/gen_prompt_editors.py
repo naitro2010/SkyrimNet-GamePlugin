@@ -22,13 +22,14 @@ def generate_prompt_editors():
         if not full_path.endswith(".prompt"):
             continue
 
-        directory, _ = split_dir_file(full_path)
-        sub_dir = directory[len(ui_str.path_prompts)+1:]
-        if not sub_dir:
+        prompt_file = full_path[len(ui_str.path_prompts)+1:-7]
+
+        if prompt_file.rfind("/") == -1:
             if ".root" not in tabs_dict.keys():
                 tabs_dict[".root"] = Prompt_Editor_Tabs(".root")
             tabs_dict[".root"].files.append(File_Names(full_path=full_path))
         else:
+            sub_dir = prompt_file[:prompt_file.rfind("/")]
             if sub_dir not in tabs_dict.keys():
                 tabs_dict[sub_dir] = Prompt_Editor_Tabs(title=sub_dir)
             tabs_dict[sub_dir].files.append(File_Names(full_path))

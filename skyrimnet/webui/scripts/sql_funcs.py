@@ -37,7 +37,8 @@ def get_table_data(table: str):
         df = pd.DataFrame(results, columns=results.keys())
     return df
 
-def load_db_list():
+@st.cache_data(ttl=60)
+def load_db_list() -> str:
     """loads the db list into the streamlit session state. session state allows different pages to share data"""
     db_files = []
     for db_dir in glob.iglob(f"{ui_str.path_dbs}/*.db"):
