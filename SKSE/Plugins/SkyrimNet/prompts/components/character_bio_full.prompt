@@ -1,32 +1,32 @@
 {{ "# Character Bio" }}
-- Name: {{ decnpc(npc.formId).name }}
-- Gender: {{ decnpc(npc.formId).gender }}
-- Race: {{ decnpc(npc.formId).race }}
-{{ "# Background" }}
+- Name: {{ decnpc(npc.UUID).name }}
+- Gender: {{ decnpc(npc.UUID).gender }}
+- Race: {{ decnpc(npc.UUID).race }}
+{{ "## Background" }}
 {% block background %}{% endblock %}
 
-{{ "# Personality" }}
+{{ "## Personality" }}
 {% block personality %}{% endblock %}
 
-{{ "# Appearance" }}
+{{ "## Appearance" }}
 {% block appearance %}{% endblock %}
 
-{{ "# Aspirations" }}
+{{ "## Aspirations" }}
 {% block aspirations %}{% endblock %}
 
-{{ "# Relationships" }}
+{{ "## Relationships" }}
 {% block relationships %}{% endblock %}
 
-{{ "# Occupation" }}
+{{ "## Occupation" }}
 {% block occupation %}{% endblock %}
 
-{{ "# Skills" }}
+{{ "## Skills" }}
 {% block skills %}{% endblock %}
 
-{{ "# Speech Style" }}
+{{ "## Speech Style" }}
 {% block speech_style %}{% endblock %}
 
-{{ "# Quest Integrations" }}
+{{ "## General World Knowledge" }}
 {% block quest_integrations %}
 
 {% endblock %}
