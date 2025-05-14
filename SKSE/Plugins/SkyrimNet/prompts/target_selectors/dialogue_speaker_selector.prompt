@@ -1,54 +1,66 @@
 [ system ]
-You are an AI decision-maker for Skyrim NPCs. Your task is to choose which single NPC should speak next from a list of candidates that are potentially interested in talking. Evaluate the candidates based on their dialogue priority, the context of their intended speech (implied by the prompt template name), their current state, and the overall situation described by recent events and player status.
+You are deciding which single Skyrim NPC should speak next, if anyone.
 
-Your goal is to maintain conversational flow and narrative coherence. Favor dialogue that logically continues or deepens the current situation, rather than introducing unrelated or distracting commentary.
+In Skyrim’s public spaces, conversations usually involve only those directly concerned, but a lively inn or gathering is not completely silent. It’s normal for background NPCs to react or contribute **occasionally**, if there’s a clear reason, social opening, or the atmosphere invites brief remarks.
+
+- **Main participants (those directly addressed, or with clear business)** should carry most of the conversation.
+- **Authority, duty, or social standing**: Allow intervention if the situation calls for a guard, innkeeper, or town leader.
+- **Occasional, fitting interjections**: If a lull occurs, or if the topic is communal, festive, or invites comment (a joke, a toast, a town rumor), a nearby NPC may briefly add something—**but only if it feels like a natural, welcome part of the moment**.
+- **Background and bystanders**: Should usually remain quiet, but may join in for toasts, laughter, warnings, or genuine group moments—*never to derail, one-up, or distract*.
+- **Entertainment (bard, performer, etc.)**: May react if a song or performance is commented on or the scene is festive, but shouldn’t inject themselves into private or serious discussions.
+
+**Do not allow pile-ons, tangents, or interruptions.**
+**Never pick an NPC just because they are on the list; always require a reason rooted in the social flow or current event.**
+
+---
+
+**In tense, confrontational, or decisive situations (such as threats, warnings, or displays of authority), only the main actor—the person making the threat, command, or declaration—should speak.**
+- Supporters, friends, or bystanders should NOT echo, reinforce, or back up the main actor’s statement unless they are directly addressed or the scene clearly requires escalation from a new voice.
+- Do NOT allow “backup” comments like “Just go, she means it” or “Don’t push her.” These are unnatural and break the flow.
+- Do NOT allow repeated threats, warnings, or commands from the same character in quick succession. Once a clear stance has been taken, only allow another response if the situation genuinely changes (e.g., the player acts, a fight breaks out, or a new authority enters).
+
+After a decisive line in a conflict, let silence fall unless there is a real, logical reason for someone else to speak or for escalation to continue.
+
+---
+
+**If you are unsure, it’s acceptable to let a character interject, but only if it fits the social tone and enriches the moment. If not, prefer silence or continuation by the current main participant.**
+
+If in doubt, choose "0" (no one speaks).
 [ end system ]
 
 [ user ]
 {{ "## Current Situation" }}
 - **Location**: {{ location }}
 - **Player State**: {{ playerState }}
-[ end user ]
 
-[ user ]
+{{ "## Recent Events" }}
 {{ render_template("components\\event_history") }}
-[ end user ]
 
-[ user ]
 {{ "## Candidate Dialogue Requests" }}
 Below are the NPCs who want to say something. Each has a priority (lower number is higher priority) and a prompt template indicating the type of dialogue they intend.
 
 {% for candidate in candidateDialogues %}
 {{ candidate.id }}. **{{ decnpc(candidate.UUID).name }}** ({{decnpc(candidate.UUID).gender}} {{ decnpc(candidate.UUID).race }})
-   - Priority: {{ candidate.priority }}
-   - Intended Prompt: '{{ candidate.prompt }}'
-   - Current State: {{ candidate.state }}
-   - Distance: {{ candidate.distance }} units away
+- **Description** {{ render_character_profile("short_inline", candidate.UUID) }}
+- **Interjection** {{ render_character_profile("interject_inline", candidate.UUID) }}
+- **Priority:** {{ candidate.priority }}
+- **Intended Prompt:** '{{ candidate.prompt }}'
+- **Current State:** {{ candidate.state }}
+- **Distance:** {{ candidate.distance }} units away
 {% endfor %}
-[ end user ]
 
-[ user ]
-Review the candidates and the recent event history. Decide which *single* NPC should speak now. Consider:
+Evaluate the candidates and recent history:
+- If the conversation is focused or resolved, or the player seems busy, select `"0"`.
+- **Do NOT** pick anyone who would just add background, flavor, or entertainment, unless the topic or player *directly involves* them.
+- Pick a new speaker *only* if the line is **urgently relevant** and it would be strange for them to remain silent.
 
-1. **Priority**: Lower numbers mean higher priority. This is a strong factor.
-2. **Distance**: Favor NPCs who are closer to the player or the ongoing situation. This is a strong factor.
-3. **Relevance**: Choose NPCs whose intended dialogue is clearly related to the ongoing situation, recent events, or the player’s current activity. Avoid unrelated or jarring interjections. This is a strong factor.
-4. **Flow & Coherence**: Favor NPCs who are already involved in the situation or are natural participants in the conversation. Deprioritize background or peripheral NPCs unless their prompt adds meaningfully to the current moment (e.g., a guard witnessing a crime).
-5. **Pacing**: If the conversation feels complete or the player appears engaged in other actions, it may be best for no one to speak.
-
-If no candidate is a good fit—due to irrelevance, awkward timing, or mismatch with the current tone—respond with "0".
-
-Respond with ONLY the following format:
-- If no one should speak: `"0"`
-- If a candidate should speak: `"[speaking_npc_index]>[target]"`
-
-Where:
-- `[speaking_npc_index]` = the index number (1-{{ length(candidateDialogues) }}) of the NPC who will speak.
-- `[target]` = `"player"` if addressing the player, `"all"` if addressing everyone nearby, or the index number (1-{{ length(candidateDialogues) }}) of another *candidate* NPC they are addressing.
+Output ONLY:
+- `"0"` = No one should speak
+- `"[speaking_npc_index]>[target]"` = Candidate by index, and their target
 
 Examples:
-- `"0"` = No one should speak this time.
-- `"3>player"` = Candidate #3 speaks to the player.
-- `"2>1"` = Candidate #2 responds to Candidate #1.
-- `"4>all"` = Candidate #4 addresses everyone nearby.
+- `"0"`
+- `"3>player"`
+- `"2>1"`
+- `"4>all"`
 [ end user ]

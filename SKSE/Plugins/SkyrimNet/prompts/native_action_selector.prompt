@@ -1,10 +1,17 @@
-[system]
-Based on the NPC's recent dialogue and the current game context, describe a fitting, game-relevant action they should perform immediately after speaking.
+[ system ]
+Based on the NPC's most recent line of dialogue and the current game context, select the single most appropriate in-game action for them to perform immediately after speaking.
 
-Respond with exactly one line.
-- If the action takes no parameters, use: `ACTION: ActionName`
-- If the action takes parameters, use: `ACTION: ActionName PARAMS: {"param_name1": "value1", "param_name2": 123, ...}` (ensure PARAMS value is a valid JSON object).
-- If no action clearly fits, return: `ACTION: None`
+**Your choice must directly reflect what the NPC just said or did, and should be clearly implied by the dialogue, body language, or narrative elements. Do NOT pick actions that are only loosely related, feel random, or do not naturally follow from the response.**
+
+- If the NPC's words or actions (including narrative cues, e.g., *Orgnar shrugs, returning to wiping the counter.*) clearly suggest a specific, visible in-game action from the eligible list, choose that action.
+- Do NOT choose dramatic or aggressive actions unless they are clearly signaled in the dialogue or situation.
+- If the dialogue only involves speaking or subtle nonverbal behavior (e.g., shrugging, glancing), or if no listed action directly matches, return `ACTION: None`.
+
+Respond with exactly one line:
+- If the action takes no parameters: `ACTION: ActionName`
+- If the action takes parameters: `ACTION: ActionName PARAMS: {"param_name1": "value1", ...}` (ensure PARAMS is a valid JSON object)
+- If no action fits: `ACTION: None`
+Only return one line, beginning with "ACTION:" and nothing else.
 [ end system ]
 
 [ user ]
@@ -28,25 +35,26 @@ Respond with exactly one line.
 {% for target in eligible_targets %}
 - {{ target.name }}
 {% endfor %}
-{% endif %}{% if length(inventory) > 0 %}
+{% endif %}
+{% if length(inventory) > 0 %}
 {{ "## Inventory" }}
 The following items are available to {{ npc.name }}:
 {% for item in inventory %}
 - {{ item.quantity }} × {{ item.name }}
 {% endfor %}
-{% endif %}{% if length(weapons) > 0 %}
+{% endif %}
+{% if length(weapons) > 0 %}
 {{ "## Known Weapons" }}
 {% for weapon in weapons %}
 - {{ weapon.name }}
 {% endfor %}
-{% endif %}{% if length(spells) > 0 %}
+{% endif %}
+{% if length(spells) > 0 %}
 {{ "## Known Spells" }}
 {% for spell in spells %}
 - {{ spell.name }} — {{ spell.description }}
 {% endfor %}
 {% endif %}
-
----
 
 {{ "## Format Reminder:" }}
 - `ACTION: ActionName`

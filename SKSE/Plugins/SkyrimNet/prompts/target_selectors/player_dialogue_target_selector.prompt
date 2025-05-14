@@ -16,7 +16,7 @@ First, analyze the player's dialogue and determine what type of interaction this
 1. Is the player directly speaking to a specific NPC?
 2. Is the player trying to get one NPC to talk to another NPC? (e.g., "What do you think about him?" or "Ask her about...")
 3. Is the player prompting a group discussion or asking an NPC to address everyone?
-4. Favor NPCs who are closer to the player or the ongoing situation. This is a strong factor.
+4. Favor NPCs who are closer to the player or the ongoing situation. This is a very strong factor.
 
 For direct player-to-NPC dialogue, determine the most likely target by considering:
 - Does the player's dialogue directly name or reference a specific NPC?
@@ -35,7 +35,7 @@ If there is no clear interaction pattern or if the dialogue is general speech no
 [ user ]
 {{ "## Nearby NPCs" }}
 {% for npc in nearbyNPCs %}
-{{ npc.id }}. {{ decnpc(npc.UUID).name }} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ npc.distance }} units away)
+{{ npc.id }}. {{ decnpc(npc.UUID).name }}: {{ render_character_profile("short_inline", npc.UUID) }} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ npc.distance }} units away)
 {% endfor %}
 
 Respond with ONLY the following format:
