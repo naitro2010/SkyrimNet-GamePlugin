@@ -2,3 +2,4 @@ streamlit
 sqlalchemy
 pydantic
 bidict
+streamlit-clickable-list

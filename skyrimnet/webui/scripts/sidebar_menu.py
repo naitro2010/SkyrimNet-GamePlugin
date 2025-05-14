@@ -25,12 +25,9 @@ def generate_sidebar():
 
     pages without an number_description.py will be ignored
     '''
-
     st.sidebar.subheader(webui_strings.app_title, anchor=False)
 
-    results = ""
-    if "db_dict" not in st.session_state:
-        results = load_db_list()
+    results = load_db_list()
 
     if results:
         st.sidebar.write(results)

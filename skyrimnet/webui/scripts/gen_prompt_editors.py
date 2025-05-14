@@ -3,7 +3,6 @@ import glob, logging, os
 import streamlit as st
 
 from datatypes import File_Names, webui_strings as ui_str
-from dependencies import split_dir_file
 from forms import Prompt_Editor_Form
 
 class Prompt_Editor_Tabs():

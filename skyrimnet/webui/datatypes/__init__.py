@@ -1,3 +1,2 @@
-from .npc_profile import NPC_Profile
-from .file_handling import File_Names
+from .file_handling import File_Names, gnice_name, gnice_prompt
 #import webui_strings

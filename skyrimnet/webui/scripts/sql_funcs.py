@@ -37,18 +37,9 @@ def get_table_data(table: str):
         df = pd.DataFrame(results, columns=results.keys())
     return df
 
-@st.cache_data(ttl=60)
 def load_db_list() -> str:
     """loads the db list into the streamlit session state. session state allows different pages to share data"""
-    db_files = []
-    for db_dir in glob.iglob(f"{ui_str.path_dbs}/*.db"):
-        if not os.path.isfile(db_dir):
-            continue
-        db_files.append((os.path.getmtime(db_dir), db_dir))
-    if not db_files:
-        return ui_str.err_no_dbs
-    db_files = sorted(db_files, key=lambda x: x[0], reverse=True)
-    db_files:list[str]  = [x[1] for x in db_files]
+    db_files = load_db_list_files()
     dbs_dict:bidict[str, str] = bidict()
     for filename in db_files:
         if filename.rfind("_") == -1:
@@ -58,4 +49,16 @@ def load_db_list() -> str:
     st.session_state["db_dict"] = dbs_dict
     if "db_current" not in st.session_state.keys():
         st.session_state["db_current"] = list(st.session_state["db_dict"].values())[0]
-    
+
+@st.cache_data(ttl=60)
+def load_db_list_files() -> list:
+    db_files = []
+    for db_dir in glob.iglob(f"{ui_str.path_dbs}/*.db"):
+        if not os.path.isfile(db_dir):
+            continue
+        db_files.append((os.path.getmtime(db_dir), db_dir))
+    if not db_files:
+        return ui_str.err_no_dbs
+    db_files = sorted(db_files, key=lambda x: x[0], reverse=True)
+    db_files:list[str]  = [x[1] for x in db_files]
+    return db_files
