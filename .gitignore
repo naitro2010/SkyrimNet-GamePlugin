@@ -27,6 +27,11 @@ webui/venv/
 # VSCode
 **/.vscode/
 
+# webui only
+/*
+!/skyrimnet/
+!/skyrimnet/webui/
+.gitignore
 =======
 *.pdb
 # Ignore vscode settings

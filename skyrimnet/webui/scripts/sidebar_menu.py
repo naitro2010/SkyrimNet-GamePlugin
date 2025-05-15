@@ -4,7 +4,7 @@ import logging
 from bidict import bidict
 import streamlit as st
 
-from datatypes import webui_strings
+from datatypes import webui_strings as ui_str
 from dependencies import load_db_list
 
 logger = logging.getLogger(__name__)
@@ -25,19 +25,17 @@ def generate_sidebar():
 
     pages without an number_description.py will be ignored
     '''
-    st.sidebar.subheader(webui_strings.app_title, anchor=False)
+    st.sidebar.subheader(ui_str.app_title, anchor=False)
 
-    results = load_db_list()
-
-    if results:
-        st.sidebar.write(results)
+    if not load_db_list():
+        st.write(ui_str.err_no_dbs)
     else:
         db_dict:bidict = st.session_state["db_dict"]
         db_cur:str = st.session_state["db_current"]
         db_list:list[str] = list(db_dict.keys())
 
         db_sel = st.sidebar.selectbox(
-            label="Select PC:", 
+            label=ui_str.sel_play, 
             options=db_dict.keys(),
             index=db_list.index(db_dict.inv[db_cur]),
             key="db_current_sel")
@@ -47,7 +45,7 @@ def generate_sidebar():
     st.sidebar.write("---")
     gen_sidebar_menu()
 
-@st.cache_data(ttl=1)
+#@st.cache_data(ttl=1)
 def gen_sidebar_menu():
     menu_items = {}
     pages_list:list[str] = glob.glob('pages/*.py')

@@ -1,2 +1,3 @@
 from .npc_profile_form import NPC_Profile_Form
 from .prompt_editor_form import prompt_editor as Prompt_Editor_Form
+from .clickable_list import Clickable_List_Form
