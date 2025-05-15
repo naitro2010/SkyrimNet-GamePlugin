@@ -1,0 +1,5 @@
+{% block summary %}Not much is known about this character. Use your judgement to fill in the gaps.{% endblock %}
+
+{% block interject_summary %}Not much is known about this character. Use your judgement to fill in the gaps.{% endblock %}
+
+{% block background %}Not much is known about this character. Use your judgement to fill in the gaps.{% endblock %}
