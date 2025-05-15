@@ -3,6 +3,10 @@ import streamlit as st
 import streamlit_clickable_list
 
 class Clickable_List_Form:
+    """ Simple abstraction interface 
+    - allows the clickable_list object to have a selection str for its output
+    - allows for filtering the list based on text input
+    - limits the amount of items to display as set by ui_str.filter_num"""
     def __init__(self, items: list[str]):
         if not items:
             return

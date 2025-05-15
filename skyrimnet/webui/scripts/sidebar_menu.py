@@ -27,6 +27,10 @@ def generate_sidebar():
     '''
     st.sidebar.subheader(ui_str.app_title, anchor=False)
 
+    gen_sidebar_menu()
+
+def gen_db_selector():
+    st.sidebar.write("---")
     if not load_db_list():
         st.write(ui_str.err_no_dbs)
     else:
@@ -42,8 +46,6 @@ def generate_sidebar():
         
         if db_sel != db_cur:
             st.session_state["db_current"] = db_dict[db_sel]
-    st.sidebar.write("---")
-    gen_sidebar_menu()
 
 #@st.cache_data(ttl=1)
 def gen_sidebar_menu():
@@ -65,6 +67,10 @@ def gen_sidebar_menu():
         
         menu_items.update({int(page_items[0]):menu_entry(path=page, description=" ".join(page_items[1:]))})
 
+    db_sel_displayed = False
     for item_key in sorted(menu_items.keys()):
+        if item_key > 89 and not db_sel_displayed:
+            gen_db_selector()
+            db_sel_displayed = True
         menu_item: menu_entry = menu_items[item_key]
         st.sidebar.page_link(page=menu_item["path"], label=menu_item["description"])
