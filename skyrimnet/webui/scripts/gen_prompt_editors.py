@@ -42,6 +42,7 @@ def generate_prompt_editors():
             with col_edit:
                 if click_sel.selection not in tab_val.name_to_file.keys():
                     continue
+                st.write(f"**{click_sel.selection}**")
                 Prompt_Editor_Form(
                     name_nice = click_sel.selection, 
                     filename = tab_val.name_to_file[click_sel.selection])

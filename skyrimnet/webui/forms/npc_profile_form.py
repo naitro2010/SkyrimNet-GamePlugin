@@ -17,7 +17,6 @@ class NPC_Profile_Form:
                 self.full_text = f.read()
         except Exception as e:
             st.error(ui_str.err_file_load.format(file=self.filename, error=e))
-            #f"Error reading file {self.filename}: {e}")
             return
 
         blocks = self.full_text.split(ui_str.inja_blk_end)

@@ -30,7 +30,6 @@ def generate_sidebar():
     gen_sidebar_menu()
 
 def gen_db_selector():
-    st.sidebar.write("---")
     if not load_db_list():
         st.write(ui_str.err_no_dbs)
     else:
@@ -49,6 +48,14 @@ def gen_db_selector():
 
 #@st.cache_data(ttl=1)
 def gen_sidebar_menu():
+    """Populates the sidebar with files in the pages dir. 
+    Naming convention is {int}_{pagetitle}.py
+        int is the page order nubmer.
+        pagetitle is used for the link
+
+    The DB selector is hardcoded to be displayed at 50 (modifiable in ui_str).
+    Use for pages below that interact with the db or used per playthough. 
+    """
     menu_items = {}
     pages_list:list[str] = glob.glob('pages/*.py')
 
@@ -69,7 +76,7 @@ def gen_sidebar_menu():
 
     db_sel_displayed = False
     for item_key in sorted(menu_items.keys()):
-        if item_key > 89 and not db_sel_displayed:
+        if item_key > ui_str.sidebar_db_pos and not db_sel_displayed:
             gen_db_selector()
             db_sel_displayed = True
         menu_item: menu_entry = menu_items[item_key]

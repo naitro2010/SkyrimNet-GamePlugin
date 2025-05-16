@@ -24,5 +24,11 @@ sel_play = "Select Playthrough:"
 suc_file_save = "File saved successfully"
 suc_file_restore = "File restored successfully"
 
-filter_num = 20
+filter_num = 15
 filter_inst = f"Due to the number of items, only {filter_num} will be displayed. Filter by typing first couple of characters of the name."
+
+not_imp = "Not Implimented"
+
+services = ["Speech to Text", "LLM", "Text to Speech"]
+
+sidebar_db_pos = 50
