@@ -3,6 +3,59 @@ scriptname SkyrimNetInternal
 ; Functions from within this file are executed directly by the main DLL.
 ; Do not change or touch them, or you risk stability issues.
 
+; -----------------------------------------------------------------------------
+; --- Package Management ---
+; -----------------------------------------------------------------------------
+Function AddPackageToActor(Actor akActor, string packageName, int priority, int flags) global
+    Debug.Trace("[SkyrimNetInternal] AddPackageToActor called for " + akActor.GetDisplayName() + " with package " + packageName + " and priority " + priority + " and flags " + flags)
+    Package followPlayerPackage = Game.GetFormFromFile(0x0E8E, "SkyrimNet.esp") as Package
+    if !followPlayerPackage
+        Debug.Notification("[SkyrimNetInternal] Failed to get FollowPlayer package from SkyrimNet.esp")
+        Debug.Trace("[SkyrimNetInternal] AddPackageToActor: followPlayerPackage is null")
+        return
+    endif
+    Faction followPlayerFaction = Game.GetFormFromFile(0x0E8B, "SkyrimNet.esp") as Faction
+    if !followPlayerFaction
+        Debug.Notification("[SkyrimNetInternal] Failed to get FollowPlayer faction from SkyrimNet.esp")
+        Debug.Trace("[SkyrimNetInternal] AddPackageToActor: followPlayerFaction is null")
+        return
+    endif
+    ;;;;;
+    ;
+    ; Package handling
+    ;
+    ;;;;;
+    if packageName == "TalkToPlayer"
+        ; FollowPlayer Package
+        Debug.Trace("[SkyrimNetInternal] Adding FollowPlayer package to " + akActor.GetDisplayName() + " with priority " + priority + " and flags " + flags)
+        ActorUtil.AddPackageOverride(akActor, followPlayerPackage, priority, flags)
+        akActor.AddToFaction(followPlayerFaction)
+        akActor.SetFactionRank(followPlayerFaction, 1)
+        akActor.SetLookAt(Game.GetPlayer())
+    endif
+    akActor.EvaluatePackage()
+EndFunction
+
+Function RemovePackageFromActor(Actor akActor, string packageName) global
+    Debug.Trace("[SkyrimNetInternal] RemovePackageFromActor called for " + akActor.GetDisplayName() + " with package " + packageName)
+    Package followPlayerPackage = Game.GetFormFromFile(0x0E8E, "SkyrimNet.esp") as Package
+    Faction followPlayerFaction = Game.GetFormFromFile(0x0E8B, "SkyrimNet.esp") as Faction
+    
+    if packageName == "TalkToPlayer"
+        ; FollowPlayer Package
+        Debug.Trace("[SkyrimNetInternal] Removing FollowPlayer package from " + akActor.GetDisplayName())
+        ActorUtil.RemovePackageOverride(akActor, followPlayerPackage)
+        akActor.RemoveFromFaction(followPlayerFaction)
+        akActor.ClearLookAt()
+    endif
+    akActor.EvaluatePackage()
+EndFunction
+
+
+; -----------------------------------------------------------------------------
+; --- Example Papyrus Decorators ---
+; -----------------------------------------------------------------------------
+
 string Function ExampleDecorator(Actor akActor) global
     Debug.Trace("[SkyrimNet] (ExampleScript) ExampleDecorator called")
     return "Hello, world!"

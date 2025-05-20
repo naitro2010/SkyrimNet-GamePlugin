@@ -37,7 +37,7 @@ If in doubt, choose "0" (no one speaks).
 {{ render_template("components\\event_history") }}
 
 {{ "## Candidate Dialogue Requests" }}
-Below are the NPCs who want to say something. Each has a priority (lower number is higher priority) and a prompt template indicating the type of dialogue they intend.
+Below are the NPCs who are eligible to say something. Each has a priority (lower number is higher priority) and a prompt template indicating the type of dialogue they intend.
 
 {% for candidate in candidateDialogues %}
 {{ candidate.id }}. **{{ decnpc(candidate.UUID).name }}** ({{decnpc(candidate.UUID).gender}} {{ decnpc(candidate.UUID).race }})
@@ -53,14 +53,15 @@ Evaluate the candidates and recent history:
 - If the conversation is focused or resolved, or the player seems busy, select `"0"`.
 - **Do NOT** pick anyone who would just add background, flavor, or entertainment, unless the topic or player *directly involves* them.
 - Pick a new speaker *only* if the line is **urgently relevant** and it would be strange for them to remain silent.
+- Do not explain your reasoning. Provide your response ONLY in the specified format.
 
 Output ONLY:
-- `"0"` = No one should speak
-- `"[speaking_npc_index]>[target]"` = Candidate by index, and their target
+- 0 = No one should speak
+- [speaking_npc_name]>[target] = Candidate by name, and their target
 
 Examples:
-- `"0"`
-- `"3>player"`
-- `"2>1"`
-- `"4>all"`
+- 0
+- Lydia>player
+- Ulfric Stormcloak>Galmar Stone-Fist
+- Jarl Balgruuf>all
 [ end user ]

@@ -1,9 +1,9 @@
 [ system ]
-Based on the NPC's most recent line of dialogue and the current game context, select the single most appropriate in-game action for them to perform immediately after speaking.
+Based on the {npc.name}'s most recent line of dialogue and the current game context, select the single most appropriate in-game action for them to perform immediately after speaking.
 
-**Your choice must directly reflect what the NPC just said or did, and should be clearly implied by the dialogue, body language, or narrative elements. Do NOT pick actions that are only loosely related, feel random, or do not naturally follow from the response.**
+**Your choice must directly reflect what {npc.name} just said or did, and should be clearly implied by the dialogue, body language, or narrative elements. Do NOT pick actions that are only loosely related, feel random, or do not naturally follow from the response.**
 
-- If the NPC's words or actions (including narrative cues, e.g., *Orgnar shrugs, returning to wiping the counter.*) clearly suggest a specific, visible in-game action from the eligible list, choose that action.
+- If {npc.name}'s words or actions (including narrative cues, e.g., *Orgnar shrugs, returning to wiping the counter.*) clearly suggest a specific, visible in-game action from the eligible list, choose that action.
 - Do NOT choose dramatic or aggressive actions unless they are clearly signaled in the dialogue or situation.
 - If the dialogue only involves speaking or subtle nonverbal behavior (e.g., shrugging, glancing), or if no listed action directly matches, return `ACTION: None`.
 
@@ -15,10 +15,9 @@ Only return one line, beginning with "ACTION:" and nothing else.
 [ end system ]
 
 [ user ]
-{{ "## NPC" }}
-- Name: {{ npc.name }}
-- Mood: {{ npc.mood }}
-- State: {{ npc.state }} — {{ npc.stateDescription }}
+{{ render_character_profile("full", npc.UUID) }}
+
+{{ "## Location" }}
 - Location: {{ location }}
 
 {{ "## Dialogue" }}

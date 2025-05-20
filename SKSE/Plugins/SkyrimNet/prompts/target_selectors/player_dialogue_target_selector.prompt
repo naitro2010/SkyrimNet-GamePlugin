@@ -12,6 +12,12 @@ You are an AI decision-maker for Skyrim, determining which NPCs the player is ad
 
 {{ render_template("components\\event_history") }}
 
+{{ "## Nearby NPCs" }}
+{% for npc in nearbyNPCs %}
+{{ npc.id }}. {{ decnpc(npc.UUID).name }}: {{ render_character_profile("short_inline", npc.UUID) }} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ npc.distance }} units away)
+{% endfor %}
+
+{{ "## Instructions" }}
 First, analyze the player's dialogue and determine what type of interaction this is:
 1. Is the player directly speaking to a specific NPC?
 2. Is the player trying to get one NPC to talk to another NPC? (e.g., "What do you think about him?" or "Ask her about...")
@@ -21,7 +27,7 @@ First, analyze the player's dialogue and determine what type of interaction this
 For direct player-to-NPC dialogue, determine the most likely target by considering:
 - Does the player's dialogue directly name or reference a specific NPC?
 - Has the player recently interacted with any of the nearby NPCs?
-- Is the player looking at or standing close to a particular NPC?
+- Is the player looking at or standing close to a particular NPC? Strongly consider distance as a factor in your decision.
 - Does the content of the dialogue match any NPC's background, role, or recent actions?
 
 For NPC-to-NPC dialogue prompted by the player, determine:
@@ -30,29 +36,21 @@ For NPC-to-NPC dialogue prompted by the player, determine:
 - Is this a request for one NPC to comment on or address another?
 
 If there is no clear interaction pattern or if the dialogue is general speech not directed at anyone, respond with "0".
-[ end user ]
-
-[ user ]
-{{ "## Nearby NPCs" }}
-{% for npc in nearbyNPCs %}
-{{ npc.id }}. {{ decnpc(npc.UUID).name }}: {{ render_character_profile("short_inline", npc.UUID) }} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ npc.distance }} units away)
-{% endfor %}
-
 Respond with ONLY the following format:
 - If no clear target: "0"
-- For direct dialogue: "[speaking_npc]>player"
-- For NPC-to-NPC dialogue: "[speaking_npc]>[target_npc]"
-- For NPC addressing everyone: "[speaking_npc]>all"
+- For direct dialogue: "[speaking_npc_name]>player"
+- For NPC-to-NPC dialogue: "[speaking_npc_name]>[target_npc_name]"
+- For NPC addressing everyone: "[speaking_npc_name]>all"
 
 Where:
-- [speaking_npc] = the index number of the NPC who will speak (1-{{ length(nearbyNPCs) }})
-- [target_npc] = the index number of another NPC who is being addressed
+- [speaking_npc_name] = the exact name of the NPC who will speak
+- [target_npc_name] = the exact name of another NPC who is being addressed
 
 Examples:
-"0" = No clear dialogue target
-"3>player" = NPC #3 speaks directly to the player
-"2>4" = NPC #2 speaks to NPC #4 (player initiated this conversation)
-"5>all" = NPC #5 speaks to everyone in the area
+- 0 = No clear dialogue target
+- Lydia>player = Lydia speaks directly to the player
+- Ulfric Stormcloak>Galmar Stone-Fist = Ulfric speaks to Galmar (player initiated this conversation)
+- Jarl Balgruuf>all = Jarl Balgruuf speaks to everyone in the area
 
 Important: Select the most realistic and natural interaction based on the player's words and game context.
-[ end user ] 
+[ end user ]
