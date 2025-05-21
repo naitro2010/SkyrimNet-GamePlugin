@@ -49,12 +49,13 @@ Below are the NPCs who are eligible to say something. Each has a priority (lower
 - **Distance:** {{ candidate.distance }} units away
 {% endfor %}
 
+{{ "## Instructions " }}
 Evaluate the candidates and recent history:
 - If the conversation is focused or resolved, or the player seems busy, select `"0"`.
 - **Do NOT** pick anyone who would just add background, flavor, or entertainment, unless the topic or player *directly involves* them.
 - Pick a new speaker *only* if the line is **urgently relevant** and it would be strange for them to remain silent.
 - Do not explain your reasoning. Provide your response ONLY in the specified format.
-
+- You absolutely must not select the NPC that is currently speaking as the speaker.
 Output ONLY:
 - 0 = No one should speak
 - [speaking_npc_name]>[target] = Candidate by name, and their target

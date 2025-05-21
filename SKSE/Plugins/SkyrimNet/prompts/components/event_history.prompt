@@ -3,7 +3,7 @@
     {% if event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_stt" %}
         {% if event.originatingActor == npc.UUID %}
 [ assistant ]
-{{ decnpc(event.originatingActor).name }}: {{ event.data }}
+{{ event.data }}
 [ end assistant ]
         {% else %}
 [ user ]
