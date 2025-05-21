@@ -55,7 +55,7 @@ Evaluate the candidates and recent history:
 - **Do NOT** pick anyone who would just add background, flavor, or entertainment, unless the topic or player *directly involves* them.
 - Pick a new speaker *only* if the line is **urgently relevant** and it would be strange for them to remain silent.
 - Do not explain your reasoning. Provide your response ONLY in the specified format.
-- You absolutely must not select the NPC that is currently speaking as the speaker.
+- You absolutely must not select the last NPC to speak as the next speaker. For example, if Lydia was the last person in Recent Dialogue to have spoken, you must not select her.
 Output ONLY:
 - 0 = No one should speak
 - [speaking_npc_name]>[target] = Candidate by name, and their target
