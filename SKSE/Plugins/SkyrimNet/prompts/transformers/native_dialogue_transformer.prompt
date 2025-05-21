@@ -4,9 +4,9 @@ You are roleplaying as {{ npc.name }}, a {{ npc.gender }} {{ npc.race }} in Skyr
 {{ render_character_profile("full", npc.UUID) }}
 [ end system ]
 
-[ user ]
 {{ render_template("components\\event_history") }}
 
+[ user ]
 {{ "## Instructions" }}
 Transform the original dialogue below so it fits {{ npc.name }}'s character, background, and the current situation.  
 - Your response **must be concise and similar in length to the original**.

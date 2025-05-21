@@ -1,4 +1,15 @@
-{{ "## Recent Events" }}
 {% for event in events %}
-{% if isValidActor(event.originatingActor) %} - [{{ short_time(event.gameTimeStr) }}] ({{ event.type }}){% if event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_stt" %} {{ decnpc(event.originatingActor).name }}{% if isValidActor(event.targetActor) %} to {{ decnpc(event.targetActor).name }}{% endif %}{% else %} {{ decnpc(event.originatingActor).name }}{% endif %}: {{ event.data }} {% endif %}
+{% if isValidActor(event.originatingActor) %}
+    {% if event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_stt" %}
+        {% if event.originatingActor == npc.UUID %}
+[ assistant ]
+{{ decnpc(event.originatingActor).name }}: {{ event.data }}
+[ end assistant ]
+        {% else %}
+[ user ]
+{{ decnpc(event.originatingActor).name }}: {{ event.data }}
+[ end user ]
+        {% endif %}
+    {% endif %}
+{% endif %}
 {% endfor %}

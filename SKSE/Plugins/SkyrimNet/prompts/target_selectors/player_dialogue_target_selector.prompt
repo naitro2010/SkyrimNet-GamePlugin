@@ -2,6 +2,7 @@
 You are an AI decision-maker for Skyrim, determining which NPCs the player is addressing and who should respond. You analyze the player's input, nearby NPCs, and recent context to determine conversation targets and participants.
 [ end system ]
 
+
 [ user ]
 {{ "## Player Input" }}
 - **Type**: {{ triggeringEvent.type }}
@@ -10,7 +11,8 @@ You are an AI decision-maker for Skyrim, determining which NPCs the player is ad
 {{ "## Current Location" }}
 {{ location }}
 
-{{ render_template("components\\event_history") }}
+{{ "## Recent Dialogue" }}
+{{ render_template("components\\event_history_compact") }}
 
 {{ "## Nearby NPCs" }}
 {% for npc in nearbyNPCs %}

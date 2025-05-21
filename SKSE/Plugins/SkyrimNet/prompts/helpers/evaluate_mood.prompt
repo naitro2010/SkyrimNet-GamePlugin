@@ -7,12 +7,13 @@ You are an AI mood analyzer for Skyrim, determining the emotional state of NPCs 
 - **Speaker**: {{ decnpc(speaker).name }} ({{ decnpc(speaker).gender }} {{ decnpc(speaker).race }})
 - **Current Location**: {{ location }}
 
-{{ render_template("components\\event_history") }}
-
 {{ "## Available Moods" }}
 {% for mood in moodsList %}
 - {{ mood }}: {{ mood_description(mood) }}
 {% endfor %}
+
+{{ "## Recent Dialogue" }}
+{{ render_template("components\\event_history_compact") }}
 
 Analyze the recent events and dialogue to determine the most appropriate emotional state for {{ decnpc(speaker).name }}.
 

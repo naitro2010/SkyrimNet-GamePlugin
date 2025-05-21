@@ -16,6 +16,8 @@ You are roleplaying as {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender
 - Every line should feel unique to this character and this moment.
 [ end system ]
 
+{{ render_template("components\\event_history") }}
+
 [ user ]
 {{ "## Current Situation" }}
 - **Location**: {{ location }}
@@ -41,11 +43,12 @@ You are roleplaying as {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender
 {% endfor %}
 {% endif %}
 
-{{ render_template("components\\event_history") }}
-
 {{ "# Instructions" }}
-Respond with a brief, in-character line or action that:
+Respond with a brief, in-character line{% if is_narration_enabled() %} or necessary action{% endif %} that:
 - Directly reacts to the triggering event
 - Suits this character and this moment
 - Is clearly directed at {% if responseTarget.type == "player" %}the player{% else if responseTarget.type == "npc" %}{{ decnpc(responseTarget.UUID).name }}{% else %}everyone in the area{% endif %}
+
+{{ "## Response Format" }}
+- Respond with only the dialogue line{% if is_narration_enabled() %} or brief narrative action{% endif %}, nothing else.
 [ end user ]
