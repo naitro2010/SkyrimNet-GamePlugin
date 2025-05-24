@@ -8,6 +8,11 @@ You are an AI decision-maker for Skyrim, determining which NPCs the player is ad
 - **Type**: {{ triggeringEvent.type }}
 - **Data**: {{ triggeringEvent.data }}
 
+{% if crosshairTarget %}
+{{ "## Player's Crosshair Target" }}
+The player is currently looking directly at: {{ crosshairTarget.name }} ({{ units_to_meters(crosshairTarget.distance) }} meters away)
+{% endif %}
+
 {{ "## Current Location" }}
 {{ location }}
 
@@ -16,7 +21,7 @@ You are an AI decision-maker for Skyrim, determining which NPCs the player is ad
 
 {{ "## Nearby NPCs" }}
 {% for npc in nearbyNPCs %}
-{{ npc.id }}. {{ decnpc(npc.UUID).name }}: {{ render_character_profile("short_inline", npc.UUID) }} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ npc.distance }} units away)
+{{ npc.id }}. {{ decnpc(npc.UUID).name }}: {{ render_character_profile("short_inline", npc.UUID) }} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ units_to_meters(npc.distance) }} meters away)
 {% endfor %}
 
 {{ "## Instructions" }}
@@ -25,6 +30,9 @@ First, analyze the player's dialogue and determine what type of interaction this
 2. Is the player trying to get one NPC to talk to another NPC? (e.g., "What do you think about him?" or "Ask her about...")
 3. Is the player prompting a group discussion or asking an NPC to address everyone?
 4. Favor NPCs who are closer to the player or the ongoing situation. This is a very strong factor.
+{% if crosshairTarget %}
+5. The player currently has {{ crosshairTarget.name }} in their crosshair - this is a very strong indicator that they are addressing {{ decnpc(crosshairTarget.UUID).objective_pronoun }}, unless the player's dialogue explicitly suggests otherwise.
+{% endif %}
 
 For direct player-to-NPC dialogue, determine the most likely target by considering:
 - Does the player's dialogue directly name or reference a specific NPC?
