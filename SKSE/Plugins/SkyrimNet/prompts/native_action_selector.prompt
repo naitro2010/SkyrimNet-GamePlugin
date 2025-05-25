@@ -14,7 +14,6 @@ Respond with exactly one line:
 Only return one line, beginning with "ACTION:" and nothing else.
 [ end system ]
 
-
 [ user ]
 {{ render_character_profile("full", npc.UUID) }}
 
