@@ -53,6 +53,18 @@ EndFunction
 
 
 ; -----------------------------------------------------------------------------
+; --- Player Input Handlers ---
+; -----------------------------------------------------------------------------
+
+string Function GetPlayerInput() global
+    Debug.Trace("[SkyrimNetInternal] GetPlayerInput called")
+    UIExtensions.OpenMenu("UITextEntryMenu")
+    string messageText = UIExtensions.GetMenuResultString("UITextEntryMenu")
+    Debug.Trace("[SkyrimNetInternal] GetPlayerInput returned: " + messageText)
+    return messageText
+EndFunction
+
+; -----------------------------------------------------------------------------
 ; --- Example Papyrus Decorators ---
 ; -----------------------------------------------------------------------------
 
