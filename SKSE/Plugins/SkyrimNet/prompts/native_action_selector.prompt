@@ -12,10 +12,12 @@ Respond with exactly one line:
 - If the action takes parameters: `ACTION: ActionName PARAMS: {"param_name1": "value1", ...}` (ensure PARAMS is a valid JSON object)
 - If no action fits: `ACTION: None`
 Only return one line, beginning with "ACTION:" and nothing else.
+
+{{ "## " }}{{ npc.name }}'s Profile
+{{ render_character_profile("full", npc.UUID) }}
 [ end system ]
 
 [ user ]
-{{ render_character_profile("full", npc.UUID) }}
 
 {{ "## Location" }}
 - Location: {{ location }}

@@ -31,7 +31,7 @@ First, analyze the player's dialogue and determine what type of interaction this
 3. Is the player prompting a group discussion or asking an NPC to address everyone?
 4. Favor NPCs who are closer to the player or the ongoing situation. This is a very strong factor.
 {% if crosshairTarget %}
-5. The player currently has {{ crosshairTarget.name }} in their crosshair - this is a very strong indicator that they are addressing {{ decnpc(crosshairTarget.UUID).objective_pronoun }}, unless the player's dialogue explicitly suggests otherwise.
+5. The player currently has {{ crosshairTarget.name }} in their crosshair - this is a strong indicator that they may be addressing {{ decnpc(crosshairTarget.UUID).objective_pronoun }}.
 {% endif %}
 
 For direct player-to-NPC dialogue, determine the most likely target by considering:
@@ -50,7 +50,6 @@ Respond with ONLY the following format:
 - If no clear target: "0"
 - For direct dialogue: "[speaking_npc_name]>player"
 - For NPC-to-NPC dialogue: "[speaking_npc_name]>[target_npc_name]"
-- For NPC addressing everyone: "[speaking_npc_name]>all"
 
 Where:
 - [speaking_npc_name] = the exact name of the NPC who will speak

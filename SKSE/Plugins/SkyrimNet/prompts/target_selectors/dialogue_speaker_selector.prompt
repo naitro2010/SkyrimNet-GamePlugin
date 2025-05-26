@@ -52,7 +52,7 @@ Below are the NPCs who are eligible to say something. Each has a priority (lower
 Evaluate the candidates and recent history:
 - If the conversation is focused or resolved, or the player seems busy, select `"0"`.
 - **Do NOT** pick anyone who would just add background, flavor, or entertainment, unless the topic or player *directly involves* them.
-- Pick a new speaker *only* if the line is **urgently relevant** and it would be strange for them to remain silent.
+- Pick a new speaker if it would be strange for them to remain silent. In relaxed scenes, an occasional interjection is fine—just avoid interruptions or derailing.
 - Do not explain your reasoning. Provide your response ONLY in the specified format.
 Output ONLY:
 - 0 = No one should speak
@@ -62,5 +62,4 @@ Examples:
 - 0
 - Lydia>player
 - Ulfric Stormcloak>Galmar Stone-Fist
-- Jarl Balgruuf>all
 [ end user ]
