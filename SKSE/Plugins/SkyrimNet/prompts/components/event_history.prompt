@@ -1,6 +1,6 @@
 {% for event in events %}
 {% if isValidActor(event.originatingActor) %}
-    {% if event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_stt" %}
+    {% if event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_stt" or event.type == "dialogue_player_text" or event.type == "dialogue_background" %}
         {% if event.originatingActor == npc.UUID %}
 [ assistant ]
 {{ event.data }}
