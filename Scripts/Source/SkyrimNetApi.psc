@@ -17,6 +17,9 @@ int function RegisterAction(String actionName, String description, \
 int function SendCustomPromptToLLM(String promptName, float temperature, int maxTokens, \
                                   String callbackScriptName, String callbackFunctionName) Global Native
 
+; papyrus_reaction_selector.prompt is used for the event context
+bool function SendPapyrusEvent(String content, Actor source, Actor target) Global Native
+
 ; Utility functions to extract values from a JSON string
 String function GetJsonString(String jsonString, String key, String defaultValue) Global Native
 int function GetJsonInt(String jsonString, String key, int defaultValue) Global Native
