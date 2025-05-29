@@ -9,26 +9,8 @@ scriptname SkyrimNetInternal
 
 Function AddPackageToActor(Actor akActor, string packageName, int priority, int flags) global
     Debug.Trace("[SkyrimNetInternal] AddPackageToActor called for " + akActor.GetDisplayName() + " with package " + packageName + " and priority " + priority + " and flags " + flags)
-    ; Package followPlayerPackage = Game.GetFormFromFile(0x0E8E, "SkyrimNet.esp") as Package
-    
-    ; if !followPlayerPackage
-    ;     Debug.Notification("[SkyrimNetInternal] Failed to get FollowPlayer package from SkyrimNet.esp")
-    ;     Debug.Trace("[SkyrimNetInternal] AddPackageToActor: followPlayerPackage is null")
-    ;     return
-    ; endif
-    ; Faction followPlayerFaction = Game.GetFormFromFile(0x0E8B, "SkyrimNet.esp") as Faction
-    ; if !followPlayerFaction
-    ;     Debug.Notification("[SkyrimNetInternal] Failed to get FollowPlayer faction from SkyrimNet.esp")
-    ;     Debug.Trace("[SkyrimNetInternal] AddPackageToActor: followPlayerFaction is null")
-    ;     return
-    ; endif
-    ;;;;;
-    ;
-    ; Package handling
-    ;
-    ;;;;;
+
     if packageName == "TalkToPlayer"
-        ; FollowPlayer Package
         debug.notification("TalkToPlayer")
         Package playerDialoguePackage = Game.GetFormFromFile(0x01964, "SkyrimNet.esp") as Package
 
@@ -40,8 +22,6 @@ Function AddPackageToActor(Actor akActor, string packageName, int priority, int 
 
         Debug.Trace("[SkyrimNetInternal] Adding FollowPlayer package to " + akActor.GetDisplayName() + " with priority " + priority + " and flags " + flags)
         ActorUtil.AddPackageOverride(akActor, playerDialoguePackage, priority, flags)
-        ; akActor.AddToFaction(followPlayerFaction)
-        ; akActor.SetFactionRank(followPlayerFaction, 1)
         akActor.SetLookAt(Game.GetPlayer())
     endif
     akActor.EvaluatePackage()
@@ -49,16 +29,11 @@ EndFunction
 
 Function RemovePackageFromActor(Actor akActor, string packageName) global
     Debug.Trace("[SkyrimNetInternal] RemovePackageFromActor called for " + akActor.GetDisplayName() + " with package " + packageName)
-    ; Package followPlayerPackage = Game.GetFormFromFile(0x0E8E, "SkyrimNet.esp") as Package
-    ; Faction followPlayerFaction = Game.GetFormFromFile(0x0E8B, "SkyrimNet.esp") as Faction
-
     Package playerDialoguePackage = Game.GetFormFromFile(0x01964, "SkyrimNet.esp") as Package
     
     if packageName == "TalkToPlayer"
-        ; FollowPlayer Package
         Debug.Trace("[SkyrimNetInternal] Removing FollowPlayer package from " + akActor.GetDisplayName())
         ActorUtil.RemovePackageOverride(akActor, playerDialoguePackage)
-        ; akActor.RemoveFromFaction(followPlayerFaction)
         akActor.ClearLookAt()
     endif
     akActor.EvaluatePackage()
@@ -93,41 +68,37 @@ string Function ExampleDecorator2(Actor akActor) global
 EndFunction
 
 ; -----------------------------------------------------------------------------
-; --- Example Papyrus Action Callbacks for Serving Food ---
+; --- Papyrus Actions ---
 ; -----------------------------------------------------------------------------
 
-; Eligibility function for a "ServeFood" action
-bool Function ServeFood_IsEligible(Actor akActor, string contextJson, string paramsJson) global
-    Debug.Trace("[SkyrimNetInternal] ServeFood_IsEligible called for " + akActor.GetDisplayName())
+; Eligibility function for a "OpenTrade" action
+bool Function OpenTrade_IsEligible(Actor akActor, string contextJson, string paramsJson) global
+    Debug.Trace("[SkyrimNetInternal] OpenTrade_IsEligible called for " + akActor.GetDisplayName())
     Debug.Trace("[SkyrimNetInternal] ContextJSON: " + contextJson)
     Debug.Trace("[SkyrimNetInternal] ParamsJSON: " + paramsJson)
     
-    ; Example eligibility: 
-    ; 1. Actor must not be in combat.
+    ; we first check stuff that we can check from global scope for optimization
     if akActor.IsInCombat()
-        Debug.Trace("[SkyrimNetInternal] ServeFood_IsEligible: " + akActor.GetDisplayName() + " is in combat. Cannot serve food.")
         return false
     endif
 
-    Debug.Trace("[SkyrimNetInternal] ServeFood_IsEligible: " + akActor.GetDisplayName() + " is eligible to serve food.")
-    return true
+    ; we then reroute the request to only load from file one thing instead of potentially dozens
+    skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
+    if !skynet
+        Debug.MessageBox("Fatal Erorr: OpenTrade_IsEligible failed to retrieve controller.")
+        return false
+    endif
+
+    return skynet.libs.OpenTrade_IsEligible(akActor, contextJson, paramsJson)
 EndFunction
 
-; Execution function for a "ServeFood" action
-Function ServeFood_Execute(Actor akActor, string contextJson, string paramsJson) global
-    Debug.Trace("[SkyrimNetInternal] ServeFood_Execute called for " + akActor.GetDisplayName())
+; Execution function for a "OpenTrade" action
+Function OpenTrade_Execute(Actor akActor, string contextJson, string paramsJson) global
+    Debug.Trace("[SkyrimNetInternal] OpenTrade_Execute called for " + akActor.GetDisplayName())
     Debug.Trace("[SkyrimNetInternal] ContextJSON: " + contextJson)
     Debug.Trace("[SkyrimNetInternal] ParamsJSON: " + paramsJson)
 
-    ; Get parameters using the JSON utility functions
-    string foodItem = SkyrimNetApi.GetJsonString(paramsJson, "foodItem", "some bread")
-    string targetName = SkyrimNetApi.GetJsonString(paramsJson, "targetName", "the guest") ; Could be "Player" or another NPC name
-
-    Debug.Trace("[SkyrimNetInternal] " + akActor.GetDisplayName() + " is serving " + foodItem + " to " + targetName + ". (Action executed via Papyrus)")
-    
-    ; Give the item to the player. Placeholder for now.
-    Debug.Notification(akActor.GetDisplayName() + " says: Here you go, " + targetName + ". Have some " + foodItem + ".")
-    ; Future prompt requests and/or completion signals can go here.
+    akActor.ShowBarterMenu()
 EndFunction
 
 
@@ -140,10 +111,39 @@ bool Function Animation_IsEligible(Actor akActor, string contextJson, string par
         return false
     endif
 
+    ; the only alternative i could come up with to check if its a human would be to actually iterate through a whitelist of races and that sounds kind of annoying
+    ; non-playable human races will not be animated (that's pretty much only modded races i think)
+    if !akActor.GetRace().IsPlayable()
+        Debug.Trace("[SkyrimNetInternal] Animation_IsEligible: " + akActor.GetDisplayName() + " is not a human. Cannot animate.")
+        return false
+    endif
+
     Debug.Trace("[SkyrimNetInternal] Animation_IsEligible: " + akActor.GetDisplayName() + " is eligible to animate.")
     return true
 EndFunction
 
+Function AnimationGeneric(Actor akOriginator, string contextJson, string paramsJson) global
+    if (!akOriginator)
+        Debug.Trace("[SkyrimNetInternal] AnimationGeneric: akOriginator is null")
+        return
+    endif
+
+    String _anim = SkyrimNetApi.GetJsonString(paramsJson, "anim", "none")
+
+    If _anim == "none"
+        Debug.Trace("[SkyrimNetInternal] AnimationGeneric: _anim is none")
+        return
+    endif
+
+    skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
+    if !skynet
+        Debug.MessageBox("Fatal Erorr: AnimationGeneric failed to retrieve controller.")
+        return
+    endif
+
+    Debug.Trace("[SkyrimNetInternal] AnimationGeneric: Playing: " + _anim)
+    skynet.libs.PlayGenericAnimation(akOriginator, _anim)
+EndFunction
 
 Function AnimationSlapActor(Actor akOriginator, string contextJson, string paramsJson) global
     actor akTarget = SkyrimNetApi.GetJsonActor(paramsJson, "target", Game.GetPlayer())
