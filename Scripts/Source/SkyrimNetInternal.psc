@@ -3,42 +3,39 @@ scriptname SkyrimNetInternal
 ; Functions from within this file are executed directly by the main DLL.
 ; Do not change or touch them, or you risk stability issues.
 
+
 ; -----------------------------------------------------------------------------
-; --- Package Management ---
+; --- Actor & Package Management ---
 ; -----------------------------------------------------------------------------
+
+Function SetActorDialogueTarget(Actor akActor, Actor akTarget = None) global
+    skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
+    if !skynet
+        Debug.MessageBox("Fatal Erorr: AnimationGeneric failed to retrieve controller.")
+        return
+    endif
+    skynet.SetActorDialogueTarget(akActor, akTarget)
+EndFunction
 
 Function AddPackageToActor(Actor akActor, string packageName, int priority, int flags) global
     Debug.Trace("[SkyrimNetInternal] AddPackageToActor called for " + akActor.GetDisplayName() + " with package " + packageName + " and priority " + priority + " and flags " + flags)
-
-    if packageName == "TalkToPlayer"
-        debug.notification("TalkToPlayer")
-        Package playerDialoguePackage = Game.GetFormFromFile(0x01964, "SkyrimNet.esp") as Package
-
-        if !playerDialoguePackage
-            Debug.Notification("[SkyrimNetInternal] Failed to get PlayerDialogue package from SkyrimNet.esp")
-            Debug.Trace("[SkyrimNetInternal] AddPackageToActor: playerDialoguePackage is null")
-            return
-        endif
-
-        Debug.Trace("[SkyrimNetInternal] Adding FollowPlayer package to " + akActor.GetDisplayName() + " with priority " + priority + " and flags " + flags)
-        ActorUtil.AddPackageOverride(akActor, playerDialoguePackage, priority, flags)
-        akActor.SetLookAt(Game.GetPlayer())
+    skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
+    if !skynet
+        Debug.MessageBox("Fatal Erorr: AddPackageToActor failed to retrieve controller.")
+        return
     endif
-    akActor.EvaluatePackage()
+    skynet.libs.ApplyPackageOverrideToActor(akActor, packageName, priority, flags)
 EndFunction
 
 Function RemovePackageFromActor(Actor akActor, string packageName) global
     Debug.Trace("[SkyrimNetInternal] RemovePackageFromActor called for " + akActor.GetDisplayName() + " with package " + packageName)
-    Package playerDialoguePackage = Game.GetFormFromFile(0x01964, "SkyrimNet.esp") as Package
-    
-    if packageName == "TalkToPlayer"
-        Debug.Trace("[SkyrimNetInternal] Removing FollowPlayer package from " + akActor.GetDisplayName())
-        ActorUtil.RemovePackageOverride(akActor, playerDialoguePackage)
-        akActor.ClearLookAt()
+    skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
+    if !skynet
+        Debug.MessageBox("Fatal Erorr: RemovePackageFromActor failed to retrieve controller.")
+        return
     endif
-    akActor.EvaluatePackage()
+    skynet.libs.RemovePackageOverrideFromActor(akActor, packageName)
 EndFunction
-
 
 ; -----------------------------------------------------------------------------
 ; --- Player Input Handlers ---
@@ -173,4 +170,122 @@ Function AnimationPrayer(Actor akOriginator, string contextJson, string paramsJs
     PrayAnimationGlobal.SetValue(10)
     Utility.wait(5)
     PrayAnimationGlobal.SetValue(0)
+EndFunction
+
+; Companion stuff
+bool Function Companion_IsEligible(Actor akActor, string contextJson, string paramsJson) global
+    Debug.Trace("[SkyrimNetInternal] Companion_IsEligible called for " + akActor.GetDisplayName())
+    Faction factionCompanion = Game.GetFormFromFile(0x084D1B, "Skyrim.esm") as Faction
+    if (!factionCompanion)
+        Debug.Trace("[SkyrimNetInternal] Companion_IsEligible: factionCompanion is null")
+        return false
+    endif
+
+    if !akActor.IsInFaction(factionCompanion)
+        Debug.Trace("[SkyrimNetInternal] Companion_IsEligible: " + akActor.GetDisplayName() + " is not in the companion faction.")
+        return false
+    endif
+
+    Debug.Trace("[SkyrimNetInternal] Companion_IsEligible: " + akActor.GetDisplayName() + " is eligible as active companion.")
+    return true
+EndFunction
+
+Function CompanionInventory(Actor akActor, string contextJson, string paramsJson) global
+    Debug.Trace("[SkyrimNetInternal] CompanionInventory called for " + akActor.GetDisplayName())
+    Debug.Trace("[SkyrimNetInternal] ContextJSON: " + contextJson)
+    Debug.Trace("[SkyrimNetInternal] ParamsJSON: " + paramsJson)
+
+    akActor.OpenInventory()
+EndFunction
+
+bool Function CompanionFollow_IsEligible(Actor akActor, string contextJson, string paramsJson) global
+    Debug.Trace("[SkyrimNetInternal] CompanionFollow_IsEligible called for " + akActor.GetDisplayName())
+    Faction factionCompanion = Game.GetFormFromFile(0x084D1B, "Skyrim.esm") as Faction
+    if (!factionCompanion)
+        Debug.Trace("[SkyrimNetInternal] CompanionFollow_IsEligible: factionCompanion is null")
+        return false
+    endif
+
+    if !akActor.IsInFaction(factionCompanion)
+        Debug.Trace("[SkyrimNetInternal] CompanionFollow_IsEligible: " + akActor.GetDisplayName() + " is not in the companion faction.")
+        return false
+    endif
+
+    if akActor.GetActorValue("WaitingForPlayer") == 0
+        Debug.Trace("[SkyrimNetInternal] CompanionFollow_IsEligible: " + akActor.GetDisplayName() + " is already following.")
+        return false
+    endif
+
+    Debug.Trace("[SkyrimNetInternal] CompanionFollow_IsEligible: " + akActor.GetDisplayName() + " is eligible as active companion.")
+    return true
+EndFunction
+
+Function CompanionFollow(Actor akActor, string contextJson, string paramsJson) global
+    Debug.Trace("[SkyrimNetInternal] CompanionFollow called for " + akActor.GetDisplayName())
+    Debug.Trace("[SkyrimNetInternal] ContextJSON: " + contextJson)
+    Debug.Trace("[SkyrimNetInternal] ParamsJSON: " + paramsJson)
+
+    akActor.SetActorValue("WaitingForPlayer", 0)
+    akActor.EvaluatePackage()
+EndFunction
+
+bool Function CompanionWait_IsEligible(Actor akActor, string contextJson, string paramsJson) global
+    Debug.Trace("[SkyrimNetInternal] CompanionWait_IsEligible called for " + akActor.GetDisplayName())
+    Faction factionCompanion = Game.GetFormFromFile(0x084D1B, "Skyrim.esm") as Faction
+    if (!factionCompanion)
+        Debug.Trace("[SkyrimNetInternal] CompanionWait_IsEligible: factionCompanion is null")
+        return false
+    endif
+
+    if !akActor.IsInFaction(factionCompanion)
+        Debug.Trace("[SkyrimNetInternal] CompanionWait_IsEligible: " + akActor.GetDisplayName() + " is not in the companion faction.")
+        return false
+    endif
+
+    if akActor.GetActorValue("WaitingForPlayer") == 1
+        Debug.Trace("[SkyrimNetInternal] CompanionWait_IsEligible: " + akActor.GetDisplayName() + " is already waiting.")
+        return false
+    endif
+
+    Debug.Trace("[SkyrimNetInternal] CompanionWait_IsEligible: " + akActor.GetDisplayName() + " is eligible as active companion.")
+    return true
+EndFunction
+
+Function CompanionWait(Actor akActor, string contextJson, string paramsJson) global
+    Debug.Trace("[SkyrimNetInternal] CompanionWait called for " + akActor.GetDisplayName())
+    Debug.Trace("[SkyrimNetInternal] ContextJSON: " + contextJson)
+    Debug.Trace("[SkyrimNetInternal] ParamsJSON: " + paramsJson)
+
+    akActor.SetActorValue("WaitingForPlayer", 1)
+    akActor.EvaluatePackage()
+EndFunction
+
+bool Function CompanionGiveTask_IsEligible(Actor akActor, string contextJson, string paramsJson) global
+    Debug.Trace("[SkyrimNetInternal] CompanionGiveTask_IsEligible called for " + akActor.GetDisplayName())
+    Faction factionCompanion = Game.GetFormFromFile(0x084D1B, "Skyrim.esm") as Faction
+    if (!factionCompanion)
+        Debug.Trace("[SkyrimNetInternal] CompanionGiveTask_IsEligible: factionCompanion is null")
+        return false
+    endif
+
+    if !akActor.IsInFaction(factionCompanion)
+        Debug.Trace("[SkyrimNetInternal] CompanionGiveTask_IsEligible: " + akActor.GetDisplayName() + " is not in the companion faction.")
+        return false
+    endif
+
+    if akActor.IsDoingFavor()
+        Debug.Trace("[SkyrimNetInternal] CompanionGiveTask_IsEligible: " + akActor.GetDisplayName() + " is already doing a favor.")
+        return false
+    endif
+
+    Debug.Trace("[SkyrimNetInternal] CompanionGiveTask_IsEligible: " + akActor.GetDisplayName() + " is eligible as active companion.")
+    return true
+EndFunction
+
+Function CompanionGiveTask(Actor akActor, string contextJson, string paramsJson) global
+    Debug.Trace("[SkyrimNetInternal] CompanionGiveTask called for " + akActor.GetDisplayName())
+    Debug.Trace("[SkyrimNetInternal] ContextJSON: " + contextJson)
+    Debug.Trace("[SkyrimNetInternal] ParamsJSON: " + paramsJson)
+
+    akActor.SetDoingFavor(true)
 EndFunction
