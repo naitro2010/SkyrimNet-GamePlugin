@@ -25,6 +25,7 @@ Idle Property IdleDrink Auto
 Idle Property IdleDrinkPotion Auto
 Idle Property IdleEatSoup Auto
 Idle Property IdleExamine Auto
+Idle Property IdleForceDefaultState Auto
 Idle Property IdleLaugh Auto
 Idle Property IdleNervous Auto
 Idle Property IdleNoteRead Auto
@@ -133,7 +134,7 @@ EndFunction
 
 Bool Function RegisterOpenTradeAction()
   string actionName = "OpenTrade"
-  string description = "If {{ player.name }} asks to trade and you agree to trade, you use this to open the trade menu"
+  string description = "Use ONLY if {{ player.name }} asks to trade and you agree to trade. Otherwise, do not use this action."
   string eligibilityScriptName = "SkyrimNetInternal"
   string eligibilityFunctionName = "OpenTrade_IsEligible"
   string executionScriptName = "SkyrimNetInternal"
@@ -168,23 +169,17 @@ Bool Function OpenTrade_IsEligible(Actor akActor, string contextJson, string par
 EndFunction
 
 Bool Function RegisterAnimationActions()
-    SkyrimNetApi.RegisterAction("AnimationSlapActor", "Slap an actor with a sound effect.", \
+    SkyrimNetApi.RegisterAction("SlapTarget", "Slap the target.", \
                                 "SkyrimNetInternal", "Animation_IsEligible", \
                                 "SkyrimNetInternal", "AnimationSlapActor", \
                                 "", "PAPYRUS", \
                                 1, "{\"target\": \"Actor\"}")
 
-    SkyrimNetApi.RegisterAction("AnimationGeneric", "Play a generic animation to emphasize your words.", \
+    SkyrimNetApi.RegisterAction("AnimationGeneric", "Perform a gesture to emphasize your words.", \
                                 "SkyrimNetInternal", "Animation_IsEligible", \
-                                "SkyrimNetInternal", "AnimationGeneric", \
+                                "SkyrimNetInternal", "Gesture", \
                                 "", "PAPYRUS", \
                                 1, "{ \"anim\": \"applaud|applaud_sarcastic|drink|drink_potion|eat|laugh|nervous|read_note|pray|salute|study|wave|wipe_brow\" }")
-
-    SkyrimNetApi.RegisterAction("AnimationPrayer", "Pray with an animation.", \
-                                "SkyrimNetInternal", "Animation_IsEligible", \
-                                "SkyrimNetInternal", "AnimationPrayer", \
-                                "", "PAPYRUS", \
-                                1, "")
 
     return True
 EndFunction
@@ -241,5 +236,5 @@ Function PlayGenericAnimation(Actor akActor, String anim)
 	debug.notification("Playing animation: " + anim)
     akActor.PlayIdle(_idle)
     utility.wait(5)
-    akActor.PlayIdle(_idle) ; playing same idle again resets it in the case of loops
+    akActor.PlayIdle(IdleForceDefaultState)
 EndFunction

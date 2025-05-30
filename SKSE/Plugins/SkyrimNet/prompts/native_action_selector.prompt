@@ -33,6 +33,7 @@ Only return one line, beginning with "ACTION:" and nothing else.
 {% for action in eligible_actions %}
 - ACTION: {{ action.name }}{% if action.parameterSchema and length(action.parameterSchema) > 0 %} PARAMS_SCHEMA: {{ action.parameterSchema }}{% endif %} — {{ action.description }}
 {% endfor %}
+- ACTION: None - No action directly fits the situation.
 {% if length(eligible_targets) > 0 %}
 {{ "## Eligible Targets" }}
 {% for target in eligible_targets %}
