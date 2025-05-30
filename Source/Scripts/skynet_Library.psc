@@ -175,9 +175,9 @@ Bool Function RegisterAnimationActions()
                                 "", "PAPYRUS", \
                                 1, "{\"target\": \"Actor\"}")
 
-    SkyrimNetApi.RegisterAction("AnimationGeneric", "Perform a gesture to emphasize your words.", \
+    SkyrimNetApi.RegisterAction("Gesture", "Perform a gesture to emphasize your words.", \
                                 "SkyrimNetInternal", "Animation_IsEligible", \
-                                "SkyrimNetInternal", "Gesture", \
+                                "SkyrimNetInternal", "AnimationGeneric", \
                                 "", "PAPYRUS", \
                                 1, "{ \"anim\": \"applaud|applaud_sarcastic|drink|drink_potion|eat|laugh|nervous|read_note|pray|salute|study|wave|wipe_brow\" }")
 
@@ -188,7 +188,7 @@ EndFunction
 ; ag12: I hate this. Why didn't Bethesda give us Lua instead of Papyrus? Fuck you, Todd.
 Function PlayGenericAnimation(Actor akActor, String anim)
     Idle _idle
-
+    Debug.Trace("Playing animation: " + anim + " for " + akActor.GetDisplayName())
     If anim == "applaud"
         int rnd = Utility.RandomInt(0,3)
         if rnd == 0
@@ -233,7 +233,7 @@ Function PlayGenericAnimation(Actor akActor, String anim)
         Return
     endif
 
-	debug.notification("Playing animation: " + anim)
+	debug.notification("Playing animation: " + anim + " for " + akActor.GetDisplayName())
     akActor.PlayIdle(_idle)
     utility.wait(5)
     akActor.PlayIdle(IdleForceDefaultState)

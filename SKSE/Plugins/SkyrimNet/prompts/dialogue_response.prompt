@@ -39,11 +39,7 @@ You are roleplaying as {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender
 {% endif %}
 - Only reference the character’s memories if truly relevant to the current situation.
 - Every line should feel unique to this character and this moment.
-[ end system ]
 
-{{ render_template("components\\event_history") }}
-
-[ user ]
 {{ "# Instructions" }}
 Respond with an in-character line{% if is_narration_enabled() %} or necessary action{% endif %}  from {{ decnpc(npc.UUID).name }}'s perspective, and is consistent with their character. The line must:
 - Directly react to the triggering event
@@ -52,4 +48,8 @@ Respond with an in-character line{% if is_narration_enabled() %} or necessary ac
 
 {{ "## Response Format" }}
 - Respond with only the dialogue line{% if is_narration_enabled() %} or brief narrative action{% endif %}, nothing else.
-[ end user ]
+
+[ end system ]
+
+{{ render_template("components\\event_history") }}
+
