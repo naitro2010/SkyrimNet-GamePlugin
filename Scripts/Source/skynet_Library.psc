@@ -6,14 +6,6 @@ skynet_MainController Property skynet Auto Hidden
 ; --- The Library Part of the Library ---
 ; -----------------------------------------------------------------------------
 Faction Property factionMerchants Auto
-Faction Property factionPlayerFollowers Auto
-
-Keyword Property keywordDialogueTarget Auto
-Keyword Property keywordFollowTarget Auto
-
-Package Property packageDialoguePlayer Auto
-Package Property packageDialogueNPC Auto
-
 
 Idle Property IdleApplaud2 Auto
 Idle Property IdleApplaud3 Auto
@@ -57,79 +49,13 @@ Function RegisterActions()
         return
     endif
 
-    if !RegisterCompanionActions()
-        skynet.Fatal("Companion actions failed to register.")
-        return
-    endif
-
     ; DEBUG ONLY
     debug.notification("Actions registered.")
 EndFunction
 
 ; -----------------------------------------------------------------------------
-; --- Skynet Package Parsing ---
-; -----------------------------------------------------------------------------
-
-Package Function GetPackageFromString(String asPackage)
-    if asPackage == "TalkToPlayer"
-        return packageDialoguePlayer
-    elseif asPackage == "TalkToNPC"
-        return packageDialogueNPC
-    endif
-    return None
-EndFunction
-
-Function ApplyPackageOverrideToActor(Actor akActor, String asString, Int priority = 1, Int flags = 0)
-    Package _pck = GetPackageFromString(asString)
-    if !_pck
-        skynet.Error("Could not retrieve package for: " + asString)
-        return
-    endif
-    ActorUtil.AddPackageOverride(akActor, _pck, priority, flags)
-    akActor.EvaluatePackage()
-EndFunction
-
-Function RemovePackageOverrideFromActor(Actor akActor, String asString)
-    Package _pck = GetPackageFromString(asString)
-    if !_pck
-        skynet.Error("Could not retrieve package for: " + asString)
-        return
-    endif
-    ActorUtil.RemovePackageOverride(akActor, _pck)
-    akActor.EvaluatePackage()
-EndFunction
-
-; -----------------------------------------------------------------------------
 ; --- Skynet Papyrus Actions ---
 ; -----------------------------------------------------------------------------
-
-Bool Function RegisterCompanionActions()
-    SkyrimNetApi.RegisterAction("CompanionFollow", "Start following the player.", \
-                                "SkyrimNetInternal", "CompanionFollow_IsEligible", \
-                                "SkyrimNetInternal", "CompanionFollow", \
-                                "", "PAPYRUS", \
-                                1, "")
-
-    SkyrimNetApi.RegisterAction("CompanionWait", "Wait at this location", \
-                                "SkyrimNetInternal", "CompanionWait_IsEligible", \
-                                "SkyrimNetInternal", "CompanionWait", \
-                                "", "PAPYRUS", \
-                                1, "")
-
-    SkyrimNetApi.RegisterAction("CompanionInventory", "Give the player access to your inventory", \
-                                "SkyrimNetInternal", "Companion_IsEligible", \
-                                "SkyrimNetInternal", "CompanionInventory", \
-                                "", "PAPYRUS", \
-                                1, "")
-
-    SkyrimNetApi.RegisterAction("CompanionGiveTask", "Let the player designate a task for you", \
-                                "SkyrimNetInternal", "CompanionGiveTask_IsEligible", \
-                                "SkyrimNetInternal", "CompanionGiveTask", \
-                                "", "PAPYRUS", \
-                                1, "")
-
-    return true
-EndFunction
 
 Bool Function RegisterOpenTradeAction()
   string actionName = "OpenTrade"
@@ -189,8 +115,6 @@ Bool Function RegisterAnimationActions()
     return True
 EndFunction
 
-
-; ag12: I hate this. Why didn't Bethesda give us Lua instead of Papyrus? Fuck you, Todd.
 Function PlayGenericAnimation(Actor akActor, String anim)
     Idle _idle
 
