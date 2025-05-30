@@ -4,8 +4,9 @@ Based on the {npc.name}'s most recent line of dialogue and the current game cont
 **Your choice must directly reflect what {npc.name} just said or did, and should be clearly implied by the dialogue, body language, or narrative elements. Do NOT pick actions that are only loosely related, feel random, or do not naturally follow from the response.**
 
 - If {npc.name}'s words or actions (including narrative cues, e.g., *Orgnar shrugs, returning to wiping the counter.*) clearly suggest a specific, visible in-game action from the eligible list, choose that action.
+- Do NOT choose player exclusive interactions such as opening trade unless the last two responses both clearly signal this intent.
 - Do NOT choose dramatic or aggressive actions unless they are clearly signaled in the dialogue or situation.
-- If the dialogue only involves speaking or subtle nonverbal behavior (e.g., shrugging, glancing), or if no listed action directly matches, return `ACTION: None`.
+- If no listed action directly matches, return `ACTION: None`. If no other action fits, you can also consider using a generic animation to emphasize {npc.name}'s words.
 
 Respond with exactly one line:
 - If the action takes no parameters: `ACTION: ActionName`

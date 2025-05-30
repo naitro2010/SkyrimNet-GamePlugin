@@ -26,6 +26,7 @@ EndFunction
 Function Maintenance()
   RunUpdate()
 
+  playerRef = Game.GetPlayer()
   libs.Maintenance(self as skynet_MainController)
 
   Info("SkyrimNet version " + versionCurrent + " ready.")
@@ -51,6 +52,58 @@ Function RunUpdate()
 
   versionCurrent = versionNumber
 EndFunction
+
+; -----------------------------------------------------------------------------
+; --- Skynet Conversation Management ---
+; -----------------------------------------------------------------------------
+
+; If you pass None as target, we clear the active dialogue target, else set it.
+Function SetActorDialogueTarget(Actor akActor, Actor akTarget = None)
+  If !akTarget
+    ClearActorDialogueTarget(akActor)
+    Return
+  EndIf
+
+  akActor.SetLookAt(akTarget)
+  PO3_SKSEFunctions.SetLinkedRef(akActor, akTarget, libs.keywordDialogueTarget)
+  If akTarget == playerRef
+    SkyrimNetApi.RegisterPackage(akActor, "TalkToPlayer", 1, 0, False)
+  Else
+    SkyrimNetApi.RegisterPackage(akActor, "TalkToNPC", 1, 0, False)
+  Endif
+  akActor.EvaluatePackage()
+EndFunction
+
+Function ClearActorDialogueTarget(Actor akActor)
+  PO3_SKSEFunctions.SetLinkedRef(akActor, None, libs.keywordDialogueTarget)
+  SkyrimNetApi.UnregisterPackage(akActor, "TalkToPlayer")
+  SkyrimNetApi.UnregisterPackage(akActor, "TalkToNPC")
+  akActor.ClearLookAt()
+EndFunction
+
+; -----------------------------------------------------------------------------
+; --- Skynet Follower Management ---
+; --- Follower: Any following actor.
+; -----------------------------------------------------------------------------
+
+Function SetActorFollowing(Actor akActor, Actor akTarget = None, Bool abCompanion = False)
+  if akTarget == None
+    ClearActorFollowing(akActor)
+    return
+  endif
+  PO3_SKSEFunctions.SetLinkedRef(akActor, akTarget, libs.keywordFollowTarget)
+EndFunction
+
+Function ClearActorFollowing(Actor akActor)
+  PO3_SKSEFunctions.SetLinkedRef(akActor, None, libs.keywordFollowTarget)
+EndFunction
+
+; -----------------------------------------------------------------------------
+; --- Skynet Companion Management ---
+; --- Companion: The classic followers that carry your burden
+; -----------------------------------------------------------------------------
+
+
 
 ; -----------------------------------------------------------------------------
 ; --- Debug & Trace Functions ---
