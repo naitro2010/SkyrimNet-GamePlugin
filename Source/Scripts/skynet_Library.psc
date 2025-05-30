@@ -233,8 +233,8 @@ Function PlayGenericAnimation(Actor akActor, String anim)
         Return
     endif
 
-	debug.notification("Playing animation: " + anim + " for " + akActor.GetDisplayName())
-    akActor.PlayIdle(_idle)
-    utility.wait(5)
     akActor.PlayIdle(IdleForceDefaultState)
+    utility.wait(2)
+    ; debug.notification("Playing animation: " + anim + " for " + akActor.GetDisplayName())
+    akActor.PlayIdle(_idle)
 EndFunction

@@ -48,8 +48,8 @@ Respond with an in-character line{% if is_narration_enabled() %} or necessary ac
 
 {{ "## Response Format" }}
 - Respond with only the dialogue line{% if is_narration_enabled() %} or brief narrative action{% endif %}, nothing else.
+- Do not repeat or paraphrase the previous character’s line. Respond only as {{ decnpc(npc.UUID).name }}, in your own words.
 
 [ end system ]
 
 {{ render_template("components\\event_history") }}
-
