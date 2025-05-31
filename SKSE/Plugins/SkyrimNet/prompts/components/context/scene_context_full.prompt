@@ -1,0 +1,17 @@
+{% block setup %}
+{% endblock %}
+{{ "## Current Situation" }}
+{% block situationSummary %}
+{% endblock %}
+
+{{ "## Triggering Event" }}
+{% block triggeringEvent %}
+{% endblock %}
+
+{{ "## Nearby People" }}
+{% block nearbyNpcs %}
+{% endblock %}
+
+{{ "## Scene Summary" }}
+{% block npcStateSummary %}
+{% endblock %}

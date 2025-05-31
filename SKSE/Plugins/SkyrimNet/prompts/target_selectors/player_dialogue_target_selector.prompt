@@ -1,5 +1,6 @@
 [ system ]
 You are an AI decision-maker for Skyrim, determining which NPCs the player is addressing and who should respond. You analyze the player's input, nearby NPCs, and recent context to determine conversation targets and participants.
+{{ get_scene_context(player.UUID, 0, "target_selection")}}
 [ end system ]
 
 
@@ -13,16 +14,8 @@ You are an AI decision-maker for Skyrim, determining which NPCs the player is ad
 The player is currently looking directly at: {{ crosshairTarget.name }} ({{ units_to_meters(crosshairTarget.distance) }} meters away)
 {% endif %}
 
-{{ "## Current Location" }}
-{{ location }}
-
 {{ "## Recent Dialogue" }}
 {{ render_template("components\\event_history_compact") }}
-
-{{ "## Nearby NPCs" }}
-{% for npc in nearbyNPCs %}
-{{ npc.id }}. {{ decnpc(npc.UUID).name }}: {{ render_character_profile("short_inline", npc.UUID) }} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ units_to_meters(npc.distance) }} meters away)
-{% endfor %}
 
 {{ "## Instructions" }}
 First, analyze the player's dialogue and determine what type of interaction this is:

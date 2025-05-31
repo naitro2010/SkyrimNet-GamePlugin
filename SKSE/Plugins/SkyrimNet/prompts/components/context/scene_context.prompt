@@ -1,0 +1,79 @@
+{% block setup %}
+{# Get nearby NPCs once and store the result #}
+{% set nearby_npcs = get_nearby_npc_list(player.UUID) %}
+{% endblock %}
+
+{% block nearbyNpcs %}
+{% if length(nearby_npcs) > 0 %}
+{% for npc in nearby_npcs %}
+{{ npc.id }}. {{ decnpc(npc.UUID).name }}: {{ render_character_profile("short_inline", npc.UUID) }} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ units_to_meters(npc.distance) }} meters away)
+{% endfor %}
+{% else %}
+No one else is nearby.
+{% endif %}
+{% endblock %}
+
+{% block situationSummary %}
+- **Location**: {{ location }}
+{% if responseTarget %}
+- **Speaking to**: {% if responseTarget.type == "player" %}{{ decnpc(responseTarget.UUID).name }}{% else if responseTarget.type == "npc" %}{{ decnpc(responseTarget.UUID).name }}{% else %}Everyone in the area{% endif %}
+{% endif %}
+{% endblock %}
+
+{% block currentLocation %}
+{{ location }}
+{% endblock %}
+
+{% block triggeringEvent %}
+- **Type**: {{ triggeringEvent.type }}
+- **Data**: {{ triggeringEvent.data }}
+- **Actor**: {{ decnpc(triggeringEvent.originatingActor).name }}
+{% endblock %}
+
+{% block npcStateSummary %}
+{% for npc in nearby_npcs %}
+{% if npc.furniture != "None" %}
+{# Convert furniture name to lowercase for matching #}
+{% set furniture_lower = lower(npc.furniture) %}
+
+{# Determine appropriate action based on furniture type #}
+{% if "bed" in furniture_lower or "bedroll" in furniture_lower or "cot" in furniture_lower or "hay pile" in furniture_lower or "fur" in furniture_lower or "animal hide" in furniture_lower or "pelts" in furniture_lower or "sleeping bag" in furniture_lower %}
+- {{ npc.name }} is lying down in a {{ npc.furniture }}
+{% else if  "table" in furniture_lower or "desk" in furniture_lower or "counter" in furniture_lower %}
+- {{ npc.name }} is sitting at a {{ npc.furniture }}
+{% else if  "alchemy" in furniture_lower or "mortar" in furniture_lower or "pestle" in furniture_lower %}
+- {{ npc.name }} is using a {{ npc.furniture }} to mix potions
+{% else if  "enchant" in furniture_lower or "arcane" in furniture_lower or "soul gem" in furniture_lower %}
+- {{ npc.name }} is using a {{ npc.furniture }} to enchant items
+{% else if  "forge" in furniture_lower or "anvil" in furniture_lower or "grindstone" in furniture_lower or "tanning rack" in furniture_lower or "smelter" in furniture_lower %}
+- {{ npc.name }} is working at a {{ npc.furniture }} crafting items
+{% else if  "cooking pot" in furniture_lower or "spit" in furniture_lower or "oven" in furniture_lower or "cauldron" in furniture_lower or "kettle" in furniture_lower %}
+- {{ npc.name }} is preparing food at a {{ npc.furniture }}
+{% else if  "shrine" in furniture_lower or "altar" in furniture_lower or "standing stone" in furniture_lower or "wayshrine" in furniture_lower or "statue" in furniture_lower %}
+- {{ npc.name }} is praying at a {{ npc.furniture }}
+{% else if  "throne" in furniture_lower or "jarl seat" in furniture_lower %}
+- {{ npc.name }} is sitting upon a {{ npc.furniture }}
+{% else if  "chest" in furniture_lower or "box" in furniture_lower or "container" in furniture_lower or "drawer" in furniture_lower or "wardrobe" in furniture_lower or "cabinet" in furniture_lower or "barrel" in furniture_lower or "urn" in furniture_lower or "sack" in furniture_lower %}
+- {{ npc.name }} is searching through a {{ npc.furniture }}
+{% else if  "book" in furniture_lower or "journal" in furniture_lower or "note" in furniture_lower or "letter" in furniture_lower or "tome" in furniture_lower or "scroll" in furniture_lower %}
+- {{ npc.name }} is reading a {{ npc.furniture }}
+{% else if  "bath" in furniture_lower or "pool" in furniture_lower or "hot spring" in furniture_lower or "basin" in furniture_lower or "fountain" in furniture_lower %}
+- {{ npc.name }} is bathing in a {{ npc.furniture }}
+{% else if  "well" in furniture_lower or "pump" in furniture_lower or "stream" in furniture_lower or "river" in furniture_lower or "lake" in furniture_lower or "pond" in furniture_lower or "spring" in furniture_lower %}
+- {{ npc.name }} is drawing water from a {{ npc.furniture }}
+{% else if  "lute" in furniture_lower or "drum" in furniture_lower or "flute" in furniture_lower or "horn" in furniture_lower %}
+- {{ npc.name }} is playing a {{ npc.furniture }}
+{% else if  "training dummy" in furniture_lower or "archery target" in furniture_lower or "practice target" in furniture_lower %}
+- {{ npc.name }} is practicing on a {{ npc.furniture }}
+{% else if  "workbench" in furniture_lower and "smith" in furniture_lower %}
+- {{ npc.name }} is working at a {{ npc.furniture }} crafting items
+{% else if  "workbench" in furniture_lower %}
+- {{ npc.name }} is sitting at a {{ npc.furniture }}
+{% else if  "chair" in furniture_lower or "stool" in furniture_lower or "bench" in furniture_lower or "seat" in furniture_lower %}
+- {{ npc.name }} is sitting on a {{ npc.furniture }}
+{% else %}
+- {{ npc.name }} is interacting with a {{ npc.furniture }}
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endblock %}

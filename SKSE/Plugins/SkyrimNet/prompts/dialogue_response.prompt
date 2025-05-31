@@ -3,21 +3,7 @@ You are roleplaying as {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender
 
 {{ render_character_profile("full", npc.UUID) }}
 
-{{ "## Current Situation" }}
-- **Location**: {{ location }}
-- **Speaking to**: {% if responseTarget.type == "player" %}{{ decnpc(responseTarget.UUID).name }}{% else if responseTarget.type == "npc" %}{{ decnpc(responseTarget.UUID).name }}{% else %}Everyone in the area{% endif %}
-
-{{ "## Triggering Event" }}
-- **Type**: {{ triggeringEvent.type }}
-- **Data**: {{ triggeringEvent.data }}
-- **Actor**: {{ decnpc(triggeringEvent.originatingActor).name }}
-
-{% if nearbyNPCs %}
-{{ "## Nearby People" }}
-{% for npc in nearbyNPCs %}
-{{ npc.id }}. {{ decnpc(npc.UUID).name }}: {{ render_character_profile("short_inline", npc.UUID) }} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ units_to_meters(npc.distance) }} meters away)
-{% endfor %}
-{% endif %}
+{{ get_scene_context(npc.UUID, responseTarget.UUID, "full")}}
 
 {% if length(memories) > 0 %}
 {{ "## Relevant Memories" }}
