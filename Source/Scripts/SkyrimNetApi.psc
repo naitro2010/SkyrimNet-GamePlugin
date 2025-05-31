@@ -20,6 +20,31 @@ int function RegisterAction(String actionName, String description, \
                            int defaultPriority, String parameterSchemaJson) Global Native
 
 ; -----------------------------------------------------------------------------
+; --- Event Management ---
+; -----------------------------------------------------------------------------
+
+; Register a short-lived event that appears in scene context and expires after TTL
+; Returns 0 on success, 1 on failure
+int function RegisterShortLivedEvent(String eventId, String eventType, String description, \
+                                    String data, int ttlMs, Actor sourceActor, Actor targetActor) Global Native
+
+; Register a persistent event for historical tracking and analysis
+; Returns 0 on success, 1 on failure
+int function RegisterEvent(String eventType, String content, Actor originatorActor, Actor targetActor) Global Native
+
+; -----------------------------------------------------------------------------
+; --- Dialogue Management ---
+; -----------------------------------------------------------------------------
+
+; Register dialogue from a speaker (general announcement, no specific listener)
+; Returns 0 on success, 1 on failure
+int function RegisterDialogue(Actor speaker, String dialogue) Global Native
+
+; Register dialogue from a speaker to a specific listener
+; Returns 0 on success, 1 on failure
+int function RegisterDialogueToListener(Actor speaker, Actor listener, String dialogue) Global Native
+
+; -----------------------------------------------------------------------------
 ; --- Package Management ---
 ; -----------------------------------------------------------------------------
 

@@ -12,6 +12,12 @@
 {% block nearbyNpcs %}
 {% endblock %}
 
-{{ "## Scene Summary" }}
+{% if get_short_lived_events_count() > 0 %}
+{{ "## Recent Events" }}
+{% block recentEvents %}
+{% endblock %}
+{% endif %}
+
+{{ "## Scene Information " }}
 {% block npcStateSummary %}
 {% endblock %}

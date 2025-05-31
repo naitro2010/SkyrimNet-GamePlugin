@@ -30,6 +30,81 @@ No one else is nearby.
 - **Actor**: {{ decnpc(triggeringEvent.originatingActor).name }}
 {% endblock %}
 
+{% block recentEvents %}
+{% if length(scene.short_lived_events) > 0 %}
+{% for event in scene.short_lived_events %}
+{# Format timing information #}
+{% set remaining_seconds = event.remaining_ms / 1000 %}
+{% set time_desc = "" %}
+{% if remaining_seconds > 25 %}
+{% set time_desc = "just happened" %}
+{% else if remaining_seconds > 15 %}
+{% set time_desc = "recently occurred" %}
+{% else if remaining_seconds > 5 %}
+{% set time_desc = "happened moments ago" %}
+{% else %}
+{% set time_desc = "is fading from memory" %}
+{% endif %}
+
+{# Format event based on type #}
+{% if event.type == "activation" %}
+{# Get target name from event data #}
+{% set target_name = "something" %}
+{% if length(event.data) > 0 %}
+{% set target_name = event.data %}
+{% endif %}
+
+{# Convert target name to lowercase for matching #}
+{% set target_lower = lower(target_name) %}
+
+{# Determine appropriate past-tense action based on furniture/object type #}
+{% if "bed" in target_lower or "bedroll" in target_lower or "cot" in target_lower or "hay pile" in target_lower or "fur" in target_lower or "animal hide" in target_lower or "pelts" in target_lower or "sleeping bag" in target_lower %}
+- **{{ decnpc(event.source_uuid).name }}** lay down in {{ target_name }} ({{ time_desc }})
+{% else if  "table" in target_lower or "desk" in target_lower or "counter" in target_lower %}
+- **{{ decnpc(event.source_uuid).name }}** sat down at {{ target_name }} ({{ time_desc }})
+{% else if  "alchemy" in target_lower or "mortar" in target_lower or "pestle" in target_lower %}
+- **{{ decnpc(event.source_uuid).name }}** began using {{ target_name }} to mix potions ({{ time_desc }})
+{% else if  "enchant" in target_lower or "arcane" in target_lower or "soul gem" in target_lower %}
+- **{{ decnpc(event.source_uuid).name }}** began using {{ target_name }} to enchant items ({{ time_desc }})
+{% else if  "forge" in target_lower or "anvil" in target_lower or "grindstone" in target_lower or "tanning rack" in target_lower or "smelter" in target_lower %}
+- **{{ decnpc(event.source_uuid).name }}** began working at {{ target_name }} to craft items ({{ time_desc }})
+{% else if  "cooking pot" in target_lower or "spit" in target_lower or "oven" in target_lower or "cauldron" in target_lower or "kettle" in target_lower %}
+- **{{ decnpc(event.source_uuid).name }}** began preparing food at {{ target_name }} ({{ time_desc }})
+{% else if  "shrine" in target_lower or "altar" in target_lower or "standing stone" in target_lower or "wayshrine" in target_lower or "statue" in target_lower %}
+- **{{ decnpc(event.source_uuid).name }}** began praying at {{ target_name }} ({{ time_desc }})
+{% else if  "throne" in target_lower or "jarl seat" in target_lower %}
+- **{{ decnpc(event.source_uuid).name }}** sat upon {{ target_name }} ({{ time_desc }})
+{% else if  "chest" in target_lower or "box" in target_lower or "container" in target_lower or "drawer" in target_lower or "wardrobe" in target_lower or "cabinet" in target_lower or "barrel" in target_lower or "urn" in target_lower or "sack" in target_lower %}
+- **{{ decnpc(event.source_uuid).name }}** opened and searched through {{ target_name }} ({{ time_desc }})
+{% else if  "book" in target_lower or "journal" in target_lower or "note" in target_lower or "letter" in target_lower or "tome" in target_lower or "scroll" in target_lower %}
+- **{{ decnpc(event.source_uuid).name }}** picked up and began reading {{ target_name }} ({{ time_desc }})
+{% else if  "bath" in target_lower or "pool" in target_lower or "hot spring" in target_lower or "basin" in target_lower or "fountain" in target_lower %}
+- **{{ decnpc(event.source_uuid).name }}** entered {{ target_name }} to bathe ({{ time_desc }})
+{% else if  "well" in target_lower or "pump" in target_lower or "stream" in target_lower or "river" in target_lower or "lake" in target_lower or "pond" in target_lower or "spring" in target_lower %}
+- **{{ decnpc(event.source_uuid).name }}** began drawing water from {{ target_name }} ({{ time_desc }})
+{% else if  "lute" in target_lower or "drum" in target_lower or "flute" in target_lower or "horn" in target_lower %}
+- **{{ decnpc(event.source_uuid).name }}** picked up {{ target_name }} and began playing ({{ time_desc }})
+{% else if  "training dummy" in target_lower or "archery target" in target_lower or "practice target" in target_lower %}
+- **{{ decnpc(event.source_uuid).name }}** began practicing on {{ target_name }} ({{ time_desc }})
+{% else if  "workbench" in target_lower %}
+- **{{ decnpc(event.source_uuid).name }}** began working at {{ target_name }} to craft items ({{ time_desc }})
+{% else if  "chair" in target_lower or "stool" in target_lower or "bench" in target_lower or "seat" in target_lower %}
+- **{{ decnpc(event.source_uuid).name }}** sat down on {{ target_name }} ({{ time_desc }})
+{% else if  "door" in target_lower or "gate" in target_lower %}
+- **{{ decnpc(event.source_uuid).name }}** opened {{ target_name }} ({{ time_desc }})
+{% else if  "lever" in target_lower or "switch" in target_lower or "button" in target_lower %}
+- **{{ decnpc(event.source_uuid).name }}** pulled {{ target_name }} ({{ time_desc }})
+{% else %}
+- **{{ decnpc(event.source_uuid).name }}** interacted with {{ target_name }} ({{ time_desc }})
+{% endif %}
+{% else %}
+- **{{ event.type }}** event involving **{{ decnpc(event.source_uuid).name }}**{% if event.target_uuid != 0 %} and **{{ decnpc(event.target_uuid).name }}**{% endif %} ({{ time_desc }})
+{% endif %}
+
+{% endfor %}
+{% endif %}
+{% endblock  %}
+
 {% block npcStateSummary %}
 {% for npc in nearby_npcs %}
 {% if npc.furniture != "None" %}
@@ -65,10 +140,8 @@ No one else is nearby.
 - {{ npc.name }} is playing a {{ npc.furniture }}
 {% else if  "training dummy" in furniture_lower or "archery target" in furniture_lower or "practice target" in furniture_lower %}
 - {{ npc.name }} is practicing on a {{ npc.furniture }}
-{% else if  "workbench" in furniture_lower and "smith" in furniture_lower %}
-- {{ npc.name }} is working at a {{ npc.furniture }} crafting items
 {% else if  "workbench" in furniture_lower %}
-- {{ npc.name }} is sitting at a {{ npc.furniture }}
+- {{ npc.name }} is working at a {{ npc.furniture }} crafting items
 {% else if  "chair" in furniture_lower or "stool" in furniture_lower or "bench" in furniture_lower or "seat" in furniture_lower %}
 - {{ npc.name }} is sitting on a {{ npc.furniture }}
 {% else %}
