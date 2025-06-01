@@ -3,6 +3,17 @@
 
 {% if length(scene.short_lived_events) > 0 %}
 {% for event in scene.short_lived_events %}
+{# Try to get source entity and skip if invalid #}
+{% set source_entity = decnpc(event.source_uuid) %}
+
+{# Try to get target entity if target_uuid is not 0 #}
+{% set target_entity = null %}
+{% if event.target_uuid != 0 %}
+{% set target_entity = decnpc(event.target_uuid) %}
+{% endif %}
+
+{# All recent events require a source - skip if it's not set #}
+{% if source_entity %}
 {# Format timing information #}
 {% set remaining_seconds = event.remaining_ms / 1000 %}
 {% set time_desc = "" %}
@@ -29,76 +40,76 @@
 
 {# Determine appropriate past-tense action based on furniture/object type #}
 {% if "bed" in target_lower or "bedroll" in target_lower or "cot" in target_lower or "hay pile" in target_lower or "fur" in target_lower or "animal hide" in target_lower or "pelts" in target_lower or "sleeping bag" in target_lower %}
-- **{{ decnpc(event.source_uuid).name }}** lay down in {{ target_name }} ({{ time_desc }})
+- **{{ source_entity.name }}** lay down in {{ target_name }} ({{ time_desc }})
 {% else if  "table" in target_lower or "desk" in target_lower %}
-- **{{ decnpc(event.source_uuid).name }}** sat down at {{ target_name }} ({{ time_desc }})
+- **{{ source_entity.name }}** sat down at {{ target_name }} ({{ time_desc }})
 {% else if  "alchemy" in target_lower or "mortar" in target_lower or "pestle" in target_lower %}
-- **{{ decnpc(event.source_uuid).name }}** began using {{ target_name }} to mix potions ({{ time_desc }})
+- **{{ source_entity.name }}** began using {{ target_name }} to mix potions ({{ time_desc }})
 {% else if  "enchant" in target_lower or "arcane" in target_lower or "soul gem" in target_lower %}
-- **{{ decnpc(event.source_uuid).name }}** began using {{ target_name }} to enchant items ({{ time_desc }})
+- **{{ source_entity.name }}** began using {{ target_name }} to enchant items ({{ time_desc }})
 {% else if  "forge" in target_lower or "anvil" in target_lower or "grindstone" in target_lower or "tanning rack" in target_lower or "smelter" in target_lower %}
-- **{{ decnpc(event.source_uuid).name }}** began working at {{ target_name }} to craft items ({{ time_desc }})
+- **{{ source_entity.name }}** began working at {{ target_name }} to craft items ({{ time_desc }})
 {% else if  "cooking pot" in target_lower or "spit" in target_lower or "oven" in target_lower or "cauldron" in target_lower or "kettle" in target_lower %}
-- **{{ decnpc(event.source_uuid).name }}** began preparing food at {{ target_name }} ({{ time_desc }})
+- **{{ source_entity.name }}** began preparing food at {{ target_name }} ({{ time_desc }})
 {% else if  "shrine" in target_lower or "altar" in target_lower or "standing stone" in target_lower or "wayshrine" in target_lower or "statue" in target_lower %}
-- **{{ decnpc(event.source_uuid).name }}** began praying at {{ target_name }} ({{ time_desc }})
+- **{{ source_entity.name }}** began praying at {{ target_name }} ({{ time_desc }})
 {% else if  "throne" in target_lower or "jarl seat" in target_lower %}
-- **{{ decnpc(event.source_uuid).name }}** sat upon {{ target_name }} ({{ time_desc }})
+- **{{ source_entity.name }}** sat upon {{ target_name }} ({{ time_desc }})
 {% else if  "chest" in target_lower or "box" in target_lower or "container" in target_lower or "drawer" in target_lower or "wardrobe" in target_lower or "cabinet" in target_lower or "barrel" in target_lower or "urn" in target_lower or "sack" in target_lower %}
-- **{{ decnpc(event.source_uuid).name }}** opened and searched through {{ target_name }} ({{ time_desc }})
+- **{{ source_entity.name }}** opened and searched through {{ target_name }} ({{ time_desc }})
 {% else if  "book" in target_lower or "journal" in target_lower or "note" in target_lower or "letter" in target_lower or "tome" in target_lower or "scroll" in target_lower %}
-- **{{ decnpc(event.source_uuid).name }}** picked up and began reading {{ target_name }} ({{ time_desc }})
+- **{{ source_entity.name }}** picked up and began reading {{ target_name }} ({{ time_desc }})
 {% else if  "bath" in target_lower or "pool" in target_lower or "hot spring" in target_lower or "basin" in target_lower or "fountain" in target_lower %}
-- **{{ decnpc(event.source_uuid).name }}** entered {{ target_name }} to bathe ({{ time_desc }})
+- **{{ source_entity.name }}** entered {{ target_name }} to bathe ({{ time_desc }})
 {% else if  "well" in target_lower or "pump" in target_lower or "stream" in target_lower or "river" in target_lower or "lake" in target_lower or "pond" in target_lower or "spring" in target_lower %}
-- **{{ decnpc(event.source_uuid).name }}** began drawing water from {{ target_name }} ({{ time_desc }})
+- **{{ source_entity.name }}** began drawing water from {{ target_name }} ({{ time_desc }})
 {% else if  "lute" in target_lower or "drum" in target_lower or "flute" in target_lower or "horn" in target_lower %}
-- **{{ decnpc(event.source_uuid).name }}** picked up {{ target_name }} and began playing ({{ time_desc }})
+- **{{ source_entity.name }}** picked up {{ target_name }} and began playing ({{ time_desc }})
 {% else if  "training dummy" in target_lower or "archery target" in target_lower or "practice target" in target_lower %}
-- **{{ decnpc(event.source_uuid).name }}** began practicing on {{ target_name }} ({{ time_desc }})
+- **{{ source_entity.name }}** began practicing on {{ target_name }} ({{ time_desc }})
 {% else if  "workbench" in target_lower %}
-- **{{ decnpc(event.source_uuid).name }}** began working at {{ target_name }} to craft items ({{ time_desc }})
+- **{{ source_entity.name }}** began working at {{ target_name }} to craft items ({{ time_desc }})
 {% else if  "chair" in target_lower or "stool" in target_lower or "bench" in target_lower or "seat" in target_lower %}
-- **{{ decnpc(event.source_uuid).name }}** sat down on {{ target_name }} ({{ time_desc }})
+- **{{ source_entity.name }}** sat down on {{ target_name }} ({{ time_desc }})
 {% else if  "door" in target_lower or "gate" in target_lower %}
-- **{{ decnpc(event.source_uuid).name }}** opened {{ target_name }} ({{ time_desc }})
+- **{{ source_entity.name }}** opened {{ target_name }} ({{ time_desc }})
 {% else if  "lever" in target_lower or "switch" in target_lower or "button" in target_lower %}
-- **{{ decnpc(event.source_uuid).name }}** pulled {{ target_name }} ({{ time_desc }})
+- **{{ source_entity.name }}** pulled {{ target_name }} ({{ time_desc }})
 {% else if  "chopping block" in target_lower %}
-- **{{ decnpc(event.source_uuid).name }}** started chopping wood at the {{ target_name }} ({{ time_desc }})
+- **{{ source_entity.name }}** started chopping wood at the {{ target_name }} ({{ time_desc }})
 {% else if  "passage" in target_lower %}
-- **{{ decnpc(event.source_uuid).name }}** entered into the {{ target_name }} ({{ time_desc }})
+- **{{ source_entity.name }}** entered into the {{ target_name }} ({{ time_desc }})
 {# Custom mappings #}
 {% else if "counter" in target_lower %}
-- **{{ decnpc(event.source_uuid).name }}** started leaning against a {{ target_name }} ({{ time_desc }})
+- **{{ source_entity.name }}** started leaning against a {{ target_name }} ({{ time_desc }})
 {% else %}
-- **{{ decnpc(event.source_uuid).name }}** interacted with {{ target_name }} ({{ time_desc }})
+- **{{ source_entity.name }}** interacted with {{ target_name }} ({{ time_desc }})
 {% endif %}
 
 {% else if event.type == "spell_cast" %}
-- **{{ decnpc(event.source_uuid).name }}** cast the {{ event.data }} spell ({{ time_desc }})
+- **{{ source_entity.name }}** cast the {{ event.data }} spell ({{ time_desc }})
 
 {% else if event.type == "death" %}
-- **{{ decnpc(event.source_uuid).name }}** died ({{ time_desc }})
+- **{{ source_entity.name }}** died ({{ time_desc }})
 
 {% else if event.type == "combat" %}
 {% if event.data.new_state == "Combat" %}
-- **{{ decnpc(event.source_uuid).name }}** entered combat{% if event.target_uuid != 0 %} with **{{ decnpc(event.target_uuid).name }}**{% endif %} ({{ time_desc }})
+- **{{ source_entity.name }}** entered combat{% if target_entity %} with **{{ target_entity.name }}**{% endif %} ({{ time_desc }})
 {% else if event.data.new_state == "Search" %}
-- **{{ decnpc(event.source_uuid).name }}** is searching for enemies ({{ time_desc }})
+- **{{ source_entity.name }}** is searching for enemies ({{ time_desc }})
 {% else if event.data.new_state == "None" %}
-- **{{ decnpc(event.source_uuid).name }}** stopped fighting ({{ time_desc }})
+- **{{ source_entity.name }}** stopped fighting ({{ time_desc }})
 {% else %}
-- **{{ decnpc(event.source_uuid).name }}** changed combat state to {{ event.data.new_state }} ({{ time_desc }})
+- **{{ source_entity.name }}** changed combat state to {{ event.data.new_state }} ({{ time_desc }})
 {% endif %}
 
 {% else if event.type == "equip" %}
 {% if event.data.action == "equipped" %}
-- **{{ decnpc(event.source_uuid).name }}** equipped {{ event.data.item }} ({{ time_desc }})
+- **{{ source_entity.name }}** equipped {{ event.data.item }} ({{ time_desc }})
 {% else if event.data.action == "unequipped" %}
-- **{{ decnpc(event.source_uuid).name }}** unequipped {{ event.data.item }} ({{ time_desc }})
+- **{{ source_entity.name }}** unequipped {{ event.data.item }} ({{ time_desc }})
 {% else %}
-- **{{ decnpc(event.source_uuid).name }}** changed equipment ({{ time_desc }})
+- **{{ source_entity.name }}** changed equipment ({{ time_desc }})
 {% endif %}
 
 {% else if event.type == "hit" %}
@@ -123,66 +134,64 @@
 {% endif %}
 
 {% if "BashAttack" in event.data.flags %}
-- **{{ decnpc(event.source_uuid).name }}** bashed **{{ decnpc(event.target_uuid).name }}**{{ weapon_desc }} ({{ time_desc }})
+- **{{ source_entity.name }}** bashed **{{ target_entity.name }}**{{ weapon_desc }} ({{ time_desc }})
 {% else if "PowerAttack" in event.data.flags %}
-- **{{ decnpc(event.source_uuid).name }}** delivered a powerful blow to **{{ decnpc(event.target_uuid).name }}**{{ weapon_desc }} ({{ time_desc }})
+- **{{ source_entity.name }}** delivered a powerful blow to **{{ target_entity.name }}**{{ weapon_desc }} ({{ time_desc }})
 {% else if "SneakAttack" in event.data.flags %}
-- **{{ decnpc(event.source_uuid).name }}** struck **{{ decnpc(event.target_uuid).name }}** with a sneak attack{{ weapon_desc }} ({{ time_desc }})
+- **{{ source_entity.name }}** struck **{{ target_entity.name }}** with a sneak attack{{ weapon_desc }} ({{ time_desc }})
 {% else if "Blocked" in event.data.flags %}
-- **{{ decnpc(event.source_uuid).name }}** hit **{{ decnpc(event.target_uuid).name }}**{{ weapon_desc }}, but the attack was blocked ({{ time_desc }})
+- **{{ source_entity.name }}** hit **{{ target_entity.name }}**{{ weapon_desc }}, but the attack was blocked ({{ time_desc }})
 {% else %}
-- **{{ decnpc(event.source_uuid).name }}** hit **{{ decnpc(event.target_uuid).name }}**{{ weapon_desc }} ({{ time_desc }})
+- **{{ source_entity.name }}** hit **{{ target_entity.name }}**{{ weapon_desc }} ({{ time_desc }})
 {% endif %}
 
 {% else if event.type == "enter_bleedout" %}
-- **{{ decnpc(event.source_uuid).name }}** was injured and collapsed to the ground! ({{ time_desc }})
+- **{{ source_entity.name }}** was injured and collapsed to the ground! ({{ time_desc }})
 
 {% else if event.type == "container_changed" %}
 {# Handle different container change scenarios based on from_container and to_container #}
-{% set item_text = event.data.item %}
-{% if event.data.item_count > 1 %}
 {% set item_text = event.data.item_count + " " + event.data.item %}
-{% endif %}
 
 {% if event.data.from_container != "World" and event.data.to_container != "World" %}
 {# Transfer between two non-world containers (likely actor to actor) #}
-{% if event.target_uuid != 0 %}
-- **{{ decnpc(event.source_uuid).name }}** gave {{ item_text }} to **{{ decnpc(event.target_uuid).name }}** ({{ time_desc }})
+{% if target_entity %}
+- **{{ source_entity.name }}** gave {{ item_text }} to **{{ target_entity.name }}** ({{ time_desc }})
 {% else %}
-- **{{ decnpc(event.source_uuid).name }}** moved {{ item_text }} from {{ event.data.from_container }} to {{ event.data.to_container }} ({{ time_desc }})
+- **{{ source_entity.name }}** moved {{ item_text }} from {{ event.data.from_container }} to {{ event.data.to_container }} ({{ time_desc }})
 {% endif %}
 {% else if event.data.from_container == "World" and event.data.to_container != "World" %}
 {# Picking up from world or taking from container #}
-- **{{ decnpc(event.source_uuid).name }}** picked up {{ item_text }}{% if event.data.to_container != decnpc(event.source_uuid).name %} and put it in {{ event.data.to_container }}{% endif %} ({{ time_desc }})
+- **{{ source_entity.name }}** picked up {{ item_text }}{% if event.data.to_container != source_entity.name %} and put it in {{ event.data.to_container }}{% endif %} ({{ time_desc }})
 {% else if event.data.from_container != "World" and event.data.to_container == "World" %}
 {# Dropping to world or removing from container #}
-- **{{ decnpc(event.source_uuid).name }}** dropped {{ item_text }}{% if event.data.from_container != decnpc(event.source_uuid).name %} from {{ event.data.from_container }}{% endif %} ({{ time_desc }})
+- **{{ source_entity.name }}** dropped {{ item_text }}{% if event.data.from_container != source_entity.name %} from {{ event.data.from_container }}{% endif %} ({{ time_desc }})
 {% else %}
 {# Generic container interaction #}
-- **{{ decnpc(event.source_uuid).name }}** moved {{ item_text }} ({{ time_desc }})
+- **{{ source_entity.name }}** moved {{ item_text }} ({{ time_desc }})
 {% endif %}
 
 {% else if event.type == "book_read" %}
-- **{{ decnpc(event.source_uuid).name }}** read the book "{{ event.data.book_title }}" ({{ time_desc }})
+- **{{ source_entity.name }}** read the book "{{ event.data.book_title }}" ({{ time_desc }})
 
 {% else if event.type == "sleep_start" %}
-- **{{ decnpc(event.source_uuid).name }}** went to sleep ({{ time_desc }})
+- **{{ source_entity.name }}** went to sleep ({{ time_desc }})
 
 {% else if event.type == "sleep_stop" %}
 {% if event.data.interrupted %}
-- **{{ decnpc(event.source_uuid).name }}** woke up suddenly (sleep was interrupted) ({{ time_desc }})
+- **{{ source_entity.name }}** woke up suddenly (sleep was interrupted) ({{ time_desc }})
 {% else %}
-- **{{ decnpc(event.source_uuid).name }}** woke up naturally after resting ({{ time_desc }})
+- **{{ source_entity.name }}** woke up naturally after resting ({{ time_desc }})
 {% endif %}
 
 {% else if event.type == "package_apply" and event.data == "FollowPlayer" %}
-- **{{ decnpc(event.source_uuid).name }}** began following {{ player.name }} ({{ time_desc }})
+- **{{ source_entity.name }}** began following {{ player.name }} ({{ time_desc }})
 {% else if event.type == "package_remove" and event.data == "FollowPlayer" %}
-- **{{ decnpc(event.source_uuid).name }}** stopped following {{ player.name }} ({{ time_desc }})
+- **{{ source_entity.name }}** stopped following {{ player.name }} ({{ time_desc }})
 
 {% else if event.type != "package_apply" and event.type != "package_remove" %}
-- **{{ event.type }}** event involving **{{ decnpc(event.source_uuid).name }}**{% if event.target_uuid != 0 %} and **{{ decnpc(event.target_uuid).name }}**{% endif %} ({{ time_desc }})
+- **{{ event.type }}** event involving **{{ source_entity.name }}**{% if target_entity %} and **{{ target_entity.name }}**{% endif %} ({{ time_desc }})
 {% endif %}
 
+{% endif %} {# source_entity check #}
 {% endfor %}
 {% endif %}
