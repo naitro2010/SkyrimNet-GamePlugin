@@ -13,7 +13,7 @@ Keyword Property keywordFollowTarget Auto
 
 Package Property packageDialoguePlayer Auto
 Package Property packageDialogueNPC Auto
-
+Package Property packageFollowPlayer Auto
 
 Idle Property IdleApplaud2 Auto
 Idle Property IdleApplaud3 Auto
@@ -48,8 +48,8 @@ Function Maintenance(skynet_MainController _skynet)
 EndFunction
 
 Function RegisterActions()
-    if !RegisterOpenTradeAction()
-        skynet.Fatal("OpenTrade failed to register.")
+    if !RegisterBasicActions()
+        skynet.Fatal("Basic actions failed to register.")
         return
     endif
 
@@ -76,6 +76,8 @@ Package Function GetPackageFromString(String asPackage)
         return packageDialoguePlayer
     elseif asPackage == "TalkToNPC"
         return packageDialogueNPC
+    elseif asPackage == "FollowPlayer"
+        return packageFollowPlayer
     endif
     return None
 EndFunction
@@ -132,32 +134,31 @@ Bool Function RegisterCompanionActions()
     return true
 EndFunction
 
-Bool Function RegisterOpenTradeAction()
-  string actionName = "OpenTrade"
-  string description = "Use ONLY if {{ player.name }} asks to trade and you agree to trade. Otherwise, do not use this action."
-  string eligibilityScriptName = "SkyrimNetInternal"
-  string eligibilityFunctionName = "OpenTrade_IsEligible"
-  string executionScriptName = "SkyrimNetInternal"
-  string executionFunctionName = "OpenTrade_Execute"
-  string triggeringEventTypesCsv = ""
-  string categoryStr = "PAPYRUS" 
-  int defaultPriority = 1
-  
-  string parameterSchemaJson = "{}"
+Bool Function RegisterBasicActions()
+    SkyrimNetApi.RegisterAction("OpenTrade", "Use ONLY if {{ player.name }} asks to trade and you agree to trade. Otherwise, do not use this action.", \
+                                "SkyrimNetInternal", "OpenTrade_IsEligible", \
+                                "SkyrimNetInternal", "OpenTrade_Execute", \
+                                "", "PAPYRUS", \
+                                1, "")
 
-  int registrationResult = SkyrimNetApi.RegisterAction(actionName, description, \
-                                eligibilityScriptName, eligibilityFunctionName, \
-                                executionScriptName, executionFunctionName, \
-                                triggeringEventTypesCsv, categoryStr, \
-                                defaultPriority, parameterSchemaJson)
-  
-  if registrationResult == 0
-    skynet.Info("Papyrus action '" + actionName + "' registered successfully.")
+    SkyrimNetApi.RegisterAction("StartFollow", "Start following {{ player.name }} temporarily.", \
+                                "SkyrimNetInternal", "StartFollow_IsEligible", \
+                                "SkyrimNetInternal", "StartFollow_Execute", \
+                                "", "PAPYRUS", \
+                                1, "")
+
+    SkyrimNetApi.RegisterAction("StopFollow", "Stop following {{ player.name }} around.", \
+                                "SkyrimNetInternal", "StopFollow_IsEligible", \
+                                "SkyrimNetInternal", "StopFollow_Execute", \
+                                "", "PAPYRUS", \
+                                1, "")
+
+    SkyrimNetApi.RegisterAction("PauseFollow", "Wait for {{ player.name }} at the current location.", \
+                                "SkyrimNetInternal", "PauseFollow_IsEligible", \
+                                "SkyrimNetInternal", "PauseFollow_Execute", \
+                                "", "PAPYRUS", \
+                                1, "")
     return true
-  else
-    skynet.Error("Failed to register Papyrus action '" + actionName + "'. Error code: " + registrationResult)
-    return false
-  endif
 EndFunction
 
 ; we reoute stuff here if it has properties we can use so we're not in the global anymore
@@ -237,4 +238,62 @@ Function PlayGenericAnimation(Actor akActor, String anim)
     utility.wait(2)
     ; debug.notification("Playing animation: " + anim + " for " + akActor.GetDisplayName())
     akActor.PlayIdle(_idle)
+EndFunction
+
+Bool Function StartFollow_IsEligible(Actor akActor)
+    if akActor.GetCurrentPackage() == packageFollowPlayer && akActor.GetAV("WaitingForPlayer") == 0
+        return false
+    endif
+
+    return true
+EndFunction
+
+Bool Function StopFollow_IsEligible(Actor akActor)
+    if akActor.IsInFaction(factionPlayerFollowers)
+        return false
+    endif
+
+    if !akActor.GetCurrentPackage() == packageFollowPlayer
+        return false
+    endif
+
+    return true
+EndFunction
+
+Bool Function PauseFollow_IsEligible(Actor akActor)
+    if !akActor.GetCurrentPackage() == packageFollowPlayer || akActor.IsInFaction(factionPlayerFollowers)
+        return false
+    endif
+
+    if akActor.GetAV("WaitingForPlayer") > 0
+        return false
+    endif
+
+    return true
+EndFunction
+
+Function StartFollow_Execute(Actor akActor)
+    debug.notification(akActor.GetDisplayName() + " is now following you.")
+
+    akActor.SetAV("WaitingForPlayer", 0)
+
+    SkyrimNetApi.RegisterPackage(akActor, "FollowPlayer", 10, 0, False)
+
+    akActor.EvaluatePackage()
+EndFunction
+
+Function StopFollow_Execute(Actor akActor)    
+    debug.notification(akActor.GetDisplayName() + " is no longer following you.")
+
+    SkyrimNetApi.UnregisterPackage(akActor, "FollowPlayer")
+
+    akActor.EvaluatePackage()
+EndFunction
+
+Function PauseFollow_Execute(Actor akActor)
+    debug.notification(akActor.GetDisplayName() + " is waiting for you here.")
+
+    akActor.SetAV("WaitingForPlayer", 1)
+
+    akActor.EvaluatePackage()
 EndFunction
