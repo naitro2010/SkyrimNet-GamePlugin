@@ -43,7 +43,7 @@ No one else is nearby.
 {% else if remaining_seconds > 5 %}
 {% set time_desc = "happened moments ago" %}
 {% else %}
-{% set time_desc = "is fading from memory" %}
+{% set time_desc = "happened a while ago" %}
 {% endif %}
 
 {# Format event based on type #}
@@ -97,6 +97,83 @@ No one else is nearby.
 {% else %}
 - **{{ decnpc(event.source_uuid).name }}** interacted with {{ target_name }} ({{ time_desc }})
 {% endif %}
+
+{% else if event.type == "spell_cast" %}
+- **{{ decnpc(event.source_uuid).name }}** cast the {{ event.data }} spell ({{ time_desc }})
+
+{% else if event.type == "death" %}
+- **{{ decnpc(event.source_uuid).name }}** died ({{ time_desc }})
+
+{% else if event.type == "combat" %}
+{% if event.data.new_state == "Combat" %}
+- **{{ decnpc(event.source_uuid).name }}** entered combat{% if event.target_uuid != 0 %} with **{{ decnpc(event.target_uuid).name }}**{% endif %} ({{ time_desc }})
+{% else if event.data.new_state == "Search" %}
+- **{{ decnpc(event.source_uuid).name }}** is searching for enemies ({{ time_desc }})
+{% else if event.data.new_state == "None" %}
+- **{{ decnpc(event.source_uuid).name }}** stopped fighting ({{ time_desc }})
+{% else %}
+- **{{ decnpc(event.source_uuid).name }}** changed combat state to {{ event.data.new_state }} ({{ time_desc }})
+{% endif %}
+
+{% else if event.type == "equip" %}
+{% if event.data.action == "equipped" %}
+- **{{ decnpc(event.source_uuid).name }}** equipped {{ event.data.item }} ({{ time_desc }})
+{% else if event.data.action == "unequipped" %}
+- **{{ decnpc(event.source_uuid).name }}** unequipped {{ event.data.item }} ({{ time_desc }})
+{% else %}
+- **{{ decnpc(event.source_uuid).name }}** changed equipment ({{ time_desc }})
+{% endif %}
+
+{% else if event.type == "hit" %}
+{% if contains(event.data.flags, "BashAttack") %}
+- **{{ decnpc(event.source_uuid).name }}** bashed **{{ decnpc(event.target_uuid).name }}** ({{ time_desc }})
+{% else if contains(event.data.flags, "PowerAttack") %}
+- **{{ decnpc(event.source_uuid).name }}** delivered a powerful blow to **{{ decnpc(event.target_uuid).name }}** ({{ time_desc }})
+{% else if contains(event.data.flags, "SneakAttack") %}
+- **{{ decnpc(event.source_uuid).name }}** struck **{{ decnpc(event.target_uuid).name }}** with a sneak attack ({{ time_desc }})
+{% else if contains(event.data.flags, "Blocked") %}
+- **{{ decnpc(event.source_uuid).name }}** hit **{{ decnpc(event.target_uuid).name }}**, but the attack was blocked ({{ time_desc }})
+{% else %}
+- **{{ decnpc(event.source_uuid).name }}** hit **{{ decnpc(event.target_uuid).name }}** ({{ time_desc }})
+{% endif %}
+
+{% else if event.type == "enter_bleedout" %}
+- **{{ decnpc(event.source_uuid).name }}** collapsed and entered a critical state ({{ time_desc }})
+
+{% else if event.type == "container_changed" %}
+{% if event.data.from_container == "World" and event.data.to_container != "World" %}
+{# Picking up from world #}
+- **{{ decnpc(event.source_uuid).name }}** picked up {{ event.data.item_count }} {{ event.data.item }} ({{ time_desc }})
+{% else if event.data.from_container != "World" and event.data.to_container == "World" %}
+{# Dropping to world #}
+- **{{ decnpc(event.source_uuid).name }}** dropped {{ event.data.item_count }} {{ event.data.item }} ({{ time_desc }})
+{% else if event.target_uuid != 0 %}
+{# Actor to actor transfer #}
+- **{{ decnpc(event.source_uuid).name }}** gave {{ event.data.item_count }} {{ event.data.item }} to **{{ decnpc(event.target_uuid).name }}** ({{ time_desc }})
+{% else if event.data.from_container == "World" %}
+{# From world to container #}
+- **{{ decnpc(event.source_uuid).name }}** put {{ event.data.item_count }} {{ event.data.item }} into {{ event.data.to_container }} ({{ time_desc }})
+{% else if event.data.to_container == "World" %}
+{# From container to world #}
+- **{{ decnpc(event.source_uuid).name }}** took {{ event.data.item_count }} {{ event.data.item }} from {{ event.data.from_container }} ({{ time_desc }})
+{% else %}
+{# Container to container or other #}
+- **{{ decnpc(event.source_uuid).name }}** moved {{ event.data.item_count }} {{ event.data.item }} from {{ event.data.from_container }} to {{ event.data.to_container }} ({{ time_desc }})
+{% endif %}
+
+{% else if event.type == "book_read" %}
+- **{{ decnpc(event.source_uuid).name }}** read the book "{{ event.data.book_title }}" ({{ time_desc }})
+
+{% else if event.type == "sleep_start" %}
+- **{{ decnpc(event.source_uuid).name }}** went to sleep ({{ time_desc }})
+
+{% else if event.type == "sleep_stop" %}
+{% if event.data.interrupted %}
+- **{{ decnpc(event.source_uuid).name }}** woke up suddenly (sleep was interrupted) ({{ time_desc }})
+{% else %}
+- **{{ decnpc(event.source_uuid).name }}** woke up naturally after resting ({{ time_desc }})
+{% endif %}
+
 {% else %}
 - **{{ event.type }}** event involving **{{ decnpc(event.source_uuid).name }}**{% if event.target_uuid != 0 %} and **{{ decnpc(event.target_uuid).name }}**{% endif %} ({{ time_desc }})
 {% endif %}
