@@ -277,7 +277,7 @@ Function StartFollow_Execute(Actor akActor)
 
     akActor.SetAV("WaitingForPlayer", 0)
 
-    SkyrimNetApi.RegisterPackage(akActor, "FollowPlayer", 10, 0, False)
+    SkyrimNetApi.RegisterPackage(akActor, "FollowPlayer", 10, 0, true)
 
     akActor.EvaluatePackage()
 EndFunction
