@@ -42,6 +42,8 @@
 - {{ npc.name }} is working at a {{ npc.furniture }} crafting items
 {% else if  "chair" in furniture_lower or "stool" in furniture_lower or "bench" in furniture_lower or "seat" in furniture_lower %}
 - {{ npc.name }} is sitting on a {{ npc.furniture }}
+{% else if "chopping block" in furniture_lower %}
+- {{ npc.name }} is chopping wood at the {{ npc.furniture }}
 {% else if "counter" in furniture_lower %}
 - {{ npc.name }} is leaning against a {{ npc.furniture }}
 {% else %}

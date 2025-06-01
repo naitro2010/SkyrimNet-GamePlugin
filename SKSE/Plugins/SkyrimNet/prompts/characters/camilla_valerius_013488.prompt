@@ -48,11 +48,11 @@
 * Camilla has heard rumors about a dragon attack at Helgen. Riverwood residents are on edge, discussing whether they might be next and if Whiterun will send guards to protect them. {# This is permanent knowledge as it fundamentally changes the world state and local concerns #}
 {% endif %}
 
-{% if get_quest_stage("MQ102", active_only) >= 10 %}
+{% if get_quest_stage("MQ102", true) >= 10 %}
 * Camilla notices increased activity in Riverwood after Gerdur took in a refugee from Helgen who's heading to Whiterun to request protection for the town. Locals are anxiously discussing the dragon threat.
 {% endif %}
 
-{% if get_quest_stage("MQ103", active_only) >= 10 %}
+{% if get_quest_stage("MQ103", true) >= 10 %}
 * Camilla observes travelers passing through Riverwood on their way to Bleak Falls Barrow, reportedly on a mission for the Jarl of Whiterun. She's curious about their business there, especially given the bandits and the stolen claw.
 {% endif %}
 

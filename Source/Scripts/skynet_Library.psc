@@ -135,7 +135,7 @@ Bool Function RegisterCompanionActions()
 EndFunction
 
 Bool Function RegisterBasicActions()
-    SkyrimNetApi.RegisterAction("OpenTrade", "Use ONLY if {{ player.name }} asks to trade and you agree to trade. Otherwise, do not use this action.", \
+    SkyrimNetApi.RegisterAction("OpenTrade", "Use ONLY if {{ player.name }} asks to trade and you agree to trade. Otherwise, you MUST NOT use this action.", \
                                 "SkyrimNetInternal", "OpenTrade_IsEligible", \
                                 "SkyrimNetInternal", "OpenTrade_Execute", \
                                 "", "PAPYRUS", \
@@ -147,13 +147,13 @@ Bool Function RegisterBasicActions()
                                 "", "PAPYRUS", \
                                 1, "")
 
-    SkyrimNetApi.RegisterAction("StopFollow", "Stop following {{ player.name }} around.", \
+    SkyrimNetApi.RegisterAction("StopFollow", "Stop following {{ player.name }} around. Use this when you are done following them, or want to go home.", \
                                 "SkyrimNetInternal", "StopFollow_IsEligible", \
                                 "SkyrimNetInternal", "StopFollow_Execute", \
                                 "", "PAPYRUS", \
                                 1, "")
 
-    SkyrimNetApi.RegisterAction("PauseFollow", "Wait for {{ player.name }} at the current location.", \
+    SkyrimNetApi.RegisterAction("WaitHere", "Wait for {{ player.name }} at the current location.", \
                                 "SkyrimNetInternal", "PauseFollow_IsEligible", \
                                 "SkyrimNetInternal", "PauseFollow_Execute", \
                                 "", "PAPYRUS", \

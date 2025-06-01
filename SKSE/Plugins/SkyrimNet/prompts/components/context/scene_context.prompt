@@ -6,7 +6,11 @@
 {% block nearbyNpcs %}
 {% if length(nearby_npcs) > 0 %}
 {% for npc in nearby_npcs %}
+{% if decnpc(npc.UUID).isDead %}
+{{ npc.id }}. [DEAD] The dead corpse of {{ decnpc(npc.UUID).name }}: {{ render_character_profile("short_inline", npc.UUID) }} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ units_to_meters(npc.distance) }} meters away)
+{% else %}
 {{ npc.id }}. {{ decnpc(npc.UUID).name }}: {{ render_character_profile("short_inline", npc.UUID) }} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ units_to_meters(npc.distance) }} meters away)
+{% endif %}
 {% endfor %}
 {% else %}
 No one else is nearby.
@@ -14,10 +18,8 @@ No one else is nearby.
 {% endblock %}
 
 {% block situationSummary %}
-- **Location**: {{ location }}
-{% if responseTarget %}
-- **Speaking to**: {% if responseTarget.type == "player" %}{{ decnpc(responseTarget.UUID).name }}{% else if responseTarget.type == "npc" %}{{ decnpc(responseTarget.UUID).name }}{% else %}Everyone in the area{% endif %}
-{% endif %}
+{{ "## Current Location" }}
+The scene is taking place in **{{ location }}**
 {% endblock %}
 
 {% block currentLocation %}

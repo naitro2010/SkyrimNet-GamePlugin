@@ -30,7 +30,7 @@ Function Maintenance()
   libs.Maintenance(self as skynet_MainController)
 
   Info("SkyrimNet version " + versionCurrent + " ready.")
-  Debug.Notification("SkyrimNet version " + versionCurrent + " ready.")
+  ; Debug.Notification("SkyrimNet version " + versionCurrent + " ready.")
 EndFunction
 
 Function RunUpdate()

@@ -64,6 +64,11 @@
 - **{{ decnpc(event.source_uuid).name }}** opened {{ target_name }} ({{ time_desc }})
 {% else if  "lever" in target_lower or "switch" in target_lower or "button" in target_lower %}
 - **{{ decnpc(event.source_uuid).name }}** pulled {{ target_name }} ({{ time_desc }})
+{% else if  "chopping block" in target_lower %}
+- **{{ decnpc(event.source_uuid).name }}** started chopping wood at the {{ target_name }} ({{ time_desc }})
+{% else if  "passage" in target_lower %}
+- **{{ decnpc(event.source_uuid).name }}** entered into the {{ target_name }} ({{ time_desc }})
+{# Custom mappings #}
 {% else if "counter" in target_lower %}
 - **{{ decnpc(event.source_uuid).name }}** started leaning against a {{ target_name }} ({{ time_desc }})
 {% else %}
@@ -97,20 +102,40 @@
 {% endif %}
 
 {% else if event.type == "hit" %}
+{# Get weapon and projectile names if available #}
+{% set weapon_name = "" %}
+{% set projectile_name = "" %}
+{% if event.data.weapon_id and event.data.weapon_id != 0 %}
+{% set weapon_name = get_form_name(event.data.weapon_id) %}
+{% endif %}
+{% if event.data.projectile_id and event.data.projectile_id != 0 %}
+{% set projectile_name = get_form_name(event.data.projectile_id) %}
+{% endif %}
+
+{# Build the weapon/projectile description #}
+{% set weapon_desc = "" %}
+{% if weapon_name != "" and projectile_name != "" %}
+{% set weapon_desc = " with " + weapon_name + " (fired " + projectile_name + ")" %}
+{% else if weapon_name != "" %}
+{% set weapon_desc = " with " + weapon_name %}
+{% else if projectile_name != "" %}
+{% set weapon_desc = " using " + projectile_name %}
+{% endif %}
+
 {% if "BashAttack" in event.data.flags %}
-- **{{ decnpc(event.source_uuid).name }}** bashed **{{ decnpc(event.target_uuid).name }}** ({{ time_desc }})
+- **{{ decnpc(event.source_uuid).name }}** bashed **{{ decnpc(event.target_uuid).name }}**{{ weapon_desc }} ({{ time_desc }})
 {% else if "PowerAttack" in event.data.flags %}
-- **{{ decnpc(event.source_uuid).name }}** delivered a powerful blow to **{{ decnpc(event.target_uuid).name }}** ({{ time_desc }})
+- **{{ decnpc(event.source_uuid).name }}** delivered a powerful blow to **{{ decnpc(event.target_uuid).name }}**{{ weapon_desc }} ({{ time_desc }})
 {% else if "SneakAttack" in event.data.flags %}
-- **{{ decnpc(event.source_uuid).name }}** struck **{{ decnpc(event.target_uuid).name }}** with a sneak attack ({{ time_desc }})
+- **{{ decnpc(event.source_uuid).name }}** struck **{{ decnpc(event.target_uuid).name }}** with a sneak attack{{ weapon_desc }} ({{ time_desc }})
 {% else if "Blocked" in event.data.flags %}
-- **{{ decnpc(event.source_uuid).name }}** hit **{{ decnpc(event.target_uuid).name }}**, but the attack was blocked ({{ time_desc }})
+- **{{ decnpc(event.source_uuid).name }}** hit **{{ decnpc(event.target_uuid).name }}**{{ weapon_desc }}, but the attack was blocked ({{ time_desc }})
 {% else %}
-- **{{ decnpc(event.source_uuid).name }}** hit **{{ decnpc(event.target_uuid).name }}** ({{ time_desc }})
+- **{{ decnpc(event.source_uuid).name }}** hit **{{ decnpc(event.target_uuid).name }}**{{ weapon_desc }} ({{ time_desc }})
 {% endif %}
 
 {% else if event.type == "enter_bleedout" %}
-- **{{ decnpc(event.source_uuid).name }}** collapsed and entered a critical state ({{ time_desc }})
+- **{{ decnpc(event.source_uuid).name }}** was injured and collapsed to the ground! ({{ time_desc }})
 
 {% else if event.type == "container_changed" %}
 {# Handle different container change scenarios based on from_container and to_container #}
