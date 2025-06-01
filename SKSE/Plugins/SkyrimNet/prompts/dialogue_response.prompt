@@ -33,8 +33,8 @@ Respond with an in-character line{% if is_narration_enabled() %} or necessary ac
 - Is clearly directed at {% if responseTarget.type == "player" %}the player{% else if responseTarget.type == "npc" %}{{ decnpc(responseTarget.UUID).name }}{% else %}everyone in the area{% endif %}
 
 {{ "## Response Format" }}
-- Respond with only the dialogue line{% if is_narration_enabled() %} or brief narrative action{% endif %}, nothing else.
-- Do not repeat or paraphrase the previous character’s line. Respond only as {{ decnpc(npc.UUID).name }}, in your own words.
+- Respond with only a single dialogue line{% if is_narration_enabled() %} or brief narrative action{% endif %} from {{ decnpc(npc.UUID).name }}, nothing else.
+- Do not repeat or paraphrase the previous character’s line. Respond only as {{ decnpc(npc.UUID).name }}, in your own words that reacts to the most recent dialogue and events.
 
 [ end system ]
 
