@@ -60,7 +60,7 @@ No one else is nearby.
 {# Determine appropriate past-tense action based on furniture/object type #}
 {% if "bed" in target_lower or "bedroll" in target_lower or "cot" in target_lower or "hay pile" in target_lower or "fur" in target_lower or "animal hide" in target_lower or "pelts" in target_lower or "sleeping bag" in target_lower %}
 - **{{ decnpc(event.source_uuid).name }}** lay down in {{ target_name }} ({{ time_desc }})
-{% else if  "table" in target_lower or "desk" in target_lower or "counter" in target_lower %}
+{% else if  "table" in target_lower or "desk" in target_lower %}
 - **{{ decnpc(event.source_uuid).name }}** sat down at {{ target_name }} ({{ time_desc }})
 {% else if  "alchemy" in target_lower or "mortar" in target_lower or "pestle" in target_lower %}
 - **{{ decnpc(event.source_uuid).name }}** began using {{ target_name }} to mix potions ({{ time_desc }})
@@ -94,6 +94,8 @@ No one else is nearby.
 - **{{ decnpc(event.source_uuid).name }}** opened {{ target_name }} ({{ time_desc }})
 {% else if  "lever" in target_lower or "switch" in target_lower or "button" in target_lower %}
 - **{{ decnpc(event.source_uuid).name }}** pulled {{ target_name }} ({{ time_desc }})
+{% else if "counter" in target_lower %}
+- **{{ decnpc(event.source_uuid).name }}** started leaning against a {{ target_name }} ({{ time_desc }})
 {% else %}
 - **{{ decnpc(event.source_uuid).name }}** interacted with {{ target_name }} ({{ time_desc }})
 {% endif %}
@@ -125,13 +127,13 @@ No one else is nearby.
 {% endif %}
 
 {% else if event.type == "hit" %}
-{% if contains(event.data.flags, "BashAttack") %}
+{% if "BashAttack" in event.data.flags %}
 - **{{ decnpc(event.source_uuid).name }}** bashed **{{ decnpc(event.target_uuid).name }}** ({{ time_desc }})
-{% else if contains(event.data.flags, "PowerAttack") %}
+{% else if "PowerAttack" in event.data.flags %}
 - **{{ decnpc(event.source_uuid).name }}** delivered a powerful blow to **{{ decnpc(event.target_uuid).name }}** ({{ time_desc }})
-{% else if contains(event.data.flags, "SneakAttack") %}
+{% else if "SneakAttack" in event.data.flags %}
 - **{{ decnpc(event.source_uuid).name }}** struck **{{ decnpc(event.target_uuid).name }}** with a sneak attack ({{ time_desc }})
-{% else if contains(event.data.flags, "Blocked") %}
+{% else if "Blocked" in event.data.flags %}
 - **{{ decnpc(event.source_uuid).name }}** hit **{{ decnpc(event.target_uuid).name }}**, but the attack was blocked ({{ time_desc }})
 {% else %}
 - **{{ decnpc(event.source_uuid).name }}** hit **{{ decnpc(event.target_uuid).name }}** ({{ time_desc }})
@@ -141,24 +143,20 @@ No one else is nearby.
 - **{{ decnpc(event.source_uuid).name }}** collapsed and entered a critical state ({{ time_desc }})
 
 {% else if event.type == "container_changed" %}
-{% if event.data.from_container == "World" and event.data.to_container != "World" %}
-{# Picking up from world #}
-- **{{ decnpc(event.source_uuid).name }}** picked up {{ event.data.item_count }} {{ event.data.item }} ({{ time_desc }})
-{% else if event.data.from_container != "World" and event.data.to_container == "World" %}
-{# Dropping to world #}
-- **{{ decnpc(event.source_uuid).name }}** dropped {{ event.data.item_count }} {{ event.data.item }} ({{ time_desc }})
-{% else if event.target_uuid != 0 %}
-{# Actor to actor transfer #}
-- **{{ decnpc(event.source_uuid).name }}** gave {{ event.data.item_count }} {{ event.data.item }} to **{{ decnpc(event.target_uuid).name }}** ({{ time_desc }})
-{% else if event.data.from_container == "World" %}
-{# From world to container #}
-- **{{ decnpc(event.source_uuid).name }}** put {{ event.data.item_count }} {{ event.data.item }} into {{ event.data.to_container }} ({{ time_desc }})
-{% else if event.data.to_container == "World" %}
-{# From container to world #}
-- **{{ decnpc(event.source_uuid).name }}** took {{ event.data.item_count }} {{ event.data.item }} from {{ event.data.from_container }} ({{ time_desc }})
+{% if event.data.action == "added" %}
+{% if event.target_uuid != 0 %}
+- **{{ decnpc(event.source_uuid).name }}** gave {{ event.data.item_name }} to **{{ decnpc(event.target_uuid).name }}** ({{ time_desc }})
 {% else %}
-{# Container to container or other #}
-- **{{ decnpc(event.source_uuid).name }}** moved {{ event.data.item_count }} {{ event.data.item }} from {{ event.data.from_container }} to {{ event.data.to_container }} ({{ time_desc }})
+- **{{ decnpc(event.source_uuid).name }}** put {{ event.data.item_name }} into {{ event.data.container_name }} ({{ time_desc }})
+{% endif %}
+{% else if event.data.action == "removed" %}
+{% if event.target_uuid != 0 %}
+- **{{ decnpc(event.target_uuid).name }}** received {{ event.data.item_name }} from **{{ decnpc(event.source_uuid).name }}** ({{ time_desc }})
+{% else %}
+- **{{ decnpc(event.source_uuid).name }}** took {{ event.data.item_name }} from {{ event.data.container_name }} ({{ time_desc }})
+{% endif %}
+{% else %}
+- **{{ decnpc(event.source_uuid).name }}** interacted with container {{ event.data.container_name }} ({{ time_desc }})
 {% endif %}
 
 {% else if event.type == "book_read" %}
@@ -191,7 +189,7 @@ No one else is nearby.
 {# Determine appropriate action based on furniture type #}
 {% if "bed" in furniture_lower or "bedroll" in furniture_lower or "cot" in furniture_lower or "hay pile" in furniture_lower or "fur" in furniture_lower or "animal hide" in furniture_lower or "pelts" in furniture_lower or "sleeping bag" in furniture_lower %}
 - {{ npc.name }} is lying down in a {{ npc.furniture }}
-{% else if  "table" in furniture_lower or "desk" in furniture_lower or "counter" in furniture_lower %}
+{% else if  "table" in furniture_lower or "desk" in furniture_lower %}
 - {{ npc.name }} is sitting at a {{ npc.furniture }}
 {% else if  "alchemy" in furniture_lower or "mortar" in furniture_lower or "pestle" in furniture_lower %}
 - {{ npc.name }} is using a {{ npc.furniture }} to mix potions
@@ -221,6 +219,8 @@ No one else is nearby.
 - {{ npc.name }} is working at a {{ npc.furniture }} crafting items
 {% else if  "chair" in furniture_lower or "stool" in furniture_lower or "bench" in furniture_lower or "seat" in furniture_lower %}
 - {{ npc.name }} is sitting on a {{ npc.furniture }}
+{% else if "counter" in furniture_lower %}
+- {{ npc.name }} is leaning against a {{ npc.furniture }}
 {% else %}
 - {{ npc.name }} is interacting with a {{ npc.furniture }}
 {% endif %}
