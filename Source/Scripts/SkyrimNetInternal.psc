@@ -108,10 +108,13 @@ bool Function Animation_IsEligible(Actor akActor, string contextJson, string par
         return false
     endif
 
-    ; the only alternative i could come up with to check if its a human would be to actually iterate through a whitelist of races and that sounds kind of annoying
-    ; non-playable human races will not be animated (that's pretty much only modded races i think)
     if !akActor.GetRace().IsPlayable()
         Debug.Trace("[SkyrimNetInternal] Animation_IsEligible: " + akActor.GetDisplayName() + " is not a human. Cannot animate.")
+        return false
+    endif
+
+    if akActor.GetSitState() > 0
+        Debug.Trace("[SkyrimNetInternal] Animation_IsEligible: " + akActor.GetDisplayName() + " is using furniture. Cannot animate.")
         return false
     endif
 
@@ -288,4 +291,87 @@ Function CompanionGiveTask(Actor akActor, string contextJson, string paramsJson)
     Debug.Trace("[SkyrimNetInternal] ParamsJSON: " + paramsJson)
 
     akActor.SetDoingFavor(true)
+EndFunction
+
+; Basic Follow
+
+bool Function StartFollow_IsEligible(Actor akActor, string contextJson, string paramsJson) global
+    Debug.Trace("[SkyrimNetInternal] StartFollow_IsEligible called for " + akActor.GetDisplayName())
+
+    skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
+    if !skynet
+        Debug.MessageBox("Fatal Erorr: StartFollow_IsEligible failed to retrieve controller.")
+        return false
+    endif
+
+    return skynet.libs.StartFollow_IsEligible(akActor)
+EndFunction
+
+Function StartFollow_Execute(Actor akActor, string contextJson, string paramsJson) global
+    Debug.Trace("[SkyrimNetInternal] StartFollow_Execute called for " + akActor.GetDisplayName())
+    Debug.Trace("[SkyrimNetInternal] ContextJSON: " + contextJson)
+    Debug.Trace("[SkyrimNetInternal] ParamsJSON: " + paramsJson)
+
+    skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
+    if !skynet
+        Debug.MessageBox("Fatal Erorr: StartFollow_Execute failed to retrieve controller.")
+        return
+    endif
+
+    Debug.Trace("[SkyrimNetInternal] StartFollow_Execute: Starting follow on " + akActor.GetDisplayName())
+    skynet.libs.StartFollow_Execute(akActor)
+EndFunction
+
+bool Function StopFollow_IsEligible(Actor akActor, string contextJson, string paramsJson) global
+    Debug.Trace("[SkyrimNetInternal] StopFollow_IsEligible called for " + akActor.GetDisplayName())
+
+    skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
+    if !skynet
+        Debug.MessageBox("Fatal Erorr: StopFollow_IsEligible failed to retrieve controller.")
+        return false
+    endif
+
+    return skynet.libs.StopFollow_IsEligible(akActor)
+EndFunction
+
+Function StopFollow_Execute(Actor akActor, string contextJson, string paramsJson) global
+    Debug.Trace("[SkyrimNetInternal] StopFollow_Execute called for " + akActor.GetDisplayName())
+    Debug.Trace("[SkyrimNetInternal] ContextJSON: " + contextJson)
+    Debug.Trace("[SkyrimNetInternal] ParamsJSON: " + paramsJson)
+
+    skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
+    if !skynet
+        Debug.MessageBox("Fatal Erorr: StopFollow_Execute failed to retrieve controller.")
+        return
+    endif
+
+    Debug.Trace("[SkyrimNetInternal] StopFollow_Execute: Starting follow on " + akActor.GetDisplayName())
+    skynet.libs.StopFollow_Execute(akActor)
+EndFunction
+
+bool Function PauseFollow_IsEligible(Actor akActor, string contextJson, string paramsJson) global
+    Debug.Trace("[SkyrimNetInternal] PauseFollow_IsEligible called for " + akActor.GetDisplayName())
+
+    skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
+    if !skynet
+        Debug.MessageBox("Fatal Erorr: PauseFollow_IsEligible failed to retrieve controller.")
+        return false
+    endif
+
+    return skynet.libs.PauseFollow_IsEligible(akActor)
+EndFunction
+
+Function PauseFollow_Execute(Actor akActor, string contextJson, string paramsJson) global
+    Debug.Trace("[SkyrimNetInternal] PauseFollow_Execute called for " + akActor.GetDisplayName())
+    Debug.Trace("[SkyrimNetInternal] ContextJSON: " + contextJson)
+    Debug.Trace("[SkyrimNetInternal] ParamsJSON: " + paramsJson)
+
+    skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
+    if !skynet
+        Debug.MessageBox("Fatal Erorr: PauseFollow_Execute failed to retrieve controller.")
+        return
+    endif
+
+    Debug.Trace("[SkyrimNetInternal] PauseFollow_Execute: Starting follow on " + akActor.GetDisplayName())
+    skynet.libs.PauseFollow_Execute(akActor)
 EndFunction
