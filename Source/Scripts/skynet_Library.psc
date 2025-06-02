@@ -88,6 +88,7 @@ Function ApplyPackageOverrideToActor(Actor akActor, String asString, Int priorit
         skynet.Error("Could not retrieve package for: " + asString)
         return
     endif
+    skynet.Info("Applying package override " + asString + " to " + akActor.GetDisplayName())
     ActorUtil.AddPackageOverride(akActor, _pck, priority, flags)
     akActor.EvaluatePackage()
 EndFunction
@@ -98,6 +99,7 @@ Function RemovePackageOverrideFromActor(Actor akActor, String asString)
         skynet.Error("Could not retrieve package for: " + asString)
         return
     endif
+    skynet.Info("Removing package override " + asString + " from " + akActor.GetDisplayName())
     ActorUtil.RemovePackageOverride(akActor, _pck)
     akActor.EvaluatePackage()
 EndFunction
