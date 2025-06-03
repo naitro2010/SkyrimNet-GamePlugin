@@ -9,6 +9,6 @@ Public facing repository housing prompts, scripts, and game files for SkyrimNet
 - PowerOfThree's Papyrus Extender [Nexus Link](https://www.nexusmods.com/skyrimspecialedition/mods/22854)
 
 
-## Requirements - CUDA Version
+## Additional Requirements for CUDA Version 
 - NVIDIA GPU with CUDA support
 - CUDA Toolkit 12 or later [NVidia CUDA Toolkit](https://developer.nvidia.com/cuda-downloads)
