@@ -52,7 +52,6 @@ Examples:
 - 0 = No clear dialogue target
 - Lydia>player = Lydia speaks directly to the player
 - Ulfric Stormcloak>Galmar Stone-Fist = Ulfric speaks to Galmar (player initiated this conversation)
-- Jarl Balgruuf>all = Jarl Balgruuf speaks to everyone in the area
 
 Important: Select the most realistic and natural interaction based on the player's words and game context.
 [ end user ]
