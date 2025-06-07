@@ -17,8 +17,12 @@ int function RegisterAction(String actionName, String description, \
                            String eligibilityScriptName, String eligibilityFunctionName, \
                            String executionScriptName, String executionFunctionName, \
                            String triggeringEventTypesCsv, String categoryStr, \
-                           int defaultPriority, String parameterSchemaJson) Global Native
-
+                           int defaultPriority, String parameterSchemaJson, String customCategory="") Global Native
+; Register a custom sub-category for PAPYRUS_CUSTOM actions
+int function RegisterSubCategory (String actionName, String description, \
+String eligibilityScriptName, String eligibilityFunctionName, \
+String triggeringEventTypesCsv, \
+int defaultPriority,String customParentCategory, String customCategory) Global Native
 ; -----------------------------------------------------------------------------
 ; --- Event Management ---
 ; -----------------------------------------------------------------------------
