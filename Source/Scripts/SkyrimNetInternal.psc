@@ -3,20 +3,20 @@ scriptname SkyrimNetInternal
 ; Functions from within this file are executed directly by the main DLL.
 ; Do not change or touch them, or you risk stability issues.
 
-Function ClearTimelineMessage() global
+Bool Function ClearTimelineMessage() global
     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
     if !skynet
         Debug.MessageBox("Fatal Erorr: AnimationGeneric failed to retrieve controller.")
-        return
+        return False
     endif
 
     Int _i = skynet.libs.msgClearHistory.Show()
     if _i == 0
-        ; Clear history
-        debug.notification("Clear History")
-    Else
         ; Keep history
-        debug.notification("Keep History")
+        return False
+    Else
+        ; Clear history
+        return True
     EndIf
 EndFunction
 
