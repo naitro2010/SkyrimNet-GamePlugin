@@ -1,6 +1,9 @@
 # Ignore configuration files directory
 SKSE/Plugins/SkyrimNet/config/
 
+# Ignore my personal profile
+SKSE/Plugins/SkyrimNet/prompts/characters/player_special.prompt
+
 # Ignore logs directory
 SKSE/Plugins/SkyrimNet/logs/
 
