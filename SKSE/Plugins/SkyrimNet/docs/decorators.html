@@ -1,0 +1,2714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyrimNet Decorator Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        .header p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.9;
+        }
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .summary-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .summary-card h3 {
+            margin: 0 0 0.5rem 0;
+            color: #667eea;
+        }
+        .summary-card .number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+        }
+        .category-section {
+            background: white;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .category-header {
+            background: #667eea;
+            color: white;
+            padding: 1rem 1.5rem;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        .category-content {
+            padding: 1.5rem;
+        }
+        .decorator-item {
+            border-left: 4px solid #667eea;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        .decorator-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .decorator-description {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        .decorator-signature {
+            background: #2d3748;
+            color: #f7fafc;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        .arguments {
+            margin-bottom: 1rem;
+        }
+        .argument {
+            background: white;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+            border-left: 3px solid #48bb78;
+        }
+        .argument-name {
+            font-weight: bold;
+            color: #2d3748;
+        }
+        .argument-type {
+            color: #667eea;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .examples {
+            background: #edf2f7;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+        .example-code {
+            background: #2d3748;
+            color: #f7fafc;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+            overflow-x: auto;
+        }
+        .variable-item {
+            border-left: 4px solid #48bb78;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            background: #f0fff4;
+            border-radius: 0 8px 8px 0;
+        }
+        .variable-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .variable-type {
+            color: #48bb78;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        .usage-info {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            color: #666;
+            border-top: 1px solid #e2e8f0;
+        }
+        .toc {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .toc h2 {
+            margin-top: 0;
+            color: #667eea;
+        }
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+        .toc li {
+            padding: 0.25rem 0;
+        }
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>SkyrimNet Decorator Documentation</h1>
+        <p>Complete reference for template decorators and variables</p>
+        <p>Generated on 2025-06-09 06:38:14Z</p>
+    </div>
+
+    <div class="summary">
+        <div class="summary-card">
+            <h3>Decorators</h3>
+            <div class="number">27</div>
+        </div>
+        <div class="summary-card">
+            <h3>Variables</h3>
+            <div class="number">0</div>
+        </div>
+        <div class="summary-card">
+            <h3>Categories</h3>
+            <div class="number">9</div>
+        </div>
+    </div>
+
+    <div class="toc">
+        <h2>Table of Contents</h2>
+        <ul>
+            
+            <li><a href="#category-Actor">Actor</a></li>
+            
+            <li><a href="#category-Faction">Faction</a></li>
+            
+            <li><a href="#category-Game System">Game System</a></li>
+            
+            <li><a href="#category-Mood">Mood</a></li>
+            
+            <li><a href="#category-Player">Player</a></li>
+            
+            <li><a href="#category-Quest">Quest</a></li>
+            
+            <li><a href="#category-Scene">Scene</a></li>
+            
+            <li><a href="#category-String Utilities">String Utilities</a></li>
+            
+            <li><a href="#category-World">World</a></li>
+            
+        </ul>
+    </div>
+
+    
+    <div class="category-section" id="category-Actor">
+        <h2 class="category-header">Actor</h2>
+        <div class="category-content">
+            
+            <!-- Check if we have any decorators for this category -->
+            
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            
+            
+            <h3>Functions</h3>
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">decnpc</div>
+                <div class="decorator-description">Decorates an actor with comprehensive information</div>
+                
+                
+                <div class="decorator-signature">
+                    decnpc(actorUUID: uint32_t) → object
+                </div>
+                
+
+                
+                <p>Takes an actor UUID and returns a JSON object containing all available information about the actor including name, race, level, factions, and many other attributes. This is the primary function for getting actor details in templates.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">actorUUID</span>
+                        <span class="argument-type">(uint32_t)</span>
+                        
+                        <br>The UUID of the actor to decorate
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> object
+                     - A comprehensive JSON object containing actor information including name, race, level, factions, pronouns, combat status, and more
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{{ decnpc(player.UUID) }}</div>
+                    
+                    <div class="example-code">{{ decnpc(targetActor) }}</div>
+                    
+                    <div class="example-code">{% set npc = decnpc(actorID) %}{{ npc.name }} is a {{ npc.race }}</div>
+                    
+                    <div class="example-code">{% if decnpc(actorID).isInCombat %}The actor is fighting!{% endif %}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">isValidActor</div>
+                <div class="decorator-description">Checks if an actor UUID is valid and exists</div>
+                
+                
+                <div class="decorator-signature">
+                    isValidActor(actorUUID: uint32_t) → boolean
+                </div>
+                
+
+                
+                <p>Validates whether the given actor UUID refers to a valid, existing actor in the game world. Returns false for null, zero, or non-existent actors.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">actorUUID</span>
+                        <span class="argument-type">(uint32_t)</span>
+                        
+                        <br>The UUID of the actor to validate
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> boolean
+                     - True if the actor exists and is valid, false otherwise
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{% if isValidActor(targetUUID) %}{{ decnpc(targetUUID).name }}{% endif %}</div>
+                    
+                    <div class="example-code">{{ isValidActor(player.UUID) }}</div>
+                    
+                    <div class="example-code">{% for actorId in nearbyActors %}{% if isValidActor(actorId) %}...{% endif %}{% endfor %}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            <!-- Check if we have any variables for this category -->
+            
+            
+
+            
+        </div>
+    </div>
+    
+    <div class="category-section" id="category-Faction">
+        <h2 class="category-header">Faction</h2>
+        <div class="category-content">
+            
+            <!-- Check if we have any decorators for this category -->
+            
+            
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            
+            
+            <h3>Functions</h3>
+            
+            
+            
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">get_faction_rank</div>
+                <div class="decorator-description">Get an actor's rank within a specific faction</div>
+                
+                
+                <div class="decorator-signature">
+                    get_faction_rank(actorUUID: uint32_t, factionName: string) → integer
+                </div>
+                
+
+                
+                <p>Returns the numeric rank of the specified actor within the given faction. Higher numbers typically indicate higher ranks. Returns -1 if the actor is not in the faction or if the faction doesn't exist.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">actorUUID</span>
+                        <span class="argument-type">(uint32_t)</span>
+                        
+                        <br>UUID of the actor to check
+                        
+                    </div>
+                    
+                    <div class="argument">
+                        <span class="argument-name">factionName</span>
+                        <span class="argument-type">(string)</span>
+                        
+                        <br>Name of the faction to get rank for
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> integer
+                     - Faction rank number, or -1 if not in faction
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">Your rank in the Companions is {{ get_faction_rank(player.UUID, "Companions") }}</div>
+                    
+                    <div class="example-code">{% set rank = get_faction_rank(actorId, "College of Winterhold") %}{% if rank > 0 %}Rank: {{ rank }}{% endif %}</div>
+                    
+                    <div class="example-code">{% if get_faction_rank(player.UUID, "Thieves Guild") >= 4 %}You are a high-ranking member!{% endif %}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">is_in_faction</div>
+                <div class="decorator-description">Check if an actor is a member of a specific faction</div>
+                
+                
+                <div class="decorator-signature">
+                    is_in_faction(actorUUID: uint32_t, factionName: string) → boolean
+                </div>
+                
+
+                
+                <p>Determines whether the specified actor is a member of the given faction. Useful for faction-based dialogue and behavior logic.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">actorUUID</span>
+                        <span class="argument-type">(uint32_t)</span>
+                        
+                        <br>UUID of the actor to check
+                        
+                    </div>
+                    
+                    <div class="argument">
+                        <span class="argument-name">factionName</span>
+                        <span class="argument-type">(string)</span>
+                        
+                        <br>Name of the faction to check membership for
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> boolean
+                     - True if the actor is in the faction, false otherwise
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{% if is_in_faction(player.UUID, "Companions") %}You are a Companion!{% endif %}</div>
+                    
+                    <div class="example-code">{{ is_in_faction(actorId, "Thieves Guild") }}</div>
+                    
+                    <div class="example-code">{% if is_in_faction(npc.UUID, "Guards") %}This is a guard.{% endif %}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            <!-- Check if we have any variables for this category -->
+            
+            
+
+            
+        </div>
+    </div>
+    
+    <div class="category-section" id="category-Game System">
+        <h2 class="category-header">Game System</h2>
+        <div class="category-content">
+            
+            <!-- Check if we have any decorators for this category -->
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            
+            
+            <h3>Functions</h3>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">get_civil_war_side</div>
+                <div class="decorator-description">Get the player's civil war faction allegiance</div>
+                
+                
+                <div class="decorator-signature">get_civil_war_side → string</div>
+                
+
+                
+                <p>Returns which side the player has chosen in Skyrim's civil war questline. Can return values like 'Imperial', 'Stormcloak', or 'Neutral' depending on quest progression and player choices.</p>
+                
+
+                
+
+                <div>
+                    <strong>Returns:</strong> string
+                     - The player's civil war allegiance
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">You fight for the {{ get_civil_war_side() }}s!</div>
+                    
+                    <div class="example-code">{% if get_civil_war_side() == "Imperial" %}Long live the Empire!{% endif %}</div>
+                    
+                    <div class="example-code">Civil War Side: {{ get_civil_war_side() }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">get_form_name</div>
+                <div class="decorator-description">Get the display name of a game form by its ID</div>
+                
+                
+                <div class="decorator-signature">
+                    get_form_name(formID: uint32_t) → string
+                </div>
+                
+
+                
+                <p>Retrieves the display name of any game form (item, spell, location, etc.) using its form ID. Returns an empty string if the form is not found or has no name.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">formID</span>
+                        <span class="argument-type">(uint32_t)</span>
+                        
+                        <br>The hexadecimal form ID of the game object
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> string
+                     - Display name of the form, or empty string if not found
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{{ get_form_name(0x00012eb7) }}</div>
+                    
+                    <div class="example-code">Item: {{ get_form_name(itemFormID) }}</div>
+                    
+                    <div class="example-code">{% set itemName = get_form_name(formId) %}{% if itemName %}Found: {{ itemName }}{% endif %}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">is_narration_enabled</div>
+                <div class="decorator-description">Check if narration is enabled in game settings</div>
+                
+                
+                <div class="decorator-signature">is_narration_enabled → boolean</div>
+                
+
+                
+                <p>Returns whether the narration system is currently enabled in the game configuration. This can be used to conditionally include or exclude narrated content in templates.</p>
+                
+
+                
+
+                <div>
+                    <strong>Returns:</strong> boolean
+                     - True if narration is enabled, false otherwise
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{% if is_narration_enabled() %}[Narration enabled]{% endif %}</div>
+                    
+                    <div class="example-code">{{ is_narration_enabled() }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">prompt_file_exists</div>
+                <div class="decorator-description">Check if a prompt file exists in the prompts directory</div>
+                
+                
+                <div class="decorator-signature">
+                    prompt_file_exists(filename: string, prefix: string) → boolean
+                </div>
+                
+
+                
+                <p>Checks whether a specific prompt file exists in the mod's prompts directory or a subdirectory. Useful for conditionally including content based on available prompt files or for dynamic prompt loading.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">filename</span>
+                        <span class="argument-type">(string)</span>
+                        
+                        <br>Name of the prompt file to check (with or without .prompt extension)
+                        
+                    </div>
+                    
+                    <div class="argument">
+                        <span class="argument-name">prefix</span>
+                        <span class="argument-type">(string)</span>
+                        <em>optional</em>
+                        <br>Optional subdirectory prefix (e.g., 'quests', 'characters')
+                        
+                        <br><small>Default: <code></code></small>
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> boolean
+                     - True if the prompt file exists, false otherwise
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{% if prompt_file_exists("character_dialogue") %}{{ render_template("character_dialogue") }}{% endif %}</div>
+                    
+                    <div class="example-code">{{ prompt_file_exists("custom_prompt.prompt") }}</div>
+                    
+                    <div class="example-code">{% if prompt_file_exists("MainQuest", "quests") %}Quest template available{% endif %}</div>
+                    
+                    <div class="example-code">File check: {{ prompt_file_exists(filename, "components") }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">units_to_meters</div>
+                <div class="decorator-description">Convert Skyrim game units to real-world meters</div>
+                
+                
+                <div class="decorator-signature">
+                    units_to_meters(units: number|string) → float
+                </div>
+                
+
+                
+                <p>Converts Skyrim's internal distance units to real-world meters using the standard conversion rate (128 units = 1.828 meters). Useful for presenting distances in a more relatable format.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">units</span>
+                        <span class="argument-type">(number|string)</span>
+                        
+                        <br>Distance in Skyrim game units to convert
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> float
+                     - Distance in meters (rounded to 2 decimal places)
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{{ units_to_meters(actor.distanceToPlayer) }} meters away</div>
+                    
+                    <div class="example-code">Distance: {{ units_to_meters(1000) }}m</div>
+                    
+                    <div class="example-code">{% set meters = units_to_meters(distance) %}{{ meters }}m</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            <!-- Check if we have any variables for this category -->
+            
+            
+
+            
+        </div>
+    </div>
+    
+    <div class="category-section" id="category-Mood">
+        <h2 class="category-header">Mood</h2>
+        <div class="category-content">
+            
+            <!-- Check if we have any decorators for this category -->
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            
+            
+            <h3>Functions</h3>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">moodDescriptions</div>
+                <div class="decorator-description">Map of mood types to their descriptions</div>
+                
+                
+                <div class="decorator-signature">moodDescriptions → object</div>
+                
+
+                
+                <p>Provides a comprehensive object mapping each mood type to its detailed description, useful for understanding mood nuances and generating contextual content.</p>
+                
+
+                
+
+                <div>
+                    <strong>Returns:</strong> object
+                     - Object with mood names as keys and descriptions as values
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{{ moodDescriptions.happy }}</div>
+                    
+                    <div class="example-code">{% for mood, desc in moodDescriptions %}{{ mood }}: {{ desc }}{% endfor %}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">mood_description</div>
+                <div class="decorator-description">Get the description for a specific mood</div>
+                
+                
+                <div class="decorator-signature">
+                    mood_description(mood: string) → string
+                </div>
+                
+
+                
+                <p>Takes a mood name and returns its detailed description. This is useful for dynamic mood processing where you need to get descriptions for mood values determined at runtime.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">mood</span>
+                        <span class="argument-type">(string)</span>
+                        
+                        <br>The name of the mood to get the description for
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> string
+                     - The description of the specified mood
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{{ mood_description("happy") }}</div>
+                    
+                    <div class="example-code">The character feels {{ mood_description(currentMood) }}</div>
+                    
+                    <div class="example-code">{% set moodDesc = mood_description(selectedMood) %}{{ moodDesc }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">moodsList</div>
+                <div class="decorator-description">List of all available mood types</div>
+                
+                
+                <div class="decorator-signature">moodsList → array</div>
+                
+
+                
+                <p>Provides a comprehensive array of all mood types available in the system for use in templates and mood-based content generation.</p>
+                
+
+                
+
+                <div>
+                    <strong>Returns:</strong> array
+                     - Array of mood strings
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{% for mood in moodsList %}{{ mood }}{% endfor %}</div>
+                    
+                    <div class="example-code">{{ length(moodsList) }} moods available</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            <!-- Check if we have any variables for this category -->
+            
+            
+
+            
+        </div>
+    </div>
+    
+    <div class="category-section" id="category-Player">
+        <h2 class="category-header">Player</h2>
+        <div class="category-content">
+            
+            <!-- Check if we have any decorators for this category -->
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            
+            
+            <h3>Functions</h3>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">player</div>
+                <div class="decorator-description">Current player character information</div>
+                
+                
+                <div class="decorator-signature">player → object</div>
+                
+
+                
+                <p>Provides comprehensive information about the current player character including UUID, name, race, level, and combat status. This is the primary source for player data in templates.</p>
+                
+
+                
+
+                <div>
+                    <strong>Returns:</strong> object
+                     - Player object containing UUID, name, race, level, and combat status
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{{ player.name }} is a level {{ player.level }} {{ player.race }}</div>
+                    
+                    <div class="example-code">{% if player.isInCombat %}The player is fighting!{% endif %}</div>
+                    
+                    <div class="example-code">{{ decnpc(player.UUID) }}</div>
+                    
+                    <div class="example-code">Player UUID: {{ player.UUID }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            <!-- Check if we have any variables for this category -->
+            
+            
+
+            
+        </div>
+    </div>
+    
+    <div class="category-section" id="category-Quest">
+        <h2 class="category-header">Quest</h2>
+        <div class="category-content">
+            
+            <!-- Check if we have any decorators for this category -->
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            
+            
+            <h3>Functions</h3>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">get_all_active_quests</div>
+                <div class="decorator-description">Get all currently active quests</div>
+                
+                
+                <div class="decorator-signature">get_all_active_quests → array</div>
+                
+
+                
+                <p>Retrieves a list of all quests that are currently active in the player's quest log. Each quest object contains formID, editorID, name, and currentStage information. This function uses caching for improved performance.</p>
+                
+
+                
+
+                <div>
+                    <strong>Returns:</strong> array
+                     - Array of quest objects, each containing formID, editorID, name, and currentStage
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{% for quest in get_all_active_quests() %}{{ quest.name }}: Stage {{ quest.currentStage }}{% endfor %}</div>
+                    
+                    <div class="example-code">{% if length(get_all_active_quests()) > 5 %}You have many active quests!{% endif %}</div>
+                    
+                    <div class="example-code">{{ length(get_all_active_quests()) }} active quests</div>
+                    
+                    <div class="example-code">{% for quest in get_all_active_quests() %}{% if quest.editorID == "MainQuest" %}Main quest found!{% endif %}{% endfor %}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">get_quest_stage</div>
+                <div class="decorator-description">Get the current stage of a quest</div>
+                
+                
+                <div class="decorator-signature">
+                    get_quest_stage(questIdentifier: uint32_t|string, onlyWhileActive: boolean) → integer
+                </div>
+                
+
+                
+                <p>Retrieves the current stage number of a quest identified by its UUID or EditorID. Optionally, can be set to only return stages for active quests. Returns -1 if the quest is not found or not active (when onlyWhileActive is true).</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">questIdentifier</span>
+                        <span class="argument-type">(uint32_t|string)</span>
+                        
+                        <br>Quest UUID (number) or EditorID (string) to check
+                        
+                    </div>
+                    
+                    <div class="argument">
+                        <span class="argument-name">onlyWhileActive</span>
+                        <span class="argument-type">(boolean)</span>
+                        <em>optional</em>
+                        <br>If true, only returns stage for active quests
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> integer
+                     - Current quest stage number, or -1 if not found/inactive
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{{ get_quest_stage(0x12345) }}</div>
+                    
+                    <div class="example-code">{{ get_quest_stage("MainQuest") }}</div>
+                    
+                    <div class="example-code">{{ get_quest_stage(questId, true) }}</div>
+                    
+                    <div class="example-code">{% if get_quest_stage("DragonRising") >= 30 %}Quest progressed!{% endif %}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">is_quest_active</div>
+                <div class="decorator-description">Check if a quest is currently active</div>
+                
+                
+                <div class="decorator-signature">
+                    is_quest_active(questIdentifier: uint32_t|string) → boolean
+                </div>
+                
+
+                
+                <p>Determines whether a quest identified by its UUID or EditorID is currently active in the player's quest log. Returns true if the quest is active, false otherwise.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">questIdentifier</span>
+                        <span class="argument-type">(uint32_t|string)</span>
+                        
+                        <br>Quest UUID (number) or EditorID (string) to check
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> boolean
+                     - True if the quest is active, false otherwise
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{% if is_quest_active("MainQuest") %}Main quest is active!{% endif %}</div>
+                    
+                    <div class="example-code">{{ is_quest_active(0x12345) }}</div>
+                    
+                    <div class="example-code">{% for quest in questList %}{% if is_quest_active(quest) %}{{ quest }}{% endif %}{% endfor %}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            <!-- Check if we have any variables for this category -->
+            
+            
+
+            
+        </div>
+    </div>
+    
+    <div class="category-section" id="category-Scene">
+        <h2 class="category-header">Scene</h2>
+        <div class="category-content">
+            
+            <!-- Check if we have any decorators for this category -->
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            
+            
+            <h3>Functions</h3>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">get_active_short_lived_events</div>
+                <div class="decorator-description">Get all currently active short-lived events</div>
+                
+                
+                <div class="decorator-signature">get_active_short_lived_events → array</div>
+                
+
+                
+                <p>Retrieves all short-lived events that are currently active in the scene. These events represent temporary occurrences like combat actions, dialogue exchanges, or environmental changes that have a limited duration.</p>
+                
+
+                
+
+                <div>
+                    <strong>Returns:</strong> array
+                     - Array of active event objects
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{% for event in get_active_short_lived_events() %}{{ event.type }}{% endfor %}</div>
+                    
+                    <div class="example-code">{{ length(get_active_short_lived_events()) }} active events</div>
+                    
+                    <div class="example-code">{% if contains(get_active_short_lived_events(), "combat") %}Combat in progress!{% endif %}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">get_nearby_npc_list</div>
+                <div class="decorator-description">Get a list of NPCs near a specified entity</div>
+                
+                
+                <div class="decorator-signature">
+                    get_nearby_npc_list(sourceUUID: uint32_t) → array
+                </div>
+                
+
+                
+                <p>Retrieves a structured list of all NPCs within the maximum interaction distance of the specified source entity. Returns detailed information about each nearby NPC including their UUID, name, distance, and other relevant attributes.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">sourceUUID</span>
+                        <span class="argument-type">(uint32_t)</span>
+                        
+                        <br>UUID of the entity to search around
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> array
+                     - Array of nearby NPC objects with detailed information
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{% for npc in get_nearby_npc_list(player.UUID) %}{{ npc.name }}{% endfor %}</div>
+                    
+                    <div class="example-code">{{ length(get_nearby_npc_list(player.UUID)) }} NPCs nearby</div>
+                    
+                    <div class="example-code">{% set nearbyNPCs = get_nearby_npc_list(actorUUID) %}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">get_short_lived_events_by_entity</div>
+                <div class="decorator-description">Get active short-lived events for a specific entity</div>
+                
+                
+                <div class="decorator-signature">
+                    get_short_lived_events_by_entity(entityUUID: uint32_t) → array
+                </div>
+                
+
+                
+                <p>Retrieves all short-lived events that involve the specified entity UUID. This includes events where the entity is the primary actor, target, or otherwise involved.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">entityUUID</span>
+                        <span class="argument-type">(uint32_t)</span>
+                        
+                        <br>UUID of the entity to get events for
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> array
+                     - Array of events involving the specified entity
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{% for event in get_short_lived_events_by_entity(player.UUID) %}{{ event.type }}{% endfor %}</div>
+                    
+                    <div class="example-code">{{ length(get_short_lived_events_by_entity(actorUUID)) }} events for this actor</div>
+                    
+                    <div class="example-code">{% if get_short_lived_events_by_entity(npc.UUID) %}This NPC is involved in events{% endif %}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">get_short_lived_events_by_type</div>
+                <div class="decorator-description">Get active short-lived events filtered by type</div>
+                
+                
+                <div class="decorator-signature">
+                    get_short_lived_events_by_type(eventType: string) → array
+                </div>
+                
+
+                
+                <p>Retrieves all short-lived events of a specific type that are currently active. Common event types include 'combat', 'dialogue', 'interaction', 'movement', etc.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">eventType</span>
+                        <span class="argument-type">(string)</span>
+                        
+                        <br>The type of events to filter for (e.g., 'combat', 'dialogue')
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> array
+                     - Array of events matching the specified type
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{{ length(get_short_lived_events_by_type("combat")) }} combat events</div>
+                    
+                    <div class="example-code">{% for event in get_short_lived_events_by_type("dialogue") %}{{ event.timestamp }}{% endfor %}</div>
+                    
+                    <div class="example-code">{% if get_short_lived_events_by_type("combat") %}Combat happening!{% endif %}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">get_short_lived_events_count</div>
+                <div class="decorator-description">Get the total count of active short-lived events</div>
+                
+                
+                <div class="decorator-signature">get_short_lived_events_count → integer</div>
+                
+
+                
+                <p>Returns the number of short-lived events currently active in the scene. This is useful for quick checks of scene activity level without needing to process the full event list.</p>
+                
+
+                
+
+                <div>
+                    <strong>Returns:</strong> integer
+                     - Number of currently active events
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{{ get_short_lived_events_count() }} events happening</div>
+                    
+                    <div class="example-code">{% if get_short_lived_events_count() > 5 %}Busy scene!{% endif %}</div>
+                    
+                    <div class="example-code">Event count: {{ get_short_lived_events_count() }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            <!-- Check if we have any variables for this category -->
+            
+            
+
+            
+        </div>
+    </div>
+    
+    <div class="category-section" id="category-String Utilities">
+        <h2 class="category-header">String Utilities</h2>
+        <div class="category-content">
+            
+            <!-- Check if we have any decorators for this category -->
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+            
+            
+            <h3>Functions</h3>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">contains</div>
+                <div class="decorator-description">Checks if an array contains a specific value or if a string contains a substring</div>
+                
+                
+                <div class="decorator-signature">
+                    contains(container: array|string, searchValue: string) → boolean
+                </div>
+                
+
+                
+                <p>For arrays: checks if any element matches the search value. For event arrays: looks for events with matching 'type' field. For strings: checks if the string contains the search value as a substring.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">container</span>
+                        <span class="argument-type">(array|string)</span>
+                        
+                        <br>The array or string to search in
+                        
+                    </div>
+                    
+                    <div class="argument">
+                        <span class="argument-name">searchValue</span>
+                        <span class="argument-type">(string)</span>
+                        
+                        <br>The value to search for
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> boolean
+                     - True if the value is found, false otherwise
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{{ contains(recentEvents, "combat") }}</div>
+                    
+                    <div class="example-code">{{ contains(actor.name, "Guard") }}</div>
+                    
+                    <div class="example-code">{{ contains(["apple", "banana"], "apple") }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">join</div>
+                <div class="decorator-description">Concatenates array elements with a separator</div>
+                
+                
+                <div class="decorator-signature">
+                    join(array: array, separator: string) → string
+                </div>
+                
+
+                
+                <p>Takes an array and a separator string, then joins all array elements into a single string using the separator between elements.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">array</span>
+                        <span class="argument-type">(array)</span>
+                        
+                        <br>The array of elements to join
+                        
+                    </div>
+                    
+                    <div class="argument">
+                        <span class="argument-name">separator</span>
+                        <span class="argument-type">(string)</span>
+                        
+                        <br>The string to use as separator between elements
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> string
+                     - A single string with all array elements joined by the separator
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{{ join(fruits, ", ") }}</div>
+                    
+                    <div class="example-code">{{ join(["hello", "world"], " ") }}</div>
+                    
+                    <div class="example-code">{{ join(actor.faction, " | ") }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">length</div>
+                <div class="decorator-description">Returns the length of arrays or strings</div>
+                
+                
+                <div class="decorator-signature">
+                    length(value: array|string) → integer
+                </div>
+                
+
+                
+                <p>Gets the number of elements in an array or the number of characters in a string. Returns -1 for unsupported types.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">value</span>
+                        <span class="argument-type">(array|string)</span>
+                        
+                        <br>The array or string to measure
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> integer
+                     - The number of elements/characters, or -1 if invalid type
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{{ length(actor.faction) }}</div>
+                    
+                    <div class="example-code">{{ length("Hello World") }}</div>
+                    
+                    <div class="example-code">{{ length(recentEvents) }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            <!-- Check if we have any variables for this category -->
+            
+            
+
+            
+        </div>
+    </div>
+    
+    <div class="category-section" id="category-World">
+        <h2 class="category-header">World</h2>
+        <div class="category-content">
+            
+            <!-- Check if we have any decorators for this category -->
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+            
+            
+            <h3>Functions</h3>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">currentTime</div>
+                <div class="decorator-description">Current system time</div>
+                
+                
+                <div class="decorator-signature">currentTime → string</div>
+                
+
+                
+                <p>Provides the current system time in ISO format (YYYY-MM-DD HH:MM:SSZ). This can be used for timestamping events, logging, and time-based content generation.</p>
+                
+
+                
+
+                <div>
+                    <strong>Returns:</strong> string
+                     - Current time in ISO format
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">Current time: {{ currentTime }}</div>
+                    
+                    <div class="example-code">Event logged at {{ currentTime }}</div>
+                    
+                    <div class="example-code">{{ short_time(currentTime) }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">location</div>
+                <div class="decorator-description">Current player location</div>
+                
+                
+                <div class="decorator-signature">location → string</div>
+                
+
+                
+                <p>Provides the name of the current location where the player is positioned. This can be used for location-specific content generation and contextual responses.</p>
+                
+
+                
+
+                <div>
+                    <strong>Returns:</strong> string
+                     - Name of the current location
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">You are currently in {{ location }}</div>
+                    
+                    <div class="example-code">{% if location == "Whiterun" %}Welcome to the capital!{% endif %}</div>
+                    
+                    <div class="example-code">The current location is {{ location }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">short_time</div>
+                <div class="decorator-description">Format time string to a shorter, readable format</div>
+                
+                
+                <div class="decorator-signature">
+                    short_time(timeString: string) → string
+                </div>
+                
+
+                
+                <p>Takes a full time string and extracts just the time and day portion in a more readable format. Useful for displaying condensed time information in templates.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">timeString</span>
+                        <span class="argument-type">(string)</span>
+                        
+                        <br>The full time string to format (e.g., from game time or currentTime)
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> string
+                     - Formatted short time string
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{{ short_time(currentTime) }}</div>
+                    
+                    <div class="example-code">{% set briefTime = short_time(gameTime) %}{{ briefTime }}</div>
+                    
+                    <div class="example-code">Time: {{ short_time(eventTimestamp) }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+
+            <!-- Check if we have any variables for this category -->
+            
+            
+
+            
+        </div>
+    </div>
+    
+
+    <div class="footer">
+        <p>This documentation was automatically generated from the SkyrimNet decorator system.</p>
+        <p>Total decorators: 27 | Total variables: 0</p>
+    </div>
+</body>
+</html> 
