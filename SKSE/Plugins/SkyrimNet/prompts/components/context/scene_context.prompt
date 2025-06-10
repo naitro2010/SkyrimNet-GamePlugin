@@ -27,9 +27,11 @@ The scene is taking place in **{{ location }}**
 {% endblock %}
 
 {% block triggeringEvent %}
+{% if triggeringEvent %}
 - **Type**: {{ triggeringEvent.type }}
 - **Data**: {{ triggeringEvent.data }}
 - **Actor**: {{ decnpc(triggeringEvent.originatingActor).name }}
+{% endif %}
 {% endblock %}
 
 {% block recentEvents %}
