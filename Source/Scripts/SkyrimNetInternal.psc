@@ -3,6 +3,22 @@ scriptname SkyrimNetInternal
 ; Functions from within this file are executed directly by the main DLL.
 ; Do not change or touch them, or you risk stability issues.
 
+Function ClearTimelineMessage() global
+    skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
+    if !skynet
+        Debug.MessageBox("Fatal Erorr: AnimationGeneric failed to retrieve controller.")
+        return
+    endif
+
+    Int _i = skynet.libs.msgClearHistory.Show()
+    if _i == 0
+        ; Clear history
+        debug.notification("Clear History")
+    Else
+        ; Keep history
+        debug.notification("Keep History")
+    EndIf
+EndFunction
 
 ; -----------------------------------------------------------------------------
 ; --- Actor & Package Management ---
@@ -375,3 +391,58 @@ Function PauseFollow_Execute(Actor akActor, string contextJson, string paramsJso
     Debug.Trace("[SkyrimNetInternal] PauseFollow_Execute: Starting follow on " + akActor.GetDisplayName())
     skynet.libs.PauseFollow_Execute(akActor)
 EndFunction
+
+; Tavern actions
+bool Function RentRoom_IsEligible(Actor akActor, string contextJson, string paramsJson) global
+    Debug.Trace("[SkyrimNetInternal] RentRoom_IsEligible called for " + akActor.GetDisplayName())
+
+    skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
+    if !skynet
+        Debug.MessageBox("Fatal Erorr: RentRoom_IsEligible failed to retrieve controller.")
+        return false
+    endif
+
+    return skynet.libs.RentRoom_IsEligible(akActor)
+EndFunction
+
+Function RentRoom_Execute(Actor akActor, string contextJson, string paramsJson) global
+    Debug.Trace("[SkyrimNetInternal] RentRoom_Execute called for " + akActor.GetDisplayName())
+    Debug.Trace("[SkyrimNetInternal] ContextJSON: " + contextJson)
+    Debug.Trace("[SkyrimNetInternal] ParamsJSON: " + paramsJson)
+
+    skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
+    if !skynet
+        Debug.MessageBox("Fatal Erorr: RentRoom_Execute failed to retrieve controller.")
+        return
+    endif
+
+    Debug.Trace("[SkyrimNetInternal] RentRoom_Execute: Starting follow on " + akActor.GetDisplayName())
+    skynet.libs.RentRoom_Execute(akActor, paramsJson)
+EndFunction
+
+; bool Function GiveBanditBounty_IsEligible(Actor akActor, string contextJson, string paramsJson) global
+;     Debug.Trace("[SkyrimNetInternal] GiveBanditBounty_IsEligible called for " + akActor.GetDisplayName())
+
+;     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
+;     if !skynet
+;         Debug.MessageBox("Fatal Erorr: GiveBanditBounty_IsEligible failed to retrieve controller.")
+;         return false
+;     endif
+
+;     return skynet.libs.GiveBanditBounty_IsEligible(akActor)
+; EndFunction
+
+; Function GiveBanditBounty_Execute(Actor akActor, string contextJson, string paramsJson) global
+;     Debug.Trace("[SkyrimNetInternal] GiveBanditBounty_Execute called for " + akActor.GetDisplayName())
+;     Debug.Trace("[SkyrimNetInternal] ContextJSON: " + contextJson)
+;     Debug.Trace("[SkyrimNetInternal] ParamsJSON: " + paramsJson)
+
+;     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
+;     if !skynet
+;         Debug.MessageBox("Fatal Erorr: GiveBanditBounty_Execute failed to retrieve controller.")
+;         return
+;     endif
+
+;     Debug.Trace("[SkyrimNetInternal] GiveBanditBounty_Execute: Starting follow on " + akActor.GetDisplayName())
+;     skynet.libs.GiveBanditBounty_Execute(akActor)
+; EndFunction
