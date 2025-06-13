@@ -6,7 +6,16 @@ skynet_MainController Property skynet Auto Hidden
 ; --- The Library Part of the Library ---
 ; -----------------------------------------------------------------------------
 Faction Property factionMerchants Auto
+Faction Property factionInnkeepers Auto
+Faction Property factionStewards Auto
 Faction Property factionPlayerFollowers Auto
+
+Faction Property factionRentRoom Auto
+
+Quest Property questDialogueGeneric Auto
+Quest Property questBountyBandits Auto
+
+GlobalVariable Property globalRentRoomPrice Auto
 
 Keyword Property keywordDialogueTarget Auto
 Keyword Property keywordFollowTarget Auto
@@ -37,6 +46,10 @@ Idle Property IdleStudy Auto
 Idle Property IdleWave Auto
 Idle Property IdleWipeBrow Auto
 
+MiscObject Property miscGold Auto
+
+Message Property msgClearHistory Auto
+
 ; -----------------------------------------------------------------------------
 ; --- Version & Maintenance ---
 ; -----------------------------------------------------------------------------
@@ -60,6 +73,11 @@ Function RegisterActions()
 
     if !RegisterCompanionActions()
         skynet.Fatal("Companion actions failed to register.")
+        return
+    endif
+
+    if !RegisterTavernActions()
+        skynet.Fatal("Tavern actions failed to register.")
         return
     endif
 
@@ -108,34 +126,6 @@ EndFunction
 ; --- Skynet Papyrus Actions ---
 ; -----------------------------------------------------------------------------
 
-Bool Function RegisterCompanionActions()
-    SkyrimNetApi.RegisterAction("CompanionFollow", "Start following {{ player.name }}.", \
-                                "SkyrimNetInternal", "CompanionFollow_IsEligible", \
-                                "SkyrimNetInternal", "CompanionFollow", \
-                                "", "PAPYRUS", \
-                                1, "")
-
-    SkyrimNetApi.RegisterAction("CompanionWait", "Wait at this location", \
-                                "SkyrimNetInternal", "CompanionWait_IsEligible", \
-                                "SkyrimNetInternal", "CompanionWait", \
-                                "", "PAPYRUS", \
-                                1, "")
-
-    SkyrimNetApi.RegisterAction("CompanionInventory", "Give {{ player.name }} access to your inventory", \
-                                "SkyrimNetInternal", "Companion_IsEligible", \
-                                "SkyrimNetInternal", "CompanionInventory", \
-                                "", "PAPYRUS", \
-                                1, "")
-
-    SkyrimNetApi.RegisterAction("CompanionGiveTask", "Let {{ player.name }} designate a task for you", \
-                                "SkyrimNetInternal", "CompanionGiveTask_IsEligible", \
-                                "SkyrimNetInternal", "CompanionGiveTask", \
-                                "", "PAPYRUS", \
-                                1, "")
-
-    return true
-EndFunction
-
 Bool Function RegisterBasicActions()
     SkyrimNetApi.RegisterAction("OpenTrade", "Use ONLY if {{ player.name }} asks to trade and you agree to trade. Otherwise, you MUST NOT use this action.", \
                                 "SkyrimNetInternal", "OpenTrade_IsEligible", \
@@ -171,6 +161,65 @@ Bool Function OpenTrade_IsEligible(Actor akActor, string contextJson, string par
     return true
 EndFunction
 
+Bool Function RegisterTavernActions()
+    SkyrimNetApi.RegisterAction("RentRoom", "Rent a room out to {{ player.name }} for an amount of gold, but only if they agreed to the price beforehand", \
+                                "SkyrimNetInternal", "RentRoom_IsEligible", \
+                                "SkyrimNetInternal", "RentRoom_Execute", \
+                                "", "PAPYRUS", \
+                                1, "{\"price\": \"Int\"}")
+
+    ; SkyrimNetApi.RegisterAction("GiveBanditBounty", "Hand {{ player.name }} a bounty poster for a bounty on a bandit leader by the local jarl", \
+    ;                             "SkyrimNetInternal", "GiveBanditBounty_IsEligible", \
+    ;                             "SkyrimNetInternal", "GiveBanditBounty_Execute", \
+    ;                             "", "PAPYRUS", \
+    ;                             1, "")
+
+    return True
+EndFunction
+
+Bool Function RentRoom_IsEligible(Actor akActor)
+    if !akActor.IsInFaction(factionRentRoom) || akActor.GetActorValue("Variable09") > 0
+        return false
+    EndIf
+
+    if !(akActor as RentRoomScript)
+        return false
+    endif
+
+    return true
+EndFunction
+
+Function RentRoom_Execute(Actor akActor, string paramsJson)
+    DialogueGenericScript _dqs = (questDialogueGeneric as DialogueGenericScript)
+
+    if (!(akActor as RentRoomScript)) || (!_dqs)
+        return
+    endif
+
+    Int price = SkyrimNetApi.GetJsonInt(paramsJson, "price", Math.Floor(globalRentRoomPrice.GetValue()))
+    if skynet.playerRef.GetItemCount(miscGold) < price
+        return
+    EndIf
+
+    skynet.playerRef.RemoveItem(miscGold, price)
+    (akActor as RentRoomScript).RentRoom(_dqs)
+    return
+EndFunction
+
+; Bool Function GiveBanditBounty_IsEligible(Actor akActor)
+;     if (!akActor.IsInFaction(factionInnkeepers) && !akActor.IsInFaction(factionStewards)) || questBountyBandits.GetStageDone(10)
+;         return false
+;     EndIf
+
+;     return true
+; EndFunction
+
+; Function GiveBanditBounty_Execute(Actor akActor)
+;     questBountyBandits.SetStage(10)
+;     return
+; EndFunction
+
+
 Bool Function RegisterAnimationActions()
     SkyrimNetApi.RegisterAction("SlapTarget", "Slap the target.", \
                                 "SkyrimNetInternal", "Animation_IsEligible", \
@@ -186,7 +235,6 @@ Bool Function RegisterAnimationActions()
 
     return True
 EndFunction
-
 
 ; ag12: I hate this. Why didn't Bethesda give us Lua instead of Papyrus? Fuck you, Todd.
 Function PlayGenericAnimation(Actor akActor, String anim)
@@ -240,6 +288,34 @@ Function PlayGenericAnimation(Actor akActor, String anim)
     utility.wait(2)
     ; debug.notification("Playing animation: " + anim + " for " + akActor.GetDisplayName())
     akActor.PlayIdle(_idle)
+EndFunction
+
+Bool Function RegisterCompanionActions()
+    SkyrimNetApi.RegisterAction("CompanionFollow", "Start following {{ player.name }}.", \
+                                "SkyrimNetInternal", "CompanionFollow_IsEligible", \
+                                "SkyrimNetInternal", "CompanionFollow", \
+                                "", "PAPYRUS", \
+                                1, "")
+
+    SkyrimNetApi.RegisterAction("CompanionWait", "Wait at this location", \
+                                "SkyrimNetInternal", "CompanionWait_IsEligible", \
+                                "SkyrimNetInternal", "CompanionWait", \
+                                "", "PAPYRUS", \
+                                1, "")
+
+    SkyrimNetApi.RegisterAction("CompanionInventory", "Give {{ player.name }} access to your inventory", \
+                                "SkyrimNetInternal", "Companion_IsEligible", \
+                                "SkyrimNetInternal", "CompanionInventory", \
+                                "", "PAPYRUS", \
+                                1, "")
+
+    SkyrimNetApi.RegisterAction("CompanionGiveTask", "Let {{ player.name }} designate a task for you", \
+                                "SkyrimNetInternal", "CompanionGiveTask_IsEligible", \
+                                "SkyrimNetInternal", "CompanionGiveTask", \
+                                "", "PAPYRUS", \
+                                1, "")
+
+    return true
 EndFunction
 
 Bool Function StartFollow_IsEligible(Actor akActor)
