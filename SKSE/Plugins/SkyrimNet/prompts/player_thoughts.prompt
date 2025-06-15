@@ -31,7 +31,7 @@ Respond with a single internal thought from {{ decnpc(npc.UUID).name }}'s perspe
 {% endif %}
 
 {{ "## Response Format" }}
-- Respond with only a single brief internal thought from {{ decnpc(npc.UUID).name }}'s perspective
+- Respond with only a single brief internal thought from {{ decnpc(npc.UUID).name }}'s perspective{% if length(promptForThoughts) > 0 %}about their current thought focus, which is "{{ promptForThoughts }}".{% endif %}
 - The thought should be in first person and feel like genuine internal monologue
 - Do not include any dialogue markers or narration - just the raw thought itself
 
@@ -40,6 +40,6 @@ Respond with a single internal thought from {{ decnpc(npc.UUID).name }}'s perspe
 {{ render_template("components\\event_history") }}
 
 [ user ]
-Respond with a single brief internal thought from {{ decnpc(npc.UUID).name }}'s perspective.
+- Respond with only a single brief internal thought from {{ decnpc(npc.UUID).name }}'s perspective{% if length(promptForThoughts) > 0 %}about their current thought focus, which is "{{ promptForThoughts }}".{% endif %}
 {% if decnpc(npc.UUID).isInCombat %}Focus the thought on immediate combat concerns and survival instincts.{% endif %}
 [ end user ] 
