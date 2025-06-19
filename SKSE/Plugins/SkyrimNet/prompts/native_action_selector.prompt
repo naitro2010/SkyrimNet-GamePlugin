@@ -26,7 +26,8 @@ Only return one line, beginning with "ACTION:" and nothing else.
 {{ render_template("components\\event_history_compact") }}
 
 {{ "## Most Recent Dialogue" }}
-"{{ dialogue_response }}"
+"{{ dialogue_request }}
+{{ dialogue_response }}"
 
 {{ "## Eligible Actions" }}
 {% for action in eligible_actions %}
