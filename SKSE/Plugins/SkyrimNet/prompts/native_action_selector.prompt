@@ -61,7 +61,7 @@ The following items are available to {{ npc.name }}:
 {% endif %}
 
 {{ "## Context Reminder:" }}
-**Your choice must directly reflect what {npc.name} just said or did, and should be implied by the dialogue. NEVER pick actions unrelated to dialogue. NEVER pick random actions. ONLY pick actions that should follow the dialogue**
+**Your choice must directly reflect what {{npc.name}} just said or did, and should be implied by the dialogue. NEVER pick actions unrelated to dialogue. NEVER pick random actions. ONLY pick actions that should follow the dialogue**
 
 {{ "## Format Reminder:" }}
 - `ACTION: ActionName`
