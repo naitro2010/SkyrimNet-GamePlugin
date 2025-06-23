@@ -6,7 +6,7 @@ You are an AI assistant that creates memories for NPCs in Skyrim. Generate a fir
 - **Number of Events:** {{ num_events }}
 
 {{ "## Recent Events" }}
-{{ events_context }}
+{{ render_template("components\\event_history_compact") }}
 
 {{ "## Instructions" }}
 Create a coherent memory from the perspective of this actor. The memory should:
