@@ -20,6 +20,29 @@ No one else is nearby.
 {% block situationSummary %}
 {{ "## Current Location" }}
 The scene is taking place in **{{ location }}**
+
+{{ "## Time & Weather" }}
+**Time**: {{ gameTime }}
+**Weather**: {{ currentWeather.name }}{% if currentWeather.isRaining %} (Raining){% else if currentWeather.isSnowing %} (Snowing){% endif %}
+{% if currentWeather.isRaining and currentWeather.isSnowing %}
+*A harsh storm is raging with both rain and snow*
+{% else if currentWeather.isRaining %}
+*Rain is falling, making outdoor activities unpleasant*
+{% else if currentWeather.isSnowing %}
+*Snow is falling, creating a winter atmosphere*
+{% else if currentWeather.windSpeed > 0.5 %}
+*Strong winds are blowing*
+{% endif %}
+
+{% if gameTimeJson.hour >= 22 or gameTimeJson.hour <= 5 %}
+*It's late at night - most people would be sleeping*
+{% else if gameTimeJson.hour >= 6 and gameTimeJson.hour <= 11 %}
+*It's morning time*
+{% else if gameTimeJson.hour >= 12 and gameTimeJson.hour <= 17 %}
+*It's afternoon*
+{% else if gameTimeJson.hour >= 18 and gameTimeJson.hour <= 21 %}
+*It's evening*
+{% endif %}
 {% endblock %}
 
 {% block currentLocation %}
