@@ -5,7 +5,8 @@
 {{ render_template("components\\event_history") }}
 
 [ user ]
-Respond with only a single concise dialogue line
-- Respond with only a single brief internal thought{% if is_narration_enabled() %} and/or brief supplemental narrative action{% endif %} from {{ decnpc(npc.UUID).name }}'s perspective{% if length(promptForThoughts) > 0 %}about their current thought focus, which is "{{ promptForThoughts }}".{% endif %}.  Remember, you are thinking to yourself, not speaking audibly.
+- Respond with only a single brief internal thought{% if is_narration_enabled() %} and/or brief supplemental narrative action{% endif %} from {{ decnpc(npc.UUID).name }}'s perspective{% if length(promptForThoughts) > 0 %} about their current thought focus, which is "{{ promptForThoughts }}". Your response must pertain to this thought focus.{% endif %}.
+- {% if is_narration_enabled() %}Remember to ONLY use asterick's * if you are emphasizing a narrative element / action aside from {{ decnpc(npc.UUID) }}'s thoughts. Do not use them otherwise.{% endif %}
+Remember, you are thinking to yourself, not speaking audibly. Your response will not be spoken audibly to another character.
 {{ render_subcomponent("user_final_instructions", "thoughts") }}
 [ end user ] 
