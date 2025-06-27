@@ -6,6 +6,8 @@ Generate a first-person memory for {{ actor_name }} based on the provided events
 - **Current Location:** {{ current_location }}
 - **Number of Events:** {{ num_events }}
 
+{{ render_character_profile("full", actor_uuid) }}
+
 {{ "## Recent Events" }}
 {{ render_template("components\\event_history_verbose") }}
 
@@ -44,27 +46,32 @@ Respond ONLY with a JSON object containing:
 
 {{ "### Importance Score Guidelines:" }}
 **High Importance (0.7-1.0):**
-- Combat encounters, especially life-threatening ones
-- Major quest progression or completion
-- First meetings with important characters
-- Witnessing significant events (deaths, discoveries, revelations)
-- Learning crucial information or skills
-- Traumatic or deeply emotional experiences
+- Life-threatening or dangerous situations
+- Major emotional events (love, loss, betrayal, triumph)
+- First-time experiences that expand your worldview
+- Witnessing or participating in historically significant events
+- Learning that fundamentally changes your understanding
+- Traumatic or deeply transformative experiences
+- Moments of personal growth, realization, or major decisions
+- Events that significantly impact your relationships or future
 
 **Moderate Importance (0.4-0.6):**
-- Regular conversations with named NPCs
-- Minor quest steps or objectives
-- Trading valuable items or significant purchases
-- Exploring new locations for the first time
-- Skill improvements or training sessions
-- Social interactions that affect relationships
+- Meaningful conversations that affect relationships
+- New experiences that broaden your perspective
+- Personal accomplishments or overcoming challenges
+- Financial decisions or transactions with real consequences
+- Conflicts, disagreements, or social tensions
+- Learning useful skills or gaining practical knowledge
+- Discoveries about people, places, or situations
+- Events that create lasting impressions or memories
 
 **Low Importance (0.1-0.3):**
-- Routine daily activities (eating, sleeping, walking)
-- Brief encounters with generic NPCs
-- Simple movement between known locations
-- Repetitive actions with no new information
-- Background environmental observations
+- Routine daily activities with no unusual elements
+- Brief, superficial interactions with strangers
+- Repetitive tasks or familiar activities
+- Simple transactions or mundane errands
+- Environmental observations without personal impact
+- Background events that don't directly involve you
 
 {{ "### Content Guidelines:" }}
 - **Names**: Always include specific character names when mentioned
