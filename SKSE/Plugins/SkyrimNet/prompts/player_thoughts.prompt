@@ -6,8 +6,8 @@ You are roleplaying as {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender
 {{ render_template("components\\event_history") }}
 
 [ user ]
-Respond with only a single brief internal thought{% if is_narration_enabled() %} and/or brief supplemental narrative action{% endif %} from {{ decnpc(npc.UUID).name }}'s perspective{% if length(promptForThoughts) > 0 %} about their current thought focus, which is "{{ promptForThoughts }}". Your response must pertain to this thought focus.{% endif %}.
+Respond with only a single brief internal thought from a first person perspective {% if is_narration_enabled() %} and/or brief supplemental narrative action (Example: *{{ decnpc(npc.UUID).name }} smiles warily*){% endif %} from {{ decnpc(npc.UUID).name }}'s perspective{% if length(promptForThoughts) > 0 %} about their current thought focus, which is "{{ promptForThoughts }}". Your response must pertain to this thought focus.{% endif %}.
 {% if is_narration_enabled() %}Remember to ONLY use asterick's * if you are emphasizing a narrative element / action aside from {{ decnpc(npc.UUID).name }}'s thoughts. Do not use them otherwise.{% endif %}
-Remember, you are thinking to yourself, not speaking audibly. Your response will not be spoken audibly to another character.
+Remember, you are thinking to yourself, not speaking audibly. Your response must be from a first person perspective, and will not be spoken audibly to another character.
 {{ render_subcomponent("user_final_instructions", "thoughts") }}
 [ end user ] 
