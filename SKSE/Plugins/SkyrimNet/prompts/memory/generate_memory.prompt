@@ -6,7 +6,7 @@ You are an AI assistant that creates memories for NPCs in Skyrim. Generate a fir
 - **Number of Events:** {{ num_events }}
 
 {{ "## Recent Events" }}
-{{ render_template("components\\event_history_compact") }}
+{{ render_template("components\\event_history_verbose") }}
 
 {{ "## Instructions" }}
 Create a coherent memory from the perspective of this actor. The memory should:
@@ -15,6 +15,8 @@ Create a coherent memory from the perspective of this actor. The memory should:
 3. Include emotional reactions and thoughts
 4. Feel natural and character-appropriate
 5. Synthesize multiple events into a cohesive narrative
+6. **Include specific names, places, and activities** for better recall
+7. **Use concrete, searchable terms** rather than vague descriptions
 
 {{ "## Response Format" }}
 Respond ONLY with a JSON object containing:
@@ -22,17 +24,17 @@ Respond ONLY with a JSON object containing:
 ```json
 {
   "content": "First-person memory narrative describing the events and the actor's thoughts/feelings",
-  "location": "Primary location where this memory takes place",
-  "emotion": "Actor's dominant emotional state (happy, sad, angry, fearful, surprised, disgusted, neutral, etc.)",
+  "location": "Primary location where this memory takes place (be specific - use full location names)",
+  "emotion": "Actor's dominant emotional state (choose from: joyful, content, neutral, concerned, fearful, angry, disgusted, surprised, sad, traumatized)",
   "importance_score": 0.0-1.0,
-  "tags": ["relevant", "tags", "for", "this", "memory"],
+  "tags": ["specific", "searchable", "keywords", "from", "memory"],
   "type": "EXPERIENCE"
 }
 ```
 
 {{ "### Memory Types:" }}
 - **EXPERIENCE**: General activities and interactions
-- **RELATIONSHIP**: Social interactions with other characters
+- **RELATIONSHIP**: Social interactions with other characters  
 - **KNOWLEDGE**: Learning new information or skills
 - **LOCATION**: Significant experiences tied to places
 - **SKILL**: Achievements, practice, or skill development
@@ -40,7 +42,40 @@ Respond ONLY with a JSON object containing:
 - **JOY**: Positive, uplifting experiences
 
 {{ "### Importance Score Guidelines:" }}
-- 0.1-0.3: Minor, routine activities
-- 0.4-0.6: Moderately significant events
-- 0.7-0.8: Important experiences that impact the character
-- 0.9-1.0: Life-changing or extremely memorable events 
+**High Importance (0.7-1.0):**
+- Combat encounters, especially life-threatening ones
+- Major quest progression or completion
+- First meetings with important characters
+- Witnessing significant events (deaths, discoveries, revelations)
+- Learning crucial information or skills
+- Traumatic or deeply emotional experiences
+
+**Moderate Importance (0.4-0.6):**
+- Regular conversations with named NPCs
+- Minor quest steps or objectives
+- Trading valuable items or significant purchases
+- Exploring new locations for the first time
+- Skill improvements or training sessions
+- Social interactions that affect relationships
+
+**Low Importance (0.1-0.3):**
+- Routine daily activities (eating, sleeping, walking)
+- Brief encounters with generic NPCs
+- Simple movement between known locations
+- Repetitive actions with no new information
+- Background environmental observations
+
+{{ "### Content Guidelines:" }}
+- **Names**: Always include specific character names when mentioned
+- **Locations**: Use full location names (e.g., "Arcadia's Cauldron in Whiterun" not just "the shop")
+- **Activities**: Describe specific actions (e.g., "sold iron daggers" not "did some trading")
+- **Emotions**: Connect feelings to specific triggers or events
+- **Sensory Details**: Include what the character saw, heard, or felt when relevant
+
+{{ "### Tag Guidelines:" }}
+Include 3-6 relevant tags focusing on:
+- Character names mentioned (e.g., "belethor", "guards", "arcadia")
+- Specific locations (e.g., "whiterun", "dragonsreach", "marketplace")
+- Key activities (e.g., "trading", "combat", "conversation", "quest")
+- Important items or subjects (e.g., "thalmor", "nord", "selling", "trouble")
+- Emotional themes (e.g., "pride", "fear", "anger", "friendship") 
