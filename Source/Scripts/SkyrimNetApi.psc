@@ -85,6 +85,27 @@ int function HasPackage(Actor akActor, String packageName) Global Native
 int function SendCustomPromptToLLM(String promptName, float temperature, int maxTokens, \
                                   String callbackScriptName, String callbackFunctionName) Global Native
 
+; Register a direct narration event that forces the LLM to respond to a factual event
+; This function creates an event that NPCs will respond to as established fact, such as:
+; - "A tree fell over in the forest"
+; - "The guard glares angrily at the traveler" 
+; - "Lightning strikes the tower"
+; - "A merchant drops their coin purse"
+; 
+; If originatorActor is specified, that actor will be the one to speak/respond to the event
+; If originatorActor is not specified, the system will select an appropriate speaker
+; 
+; If targetActor is specified, the speaker will address that specific target
+; If targetActor is not specified, the speaker will address everyone nearby (general announcement)
+; 
+; Examples:
+; DirectNarration("A wolf howls in the distance") ; System selects speaker, addresses all
+; DirectNarration("The shopkeeper drops a bottle", shopkeeperRef) ; Shopkeeper speaks to all
+; DirectNarration("The guard thinks that the player looks tired", guardRef, Game.GetPlayer()) ; Guard speaks to player
+; 
+; Returns 0 on success, 1 on failure
+int function DirectNarration(String content, Actor originatorActor = None, Actor targetActor = None) Global Native
+
 ; -----------------------------------------------------------------------------
 ; --- Utility Functions ---
 ; -----------------------------------------------------------------------------
