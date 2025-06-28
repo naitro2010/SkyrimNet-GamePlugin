@@ -49,7 +49,8 @@ Please generate a character profile with the following sections in JSON format:
   "relationships": "Bullet points listing key relationships with clear, direct emotional or practical context, and a short description of the relationship.",
   "aspirations": "Clearly stated short list of long-term goals or critical motivations.",
   "occupation": "Single line description of essential job functions, daily routines, and typical activities.",
-  "speech_style": "Clear instructions on speaking style, tone, mannerisms, and emotional delivery. Do not directly reference the speech type, but use it as guidance. Avoid including pet names or nicknames in the speech style."
+  "speech_style": "Clear instructions on speaking style, tone, mannerisms, and emotional delivery. Do not directly reference the speech type, but use it as guidance. Avoid including pet names or nicknames in the speech style.",
+  "interject_summary": "Specific description of what topics, situations, or conversation themes would motivate this character to interject or join conversations. Be specific to their personality, expertise, interests, and concerns rather than generic."
 }
 
 Base the profile on the provided game data, faction memberships, and recent events. {% if has_user_input %}Also strongly consider the additional input provided above when creating the character profile. {% endif %}Make it detailed and lore-appropriate for The Elder Scrolls universe. 
