@@ -1,0 +1,14 @@
+{% if render_mode == "full" %}
+{{ "# " }}{{ decnpc(npc.UUID).name }}{{" Bio" }}
+- Gender: {{ decnpc(npc.UUID).gender }}
+- Race: {{ decnpc(npc.UUID).race }}
+{% else if render_mode == "dialogue_target" %}
+{# This prompt is used when the actor is the target in a dialogue. #}
+{% if responseTarget.type == "player" %}
+{{ "# " }}{{ player.name }}'s Bio (Dialogue Target)
+{% else %}
+{{ "# " }}{{ decnpc(npc.UUID).name }}'s Bio (Dialogue Target)
+{% endif %}
+- Gender: {{ decnpc(npc.UUID).gender }}
+- Race: {{ decnpc(npc.UUID).race }}
+{% endif %} 

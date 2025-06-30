@@ -1,0 +1,4 @@
+{% if render_mode == "full" %}
+{{ "## Personality" }}
+{% block personality %}{% endblock %}
+{% endif %} 

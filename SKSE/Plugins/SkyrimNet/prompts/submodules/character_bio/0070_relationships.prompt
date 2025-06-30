@@ -1,0 +1,4 @@
+{% if render_mode == "full" %}
+{{ "## Relationships" }}
+{% block relationships %}{% endblock %}
+{% endif %} 
