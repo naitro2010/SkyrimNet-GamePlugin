@@ -83,6 +83,7 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 	ActorBase TargetRef = akTarget.GetLeveledActorBase()
 	; ; Debug.Trace("RealNamesExtended: akTarget.IsInFaction(FacBandit) = " + akTarget.IsInFaction(FacBandit))
 	IF akTarget.IsInFaction(FacBandit)
+    String oldname = TargetRef.GetName()
 		Int RNBanditGV = RNBandit.GetValue() as int
 		If RNBanditGV == 0
 			Return
@@ -96,10 +97,9 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName, False)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", False)
 			Return
 		ElseIf RNBanditGV == 2
-			String oldname = TargetRef.GetName()
 			string newName = newFirstName
 			if (RNDoLastNames.GetValue() == 1 && newLastName != "")
 				newName += " " + newLastName
@@ -109,13 +109,14 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName + ", " + oldname, False)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", False)
 			Return
 		Endif	
 	Endif
 	; ; Debug.Trace("RealNamesExtended: akTarget.IsInFaction(FacForsworn) = " + akTarget.IsInFaction(FacForsworn))
 	; ; Debug.Trace("RealNamesExtended: akTarget.IsInFaction(FacHagraven) = " + akTarget.IsInFaction(FacHagraven))
 	IF akTarget.IsInFaction(FacForsworn) || akTarget.IsInFaction(FacHagraven)
+    String oldname = TargetRef.GetName()
 		Int RNForswornGV = RNForsworn.GetValue() as int
 		If RNForswornGV == 0
 			Return
@@ -129,10 +130,9 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName, False)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", False)
 			Return
 		ElseIf RNForswornGV == 2
-			String oldname = TargetRef.GetName()
 			string newName = newFirstName
 			if (RNDoLastNames.GetValue() == 1 && newLastName != "")
 				newName += " " + newLastName
@@ -142,12 +142,13 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName + ", " + oldname, False)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", False)
 			Return
 		Endif	
 	Endif
 	; Debug.Trace("RealNamesExtended: akTarget.IsInFaction(FacGuard) = " + akTarget.IsInFaction(FacGuard))
 	IF akTarget.IsInFaction(FacGuard)
+    String oldname = TargetRef.GetName()
 		Int RNGuardGV = RNGuard.GetValue() as int
 		If RNGuardGV == 0
 			Return
@@ -161,10 +162,9 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName, False)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", False)
 			Return
 		ElseIf RNGuardGV == 2
-			String oldname = TargetRef.GetName()
 			string newName = newFirstName
 			if (RNDoLastNames.GetValue() == 1 && newLastName != "")
 				newName += " " + newLastName
@@ -174,12 +174,13 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName + ", " + oldname, False)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", False)
 			Return
 		Endif	
 	Endif
 	; Debug.Trace("RealNamesExtended: akTarget.IsInFaction(FacStendarr) = " + akTarget.IsInFaction(FacStendarr))
 	IF akTarget.IsInFaction(FacStendarr)
+    String oldname = TargetRef.GetName()
 		Int RNStendarrGV = RNStendarr.GetValue() as int
 		If RNStendarrGV == 0
 			Return
@@ -193,10 +194,9 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName, False)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", False)
 			Return
 		ElseIf RNStendarrGV == 2
-			String oldname = TargetRef.GetName()
 			string newName = newFirstName
 			if (RNDoLastNames.GetValue() == 1 && newLastName != "")
 				newName += " " + newLastName
@@ -206,12 +206,13 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName + ", " + oldname, False)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", False)
 			Return
 		Endif	
 	Endif
 	; Debug.Trace("RealNamesExtended: akTarget.IsInFaction(FacThalmor) = " + akTarget.IsInFaction(FacThalmor))
 	IF akTarget.IsInFaction(FacThalmor)
+    String oldname = TargetRef.GetName()
 		Int RNThalmorGV = RNThalmor.GetValue() as int
 		If RNThalmorGV == 0
 			Return
@@ -225,10 +226,9 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName, False)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", False)
 			Return
 		ElseIf RNThalmorGV == 2
-			String oldname = TargetRef.GetName()
 			string newName = newFirstName
 			if (RNDoLastNames.GetValue() == 1 && newLastName != "")
 				newName += " " + newLastName
@@ -238,13 +238,14 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName + ", " + oldname, False)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", False)
 			Return
 		Endif	
 	Endif
 	; Debug.Trace("RealNamesExtended: akTarget.IsInFaction(FacVampire) = " + akTarget.IsInFaction(FacVampire))
 	; Debug.Trace("RealNamesExtended: akTarget.IsInFaction(FacVampireThrall) = " + akTarget.IsInFaction(FacVampireThrall))
 	IF akTarget.IsInFaction(FacVampire) || akTarget.IsInFaction(FacVampireThrall)
+    String oldname = TargetRef.GetName()
 		Int RNVampireGV = RNVampire.GetValue() as int
 		If RNVampireGV == 0
 			Return
@@ -258,10 +259,9 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName, False)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", False)
 			Return
 		ElseIf RNVampireGV == 2
-			String oldname = TargetRef.GetName()
 			string newName = newFirstName
 			if (RNDoLastNames.GetValue() == 1 && newLastName != "")
 				newName += " " + newLastName
@@ -271,13 +271,14 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName + ", " + oldname, False)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", False)
 			Return
 		Endif	
 	Endif
 
 	; Debug.Trace("RealNamesExtended: akTarget.IsInFaction(FacDragon) = " + akTarget.IsInFaction(FacDragon))
 	IF akTarget.IsInFaction(FacDragon)
+    String oldname = TargetRef.GetName()
 		Int RNDragonGV = RNDragon.GetValue() as int
 		; Debug.Trace("RNDragonGV = " + RNDragonGV)
 		If RNDragonGV == 0
@@ -292,10 +293,9 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName, False)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", False)
 			Return
 		ElseIf RNDragonGV == 2
-			String oldname = TargetRef.GetName()
 			string newName = newFirstName
 			if (RNDoLastNames.GetValue() == 1 && newLastName != "")
 				newName += " " + newLastName
@@ -305,13 +305,14 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName + ", " + oldname, False)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", False)
 			Return
 		Endif	
 	Endif
 
 	; Debug.Trace("RealNamesExtended: akTarget.IsInFaction(FacDragonPriest) = " + akTarget.IsInFaction(FacDragonPriest))
 	IF akTarget.IsInFaction(FacDragonPriest)
+    String oldname = TargetRef.GetName()
 		Int RNDragonPriestGV = RNDragonPriest.GetValue() as int
 		; Debug.Trace("RNDragonPriestGV = " + RNDragonPriestGV)
 		If RNDragonPriestGV == 0
@@ -326,10 +327,9 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName, False)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", False)
 			Return
 		ElseIf RNDragonPriestGV == 2
-			String oldname = TargetRef.GetName()
 			string newName = newFirstName
 			if (RNDoLastNames.GetValue() == 1 && newLastName != "")
 				newName += " " + newLastName
@@ -339,13 +339,14 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName + ", " + oldname, False)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", False)
 			Return
 		Endif	
 	Endif
 
 	; Debug.Trace("RealNamesExtended: akTarget.IsInFaction(FacDaedra) = " + akTarget.IsInFaction(FacDaedra))
 	IF akTarget.IsInFaction(FacDaedra)
+    String oldname = TargetRef.GetName()
 		Int RNDaedraGV = RNDaedra.GetValue() as int
 		; Debug.Trace("RNDaedraGV = " + RNDaedraGV)
 		If RNDaedraGV == 0
@@ -360,10 +361,9 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName, False)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", False)
 			Return
 		ElseIf RNDaedraGV == 2
-			String oldname = TargetRef.GetName()
 			string newName = newFirstName
 			if (RNDoLastNames.GetValue() == 1 && newLastName != "")
 				newName += " " + newLastName
@@ -373,13 +373,14 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName + ", " + oldname, False)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", False)
 			Return
 		Endif	
 	Endif
 
 	; Debug.Trace("RealNamesExtended: akTarget.IsInFaction(FacCreature) = " + akTarget.IsInFaction(FacCreature))
 	IF akTarget.IsInFaction(FacCreature)
+    String oldname = TargetRef.GetName()
 		Int RNCreatureGV = RNCreature.GetValue() as int
 		; Debug.Trace("RNCreatureGV = " + RNCreatureGV)
 		If RNCreatureGV == 0
@@ -394,10 +395,9 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName, False)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", False)
 			Return
 		ElseIf RNCreatureGV == 2
-			String oldname = TargetRef.GetName()
 			string newName = newFirstName
 			if (RNDoLastNames.GetValue() == 1 && newLastName != "")
 				newName += " " + newLastName
@@ -407,7 +407,7 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName + ", " + oldname, False)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", False)
 			Return
 		Endif	
 	Endif
@@ -426,10 +426,10 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName, False)
+      String oldname = TargetRef.GetName()
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", False)
 			Return
 		ElseIf RNOtherGV == 2
-			String oldname = TargetRef.GetName()
 			string newName = newFirstName
 			if (RNDoLastNames.GetValue() == 1 && newLastName != "")
 				newName += " " + newLastName
@@ -439,7 +439,8 @@ Function QuestNameFalse(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName + ", " + oldname, False)
+      String oldname = TargetRef.GetName()
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", False)
 			Return
 		Endif	
 
@@ -452,6 +453,7 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 	ActorBase TargetRef = akTarget.GetLeveledActorBase()
 
 	IF akTarget.IsInFaction(FacBandit)
+    String oldname = TargetRef.GetName()
 		Int RNBanditGV = RNBandit.GetValue() as int
 		If RNBanditGV == 0
 			Return
@@ -465,10 +467,9 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName, True)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", True)
 			Return
 		ElseIf RNBanditGV == 2
-			String oldname = TargetRef.GetName()
 			string newName = newFirstName
 			if (RNDoLastNames.GetValue() == 1 && newLastName != "")
 				newName += " " + newLastName
@@ -478,12 +479,13 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName + ", " + oldname, True)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", True)
 			Return
 		Endif	
 	Endif
 
 	IF akTarget.IsInFaction(FacForsworn) || akTarget.IsInFaction(FacHagraven)
+    String oldname = TargetRef.GetName()
 		Int RNForswornGV = RNForsworn.GetValue() as int
 		If RNForswornGV == 0
 			Return
@@ -497,10 +499,9 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName, True)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", True)
 			Return
 		ElseIf RNForswornGV == 2
-			String oldname = TargetRef.GetName()
 			string newName = newFirstName
 			if (RNDoLastNames.GetValue() == 1 && newLastName != "")
 				newName += " " + newLastName
@@ -510,12 +511,13 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName + ", " + oldname, True)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", True)
 			Return
 		Endif	
 	Endif
 
 	IF akTarget.IsInFaction(FacGuard)
+    String oldname = TargetRef.GetName()
 		Int RNGuardGV = RNGuard.GetValue() as int
 		If RNGuardGV == 0
 			Return
@@ -529,10 +531,9 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName, True)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", True)
 			Return
 		ElseIf RNGuardGV == 2
-			String oldname = TargetRef.GetName()
 			string newName = newFirstName
 			if (RNDoLastNames.GetValue() == 1 && newLastName != "")
 				newName += " " + newLastName
@@ -542,12 +543,13 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName + ", " + oldname, True)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", True)
 			Return
 		Endif	
 	Endif
 
 	IF akTarget.IsInFaction(FacStendarr)
+    String oldname = TargetRef.GetName()
 		Int RNStendarrGV = RNStendarr.GetValue() as int
 		If RNStendarrGV == 0
 			Return
@@ -561,10 +563,9 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName, True)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", True)
 			Return
 		ElseIf RNStendarrGV == 2
-			String oldname = TargetRef.GetName()
 			string newName = newFirstName
 			if (RNDoLastNames.GetValue() == 1 && newLastName != "")
 				newName += " " + newLastName
@@ -574,12 +575,13 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName + ", " + oldname, True)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", True)
 			Return
 		Endif	
 	Endif
 
 	IF akTarget.IsInFaction(FacThalmor)
+    String oldname = TargetRef.GetName()
 		Int RNThalmorGV = RNThalmor.GetValue() as int
 		If RNThalmorGV == 0
 			Return
@@ -593,10 +595,9 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName, True)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", True)
 			Return
 		ElseIf RNThalmorGV == 2
-			String oldname = TargetRef.GetName()
 			string newName = newFirstName
 			if (RNDoLastNames.GetValue() == 1 && newLastName != "")
 				newName += " " + newLastName
@@ -606,12 +607,13 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName + ", " + oldname, True)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", True)
 			Return
 		Endif	
 	Endif
 
 	IF akTarget.IsInFaction(FacVampire) || akTarget.IsInFaction(FacVampireThrall)
+    String oldname = TargetRef.GetName()
 		Int RNVampireGV = RNVampire.GetValue() as int
 		If RNVampireGV == 0
 			Return
@@ -625,10 +627,9 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName, True)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", True)
 			Return
 		ElseIf RNVampireGV == 2
-			String oldname = TargetRef.GetName()
 			string newName = newFirstName
 			if (RNDoLastNames.GetValue() == 1 && newLastName != "")
 				newName += " " + newLastName
@@ -638,12 +639,13 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName + ", " + oldname, True)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", True)
 			Return
 		Endif	
 	Endif
 
 	IF akTarget.IsInFaction(FacDragon)
+    String oldname = TargetRef.GetName()
 		Int RNDragonGV = RNDragon.GetValue() as int
 		; Debug.Trace("RNDragonGV = " + RNDragonGV)
 		If RNDragonGV == 0
@@ -658,10 +660,9 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName, True)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", True)
 			Return
 		ElseIf RNDragonGV == 2
-			String oldname = TargetRef.GetName()
 			string newName = newFirstName
 			if (RNDoLastNames.GetValue() == 1 && newLastName != "")
 				newName += " " + newLastName
@@ -671,12 +672,13 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName + ", " + oldname, True)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", True)
 			Return
 		Endif	
 	Endif
 
 	IF akTarget.IsInFaction(FacDragonPriest)
+    String oldname = TargetRef.GetName()
 		Int RNDragonPriestGV = RNDragonPriest.GetValue() as int
 		; Debug.Trace("RNDragonPriestGV = " + RNDragonPriestGV)
 		If RNDragonPriestGV == 0
@@ -691,10 +693,9 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName, True)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", True)
 			Return
 		ElseIf RNDragonPriestGV == 2
-			String oldname = TargetRef.GetName()
 			string newName = newFirstName
 			if (RNDoLastNames.GetValue() == 1 && newLastName != "")
 				newName += " " + newLastName
@@ -704,12 +705,13 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName + ", " + oldname, True)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", True)
 			Return
 		Endif	
 	Endif
 
 	IF akTarget.IsInFaction(FacDaedra)
+    String oldname = TargetRef.GetName()
 		Int RNDaedraGV = RNDaedra.GetValue() as int
 		; Debug.Trace("RNDaedraGV = " + RNDaedraGV)
 		If RNDaedraGV == 0
@@ -724,10 +726,9 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName, True)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", True)
 			Return
 		ElseIf RNDaedraGV == 2
-			String oldname = TargetRef.GetName()
 			string newName = newFirstName
 			if (RNDoLastNames.GetValue() == 1 && newLastName != "")
 				newName += " " + newLastName
@@ -737,12 +738,13 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName + ", " + oldname, True)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", True)
 			Return
 		Endif	
 	Endif
 
 	IF akTarget.IsInFaction(FacCreature)
+    String oldname = TargetRef.GetName()
 		Int RNCreatureGV = RNCreature.GetValue() as int
 		; Debug.Trace("RNCreatureGV = " + RNCreatureGV)
 		If RNCreatureGV == 0
@@ -757,10 +759,9 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName, True)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", True)
 			Return
 		ElseIf RNCreatureGV == 2
-			String oldname = TargetRef.GetName()
 			string newName = newFirstName
 			if (RNDoLastNames.GetValue() == 1 && newLastName != "")
 				newName += " " + newLastName
@@ -770,7 +771,7 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName + ", " + oldname, True)
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", True)
 			Return
 		Endif	
 	Endif
@@ -788,10 +789,10 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName, True)
+      String oldname = TargetRef.GetName()
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", True)
 			Return
 		ElseIf RNOtherGV == 2
-			String oldname = TargetRef.GetName()
 			string newName = newFirstName
 			if (RNDoLastNames.GetValue() == 1 && newLastName != "")
 				newName += " " + newLastName
@@ -801,7 +802,8 @@ Function QuestNameTrue(Actor akTarget, String newFirstName, String newLastName)
 			Else
 				StorageUtil.SetStringValue(akTarget, "RNE_Name", newName)
 			EndIf
-			akTarget.SetDisplayName(newName + ", " + oldname, True)
+      String oldname = TargetRef.GetName()
+			akTarget.SetDisplayName(newName + " ["+oldName+"]", True)
 			Return
 		Endif	
 
