@@ -61,6 +61,11 @@ Function Maintenance(skynet_MainController _skynet)
 EndFunction
 
 Function RegisterActions()
+    if !RegisterTags()
+        skynet.Fatal("Tags failed to register.")
+        return
+    endif
+
     if !RegisterBasicActions()
         skynet.Fatal("Basic actions failed to register.")
         return
@@ -82,7 +87,7 @@ Function RegisterActions()
     endif
 
     ; DEBUG ONLY
-    debug.notification("Actions registered.")
+    ; debug.notification("Actions registered.")
 EndFunction
 
 ; -----------------------------------------------------------------------------
@@ -133,7 +138,7 @@ Bool Function RegisterBasicActions()
                                 "", "PAPYRUS", \
                                 1, "")
 
-    SkyrimNetApi.RegisterAction("StartFollow", "Start following {{ player.name }} temporarily.", \
+    SkyrimNetApi.RegisterAction("StartFollow", "Start following {{ player.name }}. Only use this when you are sure that you want to accompany {{ player.name }} to another location.", \
                                 "SkyrimNetInternal", "StartFollow_IsEligible", \
                                 "SkyrimNetInternal", "StartFollow_Execute", \
                                 "", "PAPYRUS", \
@@ -145,7 +150,7 @@ Bool Function RegisterBasicActions()
                                 "", "PAPYRUS", \
                                 1, "")
 
-    SkyrimNetApi.RegisterAction("WaitHere", "Wait for {{ player.name }} at the current location.", \
+    SkyrimNetApi.RegisterAction("WaitHere", "Wait for {{ player.name }} at the current location temporarily.", \
                                 "SkyrimNetInternal", "PauseFollow_IsEligible", \
                                 "SkyrimNetInternal", "PauseFollow_Execute", \
                                 "", "PAPYRUS", \
@@ -295,25 +300,25 @@ Bool Function RegisterCompanionActions()
                                 "SkyrimNetInternal", "CompanionFollow_IsEligible", \
                                 "SkyrimNetInternal", "CompanionFollow", \
                                 "", "PAPYRUS", \
-                                1, "")
+                                1, "", "", "follower")
 
     SkyrimNetApi.RegisterAction("CompanionWait", "Wait at this location", \
                                 "SkyrimNetInternal", "CompanionWait_IsEligible", \
                                 "SkyrimNetInternal", "CompanionWait", \
                                 "", "PAPYRUS", \
-                                1, "")
+                                1, "", "", "follower")
 
     SkyrimNetApi.RegisterAction("CompanionInventory", "Give {{ player.name }} access to your inventory", \
                                 "SkyrimNetInternal", "Companion_IsEligible", \
                                 "SkyrimNetInternal", "CompanionInventory", \
                                 "", "PAPYRUS", \
-                                1, "")
+                                1, "", "", "follower")
 
     SkyrimNetApi.RegisterAction("CompanionGiveTask", "Let {{ player.name }} designate a task for you", \
                                 "SkyrimNetInternal", "CompanionGiveTask_IsEligible", \
                                 "SkyrimNetInternal", "CompanionGiveTask", \
                                 "", "PAPYRUS", \
-                                1, "")
+                                1, "", "", "follower")
 
     return true
 EndFunction
@@ -355,7 +360,7 @@ Bool Function PauseFollow_IsEligible(Actor akActor)
 EndFunction
 
 Function StartFollow_Execute(Actor akActor)
-    debug.notification(akActor.GetDisplayName() + " is now following you.")
+    debug.notification(akActor.GetDisplayName() + " is now accompanying you.")
 
     akActor.SetAV("WaitingForPlayer", 0)
 
@@ -365,7 +370,7 @@ Function StartFollow_Execute(Actor akActor)
 EndFunction
 
 Function StopFollow_Execute(Actor akActor)    
-    debug.notification(akActor.GetDisplayName() + " is no longer following you.")
+    debug.notification(akActor.GetDisplayName() + " is no longer accompanying you.")
 
     SkyrimNetApi.UnregisterPackage(akActor, "FollowPlayer")
 
@@ -378,4 +383,13 @@ Function PauseFollow_Execute(Actor akActor)
     akActor.SetAV("WaitingForPlayer", 1)
 
     akActor.EvaluatePackage()
+EndFunction
+
+; -----------------------------------------------------------------------------
+; --- Skynet Tag Registration ---
+; -----------------------------------------------------------------------------
+
+Bool Function RegisterTags()
+    SkyrimNetApi.RegisterTag("follower", "SkyrimNetInternal", "Follower_IsEligible")
+    return true
 EndFunction

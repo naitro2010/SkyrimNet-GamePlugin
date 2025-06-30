@@ -194,18 +194,7 @@ EndFunction
 ; Companion stuff
 bool Function Companion_IsEligible(Actor akActor, string contextJson, string paramsJson) global
     Debug.Trace("[SkyrimNetInternal] Companion_IsEligible called for " + akActor.GetDisplayName())
-    Faction factionCompanion = Game.GetFormFromFile(0x084D1B, "Skyrim.esm") as Faction
-    if (!factionCompanion)
-        Debug.Trace("[SkyrimNetInternal] Companion_IsEligible: factionCompanion is null")
-        return false
-    endif
-
-    if !akActor.IsInFaction(factionCompanion)
-        Debug.Trace("[SkyrimNetInternal] Companion_IsEligible: " + akActor.GetDisplayName() + " is not in the companion faction.")
-        return false
-    endif
-
-    Debug.Trace("[SkyrimNetInternal] Companion_IsEligible: " + akActor.GetDisplayName() + " is eligible as active companion.")
+    Debug.Trace("[SkyrimNetInternal] Companion_IsEligible: " + akActor.GetDisplayName() + " is eligible (faction check handled by follower tag).")
     return true
 EndFunction
 
@@ -219,23 +208,13 @@ EndFunction
 
 bool Function CompanionFollow_IsEligible(Actor akActor, string contextJson, string paramsJson) global
     Debug.Trace("[SkyrimNetInternal] CompanionFollow_IsEligible called for " + akActor.GetDisplayName())
-    Faction factionCompanion = Game.GetFormFromFile(0x084D1B, "Skyrim.esm") as Faction
-    if (!factionCompanion)
-        Debug.Trace("[SkyrimNetInternal] CompanionFollow_IsEligible: factionCompanion is null")
-        return false
-    endif
-
-    if !akActor.IsInFaction(factionCompanion)
-        Debug.Trace("[SkyrimNetInternal] CompanionFollow_IsEligible: " + akActor.GetDisplayName() + " is not in the companion faction.")
-        return false
-    endif
 
     if akActor.GetActorValue("WaitingForPlayer") == 0
         Debug.Trace("[SkyrimNetInternal] CompanionFollow_IsEligible: " + akActor.GetDisplayName() + " is already following.")
         return false
     endif
 
-    Debug.Trace("[SkyrimNetInternal] CompanionFollow_IsEligible: " + akActor.GetDisplayName() + " is eligible as active companion.")
+    Debug.Trace("[SkyrimNetInternal] CompanionFollow_IsEligible: " + akActor.GetDisplayName() + " is eligible (faction check handled by follower tag).")
     return true
 EndFunction
 
@@ -250,23 +229,13 @@ EndFunction
 
 bool Function CompanionWait_IsEligible(Actor akActor, string contextJson, string paramsJson) global
     Debug.Trace("[SkyrimNetInternal] CompanionWait_IsEligible called for " + akActor.GetDisplayName())
-    Faction factionCompanion = Game.GetFormFromFile(0x084D1B, "Skyrim.esm") as Faction
-    if (!factionCompanion)
-        Debug.Trace("[SkyrimNetInternal] CompanionWait_IsEligible: factionCompanion is null")
-        return false
-    endif
-
-    if !akActor.IsInFaction(factionCompanion)
-        Debug.Trace("[SkyrimNetInternal] CompanionWait_IsEligible: " + akActor.GetDisplayName() + " is not in the companion faction.")
-        return false
-    endif
 
     if akActor.GetActorValue("WaitingForPlayer") == 1
         Debug.Trace("[SkyrimNetInternal] CompanionWait_IsEligible: " + akActor.GetDisplayName() + " is already waiting.")
         return false
     endif
 
-    Debug.Trace("[SkyrimNetInternal] CompanionWait_IsEligible: " + akActor.GetDisplayName() + " is eligible as active companion.")
+    Debug.Trace("[SkyrimNetInternal] CompanionWait_IsEligible: " + akActor.GetDisplayName() + " is eligible (faction check handled by follower tag).")
     return true
 EndFunction
 
@@ -281,23 +250,13 @@ EndFunction
 
 bool Function CompanionGiveTask_IsEligible(Actor akActor, string contextJson, string paramsJson) global
     Debug.Trace("[SkyrimNetInternal] CompanionGiveTask_IsEligible called for " + akActor.GetDisplayName())
-    Faction factionCompanion = Game.GetFormFromFile(0x084D1B, "Skyrim.esm") as Faction
-    if (!factionCompanion)
-        Debug.Trace("[SkyrimNetInternal] CompanionGiveTask_IsEligible: factionCompanion is null")
-        return false
-    endif
-
-    if !akActor.IsInFaction(factionCompanion)
-        Debug.Trace("[SkyrimNetInternal] CompanionGiveTask_IsEligible: " + akActor.GetDisplayName() + " is not in the companion faction.")
-        return false
-    endif
 
     if akActor.IsDoingFavor()
         Debug.Trace("[SkyrimNetInternal] CompanionGiveTask_IsEligible: " + akActor.GetDisplayName() + " is already doing a favor.")
         return false
     endif
 
-    Debug.Trace("[SkyrimNetInternal] CompanionGiveTask_IsEligible: " + akActor.GetDisplayName() + " is eligible as active companion.")
+    Debug.Trace("[SkyrimNetInternal] CompanionGiveTask_IsEligible: " + akActor.GetDisplayName() + " is eligible (faction check handled by follower tag).")
     return true
 EndFunction
 
@@ -446,3 +405,35 @@ EndFunction
 ;     Debug.Trace("[SkyrimNetInternal] GiveBanditBounty_Execute: Starting follow on " + akActor.GetDisplayName())
 ;     skynet.libs.GiveBanditBounty_Execute(akActor)
 ; EndFunction
+
+; -----------------------------------------------------------------------------
+; --- General Eligibility Functions ---
+; -----------------------------------------------------------------------------
+
+; Always returns true - for actions that only need tag-based eligibility checks
+bool Function AlwaysEligible(Actor akActor, string contextJson, string paramsJson) global
+    Debug.Trace("[SkyrimNetInternal] AlwaysEligible called for " + akActor.GetDisplayName())
+    return true
+EndFunction
+
+; -----------------------------------------------------------------------------
+; --- Tag Eligibility Functions ---
+; -----------------------------------------------------------------------------
+
+; Follower tag eligibility - checks if actor is in companion faction
+bool Function Follower_IsEligible(Actor akActor, string contextJson, string paramsJson) global
+    Debug.Trace("[SkyrimNetInternal] Follower_IsEligible called for " + akActor.GetDisplayName())
+    Faction factionCompanion = Game.GetFormFromFile(0x084D1B, "Skyrim.esm") as Faction
+    if (!factionCompanion)
+        Debug.Trace("[SkyrimNetInternal] Follower_IsEligible: factionCompanion is null")
+        return false
+    endif
+
+    if !akActor.IsInFaction(factionCompanion)
+        Debug.Trace("[SkyrimNetInternal] Follower_IsEligible: " + akActor.GetDisplayName() + " is not in the companion faction.")
+        return false
+    endif
+
+    Debug.Trace("[SkyrimNetInternal] Follower_IsEligible: " + akActor.GetDisplayName() + " is eligible as active companion.")
+    return true
+EndFunction
