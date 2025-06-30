@@ -328,7 +328,18 @@ Bool Function StartFollow_IsEligible(Actor akActor)
         return false
     endif
 
+    Faction factionCompanion = Game.GetFormFromFile(0x084D1B, "Skyrim.esm") as Faction
+    if (!factionCompanion)
+        Debug.Trace("[SkyrimNetInternal] StartFollow_IsEligible: factionCompanion is null")
+        return true
+    endif
+
+    if akActor.IsInFaction(factionCompanion)
+        Debug.Trace("[SkyrimNetInternal] StartFollow_IsEligible: " + akActor.GetDisplayName() + " is in the companion faction.")
+        return false
+    endif
     return true
+
 EndFunction
 
 Bool Function StopFollow_IsEligible(Actor akActor)
