@@ -25,15 +25,7 @@ Only return one line, beginning with "ACTION:" and nothing else.
 {{ "## Dialogue History" }}
 {{ render_template("components\\event_history_compact") }}
 
-{{ "## Most Recent Dialogue" }}
-"{{ dialogue_request }}
-{{ dialogue_response }}"
 
-{{ "## Eligible Actions" }}
-{% for action in eligible_actions %}
-- ACTION: {{ action.name }}{% if action.parameterSchema and length(action.parameterSchema) > 0 %} PARAMS_SCHEMA: {{ action.parameterSchema }}{% endif %} — {{ action.description }}
-{% endfor %}
-- ACTION: None - No action directly fits the situation.
 {% if length(eligible_targets) > 0 %}
 {{ "## Eligible Targets" }}
 {% for target in eligible_targets %}
@@ -60,13 +52,25 @@ The following items are available to {{ npc.name }}:
 {% endfor %}
 {% endif %}
 
+
 {{ "## Context Reminder:" }}
 **Your choice must directly reflect what {{npc.name}} just said or did, and should be implied by the dialogue. NEVER pick actions unrelated to dialogue. NEVER pick random actions. ONLY pick actions that should follow the dialogue**
+
+{{ "## Most Recent Dialogue" }}
+"{{ dialogue_request }}
+{{ dialogue_response }}"
 
 {{ "## Format Reminder:" }}
 - `ACTION: ActionName`
 - `ACTION: ActionName PARAMS: {"param1": "value"}`
 - `ACTION: None`
+
+{{ "## Eligible Actions" }}
+{% for action in eligible_actions %}
+- ACTION: {{ action.name }}{% if action.parameterSchema and length(action.parameterSchema) > 0 %} PARAMS_SCHEMA: {{ action.parameterSchema }}{% endif %} — {{ action.description }}
+{% endfor %}
+- ACTION: None - No action directly fits the situation.
+
 
 Only return one line, beginning with "ACTION:" and nothing else. Do not include any reasoning or thinking in your response.
 [ end user ]
