@@ -138,19 +138,19 @@ Bool Function RegisterBasicActions()
                                 "", "PAPYRUS", \
                                 1, "")
 
-    SkyrimNetApi.RegisterAction("StartFollow", "Start following {{ player.name }}. Only use this when you are sure that you want to accompany {{ player.name }} to another location.", \
+    SkyrimNetApi.RegisterAction("AccompanyTarget", "Start accompanying {{ player.name }}. Only use this when you are sure that you want to stop what you're doing and follow {{ player.name }} to another location, and {{ player.name }} has specifically requested it.", \
                                 "SkyrimNetInternal", "StartFollow_IsEligible", \
                                 "SkyrimNetInternal", "StartFollow_Execute", \
                                 "", "PAPYRUS", \
                                 1, "")
 
-    SkyrimNetApi.RegisterAction("StopFollow", "Stop following {{ player.name }} around. Use this when you are done following them, or want to go home.", \
+    SkyrimNetApi.RegisterAction("StopAccompanying", "Stop accompanying {{ player.name }}. Use this when you are done accompanying them, or want to go home.", \
                                 "SkyrimNetInternal", "StopFollow_IsEligible", \
                                 "SkyrimNetInternal", "StopFollow_Execute", \
                                 "", "PAPYRUS", \
                                 1, "")
 
-    SkyrimNetApi.RegisterAction("WaitHere", "Wait for {{ player.name }} at the current location temporarily.", \
+    SkyrimNetApi.RegisterAction("WaitHere", "Wait for {{ player.name }} at the current location temporarily. Only use this when {{ player.name }} has specifically requested it.", \
                                 "SkyrimNetInternal", "PauseFollow_IsEligible", \
                                 "SkyrimNetInternal", "PauseFollow_Execute", \
                                 "", "PAPYRUS", \

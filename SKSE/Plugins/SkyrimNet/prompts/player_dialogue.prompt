@@ -8,9 +8,9 @@ You are roleplaying as {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender
 [ user ]
 Respond with only a single concise dialogue line{% if is_narration_enabled() %} and/or brief narrative action{% endif %} from {{ decnpc(npc.UUID).name }}, nothing else.
 {% if length(promptForDialogue) > 0 %}
-Transform "{{ promptForDialogue }}" into a natural dialogue line that {{ decnpc(npc.UUID).name }} would speak.
+Transform "{{ promptForDialogue }}" into a natural dialogue line that {{ decnpc(npc.UUID).name }} would speak. You are speaking audibly to {{ decnpc(npc.UUID).name }}.
 {% else %}
-Speak as {{ decnpc(npc.UUID).name }} would in this moment, responding to the current situation.
+Speak as {{ decnpc(npc.UUID).name }} would in this moment, responding to the current situation. You are speaking audibly to {{ decnpc(npc.UUID).name }}.
 {% endif %}
 {{ render_subcomponent("user_final_instructions", "transform") }}
 [ end user ] 

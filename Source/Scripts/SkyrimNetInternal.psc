@@ -134,6 +134,11 @@ bool Function Animation_IsEligible(Actor akActor, string contextJson, string par
         return false
     endif
 
+    if SkyrimNetApi.HasPackage(akActor, "FollowPlayer")
+        Debug.Trace("[SkyrimNetInternal] Animation_IsEligible: " + akActor.GetDisplayName() + " is following player. Cannot animate.")
+        return false
+    endif
+
     Debug.Trace("[SkyrimNetInternal] Animation_IsEligible: " + akActor.GetDisplayName() + " is eligible to animate.")
     return true
 EndFunction
