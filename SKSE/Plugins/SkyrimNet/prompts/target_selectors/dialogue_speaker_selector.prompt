@@ -1,31 +1,24 @@
 [ system ]
 You are deciding which single Skyrim NPC should speak next, if anyone.
 
-In Skyrim’s public spaces, conversations usually involve only those directly concerned, but a lively inn or gathering is not completely silent. It’s normal for background NPCs to react or contribute **occasionally**, if there’s a clear reason, social opening, or the atmosphere invites brief remarks.
+Your only task is to select the NPC who would naturally speak next based on realistic social interactions, relationships, personalities, and current events. Choose NPCs who have a clear and compelling reason to react, comment, or interject. If nobody has a strong reason, select "0" for silence.
 
-- **Main participants (those directly addressed, or with clear business)** should carry most of the conversation.
-- **Authority, duty, or social standing**: Allow intervention if the situation calls for a guard, innkeeper, or town leader.
-- **Occasional, fitting interjections**: If a lull occurs, or if the topic is communal, festive, or invites comment (a joke, a toast, a town rumor), a nearby NPC may briefly add something—**but only if it feels like a natural, welcome part of the moment**.
-- **Background and bystanders**: Should usually remain quiet, but may join in for toasts, laughter, warnings, or genuine group moments—*never to derail, one-up, or distract*.
-- **Entertainment (bard, performer, etc.)**: May react if a song or performance is commented on or the scene is festive, but shouldn’t inject themselves into private or serious discussions.
+Use these straightforward guidelines to determine who should speak next:
 
-**Do not allow pile-ons, tangents, or interruptions.**
-**Never pick an NPC just because they are on the list; always require a reason rooted in the social flow or current event.**
+- **Direct Involvement**: NPCs directly involved or addressed in the current situation typically speak first.
+- **Authority or Responsibility**: Guards, merchants, innkeepers, or community leaders should speak when the situation directly involves their duties, responsibilities, or authority.
+- **Personal or Emotional Connections**: NPCs should speak if the event involves someone they're close to (family, spouse, friend, or trusted ally), especially during conflicts, threats, or important emotional moments.
+- **Immediate Reaction to Notable Events**: NPCs who directly witness notable or unusual events (such as fights, crimes, arguments, accidents, or surprises) naturally react once. Allow repeated reactions only if the event significantly changes or escalates further.
+- **Social Openings and Atmosphere**: In relaxed or festive environments (inns, markets, celebrations, gatherings), NPCs may briefly join in toasts, jokes, gossip, storytelling, or general conversation—but only if it clearly enriches the atmosphere.
+- **Entertainers (Bards, Performers)**: Should only speak if directly referenced or reacting naturally to comments about their performances.
 
----
+**Important Restrictions**:
+- Never select an NPC solely because they're on the candidate list; always have a strong, socially believable reason for their involvement.
+- Avoid unnatural repetition or forced responses. Allow silence if no NPC clearly needs to speak.
 
-**In tense, confrontational, or decisive situations (such as threats, warnings, or displays of authority), only the main actor—the person making the threat, command, or declaration—should speak.**
-- Supporters, friends, or bystanders should NOT echo, reinforce, or back up the main actor’s statement unless they are directly addressed or the scene clearly requires escalation from a new voice.
-- Do NOT allow “backup” comments like “Just go, she means it” or “Don’t push her.” These are unnatural and break the flow.
-- Do NOT allow repeated threats, warnings, or commands from the same character in quick succession. Once a clear stance has been taken, only allow another response if the situation genuinely changes (e.g., the player acts, a fight breaks out, or a new authority enters).
+When in doubt, choose silence ("0").
 
-After a decisive line in a conflict, let silence fall unless there is a real, logical reason for someone else to speak or for escalation to continue.
-
----
-
-**If you are unsure, it’s acceptable to let a character interject, but only if it fits the social tone and enriches the moment. If not, prefer silence or continuation by the current main participant.**
-
-If in doubt, choose "0" (no one speaks).
+{{ get_scene_context(0, 0, "full")}}
 [ end system ]
 
 [ user ]
@@ -39,7 +32,7 @@ If in doubt, choose "0" (no one speaks).
 Below are the NPCs who are eligible to say something. Each has a priority (lower number is higher priority) and a prompt template indicating the type of dialogue they intend.
 
 {% for candidate in candidateDialogues %}
-{{ candidate.id }}. **{{ decnpc(candidate.UUID).name }}** ({{decnpc(candidate.UUID).gender}} {{ decnpc(candidate.UUID).race }})
+{{ candidate.id }}. **{{ decnpc(candidate.UUID).name }}** ({{ decnpc(candidate.UUID).gender }} {{ decnpc(candidate.UUID).race }})
 - **Description** {{ render_character_profile("short_inline", candidate.UUID) }}
 - **Interjection** {{ render_character_profile("interject_inline", candidate.UUID) }}
 - **Priority:** {{ candidate.priority }}
@@ -50,9 +43,10 @@ Below are the NPCs who are eligible to say something. Each has a priority (lower
 
 {{ "## Instructions " }}
 Evaluate the candidates and recent history:
-- If the conversation is focused or resolved, or the player seems busy, select `"0"`.
-- **Do NOT** pick anyone who would just add background, flavor, or entertainment, unless the topic or player *directly involves* them.
-- Pick a new speaker if it would be strange for them to remain silent. In relaxed scenes, an occasional interjection is fine—just avoid interruptions or derailing.
+- If no NPC has a clear and strong reason to speak, select `"0"`.
+- Do **NOT** select an NPC simply for flavor or general background chatter; only pick someone whose silence would feel unnatural.
+- Occasional brief interjections are fine, provided they're realistic and fitting for the NPC and situation.
+- Strongly consider the **triggeringEvent** and **Recent Events** when deciding who should respond.
 - Do not explain your reasoning. Provide your response ONLY in the specified format.
 {% if lastSpeaker %}
 - You MUST NOT select {{ lastSpeaker.name }} as the speaking_npc_name, though you may select them as the target.
