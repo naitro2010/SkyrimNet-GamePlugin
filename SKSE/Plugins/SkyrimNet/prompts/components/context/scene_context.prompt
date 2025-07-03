@@ -51,9 +51,18 @@ The scene is taking place in **{{ location }}**
 
 {% block triggeringEvent %}
 {% if triggeringEvent %}
+{{ "## Triggering Event(s) (THIS IS WHAT YOU ARE REACTING TO)" }}
+{% if is_array(triggeringEvent) %}
+{% for event in triggeringEvent %}
+Event: {{ event.type }}
+- **Actor**: {{ decnpc(event.originatingActor).name }}
+- **Data**: {{ event.data }}
+{% endfor %}
+{% else %}
 - **Type**: {{ triggeringEvent.type }}
 - **Data**: {{ triggeringEvent.data }}
 - **Actor**: {{ decnpc(triggeringEvent.originatingActor).name }}
+{% endif %}
 {% endif %}
 {% endblock %}
 
