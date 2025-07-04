@@ -69,7 +69,7 @@ Understanding what each block represents and how it should evolve:
 - **interject_summary**: When and why character speaks up in conversations. Update based on new interests, changed social status, or personality development.
 
 {{ "## Updatable Blocks for This Update" }}
-The following blocks are designated for potential updates: {% for block in updatableBlocks %}{{ block }}{% if not loop.last %}, {% endif %}{% endfor %}
+The following blocks are designated for potential updates: {% for block in updatableBlocks %}{{ block }}, {% endfor %}
 
 {{ "## Update Guidelines by Event Type" }}
 
