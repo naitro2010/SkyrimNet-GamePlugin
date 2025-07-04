@@ -1,5 +1,7 @@
 [ system ]
 You are an expert at updating character biographies based on recent events and character development. Update only the specified blocks while preserving the character's core identity and the template structure. Return your response as a JSON object with 'updated_content' containing the complete updated bio and 'changes_summary' describing what was changed.
+
+You have expertise in understanding how different types of experiences should influence different aspects of a character's biography while maintaining narrative consistency and character integrity.
 [ end system ]
 
 [ user ]
@@ -46,22 +48,65 @@ Update the character biography based on recent events and character development.
 ```
 {% endif %}
 
-{{ "## Updatable Blocks" }}
-{% for block in updatableBlocks %}{{ block }}, {% endfor %}
+{{ "## Character Bio Block Definitions" }}
+
+Understanding what each block represents and how it should evolve:
+
+**Core Identity Blocks (rarely change, preserve carefully):**
+- **background**: Character's history, origins, major life events that shaped them. Only update for truly significant life-changing events.
+- **personality**: Core character traits, behavioral patterns, emotional tendencies. Should only evolve gradually through major character development.
+- **appearance**: Physical description and distinctive features. Only update for permanent physical changes (scars, injuries, aging).
+
+**Dynamic Development Blocks (more responsive to events):**
+- **summary**: Brief overview of who the character is currently. Update to reflect recent significant changes in status, role, or major developments.
+- **aspirations**: Current goals, ambitions, dreams, and motivations. Update based on achieved goals, new ambitions, or changed priorities.
+- **relationships**: Key relationships and how character feels about important people. Update based on relationship developments, new allies/enemies, changed dynamics.
+- **occupation**: Current job, role, or primary activity. Update for career changes, new responsibilities, or shifts in daily activities.
+- **skills**: Notable abilities, expertise, and talents. Update when character learns new skills, improves existing ones, or demonstrates new capabilities.
+
+**Behavioral Expression Blocks (moderate responsiveness):**
+- **speech_style**: How the character speaks, vocabulary, mannerisms. May evolve slowly based on education, social changes, or major personality shifts.
+- **interject_summary**: When and why character speaks up in conversations. Update based on new interests, changed social status, or personality development.
+
+{{ "## Updatable Blocks for This Update" }}
+The following blocks are designated for potential updates: {% for block in updatableBlocks %}{{ block }}{% if not loop.last %}, {% endif %}{% endfor %}
+
+{{ "## Update Guidelines by Event Type" }}
+
+**Combat/Conflict Events**: May affect aspirations (new goals), relationships (allies/enemies), skills (combat experience), summary (if role changes)
+
+**Social/Relationship Events**: Primarily affect relationships, may influence aspirations (new goals through others), speech_style (social adaptation), summary (status changes)
+
+**Learning/Training Events**: Primarily affect skills, may influence aspirations (new interests), occupation (if career-relevant), summary (if expertise becomes defining)
+
+**Achievement/Failure Events**: May affect aspirations (completed/adjusted goals), summary (accomplishments), relationships (changed reputation), skills (proven abilities)
+
+**Traumatic/Life-changing Events**: May affect personality (if truly transformative), aspirations (changed priorities), relationships (new perspective on others), summary (redefined identity)
+
+**Career/Role Changes**: Primarily affect occupation and summary, may influence skills (new responsibilities), relationships (professional connections), aspirations (career goals)
 
 {% if preserveCorePersonality %}
-{{ "## IMPORTANT" }}
-Preserve the character's core personality, background and identity. Only update the specified blocks based on recent developments.
+{{ "## CRITICAL PRESERVATION GUIDELINES" }}
+- **NEVER** alter core personality traits unless truly transformative events occurred
+- **PRESERVE** the character's fundamental identity, values, and background
+- **MAINTAIN** narrative consistency with the character's established history
+- **AVOID** contradicting previous characterization unless justified by major development
+- **KEEP** changes proportional to the significance of recent events
 {% endif %}
 
-{{ "## Instructions" }}
+{{ "## Update Instructions" }}
+
 **IMPORTANT**: Respond ONLY with a valid JSON object. Do not include any explanatory text before or after the JSON.
+
+For each updatable block, consider:
+1. **Is there relevant new information?** Only update if recent events/memories directly relate to that aspect
+2. **Is the change proportional?** Minor events should cause minor updates, major events can cause significant changes
+3. **Does it maintain consistency?** Ensure new content aligns with the character's established identity
+4. **Is it well-integrated?** Smoothly incorporate new information rather than just appending it
 
 Return a JSON response with exactly these fields:
 - 'updated_content': The complete updated character bio in template format with ALL required sections
-- 'changes_summary': A brief summary of what changes were made based on recent events
-
-Update only the specified updatable blocks based on recent events and memories. Keep all other blocks unchanged from the original bio.
+- 'changes_summary': A brief summary of what changes were made and why, based on recent events
 
 **Response format**: Pure JSON only, no markdown code fences, no explanatory text.
 [ end user ] 
