@@ -120,3 +120,11 @@ int function GetJsonInt(String jsonString, String key, int defaultValue) Global 
 bool function GetJsonBool(String jsonString, String key, bool defaultValue) Global Native
 float function GetJsonFloat(String jsonString, String key, float defaultValue) Global Native
 Actor function GetJsonActor(String jsonString, String key, Actor defaultValue) Global Native
+
+; -----------------------------------------------------------------------------
+; --- Web Interface ---
+; -----------------------------------------------------------------------------
+
+; Open the default web browser to the SkyrimNet web interface
+; Returns 0 on success, 1 on failure
+int function OpenSkyrimNetUI() Global Native
