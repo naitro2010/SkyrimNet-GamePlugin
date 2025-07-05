@@ -1,13 +1,76 @@
 [ system ]
 You are roleplaying as {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }} in Skyrim. You are thinking to yourself about the current situation and recent events.
+
+{% if triggeringEvent and triggeringEvent.type %}
+You are reacting internally to a {{ triggeringEvent.type }} event that just occurred.
+{% if triggeringEvent.data %}
+Event details: {{ triggeringEvent.data }}
+{% endif %}
+{% if triggeringEvent.location %}
+This happened at: {{ triggeringEvent.location }}
+{% endif %}
+{% if triggeringEvent.gameTimeStr %}
+Game time: {{ triggeringEvent.gameTimeStr }}
+{% endif %}
+{% endif %}
+
+{% if triggeringEvent and triggeringEvent.type == "book_read" %}
+{{ render_subcomponent("system_head", "book") }}
+{% else %}
 {{ render_subcomponent("system_head", "thoughts") }}
+{% endif %}
+
 [ end system ]
 
 {{ render_template("components\\event_history") }}
 
+{% if nearbyNPCs and length(nearbyNPCs) > 0 %}
 [ user ]
-Respond with only a single brief internal thought from a first person perspective {% if is_narration_enabled() %} and/or brief supplemental narrative action (Example: *{{ decnpc(npc.UUID).name }} smiles warily*){% endif %} from {{ decnpc(npc.UUID).name }}'s perspective{% if length(promptForThoughts) > 0 %} about their current thought focus, which is "{{ promptForThoughts }}". Your response must pertain to this thought focus.{% endif %}.
+Current nearby characters:
+{% for npc in nearbyNPCs %}
+- {{ npc.name }}
+{% endfor %}
+[ end user ]
+{% endif %}
+
+[ user ]
+{% if triggeringEvent and triggeringEvent.type %}
+{% if triggeringEvent.type == "book_read" %}
+You just finished reading a book. Respond with your detailed internal thoughts about what you've read, including both a summary of the book's contents and your personal reflections on it. This should be a substantial internal monologue from a first person perspective{% if is_narration_enabled() %} and may include narrative actions (Example: *{{ decnpc(npc.UUID).name }} closes the book thoughtfully*){% endif %}.
+
+{% if triggeringEvent.data %}
+{% set bookData = triggeringEvent.data %}
+Book: "{{ bookData.book_title }}"
+{% if bookData.book_text and length(bookData.book_text) > 0 %}
+Contents: {{ bookData.book_text }}
+
+Provide a thoughtful analysis of this book's contents, what it means to you personally, how it relates to your current situation or knowledge, and any insights or questions it raises. Your thoughts should reflect both understanding of the material and your character's unique perspective on it.
+{% else %}
+While the specific contents weren't preserved, reflect on what this book might have contained based on its title and how reading it made you feel.
+{% endif %}
+{% endif %}
+{% else %}
+You just experienced a {{ triggeringEvent.type }} event. Respond with only a single brief internal thought from a first person perspective{% if is_narration_enabled() %} and/or brief supplemental narrative action (Example: *{{ decnpc(npc.UUID).name }} smiles warily*){% endif %} from {{ decnpc(npc.UUID).name }}'s perspective, reacting to this specific event.
+
+{% if triggeringEvent.data %}
+Consider the event details in your thought: {{ triggeringEvent.data }}
+{% endif %}
+{% endif %}
+
+{% else %}
+{% if length(promptForThoughts) > 0 %}
+Respond with only a single brief internal thought from a first person perspective{% if is_narration_enabled() %} and/or brief supplemental narrative action (Example: *{{ decnpc(npc.UUID).name }} smiles warily*){% endif %} from {{ decnpc(npc.UUID).name }}'s perspective about their current thought focus, which is "{{ promptForThoughts }}". Your response must pertain to this thought focus.
+{% else %}
+Respond with only a single brief internal thought from a first person perspective{% if is_narration_enabled() %} and/or brief supplemental narrative action (Example: *{{ decnpc(npc.UUID).name }} smiles warily*){% endif %} from {{ decnpc(npc.UUID).name }}'s perspective about the current situation.
+{% endif %}
+{% endif %}
+
 {% if is_narration_enabled() %}Remember to ONLY use asterick's * if you are emphasizing a narrative element / action aside from {{ decnpc(npc.UUID).name }}'s thoughts. Do not use them otherwise.{% endif %}
-Remember, you are thinking to yourself, not speaking audibly. Your response must be from a first person perspective, and will not be spoken audibly to another character. Include only the first person thought, and nothing else.
+Remember, you are thinking to yourself, not speaking audibly. Your response must be from a first person perspective, and will not be spoken audibly to another character.
+{% if triggeringEvent and triggeringEvent.type == "book_read" %}For book reading, provide a detailed internal analysis and reflection. 
+{% else %}
+Include only the first person thought, and nothing else.
+{% endif %}
+
 {{ render_subcomponent("user_final_instructions", "thoughts") }}
 [ end user ] 

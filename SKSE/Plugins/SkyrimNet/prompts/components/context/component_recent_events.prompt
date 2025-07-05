@@ -155,12 +155,7 @@
 - **{{ source_entity.name }}** went to sleep ({{ time_desc }})
 
 {% else if event.type == "sleep_stop" %}
-{% if event.data.interrupted %}
-- **{{ source_entity.name }}** woke up suddenly (sleep was interrupted) ({{ time_desc }})
-{% else %}
-- **{{ source_entity.name }}** woke up naturally after resting ({{ time_desc }})
-{% endif %}
-
+- **{{ source_entity.name }}** woke up from a deep slumber ({{ time_desc }})
 {% else if event.type == "package_apply" and event.data == "FollowPlayer" %}
 - **{{ source_entity.name }}** began following {{ player.name }} ({{ time_desc }})
 {% else if event.type == "package_remove" and event.data == "FollowPlayer" %}

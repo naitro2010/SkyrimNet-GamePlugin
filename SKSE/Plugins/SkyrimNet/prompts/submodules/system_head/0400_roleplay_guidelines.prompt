@@ -9,6 +9,13 @@
 - Dialogue should feel authentic to your character's way of speaking
 - If in combat, focus on urgent, terse combat-appropriate responses
 - Adapt formal/informal speech based on who you're speaking to and the situation
+{% else if render_mode == "book" %}
+- Provide detailed internal thoughts and analysis as {{ decnpc(npc.UUID).name }}
+- Your response should be a substantial internal monologue reflecting on what you've read
+- Include both summary of the material and personal reflections on its meaning
+- Consider how the book's contents relate to your character's knowledge, experiences, and current situation
+- Maintain your character's unique perspective, education level, and way of thinking
+- This is internal reflection, so be thorough and contemplative while staying true to your character
 {% else %}
 - Responses should be concise (max 2-3 sentences), direct, and suited to Skyrim's setting.
 - Capture the character's personality, speech style, and any important relationships or aspirations.

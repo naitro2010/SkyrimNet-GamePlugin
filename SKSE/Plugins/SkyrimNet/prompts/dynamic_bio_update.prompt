@@ -1,0 +1,67 @@
+[ system ]
+You are an expert at updating character biographies based on recent events and character development. Update only the specified blocks while preserving the character's core identity and the template structure. Return your response as a JSON object with 'updated_content' containing the complete updated bio and 'changes_summary' describing what was changed.
+[ end system ]
+
+[ user ]
+Update the character biography based on recent events and character development.
+
+{{ "## Character Information" }}
+- Name: {{ actor.displayName }}
+- Level: {{ actor.level }}
+{% if actor.race %}
+- Race: {{ actor.race.name }}
+{% endif %}
+- Sex: {% if actor.sex == 0 %}Male{% else %}Female{% endif %}
+- Current Location: {{ currentLocation }}
+- Current Time: {{ currentGameTime }}
+
+{% if factions and length(factions) > 0 %}
+{{ "## Factions" }}
+{% for faction in factions %}
+- {{ faction.name }} (Rank {{ faction.rank }})
+{% endfor %}
+{% endif %}
+
+{% if events and length(events) > 0 %}
+{{ "##" }} Recent Events (last {{ maxRecentEvents }})
+{{ render_template("components\\event_history_verbose") }}
+{% endif %}
+
+{% if recentMemories and length(recentMemories) > 0 %}
+{{ "##" }} Most Significant Memories for {{ actor.displayName }}
+{% for memory in recentMemories %}
+- {{ memory }}
+{% endfor %}
+{% endif %}
+
+{{ "## Original Bio Content" }}
+```
+{{ originalBioContent }}
+```
+
+{% if currentDynamicContent %}
+{{ "## Current Dynamic Bio (to be updated)" }}
+```
+{{ currentDynamicContent }}
+```
+{% endif %}
+
+{{ "## Updatable Blocks" }}
+{% for block in updatableBlocks %}{{ block }}, {% endfor %}
+
+{% if preserveCorePersonality %}
+{{ "## IMPORTANT" }}
+Preserve the character's core personality, background and identity. Only update the specified blocks based on recent developments.
+{% endif %}
+
+{{ "## Instructions" }}
+**IMPORTANT**: Respond ONLY with a valid JSON object. Do not include any explanatory text before or after the JSON.
+
+Return a JSON response with exactly these fields:
+- 'updated_content': The complete updated character bio in template format with ALL required sections
+- 'changes_summary': A brief summary of what changes were made based on recent events
+
+Update only the specified updatable blocks based on recent events and memories. Keep all other blocks unchanged from the original bio.
+
+**Response format**: Pure JSON only, no markdown code fences, no explanatory text.
+[ end user ] 
