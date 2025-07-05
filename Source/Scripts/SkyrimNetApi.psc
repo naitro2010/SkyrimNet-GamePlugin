@@ -6,6 +6,12 @@ Scriptname SkyrimNetApi
 ; -----------------------------------------------------------------------------
 
 ; Register a decorator to be used when resolving a variable in a prompt
+; - decoratorID: Unique identifier for the decorator, e.g., "my_custom_decorator"
+; - sourceScript: The script where the decorator function is defined
+; - functionName: The name of the function in the source script that implements the decorator logic
+;;                Functions with an Actor parameter can be called from the prompt template by passing a UUID 
+;                 `{{my_custom_decorator(player.UUID)}}` -> `Function DecoratorFunction(Actor akActor) Global`
+;                 
 int function RegisterDecorator(String decoratorID, String sourceScript, String functionName) Global Native
 
 ; -----------------------------------------------------------------------------
@@ -13,11 +19,18 @@ int function RegisterDecorator(String decoratorID, String sourceScript, String f
 ; -----------------------------------------------------------------------------
 
 ; Register an action to be performed by an NPC
+;
+; - actionName: Will be visible to the LLM. Take care when naming so the llm will call it in the right circumstances.
+; - parameterSchemaJson: Describes expected parameters, e.g., {"target": "string", "duration": "number"}
+; - categoryStr: Should be PAPYRUS
+; - customCategory: defines the sub category for the action. Has to be registered first with RegisterSubCategory
+
 int function RegisterAction(String actionName, String description, \
                            String eligibilityScriptName, String eligibilityFunctionName, \
                            String executionScriptName, String executionFunctionName, \
                            String triggeringEventTypesCsv, String categoryStr, \
                            int defaultPriority, String parameterSchemaJson, String customCategory="", String tags="") Global Native
+
 ; Register a custom sub-category for PAPYRUS_CUSTOM actions
 int function RegisterSubCategory (String actionName, String description, \
                                 String eligibilityScriptName, String eligibilityFunctionName, \
@@ -32,7 +45,12 @@ int function RegisterTag(String tagName, String eligibilityScriptName, String el
 ; -----------------------------------------------------------------------------
 
 ; Register a short-lived event that appears in scene context and expires after TTL
+; You can use this to have highly real-time events that don't blow up the context. For example, I use these to track the spells that actors have recently cast, like such: spell_cast_actor_id. Whenever an actor casts a spell, it updates this key. Therefore, only the last spell they cast shows up in the context.
+
 ; Returns 0 on success, 1 on failure
+; - eventId is a unique key for your event. 
+
+
 int function RegisterShortLivedEvent(String eventId, String eventType, String description, \
                                     String data, int ttlMs, Actor sourceActor, Actor targetActor) Global Native
 
@@ -120,3 +138,33 @@ int function GetJsonInt(String jsonString, String key, int defaultValue) Global 
 bool function GetJsonBool(String jsonString, String key, bool defaultValue) Global Native
 float function GetJsonFloat(String jsonString, String key, float defaultValue) Global Native
 Actor function GetJsonActor(String jsonString, String key, Actor defaultValue) Global Native
+
+; -----------------------------------------------------------------------------
+; --- Events ---
+; -----------------------------------------------------------------------------
+
+
+; Package Added
+;
+; Called when a package is added to an actor through SkyrimNet
+; -------------
+; Example:
+;
+; RegisterForRegisterForModEvent("SkyrimNet_OnPackageAdded", "OnPackageAdded")
+;
+; Event OnPackageAdded(Actor akActor, Package akPackage) 
+;     ; Your code to handle the package added event
+; EndEvent
+;
+; Package Removed
+;
+; Called when a package is reemoved from an actor through SkyrimNet
+; -------------
+; Example:
+;
+; RegisterForRegisterForModEvent("SkyrimNet_OnPackageRemoved", "OnPackageRemoved")
+;
+; Event OnPackageRemoved(Actor akActor, Package akPackage) 
+;     ; Your code to handle the package removed event
+; EndEvent
+;
