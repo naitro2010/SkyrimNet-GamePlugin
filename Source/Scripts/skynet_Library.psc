@@ -114,7 +114,7 @@ Function ApplyPackageOverrideToActor(Actor akActor, String asString, Int priorit
     skynet.Info("Applying package override " + asString + " to " + akActor.GetDisplayName())
     ActorUtil.AddPackageOverride(akActor, _pck, priority, flags)
     akActor.EvaluatePackage()
-    DispatchPackageAddedEvent(akActor, _pck)
+    DispatchPackageAddedEvent(akActor, _pck, asString)
     skynet.Info("Dispatched package remove event for " + akActor.GetDisplayName() + " with package " + asString)
 EndFunction
 
@@ -127,7 +127,7 @@ Function RemovePackageOverrideFromActor(Actor akActor, String asString)
     skynet.Info("Removing package override " + asString + " from " + akActor.GetDisplayName())
     ActorUtil.RemovePackageOverride(akActor, _pck)
     akActor.EvaluatePackage()
-    DispatchPackageRemovedEvent(akActor, _pck)
+    DispatchPackageRemovedEvent(akActor, _pck, asString)
     skynet.Info("Dispatched package remove event for " + akActor.GetDisplayName() + " with package " + asString)
 EndFunction
 
@@ -415,20 +415,22 @@ EndFunction
 ; --- Event Dispatchers
 ; -----------------------------------------------------------------------------
 
-Function DispatchPackageAddedEvent(Actor akActor, Package pkg)
+Function DispatchPackageAddedEvent(Actor akActor, Package pkg, String packageName)
  int handle = ModEvent.Create("SkyrimNet_OnPackageAdded")
   if handle
     modEvent.PushForm(handle,akActor)
     modEvent.PushForm(handle,pkg)
+    modEvent.PushString(handle, packageName)
     modEvent.Send(handle)
 endif
 EndFunction
 
-Function DispatchPackageRemovedEvent(Actor akActor, Package pkg)
+Function DispatchPackageRemovedEvent(Actor akActor, Package pkg, String packageName)
  int handle = ModEvent.Create("SkyrimNet_OnPackageRemoved")
   if handle
     modEvent.PushForm(handle,akActor)
     modEvent.PushForm(handle,pkg)
+    modEvent.PushString(handle, packageName)
     modEvent.Send(handle)
 endif
 EndFunction
