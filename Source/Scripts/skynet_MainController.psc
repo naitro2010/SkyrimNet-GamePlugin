@@ -2,6 +2,7 @@ ScriptName skynet_MainController extends Quest
 
 skynet_Library Property libs Auto
 Actor property playerRef Auto Hidden
+Spell property skynet_WheelMenuSpell auto
 
 ; -----------------------------------------------------------------------------
 ; --- Version & Maintenance ---
@@ -29,9 +30,19 @@ Function Maintenance()
   playerRef = Game.GetPlayer()
   libs.Maintenance(self as skynet_MainController)
 
+  AddSpells()
+
   Info("SkyrimNet version " + versionCurrent + " ready.")
   ; Debug.Notification("SkyrimNet version " + versionCurrent + " ready.")
 EndFunction
+
+Function AddSpells()
+
+	If !playerRef.HasSpell(skynet_WheelMenuSpell)
+		playerRef.AddSpell(skynet_WheelMenuSpell)
+	Endif
+
+endfunction
 
 Function RunUpdate()
   Int versionNumber = GetVersion()
