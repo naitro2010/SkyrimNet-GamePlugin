@@ -154,6 +154,10 @@ String function GetBuildVersion() Global Native
 ; Returns the build configuration type (e.g., "Debug", "Release", etc.)
 String function GetBuildType() Global Native
 
+; Check if currently recording voice input
+; Returns true if voice recording is active, false otherwise
+bool function IsRecordingInput() Global Native
+
 ; -----------------------------------------------------------------------------
 ; --- Web Interface ---
 ; -----------------------------------------------------------------------------
