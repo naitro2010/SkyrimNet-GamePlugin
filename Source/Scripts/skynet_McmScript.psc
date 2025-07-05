@@ -8,7 +8,7 @@ event OnConfigOpen()
     
     Pages = new string[2]
 
-    Pages[0] = "Settings"
+    Pages[0] = "Overview"
     Pages[1] = "SkyrimNet Status"
 
 endevent
@@ -24,10 +24,13 @@ event OnPageReset(string page)
         UnloadCustomContent()
     endif
     
-    if page == "Settings"
-        DisplaySettings()
+    if page == "Overview"
+        DisplayOverview()
     elseif page == "SkyrimNet Status"
         DisplayStatus()
+    else
+        ; Default to Overview page
+        DisplayOverview()
     endif
 
 endevent
@@ -44,9 +47,9 @@ function DisplaySplashScreen()
 
 endfunction
 
-function DisplaySettings()
+function DisplayOverview()
 
-    AddHeaderOption("Settings")
+    AddHeaderOption("Overview")
     AddHeaderOption("")
 
     toggleShowWebUi = AddTextOption("Click here to view Web UI", "")
@@ -57,6 +60,16 @@ function DisplayStatus()
 
     AddHeaderOption("SkyrimNet Status")
     AddHeaderOption("")
+    
+    ; Display build information
+    string version = SkyrimNetApi.GetBuildVersion()
+    string buildType = SkyrimNetApi.GetBuildType()
+    
+    AddTextOption("Version:", version)
+    AddTextOption("Build Type:", buildType)
+    
+    ; Add more status information here as needed
+    ; For example: uptime, connected status, etc.
 
 endfunction
 

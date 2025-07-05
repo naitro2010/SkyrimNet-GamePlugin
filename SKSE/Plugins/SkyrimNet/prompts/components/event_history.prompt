@@ -1,14 +1,16 @@
 {% for event in events %}
 {% if isValidActor(event.originatingActor) %}
   {% if event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_stt" or event.type == "dialogue_player_text" or event.type == "dialogue_background" or event.type == "player_thoughts" or event.type == "direct_narration" %}
-    {% if event.originatingActor == npc.UUID and event.type != "player_thoughts" %}
+    {% if event.originatingActor == npc.UUID and event.type != "player_thoughts" and event.type != "direct_narration" %}
 [ assistant ]
 {{ event.data }}
 [ end assistant ]
     {% else %}
 [ user ]
-{% if event.type == "direct_narration" %}{{ event.data }}{% endif %}
+{% if event.type == "direct_narration" %}*{{ event.data }}*
+{% else %}
 {% if event.type == "dialogue_background" %}[Background] {% endif %}{% if event.type == "player_thoughts" %}[{{ decnpc(event.originatingActor).name }}'s internal thoughts] {% endif %}{{ decnpc(event.originatingActor).name }}{% if isValidActor(event.targetActor) %} (to {{ decnpc(event.targetActor).name }}){% endif %}: {{ event.data }}
+{% endif %}
 [ end user ]
   {% endif %}
 {% endif %}

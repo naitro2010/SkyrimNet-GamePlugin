@@ -10,27 +10,29 @@ EndEvent
 ;I had to make some sub menus because the wheel menu only supports 9 items
 Function DisplayWheel() global
 
-    string labels = "Text Input,Record Speech,Record Speech Streaming,Toggle GameMaster,Player Actions,Dialogue,Special Modes,Narration"
-    string options = "Text Input,Record Speech,Record Speech Streaming,Toggle GameMaster,Player Actions Menu,Dialogue Menu,Special Modes Menu,Narration"
+    string labels = "Text Input,Record Speech,Toggle GameMaster,Player Actions,Dialogue,Special Modes,Narration"
+    string options = "Text Input,Record Speech,Toggle GameMaster,Player Actions Menu,Dialogue Menu,Special Modes Menu,Narration"
 
     int result = skynet_WheelMenu.MenuWheel(StringUtil.Split(options, ","), StringUtil.Split(labels, ","))
 
     if result == 0
-        ;text input api call
+        ; Text input
+        SkyrimNetApi.TriggerTextInput()
     elseif result == 1
-        ;record speech api call
+        ; Record speech
+        SkyrimNetApi.TriggerRecordSpeechPressed()
     elseif result == 2
-        ;record speech streaming api call
+        ; Toggle GameMaster
+        SkyrimNetApi.TriggerToggleGameMaster()
     elseif result == 3
-        ;toggle gamemaster api call
-    elseif result == 4
         skynet_WheelMenu.DisplayPlayerActions()
-    elseif result == 5
+    elseif result == 4
         skynet_WheelMenu.DisplayDialogue()
-    elseif result == 6
+    elseif result == 5
         skynet_WheelMenu.DisplaySpecialModes()
-    elseif result == 7
-        ;narration api call
+    elseif result == 6
+        ; Continue narration
+        SkyrimNetApi.TriggerContinueNarration()
     endif
 
 EndFunction
@@ -45,9 +47,11 @@ Function DisplayPlayerActions() global
     if result == 0
         skynet_WheelMenu.DisplayWheel()
     elseif result == 1
-        ;text thought api call
+        ; Text thought
+        SkyrimNetApi.TriggerTextThought()
     elseif result == 2
-        ;voice thought api call
+        ; Voice thought
+        SkyrimNetApi.TriggerVoiceThoughtPressed()
     endif
 
 EndFunction
@@ -62,9 +66,11 @@ Function DisplayDialogue() global
     if result == 0
         skynet_WheelMenu.DisplayWheel()
     elseif result == 1
-        ;Text Dialogue Transform api call
+        ; Text dialogue transform
+        SkyrimNetApi.TriggerTextDialogueTransform()
     elseif result == 2
-        ;Voice Dialogue Transform api call
+        ; Voice dialogue transform
+        SkyrimNetApi.TriggerVoiceDialogueTransformPressed()
     endif
 
 EndFunction
@@ -79,11 +85,14 @@ Function DisplaySpecialModes() global
     if result == 0
         skynet_WheelMenu.DisplayWheel()
     elseif result == 1
-        ;Toggle Continuous Mode api call
+        ; Toggle continuous mode
+        SkyrimNetApi.TriggerToggleContinuousMode()
     elseif result == 2
-        ;Direct Input api call
+        ; Direct input
+        SkyrimNetApi.TriggerDirectInput()
     elseif result == 3
-        ;Voice Direct Input api call
+        ; Voice direct input
+        SkyrimNetApi.TriggerVoiceDirectInputPressed()
     endif
 
 EndFunction
