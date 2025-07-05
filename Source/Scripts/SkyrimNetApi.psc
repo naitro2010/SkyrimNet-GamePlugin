@@ -7,11 +7,11 @@ Scriptname SkyrimNetApi
 
 ; Register a decorator to be used when resolving a variable in a prompt
 ; - decoratorID: Unique identifier for the decorator, e.g., "my_custom_decorator"
-; - sourceScript: The script where the decorator function is defined
+; - sourceScript: The script where the global decorator function is defined
 ; - functionName: The name of the function in the source script that implements the decorator logic
-;;                Functions with an Actor parameter can be called from the prompt template by passing a UUID 
-;                 `{{my_custom_decorator(player.UUID)}}` -> `Function DecoratorFunction(Actor akActor) Global`
 ;                 
+;   Functions with an Actor parameter can be called from the prompt template by passing a UUID 
+;   `{{my_custom_decorator(player.UUID)}}` -> `Function DecoratorFunction(Actor akActor) Global`
 int function RegisterDecorator(String decoratorID, String sourceScript, String functionName) Global Native
 
 ; -----------------------------------------------------------------------------
@@ -23,7 +23,6 @@ int function RegisterDecorator(String decoratorID, String sourceScript, String f
 ; - actionName: Will be visible to the LLM. Take care when naming so the llm will call it in the right circumstances.
 ; - parameterSchemaJson: Describes expected parameters, e.g., {"target": "string", "duration": "number"}
 ; - categoryStr: Should be PAPYRUS
-; - customCategory: defines the sub category for the action. Has to be registered first with RegisterSubCategory
 
 int function RegisterAction(String actionName, String description, \
                            String eligibilityScriptName, String eligibilityFunctionName, \
@@ -145,9 +144,9 @@ Actor function GetJsonActor(String jsonString, String key, Actor defaultValue) G
 
 
 ; Package Added
+; -------------
 ;
 ; Called when a package is added to an actor through SkyrimNet
-; -------------
 ; Example:
 ;
 ; RegisterForRegisterForModEvent("SkyrimNet_OnPackageAdded", "OnPackageAdded")
@@ -156,10 +155,12 @@ Actor function GetJsonActor(String jsonString, String key, Actor defaultValue) G
 ;     ; Your code to handle the package added event
 ; EndEvent
 ;
+;
+;
 ; Package Removed
+; -------------
 ;
 ; Called when a package is reemoved from an actor through SkyrimNet
-; -------------
 ; Example:
 ;
 ; RegisterForRegisterForModEvent("SkyrimNet_OnPackageRemoved", "OnPackageRemoved")
