@@ -6,7 +6,7 @@ scriptname SkyrimNetInternal
 Bool Function ClearTimelineMessage() global
     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
     if !skynet
-        Debug.MessageBox("Fatal Erorr: AnimationGeneric failed to retrieve controller.")
+        Debug.MessageBox("Fatal Error: AnimationGeneric failed to retrieve controller.")
         return False
     endif
 
@@ -27,7 +27,7 @@ EndFunction
 Function SetActorDialogueTarget(Actor akActor, Actor akTarget = None) global
     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
     if !skynet
-        Debug.MessageBox("Fatal Erorr: AnimationGeneric failed to retrieve controller.")
+        Debug.MessageBox("Fatal Error: AnimationGeneric failed to retrieve controller.")
         return
     endif
     skynet.SetActorDialogueTarget(akActor, akTarget)
@@ -37,7 +37,7 @@ Function AddPackageToActor(Actor akActor, string packageName, int priority, int 
     Debug.Trace("[SkyrimNetInternal] AddPackageToActor called for " + akActor.GetDisplayName() + " with package " + packageName + " and priority " + priority + " and flags " + flags)
     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
     if !skynet
-        Debug.MessageBox("Fatal Erorr: AddPackageToActor failed to retrieve controller.")
+        Debug.MessageBox("Fatal Error: AddPackageToActor failed to retrieve controller.")
         return
     endif
     skynet.libs.ApplyPackageOverrideToActor(akActor, packageName, priority, flags)
@@ -47,7 +47,7 @@ Function RemovePackageFromActor(Actor akActor, string packageName) global
     Debug.Trace("[SkyrimNetInternal] RemovePackageFromActor called for " + akActor.GetDisplayName() + " with package " + packageName)
     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
     if !skynet
-        Debug.MessageBox("Fatal Erorr: RemovePackageFromActor failed to retrieve controller.")
+        Debug.MessageBox("Fatal Error: RemovePackageFromActor failed to retrieve controller.")
         return
     endif
     skynet.libs.RemovePackageOverrideFromActor(akActor, packageName)
@@ -98,7 +98,7 @@ bool Function OpenTrade_IsEligible(Actor akActor, string contextJson, string par
     ; we then reroute the request to only load from file one thing instead of potentially dozens
     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
     if !skynet
-        Debug.MessageBox("Fatal Erorr: OpenTrade_IsEligible failed to retrieve controller.")
+        Debug.MessageBox("Fatal Error: OpenTrade_IsEligible failed to retrieve controller.")
         return false
     endif
 
@@ -158,7 +158,7 @@ Function AnimationGeneric(Actor akOriginator, string contextJson, string paramsJ
 
     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
     if !skynet
-        Debug.MessageBox("Fatal Erorr: AnimationGeneric failed to retrieve controller.")
+        Debug.MessageBox("Fatal Error: AnimationGeneric failed to retrieve controller.")
         return
     endif
 
@@ -280,7 +280,7 @@ bool Function StartFollow_IsEligible(Actor akActor, string contextJson, string p
 
     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
     if !skynet
-        Debug.MessageBox("Fatal Erorr: StartFollow_IsEligible failed to retrieve controller.")
+        Debug.MessageBox("Fatal Error: StartFollow_IsEligible failed to retrieve controller.")
         return false
     endif
 
@@ -294,7 +294,7 @@ Function StartFollow_Execute(Actor akActor, string contextJson, string paramsJso
 
     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
     if !skynet
-        Debug.MessageBox("Fatal Erorr: StartFollow_Execute failed to retrieve controller.")
+        Debug.MessageBox("Fatal Error: StartFollow_Execute failed to retrieve controller.")
         return
     endif
 
@@ -307,7 +307,7 @@ bool Function StopFollow_IsEligible(Actor akActor, string contextJson, string pa
 
     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
     if !skynet
-        Debug.MessageBox("Fatal Erorr: StopFollow_IsEligible failed to retrieve controller.")
+        Debug.MessageBox("Fatal Error: StopFollow_IsEligible failed to retrieve controller.")
         return false
     endif
 
@@ -321,7 +321,7 @@ Function StopFollow_Execute(Actor akActor, string contextJson, string paramsJson
 
     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
     if !skynet
-        Debug.MessageBox("Fatal Erorr: StopFollow_Execute failed to retrieve controller.")
+        Debug.MessageBox("Fatal Error: StopFollow_Execute failed to retrieve controller.")
         return
     endif
 
@@ -334,7 +334,7 @@ bool Function PauseFollow_IsEligible(Actor akActor, string contextJson, string p
 
     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
     if !skynet
-        Debug.MessageBox("Fatal Erorr: PauseFollow_IsEligible failed to retrieve controller.")
+        Debug.MessageBox("Fatal Error: PauseFollow_IsEligible failed to retrieve controller.")
         return false
     endif
 
@@ -348,7 +348,7 @@ Function PauseFollow_Execute(Actor akActor, string contextJson, string paramsJso
 
     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
     if !skynet
-        Debug.MessageBox("Fatal Erorr: PauseFollow_Execute failed to retrieve controller.")
+        Debug.MessageBox("Fatal Error: PauseFollow_Execute failed to retrieve controller.")
         return
     endif
 
@@ -362,7 +362,7 @@ bool Function RentRoom_IsEligible(Actor akActor, string contextJson, string para
 
     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
     if !skynet
-        Debug.MessageBox("Fatal Erorr: RentRoom_IsEligible failed to retrieve controller.")
+        Debug.MessageBox("Fatal Error: RentRoom_IsEligible failed to retrieve controller.")
         return false
     endif
 
@@ -376,7 +376,7 @@ Function RentRoom_Execute(Actor akActor, string contextJson, string paramsJson) 
 
     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
     if !skynet
-        Debug.MessageBox("Fatal Erorr: RentRoom_Execute failed to retrieve controller.")
+        Debug.MessageBox("Fatal Error: RentRoom_Execute failed to retrieve controller.")
         return
     endif
 
@@ -389,7 +389,7 @@ EndFunction
 
 ;     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
 ;     if !skynet
-;         Debug.MessageBox("Fatal Erorr: GiveBanditBounty_IsEligible failed to retrieve controller.")
+;         Debug.MessageBox("Fatal Error: GiveBanditBounty_IsEligible failed to retrieve controller.")
 ;         return false
 ;     endif
 
@@ -403,7 +403,7 @@ EndFunction
 
 ;     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
 ;     if !skynet
-;         Debug.MessageBox("Fatal Erorr: GiveBanditBounty_Execute failed to retrieve controller.")
+;         Debug.MessageBox("Fatal Error: GiveBanditBounty_Execute failed to retrieve controller.")
 ;         return
 ;     endif
 
