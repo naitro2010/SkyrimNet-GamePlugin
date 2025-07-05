@@ -139,6 +139,14 @@ float function GetJsonFloat(String jsonString, String key, float defaultValue) G
 Actor function GetJsonActor(String jsonString, String key, Actor defaultValue) Global Native
 
 ; -----------------------------------------------------------------------------
+; --- Web Interface ---
+; -----------------------------------------------------------------------------
+
+; Open the default web browser to the SkyrimNet web interface
+; Returns 0 on success, 1 on failure
+int function OpenSkyrimNetUI() Global Native
+
+; -----------------------------------------------------------------------------
 ; --- Events ---
 ; -----------------------------------------------------------------------------
 
@@ -169,3 +177,5 @@ Actor function GetJsonActor(String jsonString, String key, Actor defaultValue) G
 ;     ; Your code to handle the package removed event
 ; EndEvent
 ;
+
+

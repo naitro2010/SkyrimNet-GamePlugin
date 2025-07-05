@@ -207,7 +207,7 @@ Function RentRoom_Execute(Actor akActor, string paramsJson)
 
     Int price = SkyrimNetApi.GetJsonInt(paramsJson, "price", Math.Floor(globalRentRoomPrice.GetValue()))
     if skynet.playerRef.GetItemCount(miscGold) < price
-        SkyrimNetApi.DirectionNarration("*{{ decnpc(npc.UUID).name }} complains to {{ player.name }} about offering what they can't pay*", akActor, Game.GetPlayer())
+        SkyrimNetApi.DirectNarration("*{{ decnpc(npc.UUID).name }} complains to {{ player.name }} about offering what they can't pay*", akActor, Game.GetPlayer())
         return
     EndIf
 

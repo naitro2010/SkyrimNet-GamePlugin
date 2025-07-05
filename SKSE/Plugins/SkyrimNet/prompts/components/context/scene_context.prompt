@@ -54,6 +54,7 @@ The scene is taking place in **{{ location }}**
 {{ "## Triggering Event(s) (THIS IS WHAT YOU ARE REACTING TO)" }}
 {% if is_array(triggeringEvent) %}
 {% for event in triggeringEvent %}
+{% if event.originatingActor != 0 %}
 Event: {{ event.type }}
 - **Actor**: {{ decnpc(event.originatingActor).name }}
 - **Data**: {{ event.data }}
@@ -62,6 +63,7 @@ Event: {{ event.type }}
 - **Type**: {{ triggeringEvent.type }}
 - **Data**: {{ triggeringEvent.data }}
 - **Actor**: {{ decnpc(triggeringEvent.originatingActor).name }}
+{% endif %}
 {% endif %}
 {% endif %}
 {% endblock %}
