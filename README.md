@@ -5,6 +5,7 @@
 SkyrimNet is a cutting-edge AI integration platform for games, beginning with Skyrim. Unlike other AI projects that take an external server approach, SkyrimNet uses an **in-process design as a DLL** without requiring WSL or external servers. This architectural difference offers faster response times, lower system load, and a streamlined setup process.
 
 **The most advanced AI platform for gaming - transforming every NPC into a living, breathing character with their own memories, goals, and personalities.**
+
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/S6S51B7MJA)
 
 ## 🏗️ Revolutionary Architecture
