@@ -53,6 +53,7 @@ function DisplayOverview()
     AddHeaderOption("")
 
     toggleShowWebUi = AddTextOption("Click here to view Web UI", "")
+    AddTextOption("UI can be found at http://localhost:8080 if the above link does not work on your system", "")
 
 endfunction
 

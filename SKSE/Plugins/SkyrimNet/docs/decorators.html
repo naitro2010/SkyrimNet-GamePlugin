@@ -192,21 +192,21 @@
     <div class="header">
         <h1>SkyrimNet Decorator Documentation</h1>
         <p>Complete reference for template decorators and variables</p>
-        <p>Generated on 2025-06-09 06:38:14Z</p>
+        <p>Generated on 2025-07-05 18:28:27Z</p>
     </div>
 
     <div class="summary">
         <div class="summary-card">
             <h3>Decorators</h3>
-            <div class="number">27</div>
+            <div class="number">40</div>
         </div>
         <div class="summary-card">
             <h3>Variables</h3>
-            <div class="number">0</div>
+            <div class="number">18</div>
         </div>
         <div class="summary-card">
             <h3>Categories</h3>
-            <div class="number">9</div>
+            <div class="number">13</div>
         </div>
     </div>
 
@@ -216,9 +216,17 @@
             
             <li><a href="#category-Actor">Actor</a></li>
             
+            <li><a href="#category-Environment">Environment</a></li>
+            
+            <li><a href="#category-Equipment">Equipment</a></li>
+            
             <li><a href="#category-Faction">Faction</a></li>
             
             <li><a href="#category-Game System">Game System</a></li>
+            
+            <li><a href="#category-General">General</a></li>
+            
+            <li><a href="#category-Item Customization">Item Customization</a></li>
             
             <li><a href="#category-Mood">Mood</a></li>
             
@@ -244,7 +252,43 @@
             
             
                 
-                    
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
                 
             
                 
@@ -252,17 +296,7 @@
                 
             
                 
-            
-                
-            
-                
-            
-                
-            
-                
-            
-                
-            
+                    
                 
             
                 
@@ -306,13 +340,53 @@
             <h3>Functions</h3>
             
             
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             <div class="decorator-item">
                 <div class="decorator-name">decnpc</div>
                 <div class="decorator-description">Decorates an actor with comprehensive information</div>
                 
                 
                 <div class="decorator-signature">
-                    decnpc(actorUUID: uint32_t) → object
+                    decnpc(actorUUID: uint64_t) → object
                 </div>
                 
 
@@ -326,7 +400,7 @@
                     
                     <div class="argument">
                         <span class="argument-name">actorUUID</span>
-                        <span class="argument-type">(uint32_t)</span>
+                        <span class="argument-type">(uint64_t)</span>
                         
                         <br>The UUID of the actor to decorate
                         
@@ -366,7 +440,7 @@
                 
                 
                 <div class="decorator-signature">
-                    isValidActor(actorUUID: uint32_t) → boolean
+                    isValidActor(actorUUID: uint64_t) → boolean
                 </div>
                 
 
@@ -380,7 +454,7 @@
                     
                     <div class="argument">
                         <span class="argument-name">actorUUID</span>
-                        <span class="argument-type">(uint32_t)</span>
+                        <span class="argument-type">(uint64_t)</span>
                         
                         <br>The UUID of the actor to validate
                         
@@ -448,31 +522,49 @@
             
             
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
 
             <!-- Check if we have any variables for this category -->
             
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
             
 
             
         </div>
     </div>
     
-    <div class="category-section" id="category-Faction">
-        <h2 class="category-header">Faction</h2>
+    <div class="category-section" id="category-Environment">
+        <h2 class="category-header">Environment</h2>
         <div class="category-content">
             
             <!-- Check if we have any decorators for this category -->
@@ -483,11 +575,35 @@
                 
             
                 
-                    
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
                 
             
                 
                     
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
                 
             
                 
@@ -545,18 +661,328 @@
             
             
             
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             <div class="decorator-item">
-                <div class="decorator-name">get_faction_rank</div>
-                <div class="decorator-description">Get an actor's rank within a specific faction</div>
+                <div class="decorator-name">currentWeather</div>
+                <div class="decorator-description">Current weather information</div>
                 
                 
-                <div class="decorator-signature">
-                    get_faction_rank(actorUUID: uint32_t, factionName: string) → integer
+                <div class="decorator-signature">currentWeather → object</div>
+                
+
+                
+                <p>Provides information about the current weather in Skyrim, including weather type, precipitation status, and atmospheric conditions. Useful for contextualizing scenes and dialogue based on environmental conditions.</p>
+                
+
+                
+
+                <div>
+                    <strong>Returns:</strong> object
+                     - Current weather object with name, IDs, precipitation status, and conditions
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{% if currentWeather.isRaining %}It's raining outside{% endif %}</div>
+                    
+                    <div class="example-code">The weather is {{ currentWeather.name }} (ID: {{ currentWeather.formID }})</div>
+                    
+                    <div class="example-code">{% if currentWeather.isSnowing %}Snow is falling{% else if currentWeather.isRaining %}Rain is pouring{% else %}The sky is clear{% endif %}</div>
+                    
                 </div>
                 
 
                 
-                <p>Returns the numeric rank of the specified actor within the given faction. Higher numbers typically indicate higher ranks. Returns -1 if the actor is not in the faction or if the faction doesn't exist.</p>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            <!-- Check if we have any variables for this category -->
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+
+            
+        </div>
+    </div>
+    
+    <div class="category-section" id="category-Equipment">
+        <h2 class="category-header">Equipment</h2>
+        <div class="category-content">
+            
+            <!-- Check if we have any decorators for this category -->
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            
+            
+            <h3>Functions</h3>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">get_worn_equipment</div>
+                <div class="decorator-description">Get worn equipment with keywords for any actor</div>
+                
+                
+                <div class="decorator-signature">
+                    get_worn_equipment(actorUUID: uint64_t) → object
+                </div>
+                
+
+                
+                <p>Returns a comprehensive list of all equipment worn by the specified actor, including armor, weapons, jewelry, and hand-held items. Each item includes details like name, type, value, combat statistics, and all associated keywords with their editor IDs and form IDs.</p>
                 
 
                 
@@ -565,17 +991,9 @@
                     
                     <div class="argument">
                         <span class="argument-name">actorUUID</span>
-                        <span class="argument-type">(uint32_t)</span>
+                        <span class="argument-type">(uint64_t)</span>
                         
-                        <br>UUID of the actor to check
-                        
-                    </div>
-                    
-                    <div class="argument">
-                        <span class="argument-name">factionName</span>
-                        <span class="argument-type">(string)</span>
-                        
-                        <br>Name of the faction to get rank for
+                        <br>The UUID of the actor whose equipment to retrieve
                         
                     </div>
                     
@@ -583,19 +1001,25 @@
                 
 
                 <div>
-                    <strong>Returns:</strong> integer
-                     - Faction rank number, or -1 if not in faction
+                    <strong>Returns:</strong> object
+                     - Object containing worn equipment organized by slot (head, body, hands, etc.) with detailed item information including keywords
                 </div>
 
                 
                 <div class="examples">
                     <strong>Examples:</strong>
                     
-                    <div class="example-code">Your rank in the Companions is {{ get_faction_rank(player.UUID, "Companions") }}</div>
+                    <div class="example-code">{{ get_worn_equipment(player.UUID).body.name }}</div>
                     
-                    <div class="example-code">{% set rank = get_faction_rank(actorId, "College of Winterhold") %}{% if rank > 0 %}Rank: {{ rank }}{% endif %}</div>
+                    <div class="example-code">{% set equipment = get_worn_equipment(targetActor) %}{% if equipment.head %}Wearing: {{ equipment.head.name }}{% endif %}</div>
                     
-                    <div class="example-code">{% if get_faction_rank(player.UUID, "Thieves Guild") >= 4 %}You are a high-ranking member!{% endif %}</div>
+                    <div class="example-code">{% for slot, item in get_worn_equipment(player.UUID) %}{{ slot }}: {{ item.name }}{% endfor %}</div>
+                    
+                    <div class="example-code">Right hand weapon: {{ get_worn_equipment(player.UUID).rightHand.name }}</div>
+                    
+                    <div class="example-code">{% for keyword in get_worn_equipment(player.UUID).rightHand.keywords %}{{ keyword.editorID }}{% endfor %}</div>
+                    
+                    <div class="example-code">{% if get_worn_equipment(player.UUID).body.keywords %}Material keywords: {% for kw in get_worn_equipment(player.UUID).body.keywords %}{{ kw.editorID }} {% endfor %}{% endif %}</div>
                     
                 </div>
                 
@@ -606,12 +1030,335 @@
             
             
             <div class="decorator-item">
+                <div class="decorator-name">worn_has_keyword</div>
+                <div class="decorator-description">Check if an actor is wearing anything with a specific keyword</div>
+                
+                
+                <div class="decorator-signature">
+                    worn_has_keyword(actorUUID: uint64_t, keywordEditorID: string) → boolean
+                </div>
+                
+
+                
+                <p>Returns true if the actor is wearing any equipment that has the specified keyword. This is more efficient than getting all worn equipment when you only need to check for a specific keyword. Uses the Actor's built-in HasKeywordString method for optimal performance.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">actorUUID</span>
+                        <span class="argument-type">(uint64_t)</span>
+                        
+                        <br>The UUID of the actor to check
+                        
+                    </div>
+                    
+                    <div class="argument">
+                        <span class="argument-name">keywordEditorID</span>
+                        <span class="argument-type">(string)</span>
+                        
+                        <br>The editor ID of the keyword to check for (e.g., 'ArmorMaterialDragonplate', 'WeapTypeSword')
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> boolean
+                     - True if the actor is wearing any equipment with the specified keyword, false otherwise
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{% if worn_has_keyword(player.UUID, "ArmorMaterialDragonplate") %}You're wearing dragonplate armor!{% endif %}</div>
+                    
+                    <div class="example-code">{% if worn_has_keyword(targetActor, "WeapTypeSword") %}{{ actor(targetActor).name }} is wielding a sword.{% endif %}</div>
+                    
+                    <div class="example-code">{% if worn_has_keyword(player.UUID, "ArmorHeavy") %}Heavy armor detected{% else %}Light or no armor{% endif %}</div>
+                    
+                    <div class="example-code">{{ worn_has_keyword(player.UUID, "MagicDisallowEnchanting") }}</div>
+                    
+                    <div class="example-code">{% if worn_has_keyword(player.UUID, "VendorItemJewelry") %}Wearing jewelry{% endif %}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">get_inventory</div>
+                <div class="decorator-description">Get an actor's complete inventory</div>
+                
+                
+                <div class="decorator-signature">
+                    get_inventory(actorUUID: uint64_t) → object
+                </div>
+                
+
+                
+                <p>Returns a comprehensive list of all items in the actor's inventory, including count, value, weight, and keywords for each item. Items are organized by form ID for easy lookup.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">actorUUID</span>
+                        <span class="argument-type">(uint64_t)</span>
+                        
+                        <br>The UUID of the actor whose inventory to retrieve
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> object
+                     - Object containing inventory items indexed by form ID, each with detailed information
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{% for formID, item in get_inventory(player.UUID) %}{{ item.name }}: {{ item.count }}{% endfor %}</div>
+                    
+                    <div class="example-code">{{ get_inventory(player.UUID)["0x12EB7"].count }}</div>
+                    
+                    <div class="example-code">{% set inv = get_inventory(targetActor) %}Total items: {{ inv|length }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            <!-- Check if we have any variables for this category -->
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+
+            
+        </div>
+    </div>
+    
+    <div class="category-section" id="category-Faction">
+        <h2 class="category-header">Faction</h2>
+        <div class="category-content">
+            
+            <!-- Check if we have any decorators for this category -->
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            
+            
+            <h3>Functions</h3>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="decorator-item">
                 <div class="decorator-name">is_in_faction</div>
                 <div class="decorator-description">Check if an actor is a member of a specific faction</div>
                 
                 
                 <div class="decorator-signature">
-                    is_in_faction(actorUUID: uint32_t, factionName: string) → boolean
+                    is_in_faction(actorUUID: uint64_t, factionName: string) → boolean
                 </div>
                 
 
@@ -625,7 +1372,7 @@
                     
                     <div class="argument">
                         <span class="argument-name">actorUUID</span>
-                        <span class="argument-type">(uint32_t)</span>
+                        <span class="argument-type">(uint64_t)</span>
                         
                         <br>UUID of the actor to check
                         
@@ -665,29 +1412,63 @@
             
             
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+            <div class="decorator-item">
+                <div class="decorator-name">get_faction_rank</div>
+                <div class="decorator-description">Get an actor's rank within a specific faction</div>
+                
+                
+                <div class="decorator-signature">
+                    get_faction_rank(actorUUID: uint64_t, factionName: string) → integer
+                </div>
+                
+
+                
+                <p>Returns the numeric rank of the specified actor within the given faction. Higher numbers typically indicate higher ranks. Returns -1 if the actor is not in the faction or if the faction doesn't exist.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">actorUUID</span>
+                        <span class="argument-type">(uint64_t)</span>
+                        
+                        <br>UUID of the actor to check
+                        
+                    </div>
+                    
+                    <div class="argument">
+                        <span class="argument-name">factionName</span>
+                        <span class="argument-type">(string)</span>
+                        
+                        <br>Name of the faction to get rank for
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> integer
+                     - Faction rank number, or -1 if not in faction
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">Your rank in the Companions is {{ get_faction_rank(player.UUID, "Companions") }}</div>
+                    
+                    <div class="example-code">{% set rank = get_faction_rank(actorId, "College of Winterhold") %}{% if rank > 0 %}Rank: {{ rank }}{% endif %}</div>
+                    
+                    <div class="example-code">{% if get_faction_rank(player.UUID, "Thieves Guild") >= 4 %}You are a high-ranking member!{% endif %}</div>
+                    
+                </div>
+                
+
+                
+            </div>
             
             
             
@@ -715,6 +1496,38 @@
             <!-- Check if we have any variables for this category -->
             
             
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
 
             
         </div>
@@ -728,6 +1541,50 @@
             
             
                 
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
             
                 
             
@@ -744,27 +1601,9 @@
                 
             
                 
-                    
-                
             
                 
                     
-                
-            
-                
-                    
-                
-            
-                
-            
-                
-            
-                
-            
-                
-            
-                
-            
                 
             
                 
@@ -794,138 +1633,6 @@
             
             
             <h3>Functions</h3>
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            <div class="decorator-item">
-                <div class="decorator-name">get_civil_war_side</div>
-                <div class="decorator-description">Get the player's civil war faction allegiance</div>
-                
-                
-                <div class="decorator-signature">get_civil_war_side → string</div>
-                
-
-                
-                <p>Returns which side the player has chosen in Skyrim's civil war questline. Can return values like 'Imperial', 'Stormcloak', or 'Neutral' depending on quest progression and player choices.</p>
-                
-
-                
-
-                <div>
-                    <strong>Returns:</strong> string
-                     - The player's civil war allegiance
-                </div>
-
-                
-                <div class="examples">
-                    <strong>Examples:</strong>
-                    
-                    <div class="example-code">You fight for the {{ get_civil_war_side() }}s!</div>
-                    
-                    <div class="example-code">{% if get_civil_war_side() == "Imperial" %}Long live the Empire!{% endif %}</div>
-                    
-                    <div class="example-code">Civil War Side: {{ get_civil_war_side() }}</div>
-                    
-                </div>
-                
-
-                
-            </div>
-            
-            
-            
-            <div class="decorator-item">
-                <div class="decorator-name">get_form_name</div>
-                <div class="decorator-description">Get the display name of a game form by its ID</div>
-                
-                
-                <div class="decorator-signature">
-                    get_form_name(formID: uint32_t) → string
-                </div>
-                
-
-                
-                <p>Retrieves the display name of any game form (item, spell, location, etc.) using its form ID. Returns an empty string if the form is not found or has no name.</p>
-                
-
-                
-                <div class="arguments">
-                    <strong>Arguments:</strong>
-                    
-                    <div class="argument">
-                        <span class="argument-name">formID</span>
-                        <span class="argument-type">(uint32_t)</span>
-                        
-                        <br>The hexadecimal form ID of the game object
-                        
-                    </div>
-                    
-                </div>
-                
-
-                <div>
-                    <strong>Returns:</strong> string
-                     - Display name of the form, or empty string if not found
-                </div>
-
-                
-                <div class="examples">
-                    <strong>Examples:</strong>
-                    
-                    <div class="example-code">{{ get_form_name(0x00012eb7) }}</div>
-                    
-                    <div class="example-code">Item: {{ get_form_name(itemFormID) }}</div>
-                    
-                    <div class="example-code">{% set itemName = get_form_name(formId) %}{% if itemName %}Found: {{ itemName }}{% endif %}</div>
-                    
-                </div>
-                
-
-                
-            </div>
-            
-            
-            
-            <div class="decorator-item">
-                <div class="decorator-name">is_narration_enabled</div>
-                <div class="decorator-description">Check if narration is enabled in game settings</div>
-                
-                
-                <div class="decorator-signature">is_narration_enabled → boolean</div>
-                
-
-                
-                <p>Returns whether the narration system is currently enabled in the game configuration. This can be used to conditionally include or exclude narrated content in templates.</p>
-                
-
-                
-
-                <div>
-                    <strong>Returns:</strong> boolean
-                     - True if narration is enabled, false otherwise
-                </div>
-
-                
-                <div class="examples">
-                    <strong>Examples:</strong>
-                    
-                    <div class="example-code">{% if is_narration_enabled() %}[Narration enabled]{% endif %}</div>
-                    
-                    <div class="example-code">{{ is_narration_enabled() }}</div>
-                    
-                </div>
-                
-
-                
-            </div>
-            
             
             
             <div class="decorator-item">
@@ -992,6 +1699,137 @@
             
             
             
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">get_form_name</div>
+                <div class="decorator-description">Get the display name of a game form by its ID</div>
+                
+                
+                <div class="decorator-signature">
+                    get_form_name(formID: uint32_t) → string
+                </div>
+                
+
+                
+                <p>Retrieves the display name of any game form (item, spell, location, etc.) using its form ID. Returns an empty string if the form is not found or has no name.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">formID</span>
+                        <span class="argument-type">(uint32_t)</span>
+                        
+                        <br>The hexadecimal form ID of the game object
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> string
+                     - Display name of the form, or empty string if not found
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{{ get_form_name(0x00012eb7) }}</div>
+                    
+                    <div class="example-code">Item: {{ get_form_name(itemFormID) }}</div>
+                    
+                    <div class="example-code">{% set itemName = get_form_name(formId) %}{% if itemName %}Found: {{ itemName }}{% endif %}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">is_narration_enabled</div>
+                <div class="decorator-description">Check if narration is enabled in game settings</div>
+                
+                
+                <div class="decorator-signature">is_narration_enabled → boolean</div>
+                
+
+                
+                <p>Returns whether the narration system is currently enabled in the game configuration. This can be used to conditionally include or exclude narrated content in templates.</p>
+                
+
+                
+
+                <div>
+                    <strong>Returns:</strong> boolean
+                     - True if narration is enabled, false otherwise
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{% if is_narration_enabled() %}[Narration enabled]{% endif %}</div>
+                    
+                    <div class="example-code">{{ is_narration_enabled() }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
             <div class="decorator-item">
                 <div class="decorator-name">units_to_meters</div>
                 <div class="decorator-description">Convert Skyrim game units to real-world meters</div>
@@ -1046,13 +1884,40 @@
             
             
             
-            
-            
-            
-            
-            
-            
-            
+            <div class="decorator-item">
+                <div class="decorator-name">get_civil_war_side</div>
+                <div class="decorator-description">Get the player's civil war faction allegiance</div>
+                
+                
+                <div class="decorator-signature">get_civil_war_side → string</div>
+                
+
+                
+                <p>Returns which side the player has chosen in Skyrim's civil war questline. Can return values like 'Imperial', 'Stormcloak', or 'Neutral' depending on quest progression and player choices.</p>
+                
+
+                
+
+                <div>
+                    <strong>Returns:</strong> string
+                     - The player's civil war allegiance
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">You fight for the {{ get_civil_war_side() }}s!</div>
+                    
+                    <div class="example-code">{% if get_civil_war_side() == "Imperial" %}Long live the Empire!{% endif %}</div>
+                    
+                    <div class="example-code">Civil War Side: {{ get_civil_war_side() }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
             
             
             
@@ -1084,13 +1949,45 @@
             <!-- Check if we have any variables for this category -->
             
             
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
 
             
         </div>
     </div>
     
-    <div class="category-section" id="category-Mood">
-        <h2 class="category-header">Mood</h2>
+    <div class="category-section" id="category-General">
+        <h2 class="category-header">General</h2>
         <div class="category-content">
             
             <!-- Check if we have any decorators for this category -->
@@ -1115,6 +2012,94 @@
                 
             
                 
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            
+            
+
+            <!-- Check if we have any variables for this category -->
+            
+            
+                
+                    
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+                    
+                
+            
+                
                     
                 
             
@@ -1124,6 +2109,728 @@
             
                 
                     
+                
+            
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+
+            
+            <h3>Variables</h3>
+            
+            
+            <div class="variable-item">
+                <div class="variable-name">page_name</div>
+                <div class="variable-type">string</div>
+                
+                <div></div>
+                
+                
+                <div class="example-code">{{ page_name }} → Test</div>
+                
+                <div class="usage-info">
+                    Used 4 times 
+                    in template:
+                    web/bundled_base
+                </div>
+            </div>
+            
+            
+            
+            
+            
+            <div class="variable-item">
+                <div class="variable-name">request_path</div>
+                <div class="variable-type">string</div>
+                
+                <div></div>
+                
+                
+                <div class="example-code">{{ request_path }} → /test</div>
+                
+                <div class="usage-info">
+                    Used 4 times 
+                    in template:
+                    web/bundled_base
+                </div>
+            </div>
+            
+            
+            
+            <div class="variable-item">
+                <div class="variable-name">request_method</div>
+                <div class="variable-type">string</div>
+                
+                <div></div>
+                
+                
+                <div class="example-code">{{ request_method }} → GET</div>
+                
+                <div class="usage-info">
+                    Used 4 times 
+                    in template:
+                    web/bundled_base
+                </div>
+            </div>
+            
+            
+            
+            
+            
+            <div class="variable-item">
+                <div class="variable-name">page_title</div>
+                <div class="variable-type">string</div>
+                
+                <div></div>
+                
+                
+                <div class="example-code">{{ page_title }} → System Tests</div>
+                
+                <div class="usage-info">
+                    Used 4 times 
+                    in template:
+                    web/bundled_base
+                </div>
+            </div>
+            
+            
+            
+            <div class="variable-item">
+                <div class="variable-name">server_name</div>
+                <div class="variable-type">string</div>
+                
+                <div></div>
+                
+                
+                <div class="example-code">{{ server_name }} → SkyrimNet HTTP Server</div>
+                
+                <div class="usage-info">
+                    Used 4 times 
+                    in template:
+                    web/bundled_base
+                </div>
+            </div>
+            
+            
+            
+            <div class="variable-item">
+                <div class="variable-name">version</div>
+                <div class="variable-type">string</div>
+                
+                <div></div>
+                
+                
+                <div class="example-code">{{ version }} → 1.0.0</div>
+                
+                <div class="usage-info">
+                    Used 4 times 
+                    in template:
+                    web/bundled_base
+                </div>
+            </div>
+            
+            
+            
+            <div class="variable-item">
+                <div class="variable-name">page_subtitle</div>
+                <div class="variable-type">string</div>
+                
+                <div></div>
+                
+                
+                <div class="example-code">{{ page_subtitle }} → Test functionality of core systems</div>
+                
+                <div class="usage-info">
+                    Used 4 times 
+                    in template:
+                    web/bundled_base
+                </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            <div class="variable-item">
+                <div class="variable-name">currentTime</div>
+                <div class="variable-type">string</div>
+                
+                <div></div>
+                
+                
+                <div class="example-code">{{ currentTime }} → 2025-07-05 18:28:27Z</div>
+                
+                <div class="usage-info">
+                    Used 32 times 
+                    in template:
+                    documentation/main
+                </div>
+            </div>
+            
+            
+            
+            
+            
+            <div class="variable-item">
+                <div class="variable-name">gameTime</div>
+                <div class="variable-type">string</div>
+                
+                <div></div>
+                
+                
+                <div class="example-code">{{ gameTime }} → 8:00 AM, Morndas, 17th of Last Seed, 4E 201</div>
+                
+                <div class="usage-info">
+                    Used 32 times 
+                    in template:
+                    documentation/main
+                </div>
+            </div>
+            
+            
+            
+            <div class="variable-item">
+                <div class="variable-name">gameTimeJson</div>
+                <div class="variable-type">object</div>
+                
+                <div></div>
+                
+                
+                <div class="example-code">{{ gameTimeJson }} → {"ampm":"AM","day":17,"dayOrdinal":"17th","displayHour":8,"era":"4E","formattedTime":"8:00 AM, Morndas, 17th of Last Seed, 4E 201","gameDays":1.3333333730697632,"hour":8,"isPM":false,"minute":0,"month":7,"monthName":"Last Seed","timeString":"8:00 AM","weekday":1,"weekdayName":"Morndas","year":201,"yearFull":"4E 201"}</div>
+                
+                <div class="usage-info">
+                    Used 32 times 
+                    in template:
+                    documentation/main
+                </div>
+            </div>
+            
+            
+            
+            <div class="variable-item">
+                <div class="variable-name">currentWeather</div>
+                <div class="variable-type">object</div>
+                
+                <div></div>
+                
+                
+                <div class="example-code">{{ currentWeather }} → {"editorID":"","formID":0,"isRaining":false,"isSnowing":false,"mode":4,"name":"Unknown","weatherTransition":1.0,"windAngle":1.0,"windSpeed":0.0}</div>
+                
+                <div class="usage-info">
+                    Used 32 times 
+                    in template:
+                    documentation/main
+                </div>
+            </div>
+            
+            
+            
+        </div>
+    </div>
+    
+    <div class="category-section" id="category-Item Customization">
+        <h2 class="category-header">Item Customization</h2>
+        <div class="category-content">
+            
+            <!-- Check if we have any decorators for this category -->
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            
+            
+            <h3>Functions</h3>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">is_item_enabled</div>
+                <div class="decorator-description">Check if an item is enabled in the customization system</div>
+                
+                
+                <div class="decorator-signature">
+                    is_item_enabled(formID: number) → boolean
+                </div>
+                
+
+                
+                <p>Returns true if the item is enabled in the customization configuration. Items are enabled by default unless explicitly disabled in the configuration.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">formID</span>
+                        <span class="argument-type">(number)</span>
+                        
+                        <br>The form ID of the item (can be hex like 0x12EB7 or decimal)
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> boolean
+                     - True if the item is enabled, false if disabled
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{% if is_item_enabled(0x12EB7) %}Item is available{% endif %}</div>
+                    
+                    <div class="example-code">{{ is_item_enabled(0x3AD5E) }}</div>
+                    
+                    <div class="example-code">{% if not is_item_enabled(0x12EB7) %}Item is disabled{% endif %}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">get_item_name</div>
+                <div class="decorator-description">Get the effective name for an item (custom name if configured, otherwise original name)</div>
+                
+                
+                <div class="decorator-signature">
+                    get_item_name(formID: number) → string
+                </div>
+                
+
+                
+                <p>Returns the display name for an item. If a custom name is configured for the item's form ID, returns that custom name. Otherwise, falls back to the item's original name from the game data.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">formID</span>
+                        <span class="argument-type">(number)</span>
+                        
+                        <br>The form ID of the item (can be hex like 0x12EB7 or decimal)
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> string
+                     - The effective name of the item (custom or original)
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{{ get_item_name(0x12EB7) }}</div>
+                    
+                    <div class="example-code">Item name: {{ get_item_name(0x3AD5E) }}</div>
+                    
+                    <div class="example-code">{% set itemName = get_item_name(0x12EB7) %}{{ itemName }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">get_item_description</div>
+                <div class="decorator-description">Get the custom description for an item</div>
+                
+                
+                <div class="decorator-signature">
+                    get_item_description(formID: number) → string
+                </div>
+                
+
+                
+                <p>Returns the custom description configured for an item's form ID. Returns empty string if no custom description is configured for the item.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">formID</span>
+                        <span class="argument-type">(number)</span>
+                        
+                        <br>The form ID of the item (can be hex like 0x12EB7 or decimal)
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> string
+                     - The custom description of the item, or empty string if none configured
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{{ get_item_description(0x12EB7) }}</div>
+                    
+                    <div class="example-code">{% set desc = get_item_description(0x3AD5E) %}{% if desc %}{{ desc }}{% endif %}</div>
+                    
+                    <div class="example-code">Description: {{ get_item_description(0x12EB7) }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">get_item_customization</div>
+                <div class="decorator-description">Get complete customization information for an item</div>
+                
+                
+                <div class="decorator-signature">
+                    get_item_customization(formID: number) → object
+                </div>
+                
+
+                
+                <p>Returns a comprehensive object containing all customization data for an item, including effective name, custom description, enabled state, and whether customizations are applied.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">formID</span>
+                        <span class="argument-type">(number)</span>
+                        
+                        <br>The form ID of the item (can be hex like 0x12EB7 or decimal)
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> object
+                     - Object containing complete item customization information
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{{ get_item_customization(0x12EB7).name }}</div>
+                    
+                    <div class="example-code">{% set item = get_item_customization(0x12EB7) %}{{ item.name }}{% if item.description %}: {{ item.description }}{% endif %}</div>
+                    
+                    <div class="example-code">{% if get_item_customization(0x12EB7).hasCustomName %}Using custom name{% endif %}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            <!-- Check if we have any variables for this category -->
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+
+            
+        </div>
+    </div>
+    
+    <div class="category-section" id="category-Mood">
+        <h2 class="category-header">Mood</h2>
+        <div class="category-content">
+            
+            <!-- Check if we have any decorators for this category -->
+            
+            
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
                 
             
                 
@@ -1163,19 +2870,38 @@
             
             
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+            <div class="decorator-item">
+                <div class="decorator-name">moodsList</div>
+                <div class="decorator-description">List of all available mood types</div>
+                
+                
+                <div class="decorator-signature">moodsList → array</div>
+                
+
+                
+                <p>Provides a comprehensive array of all mood types available in the system for use in templates and mood-based content generation.</p>
+                
+
+                
+
+                <div>
+                    <strong>Returns:</strong> array
+                     - Array of mood strings
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{% for mood in moodsList %}{{ mood }}{% endfor %}</div>
+                    
+                    <div class="example-code">{{ length(moodsList) }} moods available</div>
+                    
+                </div>
+                
+
+                
+            </div>
             
             
             
@@ -1211,6 +2937,36 @@
 
                 
             </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
             
             
@@ -1266,38 +3022,15 @@
             
             
             
-            <div class="decorator-item">
-                <div class="decorator-name">moodsList</div>
-                <div class="decorator-description">List of all available mood types</div>
-                
-                
-                <div class="decorator-signature">moodsList → array</div>
-                
-
-                
-                <p>Provides a comprehensive array of all mood types available in the system for use in templates and mood-based content generation.</p>
-                
-
-                
-
-                <div>
-                    <strong>Returns:</strong> array
-                     - Array of mood strings
-                </div>
-
-                
-                <div class="examples">
-                    <strong>Examples:</strong>
-                    
-                    <div class="example-code">{% for mood in moodsList %}{{ mood }}{% endfor %}</div>
-                    
-                    <div class="example-code">{{ length(moodsList) }} moods available</div>
-                    
-                </div>
-                
-
-                
-            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
             
             
@@ -1335,7 +3068,110 @@
             <!-- Check if we have any variables for this category -->
             
             
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
 
+            
+            <h3>Variables</h3>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="variable-item">
+                <div class="variable-name">moodsList</div>
+                <div class="variable-type">array</div>
+                
+                <div></div>
+                
+                
+                <div class="example-code">{{ moodsList }} → ["NEUTRAL","HAPPY","SAD","ANGRY","AFRAID","SURPRISED","DISGUSTED","CONFUSED","CURIOUS","PROUD","ASHAMED","SARCASTIC","FLIRTATIOUS","ASSERTIVE","GENTLE"]</div>
+                
+                <div class="usage-info">
+                    Used 32 times 
+                    in template:
+                    documentation/main
+                </div>
+            </div>
+            
+            
+            
+            <div class="variable-item">
+                <div class="variable-name">moodDescriptions</div>
+                <div class="variable-type">object</div>
+                
+                <div></div>
+                
+                
+                <div class="example-code">{{ moodDescriptions }} → {"AFRAID":"Fearful, nervous, anxious, worried","ANGRY":"Hostile, irritated, furious, indignant","ASHAMED":"Embarrassed, guilty, remorseful","ASSERTIVE":"Confident, determined, strong-willed","CONFUSED":"Puzzled, perplexed, uncertain","CURIOUS":"Inquisitive, interested, wondering","DISGUSTED":"Repulsed, revolted, disdainful","FLIRTATIOUS":"Seductive, playful, teasing","GENTLE":"Kind, compassionate, caring","HAPPY":"Joyful, pleased, amused, cheerful","NEUTRAL":"Calm, even-tempered, matter-of-fact","PROUD":"Dignified, satisfied with achievement","SAD":"Melancholy, gloomy, sorrowful","SARCASTIC":"Mocking, ironic, sardonic","SURPRISED":"Astonished, shocked, startled"}</div>
+                
+                <div class="usage-info">
+                    Used 32 times 
+                    in template:
+                    documentation/main
+                </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
         </div>
     </div>
@@ -1346,14 +3182,6 @@
             
             <!-- Check if we have any decorators for this category -->
             
-            
-                
-            
-                
-            
-                
-            
-                
             
                 
             
@@ -1403,17 +3231,43 @@
             
                 
             
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
             
             
             <h3>Functions</h3>
-            
-            
-            
-            
-            
-            
-            
-            
             
             
             
@@ -1499,11 +3353,130 @@
             
             
             
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
 
             <!-- Check if we have any variables for this category -->
             
             
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
 
+            
+            <h3>Variables</h3>
+            
+            
+            
+            
+            <div class="variable-item">
+                <div class="variable-name">player</div>
+                <div class="variable-type">object</div>
+                
+                <div></div>
+                
+                
+                <div class="example-code">{{ player }} → {"UUID":5345022163924548461,"isInCombat":false,"level":1,"name":"Prisoner","race":"Nord"}</div>
+                
+                <div class="usage-info">
+                    Used 32 times 
+                    in template:
+                    documentation/main
+                </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
         </div>
     </div>
@@ -1530,6 +3503,26 @@
                 
             
                 
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
             
                 
             
@@ -1550,7 +3543,13 @@
                 
             
                 
-                    
+            
+                
+            
+                
+            
+                
+            
                 
             
                 
@@ -1578,18 +3577,6 @@
             
             
             <h3>Functions</h3>
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
             
             
             
@@ -1642,6 +3629,34 @@
 
                 
             </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
             
             
@@ -1781,9 +3796,51 @@
             
             
             
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
 
             <!-- Check if we have any variables for this category -->
             
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
             
 
             
@@ -1822,6 +3879,48 @@
                 
             
                 
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
             
                 
             
@@ -1843,22 +3942,6 @@
             
                 
                     
-                
-            
-                
-                    
-                
-            
-                
-            
-                
-            
-                
-            
-                
-            
-                
-            
                 
             
             
@@ -1890,42 +3973,34 @@
             
             
             
-            
-            
-            
-            
-            
-            
-            
-            
             <div class="decorator-item">
-                <div class="decorator-name">get_active_short_lived_events</div>
-                <div class="decorator-description">Get all currently active short-lived events</div>
+                <div class="decorator-name">get_short_lived_events_count</div>
+                <div class="decorator-description">Get the total count of active short-lived events</div>
                 
                 
-                <div class="decorator-signature">get_active_short_lived_events → array</div>
+                <div class="decorator-signature">get_short_lived_events_count → integer</div>
                 
 
                 
-                <p>Retrieves all short-lived events that are currently active in the scene. These events represent temporary occurrences like combat actions, dialogue exchanges, or environmental changes that have a limited duration.</p>
+                <p>Returns the number of short-lived events currently active in the scene. This is useful for quick checks of scene activity level without needing to process the full event list.</p>
                 
 
                 
 
                 <div>
-                    <strong>Returns:</strong> array
-                     - Array of active event objects
+                    <strong>Returns:</strong> integer
+                     - Number of currently active events
                 </div>
 
                 
                 <div class="examples">
                     <strong>Examples:</strong>
                     
-                    <div class="example-code">{% for event in get_active_short_lived_events() %}{{ event.type }}{% endfor %}</div>
+                    <div class="example-code">{{ get_short_lived_events_count() }} events happening</div>
                     
-                    <div class="example-code">{{ length(get_active_short_lived_events()) }} active events</div>
+                    <div class="example-code">{% if get_short_lived_events_count() > 5 %}Busy scene!{% endif %}</div>
                     
-                    <div class="example-code">{% if contains(get_active_short_lived_events(), "combat") %}Combat in progress!{% endif %}</div>
+                    <div class="example-code">Event count: {{ get_short_lived_events_count() }}</div>
                     
                 </div>
                 
@@ -1935,13 +4010,59 @@
             
             
             
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             <div class="decorator-item">
                 <div class="decorator-name">get_nearby_npc_list</div>
                 <div class="decorator-description">Get a list of NPCs near a specified entity</div>
                 
                 
                 <div class="decorator-signature">
-                    get_nearby_npc_list(sourceUUID: uint32_t) → array
+                    get_nearby_npc_list(sourceUUID: uint64_t) → array
                 </div>
                 
 
@@ -1955,7 +4076,7 @@
                     
                     <div class="argument">
                         <span class="argument-name">sourceUUID</span>
-                        <span class="argument-type">(uint32_t)</span>
+                        <span class="argument-type">(uint64_t)</span>
                         
                         <br>UUID of the entity to search around
                         
@@ -1988,48 +4109,33 @@
             
             
             <div class="decorator-item">
-                <div class="decorator-name">get_short_lived_events_by_entity</div>
-                <div class="decorator-description">Get active short-lived events for a specific entity</div>
+                <div class="decorator-name">get_active_short_lived_events</div>
+                <div class="decorator-description">Get all currently active short-lived events</div>
                 
                 
-                <div class="decorator-signature">
-                    get_short_lived_events_by_entity(entityUUID: uint32_t) → array
-                </div>
+                <div class="decorator-signature">get_active_short_lived_events → array</div>
                 
 
                 
-                <p>Retrieves all short-lived events that involve the specified entity UUID. This includes events where the entity is the primary actor, target, or otherwise involved.</p>
+                <p>Retrieves all short-lived events that are currently active in the scene. These events represent temporary occurrences like combat actions, dialogue exchanges, or environmental changes that have a limited duration.</p>
                 
 
-                
-                <div class="arguments">
-                    <strong>Arguments:</strong>
-                    
-                    <div class="argument">
-                        <span class="argument-name">entityUUID</span>
-                        <span class="argument-type">(uint32_t)</span>
-                        
-                        <br>UUID of the entity to get events for
-                        
-                    </div>
-                    
-                </div>
                 
 
                 <div>
                     <strong>Returns:</strong> array
-                     - Array of events involving the specified entity
+                     - Array of active event objects
                 </div>
 
                 
                 <div class="examples">
                     <strong>Examples:</strong>
                     
-                    <div class="example-code">{% for event in get_short_lived_events_by_entity(player.UUID) %}{{ event.type }}{% endfor %}</div>
+                    <div class="example-code">{% for event in get_active_short_lived_events() %}{{ event.type }}{% endfor %}</div>
                     
-                    <div class="example-code">{{ length(get_short_lived_events_by_entity(actorUUID)) }} events for this actor</div>
+                    <div class="example-code">{{ length(get_active_short_lived_events()) }} active events</div>
                     
-                    <div class="example-code">{% if get_short_lived_events_by_entity(npc.UUID) %}This NPC is involved in events{% endif %}</div>
+                    <div class="example-code">{% if contains(get_active_short_lived_events(), "combat") %}Combat in progress!{% endif %}</div>
                     
                 </div>
                 
@@ -2092,33 +4198,48 @@
             
             
             <div class="decorator-item">
-                <div class="decorator-name">get_short_lived_events_count</div>
-                <div class="decorator-description">Get the total count of active short-lived events</div>
+                <div class="decorator-name">get_short_lived_events_by_entity</div>
+                <div class="decorator-description">Get active short-lived events for a specific entity</div>
                 
                 
-                <div class="decorator-signature">get_short_lived_events_count → integer</div>
+                <div class="decorator-signature">
+                    get_short_lived_events_by_entity(entityUUID: uint64_t) → array
+                </div>
+                
+
+                
+                <p>Retrieves all short-lived events that involve the specified entity UUID. This includes events where the entity is the primary actor, target, or otherwise involved.</p>
                 
 
                 
-                <p>Returns the number of short-lived events currently active in the scene. This is useful for quick checks of scene activity level without needing to process the full event list.</p>
-                
-
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">entityUUID</span>
+                        <span class="argument-type">(uint64_t)</span>
+                        
+                        <br>UUID of the entity to get events for
+                        
+                    </div>
+                    
+                </div>
                 
 
                 <div>
-                    <strong>Returns:</strong> integer
-                     - Number of currently active events
+                    <strong>Returns:</strong> array
+                     - Array of events involving the specified entity
                 </div>
 
                 
                 <div class="examples">
                     <strong>Examples:</strong>
                     
-                    <div class="example-code">{{ get_short_lived_events_count() }} events happening</div>
+                    <div class="example-code">{% for event in get_short_lived_events_by_entity(player.UUID) %}{{ event.type }}{% endfor %}</div>
                     
-                    <div class="example-code">{% if get_short_lived_events_count() > 5 %}Busy scene!{% endif %}</div>
+                    <div class="example-code">{{ length(get_short_lived_events_by_entity(actorUUID)) }} events for this actor</div>
                     
-                    <div class="example-code">Event count: {{ get_short_lived_events_count() }}</div>
+                    <div class="example-code">{% if get_short_lived_events_by_entity(npc.UUID) %}This NPC is involved in events{% endif %}</div>
                     
                 </div>
                 
@@ -2128,21 +4249,41 @@
             
             
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
 
             <!-- Check if we have any variables for this category -->
             
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
             
 
             
@@ -2177,23 +4318,11 @@
                 
             
                 
-            
+                    
                 
             
                 
-            
-                
-            
-                
-            
-                
-            
-                
-            
-                
-            
-                
-            
+                    
                 
             
                 
@@ -2207,7 +4336,51 @@
                 
             
                 
+            
+                
                     
+                
+            
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
                 
             
                 
@@ -2238,88 +4411,6 @@
             
             
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            <div class="decorator-item">
-                <div class="decorator-name">contains</div>
-                <div class="decorator-description">Checks if an array contains a specific value or if a string contains a substring</div>
-                
-                
-                <div class="decorator-signature">
-                    contains(container: array|string, searchValue: string) → boolean
-                </div>
-                
-
-                
-                <p>For arrays: checks if any element matches the search value. For event arrays: looks for events with matching 'type' field. For strings: checks if the string contains the search value as a substring.</p>
-                
-
-                
-                <div class="arguments">
-                    <strong>Arguments:</strong>
-                    
-                    <div class="argument">
-                        <span class="argument-name">container</span>
-                        <span class="argument-type">(array|string)</span>
-                        
-                        <br>The array or string to search in
-                        
-                    </div>
-                    
-                    <div class="argument">
-                        <span class="argument-name">searchValue</span>
-                        <span class="argument-type">(string)</span>
-                        
-                        <br>The value to search for
-                        
-                    </div>
-                    
-                </div>
-                
-
-                <div>
-                    <strong>Returns:</strong> boolean
-                     - True if the value is found, false otherwise
-                </div>
-
-                
-                <div class="examples">
-                    <strong>Examples:</strong>
-                    
-                    <div class="example-code">{{ contains(recentEvents, "combat") }}</div>
-                    
-                    <div class="example-code">{{ contains(actor.name, "Guard") }}</div>
-                    
-                    <div class="example-code">{{ contains(["apple", "banana"], "apple") }}</div>
-                    
-                </div>
-                
-
-                
-            </div>
             
             
             
@@ -2437,6 +4528,268 @@
             
             
             
+            <div class="decorator-item">
+                <div class="decorator-name">lower</div>
+                <div class="decorator-description">Converts a string to lowercase</div>
+                
+                
+                <div class="decorator-signature">
+                    lower(text: string) → string
+                </div>
+                
+
+                
+                <p>Takes a string and returns a new string with all characters converted to lowercase.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">text</span>
+                        <span class="argument-type">(string)</span>
+                        
+                        <br>The string to convert to lowercase
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> string
+                     - The input string converted to lowercase
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{{ lower(actor.name) }}</div>
+                    
+                    <div class="example-code">{{ lower("HELLO WORLD") }}</div>
+                    
+                    <div class="example-code">{{ lower(location.name) }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">contains</div>
+                <div class="decorator-description">Checks if an array contains a specific value or if a string contains a substring</div>
+                
+                
+                <div class="decorator-signature">
+                    contains(container: array|string, searchValue: string) → boolean
+                </div>
+                
+
+                
+                <p>For arrays: checks if any element matches the search value (strings are compared directly, objects check 'type' and 'data' fields, other types are converted to strings). For strings: checks if the string contains the search value as a substring. All comparisons are case-insensitive.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">container</span>
+                        <span class="argument-type">(array|string)</span>
+                        
+                        <br>The array or string to search in
+                        
+                    </div>
+                    
+                    <div class="argument">
+                        <span class="argument-name">searchValue</span>
+                        <span class="argument-type">(string)</span>
+                        
+                        <br>The value to search for
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> boolean
+                     - True if the value is found, false otherwise
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{{ contains(recentEvents, "combat") }}</div>
+                    
+                    <div class="example-code">{{ contains(actor.name, "Guard") }}</div>
+                    
+                    <div class="example-code">{{ contains(["apple", "banana"], "APPLE") }}</div>
+                    
+                    <div class="example-code">{{ contains(stringArray, "search") }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">to_number</div>
+                <div class="decorator-description">Converts a string to a number</div>
+                
+                
+                <div class="decorator-signature">
+                    to_number(text: string) → number
+                </div>
+                
+
+                
+                <p>Takes a string and converts it to a number (integer or decimal). Returns 0 if the string cannot be converted to a valid number.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">text</span>
+                        <span class="argument-type">(string)</span>
+                        
+                        <br>The string to convert to a number
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> number
+                     - The numeric value of the string, or 0 if conversion fails
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{{ to_number("123") }}</div>
+                    
+                    <div class="example-code">{{ to_number("45.67") }}</div>
+                    
+                    <div class="example-code">{{ to_number(actor.level) }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">is_array</div>
+                <div class="decorator-description">Checks if a value is an array</div>
+                
+                
+                <div class="decorator-signature">
+                    is_array(value: any) → boolean
+                </div>
+                
+
+                
+                <p>Takes any value and returns true if it is an array, false otherwise.</p>
+                
+
+                
+                <div class="arguments">
+                    <strong>Arguments:</strong>
+                    
+                    <div class="argument">
+                        <span class="argument-name">value</span>
+                        <span class="argument-type">(any)</span>
+                        
+                        <br>The value to check
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div>
+                    <strong>Returns:</strong> boolean
+                     - True if the value is an array, false otherwise
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{{ is_array(recentEvents) }}</div>
+                    
+                    <div class="example-code">{{ is_array(actor.faction) }}</div>
+                    
+                    <div class="example-code">{{ is_array("hello") }}</div>
+                    
+                    <div class="example-code">{{ is_array([1, 2, 3]) }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
             
             
@@ -2444,6 +4797,38 @@
 
             <!-- Check if we have any variables for this category -->
             
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
             
 
             
@@ -2464,25 +4849,19 @@
                 
             
                 
-            
+                    
                 
             
                 
-            
+                    
                 
             
                 
-            
+                    
                 
             
                 
-            
-                
-            
-                
-            
-                
-            
+                    
                 
             
                 
@@ -2510,58 +4889,52 @@
                 
             
                 
-                    
+            
                 
             
                 
-                    
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
                 
             
             
             
             <h3>Functions</h3>
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
             
             
             
@@ -2608,6 +4981,43 @@
             
             
             <div class="decorator-item">
+                <div class="decorator-name">gameTime</div>
+                <div class="decorator-description">Current Skyrim game time</div>
+                
+                
+                <div class="decorator-signature">gameTime → string</div>
+                
+
+                
+                <p>Provides the current Skyrim game time as a formatted string (e.g., '8:30 AM, Morndas, 17th of Last Seed, 4E 201'). This reflects the in-game calendar and time system.</p>
+                
+
+                
+
+                <div>
+                    <strong>Returns:</strong> string
+                     - Current game time in Skyrim format
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">Current game time: {{ gameTime }}</div>
+                    
+                    <div class="example-code">The time in Skyrim is {{ gameTime }}</div>
+                    
+                    <div class="example-code">{{ short_time(gameTime) }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            <div class="decorator-item">
                 <div class="decorator-name">location</div>
                 <div class="decorator-description">Current player location</div>
                 
@@ -2641,6 +5051,63 @@
 
                 
             </div>
+            
+            
+            
+            <div class="decorator-item">
+                <div class="decorator-name">gameTimeJson</div>
+                <div class="decorator-description">Current Skyrim game time as structured JSON</div>
+                
+                
+                <div class="decorator-signature">gameTimeJson → object</div>
+                
+
+                
+                <p>Provides the current Skyrim game time as a structured JSON object containing hour, minute, day, month, year, weekday, and formatted strings. Useful for conditional logic based on time components.</p>
+                
+
+                
+
+                <div>
+                    <strong>Returns:</strong> object
+                     - Structured game time object with all time components
+                </div>
+
+                
+                <div class="examples">
+                    <strong>Examples:</strong>
+                    
+                    <div class="example-code">{% if gameTimeJson.hour >= 20 %}It's late evening{% endif %}</div>
+                    
+                    <div class="example-code">Today is {{ gameTimeJson.weekdayName }}, {{ gameTimeJson.dayOrdinal }} of {{ gameTimeJson.monthName }}</div>
+                    
+                    <div class="example-code">The time is {{ gameTimeJson.displayHour }}:{{ '%02d'|format(gameTimeJson.minute) }} {{ gameTimeJson.ampm }}</div>
+                    
+                </div>
+                
+
+                
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
             
             
@@ -2696,11 +5163,158 @@
             
             
             
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
 
             <!-- Check if we have any variables for this category -->
             
             
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                
+            
+                
+            
+                
+            
+                
+            
 
+            
+            <h3>Variables</h3>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="variable-item">
+                <div class="variable-name">timestamp</div>
+                <div class="variable-type">integer</div>
+                
+                <div></div>
+                
+                
+                <div class="example-code">{{ timestamp }} → 1751765295</div>
+                
+                <div class="usage-info">
+                    Used 4 times 
+                    in template:
+                    web/bundled_base
+                </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="variable-item">
+                <div class="variable-name">location</div>
+                <div class="variable-type">string</div>
+                
+                <div></div>
+                
+                
+                <div class="example-code">{{ location }} → Unknown</div>
+                
+                <div class="usage-info">
+                    Used 32 times 
+                    in template:
+                    documentation/main
+                </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
             
         </div>
     </div>
@@ -2708,7 +5322,7 @@
 
     <div class="footer">
         <p>This documentation was automatically generated from the SkyrimNet decorator system.</p>
-        <p>Total decorators: 27 | Total variables: 0</p>
+        <p>Total decorators: 40 | Total variables: 18</p>
     </div>
 </body>
 </html> 
