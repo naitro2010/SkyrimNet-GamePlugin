@@ -7,6 +7,6 @@ You are roleplaying as {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender
 
 [ user ]
 Respond with only a single concise dialogue line{% if is_narration_enabled() %} or brief narrative action{% endif %} from {{ decnpc(npc.UUID).name }}, nothing else.
-{%- if is_narration_enabled() %} Never repeat the same narration phrases, reword as necessary. {% endif %}
+{% if is_narration_enabled() %} Never repeat the same narration phrases, reword as necessary. {% endif %}
 {{ render_subcomponent("user_final_instructions", "full") }}
 [ end user ]
