@@ -175,3 +175,6 @@ SkyrimNet is a cutting-edge AI integration platform for games, beginning with Sk
 - **Improve VR Support**: Fix the VR Keybind thing, and make VR a first class citizen. It already works quite well in VR aside from the hotkeys, for which there is a workaround.
 - **Image to Text**: Add a sophisticated ITT pipeline that introduces meaningful context for the LLM.
 - **Much, much more**
+
+## Credits
+- A special thanks to ArtFromTheMachine for letting us use his Piper models!
