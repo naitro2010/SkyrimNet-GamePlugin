@@ -158,6 +158,10 @@ String function GetBuildType() Global Native
 ; Returns true if voice recording is active, false otherwise
 bool function IsRecordingInput() Global Native
 
+; Check if the game is running in VR mode
+; Returns true if running in VR, false otherwise
+bool function IsRunningVR() Global Native
+
 ; -----------------------------------------------------------------------------
 ; --- Web Interface ---
 ; -----------------------------------------------------------------------------
@@ -301,6 +305,16 @@ int function TriggerVoiceDirectInputReleased(float duration) Global Native
 ; - Triggers callbacks for narration continuation without persisting the event
 ; Functions identically to pressing the configured continue narration key
 int function TriggerContinueNarration() Global Native
+
+; --- Player Dialogue and Thought Functions ---
+
+; Triggers an autonomous thought from the player based on current circumstances and contex
+; Returns 0 on success, 1 on failure
+int function TriggerPlayerThought() Global Native
+
+; Triggers an autonomous dialogue from the player based on current circumstances and context
+; Returns 0 on success, 1 on failure
+int function TriggerPlayerDialogue() Global Native
 
 ; -----------------------------------------------------------------------------
 ; --- Events ---

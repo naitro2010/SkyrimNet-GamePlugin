@@ -46,21 +46,21 @@ Function AddSpells()
 		playerRef.AddSpell(skynet_WheelMenuSpell, False)
 	Endif
 
-	If !playerRef.HasSpell(skynet_VoiceInputDirectSpell)
-		playerRef.AddSpell(skynet_VoiceInputDirectSpell, False)
-	Endif
+	; If !playerRef.HasSpell(skynet_VoiceInputDirectSpell)
+	;	playerRef.AddSpell(skynet_VoiceInputDirectSpell, False)
+	;Endif
 
-	If !playerRef.HasSpell(skynet_VoiceInputNormalSpell)
-		playerRef.AddSpell(skynet_VoiceInputNormalSpell, False)
-	Endif
+	; If !playerRef.HasSpell(skynet_VoiceInputNormalSpell)
+	;	playerRef.AddSpell(skynet_VoiceInputNormalSpell, False)
+	;Endif
 
-	If !playerRef.HasSpell(skynet_VoiceInputThoughtSpell)
-		playerRef.AddSpell(skynet_VoiceInputThoughtSpell, False)
-	Endif
+	; If !playerRef.HasSpell(skynet_VoiceInputThoughtSpell)
+	;	playerRef.AddSpell(skynet_VoiceInputThoughtSpell, False)
+	;Endif
 
-	If !playerRef.HasSpell(skynet_VoiceInputTransformSpell)
-		playerRef.AddSpell(skynet_VoiceInputTransformSpell, False)
-	Endif
+	; If !playerRef.HasSpell(skynet_VoiceInputTransformSpell)
+	;	playerRef.AddSpell(skynet_VoiceInputTransformSpell, False)
+	;Endif
 
 endfunction
 
