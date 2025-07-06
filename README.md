@@ -6,7 +6,10 @@ SkyrimNet is a cutting-edge AI integration platform for games, beginning with Sk
 
 **The most advanced AI platform for gaming - transforming every NPC into a living, breathing character with their own memories, goals, and personalities.**
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/S6S51B7MJA)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/S6S51B7MJA) 
+
+[![Discord](https://img.shields.io/badge/Chat-on%20Discord-7289DA?logo=discord&logoColor=white)](https://discord.gg/gHHS7HpJS9)
+
 
 ## 🏗️ Revolutionary Architecture
 
