@@ -57,6 +57,7 @@ Message Property msgClearHistory Auto
 Function Maintenance(skynet_MainController _skynet)
     skynet = _skynet
     RegisterActions()
+    InitVRIntegrations()
     skynet.Info("Library initialized")
 EndFunction
 
@@ -434,3 +435,82 @@ Function DispatchPackageRemovedEvent(Actor akActor, Package pkg, String packageN
     modEvent.Send(handle)
 endif
 EndFunction
+
+; -----------------------------------------------------------------------------
+; ---- VRIK Integration ----
+; -----------------------------------------------------------------------------
+  
+Function InitVRIntegrations()
+    if !SkyrimNetApi.IsRunningVR()
+        skynet.Info("Not running VR, disabling VR Integrations")
+        return
+    endif
+    if Game.GetModByName("vrik.esp") == 255
+        skynet.Info("VRIK not installed, disabling VRIK Integrations")
+        return
+    endif
+  
+    RegisterForModEvent("skynet_vrik_continue_narration", "OnVrikContinueNarration")
+    VRIK.VrikAddGestureAction("skynet_vrik_continue_narration", "SkyrimNet: Continue Narration")
+  
+    RegisterForModEvent("skynet_vrik_toggle_gamemaster", "OnVrikToggleGameMaster")
+    VRIK.VrikAddGestureAction("skynet_vrik_toggle_gamemaster", "SkyrimNet: Toggle GameMaster")
+  
+    RegisterForModEvent("skynet_vrik_trigger_voice_input", "OnVrikTriggerVoiceInput")
+    VRIK.VrikAddGestureAction("skynet_vrik_trigger_voice_input", "SkyrimNet: Start Voice Input")
+  
+    RegisterForModEvent("skynet_vrik_trigger_voice_release", "OnVrikTriggerVoiceRelease")
+    VRIK.VrikAddGestureAction("skynet_vrik_trigger_voice_release", "SkyrimNet: Stop Voice Input")
+  
+    RegisterForModEvent("skynet_vrik_trigger_direct_input", "OnVrikTriggerDirectInput")
+    VRIK.VrikAddGestureAction("skynet_vrik_trigger_direct_input", "SkyrimNet: Start Direct Input")
+  
+    RegisterForModEvent("skynet_vrik_trigger_direct_release", "OnVrikTriggerDirectRelease")
+    VRIK.VrikAddGestureAction("skynet_vrik_trigger_direct_release", "SkyrimNet: Stop Direct Input")
+  
+    RegisterForModEvent("skynet_vrik_trigger_player_thought", "OnVrikTriggerPlayerThought")
+    VRIK.VrikAddGestureAction("skynet_vrik_trigger_player_thought", "SkyrimNet: Trigger Player Thought")
+  
+    RegisterForModEvent("skynet_vrik_trigger_player_dialogue", "OnVrikTriggerPlayerDialogue")
+    VRIK.VrikAddGestureAction("skynet_vrik_trigger_player_dialogue", "SkyrimNet: Trigger Player Dialogue")
+EndFunction
+  
+; Existing event for narration continuation
+Event OnVrikContinueNarration(string eventName, string strArg, float numArg, Form sender)
+    SkyrimNetApi.TriggerContinueNarration()
+EndEvent  
+  
+; New event for toggling GameMaster
+Event OnVrikToggleGameMaster(string eventName, string strArg, float numArg, Form sender)
+    SkyrimNetApi.TriggerToggleGameMaster()
+EndEvent
+  
+; New event for triggering voice input (start recording)
+Event OnVrikTriggerVoiceInput(string eventName, string strArg, float numArg, Form sender)
+    SkyrimNetApi.TriggerRecordSpeechPressed()
+EndEvent
+  
+; New event for triggering voice input release (stop recording)
+Event OnVrikTriggerVoiceRelease(string eventName, string strArg, float numArg, Form sender)
+    SkyrimNetApi.TriggerRecordSpeechReleased(2.0)
+EndEvent
+  
+; New event for triggering direct input (start recording)
+Event OnVrikTriggerDirectInput(string eventName, string strArg, float numArg, Form sender)
+    SkyrimNetApi.TriggerVoiceDirectInputPressed()
+EndEvent
+  
+; New event for triggering direct input release (stop recording)
+Event OnVrikTriggerDirectRelease(string eventName, string strArg, float numArg, Form sender)
+    SkyrimNetApi.TriggerVoiceDirectInputReleased(2.0)
+EndEvent
+  
+; New event for triggering autonomous player thought
+Event OnVrikTriggerPlayerThought(string eventName, string strArg, float numArg, Form sender)
+    SkyrimNetApi.TriggerPlayerThought()
+EndEvent
+  
+; New event for triggering autonomous player dialogue
+Event OnVrikTriggerPlayerDialogue(string eventName, string strArg, float numArg, Form sender)
+    SkyrimNetApi.TriggerPlayerDialogue()
+EndEvent
