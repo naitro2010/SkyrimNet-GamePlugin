@@ -1,3 +1,5 @@
+# Prompts in Skyrimnet
+
 In SkyrimNet, all prompts are defined in their respective prompt files in `SKSE/plugins/SkyrimNet/prompts`. This does not only apply to the prompt for getting the npc to speak, but also things like Generating Memories, Prompts for choosing the appropriate action to call as well as prompts added through mods.
 
 Likely, the most relevant prompt sub-folders for you to add your files in are `prompts/submodules/character_bio/` and `prompts/submodules/system_head/`
@@ -24,7 +26,7 @@ Decorators are functions callable from within your prompt, that return some valu
 
 There are several native decorators supplied, an overview of which can be found in the SkyrimNet dashboard.
 
-### Custom Decorators
+## Creating Custom Decorators
 
 You can register your own custom decorators using papyrus, to get your mods data into the prompts.
 
