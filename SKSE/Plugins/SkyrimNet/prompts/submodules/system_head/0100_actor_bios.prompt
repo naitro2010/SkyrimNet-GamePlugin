@@ -3,7 +3,7 @@
 {% set npc_equipment = get_worn_equipment(npc.UUID) %}
 {% for slot, item in npc_equipment %}
 {% if is_item_enabled(item.formID) %}
-**{{ item.equipment_slot }}**: {% if length(get_item_description(item.formID)) > 0 %} - {{ get_item_description(item.formID) }}{% else %}{{ get_item_name(item.formID) }}{% endif %}
+**{{ item.equipment_slot }}**: {{ get_item_name(item.formID) }}{% if length(get_item_description(item.formID)) > 0 %} - {{ get_item_description(item.formID) }}{% endif %}
 {% endif %}
 {% endfor %}
 
@@ -13,7 +13,7 @@
 {% set target_equipment = get_worn_equipment(responseTarget.UUID) %}
 {% for slot, item in target_equipment %}
 {% if is_item_enabled(item.formID) %}
-**{{ item.equipment_slot }}**: {% if length(get_item_description(item.formID)) > 0 %} - {{ get_item_description(item.formID) }}{% else %}{{ get_item_name(item.formID) }}{% endif %}
+**{{ item.equipment_slot }}**: {{ get_item_name(item.formID) }}{% if length(get_item_description(item.formID)) > 0 %} - {{ get_item_description(item.formID) }}{% endif %}
 {% endif %}
 {% endfor %}
 {% endif %}
