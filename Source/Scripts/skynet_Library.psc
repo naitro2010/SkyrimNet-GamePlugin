@@ -449,6 +449,8 @@ Function InitVRIntegrations()
         skynet.Info("VRIK not installed, disabling VRIK Integrations")
         return
     endif
+    skynet.Info("Using VRIK Integrations")
+
   
     RegisterForModEvent("skynet_vrik_continue_narration", "OnVrikContinueNarration")
     VRIK.VrikAddGestureAction("skynet_vrik_continue_narration", "SkyrimNet: Continue Narration")
