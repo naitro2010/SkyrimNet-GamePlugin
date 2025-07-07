@@ -9,4 +9,7 @@ You are roleplaying as {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender
 Respond with only a single concise dialogue line{% if is_narration_enabled() %} or brief narrative action{% endif %} from {{ decnpc(npc.UUID).name }}, nothing else.
 {% if is_narration_enabled() %} Never repeat the same narration phrases, reword as necessary. {% endif %}
 {{ render_subcomponent("user_final_instructions", "full") }}
+{% if not is_narration_enabled() %}
+You must ONLY respond with dialogue. Do not include any form of narration, explanation, or any sort of non-speech content.
+{% endif %}
 [ end user ]

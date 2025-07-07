@@ -59,4 +59,8 @@ You are speaking audibly, even though no one else is nearby.
 Respond with only a single concise dialogue line{% if is_narration_enabled() %} and/or brief narrative action{% endif %} from {{ decnpc(npc.UUID).name }}, nothing else.
 
 {{ render_subcomponent("user_final_instructions", "transform") }}
+
+{% if not is_narration_enabled() %}
+You must ONLY respond with dialogue. Do not include any form of narration, explanation, or any sort of non-speech content.
+{% endif %}
 [ end user ] 
