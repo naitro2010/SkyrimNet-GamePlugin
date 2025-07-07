@@ -22,14 +22,18 @@ int function RegisterDecorator(String decoratorID, String sourceScript, String f
 ;
 ; - actionName: Will be visible to the LLM. Take care when naming so the llm will call it in the right circumstances.
 ; - parameterSchemaJson: Describes expected parameters, e.g., {"target": "string", "duration": "number"}
-; - categoryStr: Should be PAPYRUS
-
+; - categoryStr: Should be PAPYRUS unless the action should only be visible in a custom category which requires PAPYRUS_CUSTOM instead
+; - customCategory: Should be the name of a custom sub-category if normal category is PAPYRUS_CUSTOM
 int function RegisterAction(String actionName, String description, \
                            String eligibilityScriptName, String eligibilityFunctionName, \
                            String executionScriptName, String executionFunctionName, \
                            String triggeringEventTypesCsv, String categoryStr, \
                            int defaultPriority, String parameterSchemaJson, String customCategory="", String tags="") Global Native
 
+; Register a sub-category which can contain other actions and categories
+; - actionName: What the LLM uses to select a category.  Will be visible to the LLM. Take care when naming so the llm will call it in the right circumstances.
+; - customParentCategory: leave blank unless the sub-category is inside another custom category
+; - customCategory: The name of the new custom sub-category that can contain actions and other sub-categories.
 ; Register a custom sub-category for PAPYRUS_CUSTOM actions
 int function RegisterSubCategory (String actionName, String description, \
                                 String eligibilityScriptName, String eligibilityFunctionName, \
