@@ -1,0 +1,4 @@
+{% if render_mode == "full" %}
+{{ "## Long Term Memories" }}
+{% block long_term_memories %}{% endblock %}
+{% endif %} 
