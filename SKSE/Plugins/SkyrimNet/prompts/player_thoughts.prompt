@@ -67,7 +67,7 @@ Respond with only a single brief internal thought from a first person perspectiv
 
 {% if is_narration_enabled() %}Remember to ONLY use asterick's * if you are emphasizing a narrative element / action aside from {{ decnpc(npc.UUID).name }}'s thoughts. Do not use them otherwise.{% endif %}
 Remember, you are thinking to yourself, not speaking audibly. Your response must be from a first person perspective, and will not be spoken audibly to another character. Do not include any preamble, or indicator that this is a thought.
-{% if triggeringEvent and triggeringEvent.type == "book_read" %}For book reading, provide a detailed internal analysis and reflection. 
+{% if triggeringEvent and triggeringEvent.type == "book_read" %}For book reading, provide a detailed internal analysis and reflection. Vary the length based upon how significant the text is to {{ player.name }} personally. Books and notes that are not particularly relevant should have short responses, where particularly relevant texts should have several paragraphs.
 {% else %}
 Include only the first person thought, and nothing else.
 {% endif %}
