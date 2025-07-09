@@ -1,6 +1,62 @@
+{% set lastEventTime = 0 %}
+{% set lastEventLocation = "" %}
+{% set lastSignificantTime = 0 %}
+
 {% for event in events %}
-{% if event.type == "direct_narration" %}[{{ short_time(event.gameTimeStr) }}] *{{ event.data }}*
-{% else %}
-{% if isValidActor(event.originatingActor) %} - [Time: {{ short_time(event.gameTimeStr) }}] [Location: {{ event.location }}] ({{ event.type }}){% if event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_stt" or event.type == "dialogue_player_text" or event.type == "dialogue_background"%} {{ decnpc(event.originatingActor).name }}{% if isValidActor(event.targetActor) %} to {{ decnpc(event.targetActor).name }}{% endif %}{% else %} {{ decnpc(event.originatingActor).name }}{% endif %}: {{ event.data }} {% endif %}
+{% if isValidActor(event.originatingActor) %}
+  {% if lastSignificantTime > 0 %}
+    {% set timeSinceLastSignificant = event.gameTime - lastSignificantTime %}
+  {% else %}
+    {% set timeSinceLastSignificant = 0 %}
+  {% endif %}
+  {% set locationChanged = (lastEventLocation != "" and event.location != lastEventLocation) %}
+  {% set showTimeGap = timeSinceLastSignificant > 1800 %}
+  
+  {% if showTimeGap and lastSignificantTime > 0 %}
+    {% set gapDescription = "" %}
+    {% if timeSinceLastSignificant > 86400 %}{% set gapDescription = "--- THE NEXT DAY ---" %}
+    {% else if timeSinceLastSignificant > 28800 %}{% set gapDescription = "--- MANY HOURS LATER ---" %}
+    {% else if timeSinceLastSignificant > 14400 %}{% set gapDescription = "--- SEVERAL HOURS LATER ---" %}
+    {% else if timeSinceLastSignificant > 7200 %}{% set gapDescription = "--- A FEW HOURS LATER ---" %}
+    {% else if timeSinceLastSignificant > 3600 %}{% set gapDescription = "--- ABOUT AN HOUR LATER ---" %}
+    {% else if timeSinceLastSignificant > 1800 %}{% set gapDescription = "--- SOME TIME LATER ---" %}
+    {% endif %}
+
+{{ gapDescription }}
+  {% endif %}
+  
+  {% if locationChanged %}
+--- LOCATION CHANGED TO: {{ event.location }} ---
+  {% endif %}
+  
+  {% if event.type == "direct_narration" %}
+[{{ short_time(event.gameTimeStr) }}] [{{ event.location }}] *{{ event.data }}*
+  {% else %}
+[{{ short_time(event.gameTimeStr) }}] [{{ event.location }}] ({{ event.type }}){% if event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_stt" or event.type == "dialogue_player_text" or event.type == "dialogue_background" or event.type == "player_thoughts" %} {{ decnpc(event.originatingActor).name }}{% if isValidActor(event.targetActor) %} to {{ decnpc(event.targetActor).name }}{% endif %}{% else %} {{ decnpc(event.originatingActor).name }}{% endif %}: {{ event.data }}
+  {% endif %}
+  
+  {% set lastEventTime = event.gameTime %}
+  {% set lastEventLocation = event.location %}
+  {% if showTimeGap or lastSignificantTime == 0 %}{% set lastSignificantTime = event.gameTime %}{% endif %}
 {% endif %}
 {% endfor %}
+
+{% if lastEventTime > 0 %}
+  {% set timeSinceLastEvent = gameTimeNumeric - lastEventTime %}
+  {% set locationChangedSinceLastEvent = (lastEventLocation != "" and lastEventLocation != location) %}
+  
+  {% if timeSinceLastEvent > 1800 or locationChangedSinceLastEvent %}
+    {% set timePassedDescription = "" %}
+    {% if timeSinceLastEvent > 604800 %}{% set timePassedDescription = "OVER A WEEK HAS PASSED" %}
+    {% else if timeSinceLastEvent > 172800 %}{% set timePassedDescription = "SEVERAL DAYS HAVE PASSED" %}
+    {% else if timeSinceLastEvent > 86400 %}{% set timePassedDescription = "A DAY HAS PASSED" %}
+    {% else if timeSinceLastEvent > 28800 %}{% set timePassedDescription = "MANY HOURS HAVE PASSED" %}
+    {% else if timeSinceLastEvent > 14400 %}{% set timePassedDescription = "SEVERAL HOURS HAVE PASSED" %}
+    {% else if timeSinceLastEvent > 7200 %}{% set timePassedDescription = "A FEW HOURS HAVE PASSED" %}
+    {% else if timeSinceLastEvent > 3600 %}{% set timePassedDescription = "ABOUT AN HOUR HAS PASSED" %}
+    {% else if timeSinceLastEvent > 1800 %}{% set timePassedDescription = "SOME TIME HAS PASSED" %}
+    {% endif %}
+    
+--- {{ timePassedDescription }}{% if locationChangedSinceLastEvent %} AND LOCATION IS NOW: {{ location }}{% endif %} ---
+  {% endif %}
+{% endif %}

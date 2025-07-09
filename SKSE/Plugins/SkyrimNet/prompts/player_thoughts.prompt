@@ -36,7 +36,7 @@ Current nearby characters:
 [ user ]
 {% if triggeringEvent and triggeringEvent.type %}
 {% if triggeringEvent.type == "book_read" %}
-You just finished reading a book. Respond with your detailed internal thoughts about what you've read, including both a summary of the book's contents and your personal reflections on it. This should be a substantial internal monologue from a first person perspective{% if is_narration_enabled() %} and may include narrative actions (Example: *{{ decnpc(npc.UUID).name }} closes the book thoughtfully*){% endif %}.
+You just finished reading a book. Respond with your detailed internal thoughts about what you've read, including both a summary of the book's contents and your personal reflections on it. This should be a substantial internal monologue from a first person perspective{% if is_narration_enabled() %} and may include narrative actions `Example: *{{ decnpc(npc.UUID).name }} closes the book thoughtfully*`{% endif %}.
 
 {% if triggeringEvent.data %}
 {% set bookData = triggeringEvent.data %}
@@ -50,7 +50,7 @@ While the specific contents weren't preserved, reflect on what this book might h
 {% endif %}
 {% endif %}
 {% else %}
-You just experienced a {{ triggeringEvent.type }} event. Respond with only a single brief internal thought from a first person perspective{% if is_narration_enabled() %} and/or brief supplemental narrative action (Example: *{{ decnpc(npc.UUID).name }} smiles warily*){% endif %} from {{ decnpc(npc.UUID).name }}'s perspective, reacting to this specific event.
+You just experienced a {{ triggeringEvent.type }} event. Respond with only a single brief internal thought from a first person perspective{% if is_narration_enabled() %} and/or brief supplemental narrative action `Example: *{{ decnpc(npc.UUID).name }} smiles warily*`{% endif %} from {{ decnpc(npc.UUID).name }}'s perspective, reacting to this specific event.
 
 {% if triggeringEvent.data %}
 Consider the event details in your thought: {{ triggeringEvent.data }}
@@ -59,9 +59,9 @@ Consider the event details in your thought: {{ triggeringEvent.data }}
 
 {% else %}
 {% if length(promptForThoughts) > 0 %}
-Respond with only a single brief internal thought from a first person perspective{% if is_narration_enabled() %} and/or brief supplemental narrative action (Example: *{{ decnpc(npc.UUID).name }} smiles warily*){% endif %} from {{ decnpc(npc.UUID).name }}'s perspective about their current thought focus, which is "{{ promptForThoughts }}". Your response must pertain to this thought focus.
+Respond with only a single brief internal thought from a first person perspective{% if is_narration_enabled() %} and/or brief supplemental narrative action `Example: *{{ decnpc(npc.UUID).name }} smiles warily*`{% endif %} from {{ decnpc(npc.UUID).name }}'s perspective about their current thought focus, which is "{{ promptForThoughts }}". Your response must pertain to this thought focus.
 {% else %}
-Respond with only a single brief internal thought from a first person perspective{% if is_narration_enabled() %} and/or brief supplemental narrative action (Example: *{{ decnpc(npc.UUID).name }} smiles warily*){% endif %} from {{ decnpc(npc.UUID).name }}'s perspective about the current situation.
+Respond with only a single brief internal thought from a first person perspective{% if is_narration_enabled() %} and/or brief supplemental narrative action `Example: *{{ decnpc(npc.UUID).name }} smiles warily*`{% endif %} from {{ decnpc(npc.UUID).name }}'s perspective about the current situation.
 {% endif %}
 {% endif %}
 
