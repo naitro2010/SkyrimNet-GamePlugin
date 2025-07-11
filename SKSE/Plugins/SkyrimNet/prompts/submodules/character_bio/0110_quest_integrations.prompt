@@ -1,4 +1,4 @@
-{% if render_mode == "full" %}
+{% if render_mode == "full" or render_mode == "static" %}
 {{ "## General World Knowledge" }}
 {% block quest_integrations %}
 {% for quest in get_all_active_quests() %}

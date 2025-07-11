@@ -1,4 +1,14 @@
+{% if render_mode == "static" %}
+{# Only display cache safe content #}
+{{ render_character_profile("static", npc.UUID) }}
+{# Display only dynamic content #}
+{% else if render_mode == "dynamic" %}
+{# Display everything #}
+{{ render_character_profile("dynamic", npc.UUID) }}
+{% else %}
 {{ render_character_profile("full", npc.UUID) }}
+{% endif %}
+{% if render_mode == "full" or render_mode == "dynamic" %}
 {{ "### Equipment " }}
 {% set npc_equipment = get_worn_equipment(npc.UUID) %}
 {% for slot, item in npc_equipment %}
@@ -6,9 +16,19 @@
 **{{ item.equipment_slot }}**: {{ get_item_name(item.formID) }}{% if length(get_item_description(item.formID)) > 0 %} - {{ get_item_description(item.formID) }}{% endif %}
 {% endif %}
 {% endfor %}
+{% endif %}
 
 {% if responseTarget %}
+{% if responseTarget.type == "npc" %}
+
+{% if render_mode == "dynamic" %}
+{# Dynamic content is same fields for speaker or target #}
+{{ render_character_profile("dynamic", responseTarget.UUID) }}
+{% else %}
 {{ render_character_profile("dialogue_target", responseTarget.UUID) }}
+{% endif %}
+
+{% if render_mode == "full" or render_mode == "dynamic" %}
 {{ "### Equipment " }}
 {% set target_equipment = get_worn_equipment(responseTarget.UUID) %}
 {% for slot, item in target_equipment %}
@@ -16,4 +36,6 @@
 **{{ item.equipment_slot }}**: {{ get_item_name(item.formID) }}{% if length(get_item_description(item.formID)) > 0 %} - {{ get_item_description(item.formID) }}{% endif %}
 {% endif %}
 {% endfor %}
+{% endif %}
+{% endif %}
 {% endif %}

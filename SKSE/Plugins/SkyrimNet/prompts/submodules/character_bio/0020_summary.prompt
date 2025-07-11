@@ -1,6 +1,6 @@
-{% if render_mode == "full" or render_mode == "dialogue_target" %}
+{% if render_mode == "full" or render_mode == "dialogue_target" or render_mode == "static" %}
 {{ "## Summary" }}
 {% endif %}
-{% if render_mode == "full" or render_mode == "dialogue_target" or render_mode == "short_inline" %}
+{% if render_mode == "full" or render_mode == "dialogue_target" or render_mode == "short_inline" or render_mode == "static" %}
 {% block summary %}{% endblock %}
 {% endif %} 

@@ -1,8 +1,10 @@
+{% if render_mode == "full" or render_mode == "static" %}
 {{ "## Response Format" }}
 - Respond with only a single concise dialogue line{% if is_narration_enabled() %} and/or brief narrative action{% endif %} from {{ decnpc(npc.UUID).name }}, nothing else.
-{% if render_mode == "transform" %}
+{% if playerRoleplayInput %}
 - The line should be in your character's natural speaking voice
 - Keep the response focused and concise
 {% else %}
 - Do not repeat or paraphrase the previous character's line. Respond only as {{ decnpc(npc.UUID).name }}, in your own words that reacts to the most recent dialogue and events.
+{% endif %}
 {% endif %}

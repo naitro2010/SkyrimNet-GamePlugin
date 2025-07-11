@@ -1,6 +1,7 @@
+{% if render_mode == "full" or render_mode == "dynamic" %}
 {{ "# Instructions" }}
 
-{% if render_mode == "transform" %}
+{% if playerRoleplayInput %}
 {% if length(promptForDialogue) > 0 %}
 Your task is to:
 - Convert "{{ promptForDialogue }}" into your own speaking mannerisms.
@@ -22,5 +23,6 @@ Respond with an in-character line{% if is_narration_enabled() %} or necessary ac
 - Suits this character and this moment
 {% if responseTarget %}
 - Is clearly directed at {% if responseTarget.type == "player" %}{{ player.name }}{% else if responseTarget.type == "npc" %}{{ decnpc(responseTarget.UUID).name }}{% else %}everyone in the area{% endif %}
+{% endif %}
 {% endif %}
 {% endif %}
