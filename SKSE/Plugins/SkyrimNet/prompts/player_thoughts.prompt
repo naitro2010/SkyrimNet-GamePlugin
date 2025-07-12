@@ -1,6 +1,7 @@
 [ system ]
 You are roleplaying as {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }} in Skyrim. You are thinking to yourself about the current situation and recent events.
 
+{% if not is_caching_enabled() %}
 {% if triggeringEvent and triggeringEvent.type %}
 You are reacting internally to a {{ triggeringEvent.type }} event that just occurred.
 {% if triggeringEvent.data %}
@@ -11,6 +12,7 @@ This happened at: {{ triggeringEvent.location }}
 {% endif %}
 {% if triggeringEvent.gameTimeStr %}
 Game time: {{ triggeringEvent.gameTimeStr }}
+{% endif %}
 {% endif %}
 {% endif %}
 
@@ -37,6 +39,18 @@ Current nearby characters:
 {% if is_caching_enabled() %}
 [ user ]
 {{ render_subcomponent("system_head", "dynamic") }}
+{% if triggeringEvent and triggeringEvent.type %}
+You are reacting internally to a {{ triggeringEvent.type }} event that just occurred.
+{% if triggeringEvent.data %}
+Event details: {{ triggeringEvent.data }}
+{% endif %}
+{% if triggeringEvent.location %}
+This happened at: {{ triggeringEvent.location }}
+{% endif %}
+{% if triggeringEvent.gameTimeStr %}
+Game time: {{ triggeringEvent.gameTimeStr }}
+{% endif %}
+{% endif %}
 [ end user ]
 {% endif %}
 
