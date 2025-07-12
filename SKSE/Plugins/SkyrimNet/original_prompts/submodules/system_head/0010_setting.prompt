@@ -2,6 +2,6 @@
 {# This file controls the "Setting". You should describe how your particular world of Skyrim plays, and any other setting changes you want to be universally applied. #}
 {# This is a comment. This output will not show up in the data sent to the LLM, this is here only to make things easier for you to understand. #}
 {# Leave the if / endif statements alone, put your world setting stuff here inbetween them. #}
-
+{{ "# Setting" }}
 
 {% endif %}
