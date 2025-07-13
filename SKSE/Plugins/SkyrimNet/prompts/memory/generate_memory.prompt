@@ -96,9 +96,10 @@ Respond ONLY with a JSON object containing:
 - **Sensory Details**: Include what the character saw, heard, or felt when relevant
 
 {{ "### Tag Guidelines:" }}
-Include 3-6 relevant tags focusing on:
+Include 5-25 relevant tags focusing on:
 - Character names mentioned (e.g., "belethor", "guards", "arcadia")
 - Specific locations (e.g., "whiterun", "dragonsreach", "marketplace")
-- Key activities (e.g., "trading", "combat", "conversation", "quest")
+- Key activities (e.g., "trading", "combat", "conversation", "quest", "sex")
 - Important items or subjects (e.g., "thalmor", "nord", "selling", "trouble")
 - Emotional themes (e.g., "pride", "fear", "anger", "friendship") 
+Use as many tags as is necessary in order to thoroughly tag the memory, up to the limit.
