@@ -58,7 +58,7 @@ You are speaking audibly, even though no one else is nearby.
 {% endif %}
 {% endif %}
 
-Respond with only a single concise dialogue line{% if is_narration_enabled() %} and/or brief narrative action{% endif %} from {{ decnpc(npc.UUID).name }}, nothing else. Avoid falling into loops, or repeating things similar to what you ( {{ decnpc(npc.UUID).name }} ) have recently said.
+Respond with only a single concise dialogue line{% if is_narration_enabled() %} and/or brief narrative action{% endif %} from {{ decnpc(npc.UUID).name }}, nothing else.
 
 {{ render_subcomponent("user_final_instructions", "full") }}
 

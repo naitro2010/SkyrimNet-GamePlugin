@@ -1,3 +1,4 @@
+[ user ]
 {% set lastLocation = "" %}
 {% set lastEventTime = 0 %}
 {% set lastEventLocation = "" %}
@@ -32,34 +33,30 @@
       {% else if timeSinceLastSignificant > 3600 %}{% set gapDescription = "About an hour passes..." %}
       {% else if timeSinceLastSignificant > 1800 %}{% set gapDescription = "Some time passes..." %}
       {% endif %}
-[ user ]
+[ message ]
 *{{ gapDescription }}*. It is now {{ event.gameTimeStr }}.
-[ end user ]
+[ end message ]
     {% endif %}
     
-    {% if event.originatingActor == npc.UUID and event.type != "direct_narration" or event.type == "player_thoughts"  %}
-[ assistant ]
-{% if loop.is_last %}
-[ cache ]
-{% endif %}
-{% if event.type == "player_thoughts" %}[{{ decnpc(event.originatingActor).name }}'s internal thoughts] {% endif %}{{ event.data }}
-{% if loop.is_last %}
-[ end cache ]
-{% endif %}
-[ end assistant ]
+    {% if event.originatingActor == npc.UUID and event.type != "player_thoughts" and event.type != "direct_narration" %}
+[ message ]
+ASSISTANT: {{ event.data }}
+[ end message ]
     {% else %}
-[ user ]
 {% if loop.is_last %}
 [ cache ]
+{% else %}
+[ message ]
 {% endif %}
 {% if locationChanged %}[Location changed to {{ event.location }}] {% endif %}{% if event.type == "direct_narration" %}*{{ event.data }}*
 {% else %}
-{% if event.type == "dialogue_background" %}[Background] {% endif %}{{ decnpc(event.originatingActor).name }}{% if isValidActor(event.targetActor) %} (to {{ decnpc(event.targetActor).name }}){% endif %}: {{ event.data }}
+{% if event.type == "dialogue_background" %}[Background] {% endif %}{% if event.type == "player_thoughts" %}[{{ decnpc(event.originatingActor).name }}'s internal thoughts] {% endif %}{{ decnpc(event.originatingActor).name }}{% if isValidActor(event.targetActor) %} (to {{ decnpc(event.targetActor).name }}){% endif %}: {{ event.data }}
 {% endif %}
 {% if loop.is_last %}
 [ end cache ]
+{% else %}
+[ end message ]
 {% endif %}
-[ end user ]
   {% endif %}
   {% set lastLocation = event.location %}
   {% set lastEventTime = event.gameTime %}
@@ -89,8 +86,9 @@
   {% else if timeSinceLastEvent > 600 %}{% set timePassedDescription = "A little time has passed" %}
   {% endif %}
   {% if timePassedDescription != "" or locationChangedSinceLastEvent %}
-[ user ]
+[ message ]
 {% if timePassedDescription != "" %}*{{ timePassedDescription }}{% if locationChangedSinceLastEvent %}, and the location has changed to {{ location }}{% endif %}.*{% else %}*The location has changed to {{ location }}.*{% endif %}
-[ end user ]
+[ end message ]
   {% endif %}
 {% endif %}
+[ end user ]
