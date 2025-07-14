@@ -23,10 +23,12 @@ Game time: {{ triggeringEvent.gameTimeStr }}
 
 {{ render_template("components\\event_history") }}
 
-
-{% if is_caching_enabled() %}
+{% if nearbyNPCs and length(nearbyNPCs) > 0 %}
 [ user ]
-{{ render_subcomponent("system_head", "dynamic") }}
+Current nearby characters:
+{% for npc in nearbyNPCs %}
+- {{ npc.name }}
+{% endfor %}
 [ end user ]
 {% endif %}
 

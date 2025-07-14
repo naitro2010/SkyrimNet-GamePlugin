@@ -13,9 +13,11 @@
 {% else if render_mode == "full" or render_mode == "static" or render_mode == "dynamic"%}
 {{ "# " }}{{ decnpc(actorUUID).name }}{{" Bio" }}{% if render_mode == "dynamic" %} (Continued){% endif %}
 {% endif %}
-{% if render_mode == "dynamic" or render_mode == "full" %}
+
+{# Common stats logic for both render modes #}
 - Gender: {{ decnpc(actorUUID).gender }}
 - Race: {{ decnpc(actorUUID).race }}
+{% if render_mode == "dynamic" or render_mode == "full" %}
 {% if decnpc(actorUUID).maxHealth > 0 %}
 {% set healthRatio = decnpc(actorUUID).health / decnpc(actorUUID).maxHealth %}
 {% if healthRatio < 0.25 %}

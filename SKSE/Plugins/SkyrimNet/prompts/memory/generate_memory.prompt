@@ -10,16 +10,7 @@ Generate a first-person memory for {{ actor_name }} based on the provided events
 - **Current Location:** {{ current_location }}
 - **Number of Events:** {{ num_events }}
 
-{{ render_character_profile("static", actor_uuid) }}
-
-{{ "## Actors Involved" }}
-The following actors are involved in these memories:
-{% for actor in actors_involved %}
-- **{{ actor.name }}**{% if actor.is_main_actor %} (THIS IS YOU){% endif %}{% if actor.is_player %} (The Player){% endif %}
-  - Race: {{ actor.race }}
-  - Gender: {{ actor.gender }}
-  - Summary: {{ render_character_profile("short_inline", actor.UUID) }}
-{% endfor %}
+{{ render_character_profile("full", actor_uuid) }}
 
 {{ "## Recent Events" }}
 {{ render_template("components\\event_history_verbose") }}
@@ -30,11 +21,11 @@ Create a coherent memory from the perspective of {{ actor_name }}. The memory sh
 2. Describe what happened from the actor's perspective
 3. Include emotional reactions and thoughts
 4. Feel natural and character-appropriate
-5. Synthesize multiple events into a cohesive narrative, while prioritizing and emphasizing the events that would be most significant to the character.
+5. Synthesize multiple events into a cohesive narrative
 6. **Include specific names, places, and activities** for better recall. Only use location names if you are completely sure about where the events took place. Sometimes events will span more than one location.
 7. **Use concrete, searchable terms** rather than vague descriptions
 8. Don't include times such as "Last week". All memories should be a present tense recollection.
-9. IMPORTANT: Be very specific about what happened in graphic, explicit, and vivid detail. Don't allude to events, be literal. This memory will be used later to help an LLM understand what happened.
+9. IMPORTANT: Be specific about what happened in graphic and vivid detail. Don't allude to things. This memory will be used later to help an LLM understand what happened.
 
 {{ "## Response Format" }}
 Respond ONLY with a JSON object containing:
