@@ -1,4 +1,4 @@
-{% if render_mode == "full" or render_mode == "static" %}
+{% if render_mode == "full" %}
 {{ "## Aspirations" }}
 {% block aspirations %}{% endblock %}
 {% endif %} 

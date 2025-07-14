@@ -1,9 +1,7 @@
-{% if render_mode == "dynamic" or render_mode == "full" %}
 {% if length(memories) > 0 %}
 {{ "## Relevant Memories" }}
 {% for memory in memories %}
 {{ loop.index }}. **{{ memory.memory.content }}** ({{ memory.memory.emotion }}, Importance: {{ memory.memory.importance_score }})
 {% if memory.memory.tags %}{{ memory.memory.tags }}{% endif %}
 {% endfor %}
-{% endif %}
 {% endif %}

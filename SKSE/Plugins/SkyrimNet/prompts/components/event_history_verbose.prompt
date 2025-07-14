@@ -21,6 +21,7 @@
     {% else if timeSinceLastSignificant > 3600 %}{% set gapDescription = "--- ABOUT AN HOUR LATER ---" %}
     {% else if timeSinceLastSignificant > 1800 %}{% set gapDescription = "--- SOME TIME LATER ---" %}
     {% endif %}
+
 {{ gapDescription }}
   {% endif %}
   

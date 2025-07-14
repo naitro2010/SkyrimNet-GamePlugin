@@ -1,6 +1,6 @@
 {# Handle the header based on render mode #}
-{% if render_mode == "full" or render_mode == "static" or render_mode == "dynamic"%}
-{{ "# " }}{{ decnpc(actorUUID).name }}{{" Bio" }}{% if render_mode == "dynamic" %} (Continued){% endif %}
+{% if render_mode == "full" %}
+{{ "# " }}{{ decnpc(actorUUID).name }}{{" Bio" }}
 {% else if render_mode == "dialogue_target" %}
 {# This prompt is used when the actor is the target in a dialogue. #}
 {% if responseTarget %}
@@ -17,7 +17,6 @@
 {# Common stats logic for both render modes #}
 - Gender: {{ decnpc(actorUUID).gender }}
 - Race: {{ decnpc(actorUUID).race }}
-{% if render_mode == "dynamic" or render_mode == "full" %}
 {% if decnpc(actorUUID).maxHealth > 0 %}
 {% set healthRatio = decnpc(actorUUID).health / decnpc(actorUUID).maxHealth %}
 {% if healthRatio < 0.25 %}
@@ -66,4 +65,3 @@
 {% else %}
 - Energy: Unknown stamina status
 {% endif %} 
-{% endif %}{# End render_mode dynamic #}

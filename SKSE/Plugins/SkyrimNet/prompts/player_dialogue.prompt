@@ -14,11 +14,7 @@ Game time: {{ triggeringEvent.gameTimeStr }}
 {% endif %}
 {% endif %}
 
-{% if is_caching_enabled() %}
-{{ render_subcomponent("system_head", "static") }}
-{% else %}
-{{ render_subcomponent("system_head", "full") }}
-{% endif %}
+{{ render_subcomponent("system_head", "transform") }}
 [ end system ]
 
 {{ render_template("components\\event_history") }}
@@ -62,7 +58,7 @@ You are speaking audibly, even though no one else is nearby.
 
 Respond with only a single concise dialogue line{% if is_narration_enabled() %} and/or brief narrative action{% endif %} from {{ decnpc(npc.UUID).name }}, nothing else.
 
-{{ render_subcomponent("user_final_instructions", "full") }}
+{{ render_subcomponent("user_final_instructions", "transform") }}
 
 {% if not is_narration_enabled() %}
 You must ONLY respond with dialogue. Do not include any form of narration, explanation, or any sort of non-speech content.

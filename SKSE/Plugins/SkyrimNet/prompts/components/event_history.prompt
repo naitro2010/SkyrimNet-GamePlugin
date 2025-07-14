@@ -1,4 +1,3 @@
-[ user ]
 {% set lastLocation = "" %}
 {% set lastEventTime = 0 %}
 {% set lastEventLocation = "" %}
@@ -45,30 +44,22 @@
       {% else if timeSinceLastSignificant > 3600 %}{% set gapDescription = "About an hour passes..." %}
       {% else if timeSinceLastSignificant > 1800 %}{% set gapDescription = "Some time passes..." %}
       {% endif %}
-[ message ]
+[ user ]
 *{{ gapDescription }}*. It is now {{ event.gameTimeStr }}.
-[ end message ]
+[ end user ]
     {% endif %}
     
     {% if event.originatingActor == npc.UUID and event.type != "player_thoughts" and event.type != "direct_narration" %}
-[ message ]
-{{ timeIndicator }}ASSISTANT: {{ event.data }}
-[ end message ]
+[ assistant ]
+{{ timeIndicator }}{{ event.data }}
+[ end assistant ]
     {% else %}
-{% if loop.is_last %}
-[ cache ]
-{% else %}
-[ message ]
-{% endif %}
+[ user ]
 {% if locationChanged %}[Location changed to {{ event.location }}] {% endif %}{% if event.type == "direct_narration" %}{{ timeIndicator }}*{{ event.data }}*
 {% else %}
 {{ timeIndicator }}{% if event.type == "dialogue_background" %}[Background] {% endif %}{% if event.type == "player_thoughts" %}[{{ decnpc(event.originatingActor).name }}'s internal thoughts] {% endif %}{{ decnpc(event.originatingActor).name }}{% if isValidActor(event.targetActor) %} (to {{ decnpc(event.targetActor).name }}){% endif %}: {{ event.data }}
 {% endif %}
-{% if loop.is_last %}
-[ end cache ]
-{% else %}
-[ end message ]
-{% endif %}
+[ end user ]
   {% endif %}
   {% set lastLocation = event.location %}
   {% set lastEventTime = event.gameTime %}
@@ -98,9 +89,8 @@
   {% else if timeSinceLastEvent > 600 %}{% set timePassedDescription = "A little time has passed" %}
   {% endif %}
   {% if timePassedDescription != "" or locationChangedSinceLastEvent %}
-[ message ]
+[ user ]
 {% if timePassedDescription != "" %}*{{ timePassedDescription }}{% if locationChangedSinceLastEvent %}, and the location has changed to {{ location }}{% endif %}.*{% else %}*The location has changed to {{ location }}.*{% endif %}
-[ end message ]
+[ end user ]
   {% endif %}
 {% endif %}
-[ end user ]
