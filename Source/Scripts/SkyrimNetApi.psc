@@ -224,6 +224,14 @@ int function TriggerToggleGameMaster() Global Native
 ; Functions identically to pressing the configured continuous mode toggle key
 int function TriggerToggleContinuousMode() Global Native
 
+; Simulates pressing the world event reactions toggle hotkey
+; - Toggles whether NPCs react to world events (dialogue (Including AI dialogue), combat, death, quest stages, etc.)
+; - This effectively disables NPCs from reacting to other NPCs dialogue. No interjections, no interruptions.
+; - Shows notification with current state (NPC Reactions: ON/OFF)
+; - When disabled, NPCs will not autonomously react to world events
+; Functions identically to pressing the configured world event reactions toggle key
+int function TriggerToggleWorldEventReactions() Global Native
+
 ; --- Thought System Functions ---
 
 ; Simulates pressing the text thought hotkey
