@@ -57,10 +57,10 @@ Understanding what each block represents and how it should evolve:
 **Core Identity Blocks (rarely change, preserve carefully):**
 - **background**: Character's history, origins, major life events that shaped them. Only update for truly significant life-changing events.
 - **personality**: Core character traits, behavioral patterns, emotional tendencies. Should only evolve gradually through major character development.
-- **appearance**: Physical description and distinctive features. Only update for permanent physical changes (scars, injuries, aging).
+- **appearance**: Physical description and distinctive visual features that an outsider could reasonably perceive by looking at the character (height, build, hair, clothing style, visible scars, etc.). Should NOT include internal thoughts, hidden items, or non-visible characteristics. Do not include any worn equipment unless it is immediately obvious.
 
 **Dynamic Development Blocks (more responsive to events):**
-- **summary**: Brief overview of who the character is currently. Update to reflect recent significant changes in status, role, or major developments.
+- **summary**: Brief overview of who the character is currently, containing only information that an outsider would immediately know about them (public reputation, obvious role/title, widely known achievements, etc.). Should NOT include private thoughts, hidden motivations, or insider knowledge. Update to reflect recent significant changes in publicly visible status, role, or major developments.
 - **aspirations**: Current goals, ambitions, dreams, and motivations. Update based on achieved goals, new ambitions, or changed priorities.
 - **relationships**: Key relationships and how character feels about important people. Update based on relationship developments, new allies/enemies, changed dynamics.
 - **occupation**: Current job, role, or primary activity. Update for career changes, new responsibilities, or shifts in daily activities.
@@ -68,7 +68,7 @@ Understanding what each block represents and how it should evolve:
 
 **Behavioral Expression Blocks (moderate responsiveness):**
 - **speech_style**: How the character speaks, vocabulary, mannerisms. May evolve slowly based on education, social changes, or major personality shifts.
-- **interject_summary**: When and why character speaks up in conversations. Update based on new interests, changed social status, or personality development.
+- **interject_summary**: Specifically describes when and why the character would feel compelled to interject or speak up in conversations (topics that trigger them, social situations where they can't stay quiet, etc.). Should focus solely on conversational triggers and speaking impulses, not general personality traits or background information. Update based on new interests, changed social status, or personality development that affects their speaking patterns.
 
 {{ "## Updatable Blocks for This Update" }}
 The following blocks are designated for potential updates: {% for block in updatableBlocks %}{{ block }}, {% endfor %}
