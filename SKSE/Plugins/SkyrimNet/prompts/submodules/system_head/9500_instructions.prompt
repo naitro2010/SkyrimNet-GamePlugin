@@ -1,5 +1,5 @@
 {% if render_mode == "full" or render_mode == "dynamic" %}
-{{ "# Instructions" }}
+{{ "# Guidelines (IMPORTANT)" }}
 
 {% if playerRoleplayInput %}
 {% if length(promptForDialogue) > 0 %}
