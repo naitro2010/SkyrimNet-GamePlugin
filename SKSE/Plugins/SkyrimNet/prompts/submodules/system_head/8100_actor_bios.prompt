@@ -8,8 +8,6 @@
 {% else %}
 {{ render_character_profile("full", npc.UUID) }}
 {% endif %}
-
-{# Render equipment in full or dynamic #}
 {% if render_mode == "full" or render_mode == "dynamic" %}
 {{ "### Equipment " }}
 {% set npc_equipment = get_worn_equipment(npc.UUID) %}
@@ -20,10 +18,10 @@
 {% endfor %}
 {% endif %}
 
-{# Don't display in static to avoid busting cache when changing dialogue targets #}
-{% if render_mode == "dynamic" or render_mode == "full" %}
-{% if responseTarget.UUID != 0 %}
-{% if responseTarget.type == "npc" or responseTarget.type == "player" %}
+{% if responseTarget %}
+{% if responseTarget.type == "npc" %}
+
+{% if render_mode == "dynamic" %}
 {# Dynamic content is same fields for speaker or target #}
 {{ render_character_profile("dynamic", responseTarget.UUID) }}
 {% else %}
