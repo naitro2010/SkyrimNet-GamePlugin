@@ -12,8 +12,20 @@
     {% else %}
       {% set timeSinceLastSignificant = 0 %}
     {% endif %}
+    {% set timeIndicator = "" %}
     {% set showTimeGap = false %}
-        
+    
+    {% if timeDiff > 604800 %}{% set timeIndicator = "[Over a week ago] " %}
+    {% else if timeDiff > 172800 %}{% set timeIndicator = "[Several days ago] " %}
+    {% else if timeDiff > 86400 %}{% set timeIndicator = "[Yesterday] " %}
+    {% else if timeDiff > 28800 %}{% set timeIndicator = "[Many hours ago] " %}
+    {% else if timeDiff > 14400 %}{% set timeIndicator = "[Earlier today] " %}
+    {% else if timeDiff > 7200 %}{% set timeIndicator = "[A few hours ago] " %}
+    {% else if timeDiff > 3600 %}{% set timeIndicator = "[About an hour ago] " %}
+    {% else if timeDiff > 1800 %}{% set timeIndicator = "[A while ago] " %}
+    {% else if timeDiff > 600 %}{% set timeIndicator = "[Some time ago] " %}
+    {% endif %}
+    
     {% if timeSinceLastSignificant > 1800 %}{% set showTimeGap = true %}{% endif %}
     
     {% if showTimeGap and lastSignificantTime > 0 %}
@@ -37,27 +49,15 @@
 [ end user ]
     {% endif %}
     
-    {% if event.originatingActor == npc.UUID and event.type != "direct_narration" or event.type == "player_thoughts"  %}
+    {% if event.originatingActor == npc.UUID and event.type != "player_thoughts" and event.type != "direct_narration" %}
 [ assistant ]
-{% if length(events) >= 3 and loop.index == length(events) - 3 %}
-[ cache ]
-{% endif %}
-{% if event.type == "player_thoughts" %}[{{ decnpc(event.originatingActor).name }}'s internal thoughts] {% endif %}{{ event.data }}
-{% if length(events) >= 3 and loop.index == length(events) - 3 %}
-[ end cache ]
-{% endif %}
+{{ timeIndicator }}{{ event.data }}
 [ end assistant ]
     {% else %}
 [ user ]
-{% if length(events) >= 3 and loop.index == length(events) - 3 %}
-[ cache ]
-{% endif %}
-{% if locationChanged %}[Location changed to {{ event.location }}] {% endif %}{% if event.type == "direct_narration" %}*{{ event.data }}*
+{% if locationChanged %}[Location changed to {{ event.location }}] {% endif %}{% if event.type == "direct_narration" %}{{ timeIndicator }}*{{ event.data }}*
 {% else %}
-{% if event.type == "dialogue_background" %}[Background] {% endif %}{{ decnpc(event.originatingActor).name }}{% if isValidActor(event.targetActor) %} (to {{ decnpc(event.targetActor).name }}){% endif %}: {{ event.data }}
-{% endif %}
-{% if length(events) >= 3 and loop.index == length(events) - 3 %}
-[ end cache ]
+{{ timeIndicator }}{% if event.type == "dialogue_background" %}[Background] {% endif %}{% if event.type == "player_thoughts" %}[{{ decnpc(event.originatingActor).name }}'s internal thoughts] {% endif %}{{ decnpc(event.originatingActor).name }}{% if isValidActor(event.targetActor) %} (to {{ decnpc(event.targetActor).name }}){% endif %}: {{ event.data }}
 {% endif %}
 [ end user ]
   {% endif %}

@@ -1,3 +1,0 @@
-{% if render_mode == "full" or render_mode == "static"  %}
-[ end cache ]
-{% endif %}

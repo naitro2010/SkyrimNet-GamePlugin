@@ -1,0 +1,19 @@
+{{ render_character_profile("full", npc.UUID) }}
+{{ "### Equipment " }}
+{% set npc_equipment = get_worn_equipment(npc.UUID) %}
+{% for slot, item in npc_equipment %}
+{% if is_item_enabled(item.formID) %}
+**{{ item.equipment_slot }}**: {{ get_item_name(item.formID) }}{% if length(get_item_description(item.formID)) > 0 %} - {{ get_item_description(item.formID) }}{% endif %}
+{% endif %}
+{% endfor %}
+
+{% if responseTarget and responseTarget.UUID != 0 %}
+{{ render_character_profile("dialogue_target", responseTarget.UUID) }}
+{{ "### Equipment " }}
+{% set target_equipment = get_worn_equipment(responseTarget.UUID) %}
+{% for slot, item in target_equipment %}
+{% if is_item_enabled(item.formID) %}
+**{{ item.equipment_slot }}**: {{ get_item_name(item.formID) }}{% if length(get_item_description(item.formID)) > 0 %} - {{ get_item_description(item.formID) }}{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}

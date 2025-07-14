@@ -1,6 +1,0 @@
-{% if render_mode == "full" or render_mode == "static" %}
-[ cache ]
-{% endif %}
-{% if render_mode == "dynamic" %}
-{{" # Additional Instructions" }}
-{% endif %}
