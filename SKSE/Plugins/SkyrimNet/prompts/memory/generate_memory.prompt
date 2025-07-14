@@ -12,6 +12,15 @@ Generate a first-person memory for {{ actor_name }} based on the provided events
 
 {{ render_character_profile("full", actor_uuid) }}
 
+{{ "## Actors Involved" }}
+The following actors are involved in these memories:
+{% for actor in actors_involved %}
+- **{{ actor.name }}**{% if actor.is_main_actor %} (THIS IS YOU){% endif %}{% if actor.is_player %} (The Player){% endif %}
+  - Race: {{ actor.race }}
+  - Gender: {{ actor.gender }}
+  - Summary: {{ render_character_profile("short_inline", actor.UUID) }}
+{% endfor %}
+
 {{ "## Recent Events" }}
 {{ render_template("components\\event_history_verbose") }}
 

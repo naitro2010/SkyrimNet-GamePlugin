@@ -7,7 +7,7 @@
 {% endif %}
 {% endfor %}
 
-{% if responseTarget %}
+{% if responseTarget and responseTarget.UUID != 0 %}
 {{ render_character_profile("dialogue_target", responseTarget.UUID) }}
 {{ "### Equipment " }}
 {% set target_equipment = get_worn_equipment(responseTarget.UUID) %}
