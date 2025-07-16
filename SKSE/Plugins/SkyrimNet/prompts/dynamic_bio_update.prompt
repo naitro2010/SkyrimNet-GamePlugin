@@ -57,7 +57,7 @@ Understanding what each block represents and how it should evolve:
 **Core Identity Blocks (rarely change, preserve carefully):**
 - **background**: Character's history, origins, major life events that shaped them. Only update for truly significant life-changing events.
 - **personality**: Core character traits, behavioral patterns, emotional tendencies. Should only evolve gradually through major character development.
-- **appearance**: Physical description and distinctive visual features that an outsider could reasonably perceive by looking at the character (height, build, hair, clothing style, visible scars, etc.). Should NOT include internal thoughts, hidden items, or non-visible characteristics. Do not include any worn equipment unless it is immediately obvious.
+- **appearance**: Physical description and distinctive visual features that an outsider could reasonably perceive by looking at the character (height, build, hair, visible scars, etc.). Should NOT include internal thoughts, worn equipment or items, or non-visible characteristics.
 
 **Dynamic Development Blocks (more responsive to events):**
 - **summary**: Brief overview of who the character is currently, containing only information that an outsider would immediately know about them (public reputation, obvious role/title, widely known achievements, etc.). Should NOT include private thoughts, hidden motivations, or insider knowledge. Update to reflect recent significant changes in publicly visible status, role, or major developments.
@@ -87,9 +87,9 @@ The following blocks are designated for potential updates: {% for block in updat
 
 **Dynamic Development Blocks** (prune aggressively):
 - **aspirations**: Remove completed goals, failed ambitions older than 1 month, superseded plans
-- **relationships**: Consolidate minor acquaintances, remove stale conflicts, focus on current dynamics
-- **occupation**: Remove outdated responsibilities, consolidate similar tasks, focus on current role
-- **skills**: Remove redundant skill descriptions, consolidate related abilities, focus on recently used/improved skills
+- **relationships**: Consolidate minor acquaintances, remove stale conflicts, focus on current dynamics while preserving important relationships long-term
+- **occupation**: Remove outdated responsibilities, consolidate similar tasks, focus on current role, while preserving core occupation long term
+- **skills**: Remove redundant skill descriptions, consolidate related abilities, focus on recently used/improved skills, while preserving core skills long term
 - **summary**: Remove outdated status information, consolidate achievements, focus on current defining characteristics
 
 **Behavioral Expression Blocks** (prune moderately):
@@ -103,7 +103,7 @@ The following blocks are designated for potential updates: {% for block in updat
 
 **Consolidation Strategies:**
 1. **Combine Similar Items**: "Known for sword fighting and archery" instead of separate entries
-2. **Use Summary Phrases**: "Has several allies in the city guard" instead of listing each name
+2. **Use Summary Phrases**: "Has several allies in the city guard: Fred, Alex, etc" instead of listing each name separely
 3. **Focus on Impact**: Keep consequences of events rather than detailed event descriptions
 4. **Remove Redundancy**: If personality already mentions "brave," don't repeat it in skills or aspirations
 5. **Hierarchical Detail**: Keep major points, remove minor supporting details
@@ -113,10 +113,11 @@ The following blocks are designated for potential updates: {% for block in updat
 - Temporary conditions that have resolved
 - Minor events with no lasting impact
 - Redundant descriptions across different blocks
-- Outdated goals or relationships
+- Outdated goals or relationships (Keep important relationships)
 - Stale behavioral patterns that no longer apply
 
 **What to Always Keep:**
+- Important relationships and events that were significantly impactful on the character long-term
 - Core personality traits and fundamental background
 - Current active relationships and goals
 - Recent significant achievements or failures

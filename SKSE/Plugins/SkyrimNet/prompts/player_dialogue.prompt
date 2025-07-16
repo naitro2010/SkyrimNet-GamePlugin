@@ -56,7 +56,7 @@ You are speaking audibly, even though no one else is nearby.
 {% endif %}
 {% endif %}
 
-Respond with only a single concise dialogue line{% if is_narration_enabled() %} and/or brief narrative action{% endif %} from {{ decnpc(npc.UUID).name }}, nothing else.
+Respond with only a brief dialogue {% if is_narration_enabled() %} or brief narrative action{% endif %} from {{ decnpc(npc.UUID).name }} in response to the current dialogue and situation, nothing else. Generally aim for no more than 2-4 sentences. Avoid making up details that are not present within the prompt you are provided.
 
 {{ render_subcomponent("user_final_instructions", "transform") }}
 

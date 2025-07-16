@@ -164,7 +164,7 @@
 {% else if event.type == "direct_narration" %}
 - ** {{ event.data }} ({{ time_desc }})
 {% else if event.type != "package_apply" and event.type != "package_remove" %}
-- **{{ event.type }}** event involving **{{ source_entity.name }}**{% if target_entity %} and **{{ target_entity.name }}**{% endif %} ({{ time_desc }})
+- **{{ event.data }}** ({{ time_desc }})
 {% endif %}
 
 {% endif %} {# source_entity check #}

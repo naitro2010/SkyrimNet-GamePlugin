@@ -6,7 +6,7 @@ You are roleplaying as {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender
 {{ render_template("components\\event_history") }}
 
 [ user ]
-Respond with only a single concise dialogue line{% if is_narration_enabled() %} or brief narrative action{% endif %} from {{ decnpc(npc.UUID).name }}, nothing else.
+Respond with only a brief dialogue {% if is_narration_enabled() %} or brief narrative action{% endif %} from {{ decnpc(npc.UUID).name }}, nothing else. Generally aim for no more than 2-4 sentences. Avoid making up details that are not present within the prompt you are provided.
 {% if is_narration_enabled() %} Never repeat the same narration phrases, reword as necessary. {% endif %}
 {{ render_subcomponent("user_final_instructions", "full") }}
 {% if not is_narration_enabled() %}

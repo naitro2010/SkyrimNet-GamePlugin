@@ -4,7 +4,7 @@
 {% set lastSignificantTime = 0 %}
 {% for event in events %}
 {% if isValidActor(event.originatingActor) %}
-  {% if event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_stt" or event.type == "dialogue_player_text" or event.type == "dialogue_background" or event.type == "player_thoughts" or event.type == "direct_narration" %}
+  {% if event.type != "spell" and event.type != "hit" %}
     {% set locationChanged = (lastLocation != "" and event.location != lastLocation) %}
     {% set timeDiff = gameTimeNumeric - event.gameTime %}
     {% if lastSignificantTime > 0 %}
@@ -57,7 +57,7 @@
 [ user ]
 {% if locationChanged %}[Location changed to {{ event.location }}] {% endif %}{% if event.type == "direct_narration" %}{{ timeIndicator }}*{{ event.data }}*
 {% else %}
-{{ timeIndicator }}{% if event.type == "dialogue_background" %}[Background] {% endif %}{% if event.type == "player_thoughts" %}[{{ decnpc(event.originatingActor).name }}'s internal thoughts] {% endif %}{{ decnpc(event.originatingActor).name }}{% if isValidActor(event.targetActor) %} (to {{ decnpc(event.targetActor).name }}){% endif %}: {{ event.data }}
+{{ timeIndicator }}{% if event.type == "dialogue_background" %}[Background] {% endif %}{% if event.type == "player_thoughts" %}[{{ decnpc(event.originatingActor).name }}'s internal thoughts] {% endif %}{% if isValidActor(event.originatingActor) %}{{ decnpc(event.originatingActor).name }}{% if isValidActor(event.targetActor) %} (to {{ decnpc(event.targetActor).name }}){% endif %}: {% endif %}{{ event.data }}
 {% endif %}
 [ end user ]
   {% endif %}
