@@ -13,7 +13,7 @@
 {{ "# " }}{{ decnpc(actorUUID).name }}'s Bio
 {% endif %}
 {% endif %}
-
+{% if render_mode == "full" or render_mode == "dialogue_target" %}
 {# Common stats logic for both render modes #}
 - Gender: {{ decnpc(actorUUID).gender }}
 - Race: {{ decnpc(actorUUID).race }}
@@ -65,3 +65,4 @@
 {% else %}
 - Energy: Unknown stamina status
 {% endif %} 
+{% endif %}

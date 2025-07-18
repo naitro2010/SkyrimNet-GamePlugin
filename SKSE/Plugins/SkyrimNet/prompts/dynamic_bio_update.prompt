@@ -167,7 +167,7 @@ For each updatable block, consider:
 - Prioritize quality over quantity of information
 
 Return a JSON response with exactly these fields:
-- 'updated_content': The complete updated character bio in template format with ALL required sections
+- 'updated_content': A string with the complete updated character bio in the provided template format with ALL required sections
 - 'changes_summary': A brief summary of what changes were made and why, including what was added, modified, AND removed/consolidated
 
 **Response format**: Pure JSON only, no markdown code fences, no explanatory text.
