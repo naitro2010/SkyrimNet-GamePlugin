@@ -4,7 +4,7 @@
 {% set lastSignificantTime = 0 %}
 {% for event in events %}
 {% if isValidActor(event.originatingActor) %}
-  {% if event.type != "spell" and event.type != "hit" %}
+  {% if event.type != "spell" and event.type != "hit" and event.type != "combat" and event.type != "death" %}
     {% set locationChanged = (lastLocation != "" and event.location != lastLocation) %}
     {% set timeDiff = gameTimeNumeric - event.gameTime %}
     {% if lastSignificantTime > 0 %}
@@ -23,7 +23,6 @@
     {% else if timeDiff > 7200 %}{% set timeIndicator = "[A few hours ago] " %}
     {% else if timeDiff > 3600 %}{% set timeIndicator = "[About an hour ago] " %}
     {% else if timeDiff > 1800 %}{% set timeIndicator = "[A while ago] " %}
-    {% else if timeDiff > 600 %}{% set timeIndicator = "[Some time ago] " %}
     {% endif %}
     
     {% if timeSinceLastSignificant > 1800 %}{% set showTimeGap = true %}{% endif %}
