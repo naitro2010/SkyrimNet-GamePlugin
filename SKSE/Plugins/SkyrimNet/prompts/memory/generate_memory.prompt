@@ -31,10 +31,10 @@ Create a coherent memory from the perspective of {{ actor_name }}. The memory sh
 3. Include emotional reactions and thoughts
 4. Feel natural and character-appropriate
 5. Synthesize multiple events into a cohesive narrative
-6. **Include specific names, places, and activities** for better recall. Only use location names if you are completely sure about where the events took place. Sometimes events will span more than one location.
+6. **Include specific names, places, and activities** for better recall. Only use location names if you are completely sure about where the majority of events took place. Sometimes memories will span more than one location.
 7. **Use concrete, searchable terms** rather than vague descriptions
 8. Don't include times such as "Last week". All memories should be a present tense recollection.
-9. IMPORTANT: Be specific about what happened in graphic and vivid detail. Don't allude to things. This memory will be used later to help an LLM understand what happened.
+9. IMPORTANT: Be specific about what happened in graphic and vivid detail. Don't allude to things that happened, be specific. This memory will be used later to help an LLM understand what happened.
 
 {{ "## Response Format" }}
 Respond ONLY with a JSON object containing:
