@@ -59,7 +59,7 @@ Consider the event details in your thought: {{ triggeringEvent.data }}
 
 {% else %}
 {% if length(promptForThoughts) > 0 %}
-Respond with only a succinct internal thought from a first person perspective{% if is_narration_enabled() %} and/or brief supplemental narrative action `Example: *{{ decnpc(npc.UUID).name }} smiles warily*`{% endif %} from {{ decnpc(npc.UUID).name }}'s perspective about their current thought focus, which is "{{ promptForThoughts }}". IMPORTANT: Your response MUST pertain to this thought focus.
+Respond with only a succinct internal thought from a first person perspective{% if is_narration_enabled() %} and/or brief supplemental narrative action `Example: *{{ decnpc(npc.UUID).name }} smiles warily*`{% endif %} from {{ decnpc(npc.UUID).name }}'s perspective about their current thought focus, which is "{{ promptForThoughts }}". IMPORTANT: Your response MUST be about this subject.
 {% else %}
 Respond with only a succinct internal thought from a first person perspective{% if is_narration_enabled() %} and/or brief supplemental narrative action `Example: *{{ decnpc(npc.UUID).name }} smiles warily*`{% endif %} from {{ decnpc(npc.UUID).name }}'s perspective about the current situation.
 {% endif %}
