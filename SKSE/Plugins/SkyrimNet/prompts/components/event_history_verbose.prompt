@@ -30,9 +30,9 @@
   {% endif %}
   
   {% if event.type == "direct_narration" %}
-[{{ short_time(event.gameTimeStr) }}] [{{ event.location }}] *{{ event.data }}*
+[{{ short_time(event.gameTimeStr) }}] [{{ event.location }}] *{{ format_event(event, "raw") }}*
   {% else %}
-[{{ short_time(event.gameTimeStr) }}] [{{ event.location }}] ({{ event.type }}){% if event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_stt" or event.type == "dialogue_player_text" or event.type == "dialogue_background" or event.type == "player_thoughts" %} {{ decnpc(event.originatingActor).name }}{% if isValidActor(event.targetActor) %} to {{ decnpc(event.targetActor).name }}{% endif %}{% else %} {{ decnpc(event.originatingActor).name }}{% endif %}: {{ event.data }}
+[{{ short_time(event.gameTimeStr) }}] [{{ event.location }}] ({{ event.type }}){% if event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_stt" or event.type == "dialogue_player_text" or event.type == "dialogue_background" or event.type == "player_thoughts" %} {{ decnpc(event.originatingActor).name }}{% if isValidActor(event.targetActor) %} to {{ decnpc(event.targetActor).name }}{% endif %}{% else %} {{ decnpc(event.originatingActor).name }}{% endif %}: {{ format_event(event, "raw") }}
   {% endif %}
   
   {% set lastEventTime = event.gameTime %}

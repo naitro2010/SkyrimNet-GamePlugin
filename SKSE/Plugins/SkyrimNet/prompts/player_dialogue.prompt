@@ -4,7 +4,7 @@ You are roleplaying as {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender
 {% if triggeringEvent and triggeringEvent.type %}
 You are reacting verbally to a {{ triggeringEvent.type }} event that just occurred.
 {% if triggeringEvent.data %}
-Event details: {{ triggeringEvent.data }}
+Event details: {{ format_event(triggeringEvent, "recent_events") }}
 {% endif %}
 {% if triggeringEvent.location %}
 This happened at: {{ triggeringEvent.location }}
@@ -33,7 +33,7 @@ Current nearby characters:
 You just experienced a {{ triggeringEvent.type }} event. Respond with only a single concise dialogue line{% if is_narration_enabled() %} and/or brief narrative action{% endif %} that {{ decnpc(npc.UUID).name }} would speak aloud in reaction to this event.
 
 {% if triggeringEvent.data %}
-Consider the event details in your response: {{ triggeringEvent.data }}
+Consider the event details in your response: {{ format_event(triggeringEvent, "recent_events") }}
 {% endif %}
 
 {% if nearbyNPCs and length(nearbyNPCs) > 0 %}
