@@ -54,10 +54,10 @@ The scene is taking place in **{{ location }}**
 {{ "## Triggering Event(s) (THIS IS WHAT YOU ARE REACTING TO)" }}
 {% if is_array(triggeringEvent) %}
 {% for event in triggeringEvent %}
-{{ format_event(event, "recent_events") }}
+{{ format_event(event, "verbose") }}
 {% endfor %}
 {% else %}
-{{ format_event(triggeringEvent, "recent_events") }}
+{{ format_event(triggeringEvent, "verbose") }}
 {% endif %}
 {% endif %}
 {% endblock %}
