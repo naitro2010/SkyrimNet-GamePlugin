@@ -7,7 +7,7 @@ You are an AI decision-maker for Skyrim, determining which NPCs the player is ad
 [ user ]
 {{ "## Player Input" }}
 - **Type**: {{ triggeringEvent.type }}
-- **Data**: {{ triggeringEvent.data }}
+- **Data**: {{ format_event(triggeringEvent, "verbose") }}
 
 {% if crosshairTarget %}
 {{ "## Player's Crosshair Target" }}

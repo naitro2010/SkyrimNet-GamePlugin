@@ -4,7 +4,7 @@ You are roleplaying as {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender
 {% if triggeringEvent and triggeringEvent.type %}
 You are reacting internally to a {{ triggeringEvent.type }} event that just occurred.
 {% if triggeringEvent.data %}
-Event details: {{ triggeringEvent.data }}
+Event details: {{ format_event(triggeringEvent, "verbose") }}
 {% endif %}
 {% if triggeringEvent.location %}
 This happened at: {{ triggeringEvent.location }}
@@ -53,7 +53,7 @@ While the specific contents weren't preserved, reflect on what this book might h
 You just experienced a {{ triggeringEvent.type }} event. Respond with only a succinct internal thought from a first person perspective{% if is_narration_enabled() %} and/or brief supplemental narrative action `Example: *{{ decnpc(npc.UUID).name }} smiles warily*`{% endif %} from {{ decnpc(npc.UUID).name }}'s perspective, reacting to this specific event.
 
 {% if triggeringEvent.data %}
-Consider the event details in your thought: {{ triggeringEvent.data }}
+Consider the event details in your thought: {{ format_event(triggeringEvent, "verbose") }}
 {% endif %}
 {% endif %}
 
