@@ -44,7 +44,8 @@ SkyrimNet is a cutting-edge AI integration platform for games, beginning with Sk
 - [Address Library for SKSE Plugins](https://www.nexusmods.com/skyrimspecialedition/mods/32444)
 - [PowerOfThree's Papyrus Extender](https://www.nexusmods.com/skyrimspecialedition/mods/22854)
 - [Latest Microsoft Visual C++ Redistributable](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170)
-
+- [Native EditorID Fix](https://www.nexusmods.com/skyrimspecialedition/mods/85260)
+  
 ### 🚀 **CUDA Build Requirements** *(For Maximum Performance)*
 - NVIDIA GPU with CUDA support
 - [CUDA Toolkit 12.x](https://developer.nvidia.com/cuda-downloads) - **IMPORTANT**: If using the CUDA build, SkyrimNet will not load without this!
