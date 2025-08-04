@@ -6,10 +6,15 @@ You are roleplaying as {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender
 {{ render_template("components\\event_history") }}
 
 [ user ]
-Respond with only a brief dialogue {% if is_narration_enabled() %} or brief narrative action{% endif %} from {{ decnpc(npc.UUID).name }}, nothing else. Generally aim for no more than 2-4 sentences. Avoid making up details that are not present within the prompt you are provided.
+Respond with only a brief spoken dialogue {% if is_narration_enabled() %} or brief narrative action{% endif %} from {{ decnpc(npc.UUID).name }}, nothing else. Generally aim for no more than 2-4 sentences. Avoid making up details that are not present within the prompt you are provided.
 {% if is_narration_enabled() %} Never repeat the same narration phrases, reword as necessary. {% endif %}
+{% if is_narration_enabled() %}
+- Use narration sparingly. Narration is defined as any non-verbal output included in your response, such as *{{ decnpc(npc.UUID).name }} taps their foot in impatience*. 
+- Narration MUST ONLY be used when it would considerably enhance the impact of the dialogue and add considerable value, and MUST NOT be used regularly for trivial activities.
+{% endif %}
 {{ render_subcomponent("user_final_instructions", "full") }}
 {% if not is_narration_enabled() %}
-You must ONLY respond with dialogue. Do not include any form of narration, explanation, or any sort of non-speech content.
+- Only respond as what {{ decnpc(npc.UUID).name }} would verbally speak to another. You MUST NOT use any form of narration, gestures, explanations, or out-of-character remarks.
+- Include only spoken dialogue in your response.
 {% endif %}
 [ end user ]

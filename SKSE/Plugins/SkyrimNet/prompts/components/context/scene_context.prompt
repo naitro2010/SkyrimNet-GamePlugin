@@ -23,15 +23,15 @@ The scene is taking place in **{{ location }}**
 
 {{ "## Time & Weather" }}
 **Time**: {{ gameTime }}
-**Weather**: {{ currentWeather.name }}{% if currentWeather.isRaining %} (Raining){% else if currentWeather.isSnowing %} (Snowing){% endif %}
+**Weather**: {% if is_indoors %}You are indoors and sheltered from the weather. Outside, it is {% endif %}{{ currentWeather.name }}{% if currentWeather.isRaining %} (Raining){% else if currentWeather.isSnowing %} (Snowing){% endif %}
 {% if currentWeather.isRaining and currentWeather.isSnowing %}
-*A harsh storm is raging with both rain and snow*
+*{% if is_indoors %}Outside, {%endif %}A harsh storm is raging with both rain and snow*
 {% else if currentWeather.isRaining %}
-*Rain is falling, making outdoor activities unpleasant*
+*{% if is_indoors %}Outside, {%endif %}Rain is falling, making outdoor activities unpleasant*
 {% else if currentWeather.isSnowing %}
-*Snow is falling, creating a winter atmosphere*
+*{% if is_indoors %}Outside, {%endif %}Snow is falling, creating a winter atmosphere*
 {% else if currentWeather.windSpeed > 0.5 %}
-*Strong winds are blowing*
+*{% if is_indoors %}Outside, {%endif %}Strong winds are blowing*
 {% endif %}
 
 {% if gameTimeJson.hour >= 22 or gameTimeJson.hour <= 5 %}

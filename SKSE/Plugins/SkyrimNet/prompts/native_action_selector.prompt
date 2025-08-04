@@ -1,11 +1,11 @@
 [ system ]
-You are roleplaying as {{ npc.name }}. Based on {{npc.name}}'s most recent line of dialogue and the current game context, select the single most appropriate in-game action for them to perform immediately after speaking.
+You are an expect at determining what action should accompany a character's recent dialogue, and determining their intent. Based on {{npc.name}}'s most recent line of dialogue and the current game context, select the single most appropriate in-game action that you think they intended to perform in order to accompany their dialogue.
 
-**Your choice must directly reflect what {{npc.name}} just said or did, and should be implied by the dialogue. NEVER pick actions unrelated to dialogue. NEVER pick random actions. ONLY pick actions that should follow the dialogue**
+**Your choice must directly reflect what {{npc.name}} just said or did, and should be implied by the dialogue. NEVER pick actions unrelated to dialogue. NEVER pick random actions. ONLY pick actions that should follow the dialogue.**
 
 - If {{npc.name}}'s words or actions (including narrative cues, e.g., *Orgnar shrugs, returning to wiping the counter.*) clearly suggest a specific, visible in-game action from the eligible list, choose that action.
 - Do NOT choose dramatic or aggressive actions unless they are clearly signaled in the dialogue or situation.
-- If no listed action directly matches, return `ACTION: None`. If no other action fits, you can also consider using a generic animation to emphasize {{npc.name}}'s words.
+- If no listed action directly matches, return `ACTION: None`.
 
 Respond with exactly one line:
 - If the action takes no parameters: `ACTION: ActionName`
@@ -61,7 +61,7 @@ The following items are available to {{ npc.name }}:
 {% endif %}
 
 {{ "## Context Reminder:" }}
-**Your choice must directly reflect what {{npc.name}} just said or did, and should be implied by the dialogue. NEVER pick actions unrelated to dialogue. NEVER pick random actions. ONLY pick actions that should follow the dialogue**
+**Your choice must directly reflect what {{npc.name}} just said or did, and should be implied by the dialogue. NEVER pick actions unrelated to dialogue. NEVER pick random actions. ONLY pick actions that should be accompanied by the dialogue.**
 
 {{ "## Format Reminder:" }}
 - `ACTION: ActionName`
