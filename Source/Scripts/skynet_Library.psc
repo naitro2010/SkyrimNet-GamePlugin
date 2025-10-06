@@ -58,6 +58,7 @@ Function Maintenance(skynet_MainController _skynet)
     skynet = _skynet
     RegisterActions()
     InitVRIntegrations()
+    InitDBVOIntegration()
     skynet.Info("Library initialized")
 EndFunction
 
@@ -515,4 +516,31 @@ EndEvent
 ; New event for triggering autonomous player dialogue
 Event OnVrikTriggerPlayerDialogue(string eventName, string strArg, float numArg, Form sender)
     SkyrimNetApi.TriggerPlayerDialogue()
+EndEvent
+
+; -----------------------------------------------------------------------------
+; ---- DBVO Integration ----
+; -----------------------------------------------------------------------------
+  
+Function InitDBVOIntegration()
+    if Game.GetModByName("DBVO.esp") != 255
+        skynet.Info("DBVO.esp is active, so disabling custom DBVO integration")
+        return
+    endif
+
+    skynet.Info("Using DBVO integration")
+    RegisterForModEvent("PlayDBVOTopic", "OnPlayDBVOTopic")
+EndFunction
+  
+; Event to intercept DBVO dialogue
+Event OnPlayDBVOTopic(string eventName, string strArg, float numArg, Form sender)
+    ; Generate and play TTS audio for the selected line of dialogue
+    SkyrimNetApi.TriggerPlayerTTS(strArg)
+
+    ; Additional delay over what DBVO provides, to account for TTS generation time
+    Float _delay = SkyrimNetApi.GetConfigFloat("game", "tts.dbvoInvokeDelaySeconds", 0.5)
+    Utility.WaitMenuMode(_delay)
+
+    ; Callback to dialoguemenu.swf. It pauses for a time based on the length of the text and then proceeds with the NPC response.
+    UI.InvokeString("Dialogue Menu", "_root.DialogueMenu_mc.startTopicClickedTimer", "dummy")
 EndEvent
