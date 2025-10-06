@@ -534,11 +534,18 @@ EndFunction
   
 ; Event to intercept DBVO dialogue
 Event OnPlayDBVOTopic(string eventName, string strArg, float numArg, Form sender)
+    ; Use "off" callback if disabled
+    Bool _enabled = SkyrimNetApi.GetConfigBool("game", "dbvo.enabled", false)
+    if !_enabled
+        UI.InvokeString("Dialogue Menu", "_root.DialogueMenu_mc.startTopicClickedTimer", "off")
+        return
+    endif
+
     ; Generate and play TTS audio for the selected line of dialogue
     SkyrimNetApi.TriggerPlayerTTS(strArg)
 
     ; Additional delay over what DBVO provides, to account for TTS generation time
-    Float _delay = SkyrimNetApi.GetConfigFloat("game", "tts.dbvoInvokeDelaySeconds", 0.5)
+    Float _delay = SkyrimNetApi.GetConfigFloat("game", "dbvo.additionalDelay", 0.5)
     Utility.WaitMenuMode(_delay)
 
     ; Callback to dialoguemenu.swf. It pauses for a time based on the length of the text and then proceeds with the NPC response.
