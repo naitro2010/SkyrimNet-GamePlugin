@@ -51,7 +51,7 @@ SkyrimNet is a cutting-edge AI integration platform for games, beginning with Sk
   
 ### 🚀 **CUDA Build Requirements** *(For Maximum Performance)*
 - NVIDIA GPU with CUDA support
-- [CUDA Toolkit 12.x](https://developer.nvidia.com/cuda-downloads) - **IMPORTANT**: If using the CUDA build, SkyrimNet will not load without this!
+- [CUDA Toolkit 12.x](https://developer.nvidia.com/cuda-12-9-1-download-archive) - **IMPORTANT**: If using the CUDA build, SkyrimNet will not load without this!
 
 ### 📋 **Optional Dependencies**
 - [UIExtensions](https://www.nexusmods.com/skyrimspecialedition/mods/17561) - Required for text input and Input Wheel
