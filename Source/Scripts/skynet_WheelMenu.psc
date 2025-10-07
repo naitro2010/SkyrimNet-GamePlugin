@@ -41,8 +41,8 @@ EndFunction
 
 Function DisplayUtilities() global
 
-    string labels = "Go Back,Toggle GameMaster,Toggle NPC Reactions,Continue Narration,Toggle Continuous Mode"
-    string options = "Go Back,Toggle GameMaster,Toggle NPC Reactions,Continue Narration,Toggle Continuous Mode"
+    string labels = "Go Back,Toggle GameMaster,Toggle NPC Reactions,Continue Narration,Toggle Continuous Mode,Toggle Whisper Mode"
+    string options = "Go Back,Toggle GameMaster,Toggle NPC Reactions,Continue Narration,Toggle Continuous Mode,Toggle Whisper Mode"
 
     int result = skynet_WheelMenu.MenuWheel(StringUtil.Split(options, ","), StringUtil.Split(labels, ","))
 
@@ -60,6 +60,9 @@ Function DisplayUtilities() global
     elseif result == 4
         ; Toggle continuous mode
         SkyrimNetApi.TriggerToggleContinuousMode()
+    elseif result == 5
+        ; Toggle whisper mode
+        SkyrimNetApi.TriggerToggleWhisperMode()
     endif
 
 EndFunction

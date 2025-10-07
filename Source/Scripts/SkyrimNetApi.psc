@@ -327,6 +327,14 @@ int function TriggerToggleContinuousMode() Global Native
 ; Functions identically to pressing the configured world event reactions toggle key
 int function TriggerToggleWorldEventReactions() Global Native
 
+; --- Interaction Control Functions ---
+
+; Simulates pressing the whisper mode toggle hotkey
+; - Toggles interaction.maxDistance between interaction.whisperMaxDistance and interaction.normalMaxDistance
+; - Shows notification with current state (Whisper mode: ON/OFF)
+; Functions identically to pressing the configured whisper toggle key
+int function TriggerToggleWhisperMode() Global Native
+
 ; --- Thought System Functions ---
 
 ; Simulates pressing the text thought hotkey
