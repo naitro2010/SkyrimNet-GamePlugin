@@ -423,6 +423,9 @@ int function TriggerPlayerThought() Global Native
 ; Returns 0 on success, 1 on failure
 int function TriggerPlayerDialogue() Global Native
 
+; Sends a line of player dialogue directly to TTS, without prompting the LLM or saving to context
+int function TriggerPlayerTTS(String dialogue) Global Native
+
 ; -----------------------------------------------------------------------------
 ; --- Events ---
 ; -----------------------------------------------------------------------------

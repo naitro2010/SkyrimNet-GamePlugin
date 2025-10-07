@@ -55,6 +55,7 @@ SkyrimNet is a cutting-edge AI integration platform for games, beginning with Sk
 
 ### 📋 **Optional Dependencies**
 - [UIExtensions](https://www.nexusmods.com/skyrimspecialedition/mods/17561) - Required for text input and Input Wheel
+- [Dragonborn Voice Over](https://www.nexusmods.com/skyrimspecialedition/mods/84329) - Required for player-voiced vanilla lines of dialogue. To enable this feature, install DBVO but disable or delete the DBVO.esp file (no voice pack is required). SkyrimNet will then capture dialogue events from the DBVO interface file and send them to TTS, allowing the player character to speak normally unvoiced vanilla lines.
 
 ### 🎮 **Version-Specific Requirements**
 
