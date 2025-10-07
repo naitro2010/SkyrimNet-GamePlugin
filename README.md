@@ -29,6 +29,9 @@ SkyrimNet is a cutting-edge AI integration platform for games, beginning with Sk
 
 ### ⚙️ **Quick Start**
 1. **Download** from [GitHub Releases](https://github.com/MinLL/SkyrimNet-GamePlugin/releases)
+   
+   **Piper TTS Models (Optional)**: If you plan to use Piper TTS, download the required voice models from [Google Drive](https://drive.google.com/file/d/1zmBJCLlaGWKBW8Z87rw2MiaNE-8cdSlv/view) and install them as a separate mod in your mod manager (MO2, Vortex, etc.).
+
 2. **Install** using your preferred mod manager
 3. **Enable** SkyrimNet.esp in your load order
 4. **Launch** via SKSE and visit [localhost:8080](http://localhost:8080)
