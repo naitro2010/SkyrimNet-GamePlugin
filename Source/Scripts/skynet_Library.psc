@@ -475,44 +475,51 @@ Function InitVRIntegrations()
   
     RegisterForModEvent("skynet_vrik_trigger_player_dialogue", "OnVrikTriggerPlayerDialogue")
     VRIK.VrikAddGestureAction("skynet_vrik_trigger_player_dialogue", "SkyrimNet: Trigger Player Dialogue")
+
+
+    RegisterForModEvent("skynet_vrik_trigger_dialogue_transform", "OnVrikTriggerDialogueTransform")
+    VRIK.VrikAddGestureAction("skynet_vrik_trigger_dialogue_transform", "SkyrimNet: Start Dialogue Transform Input")
+
+    RegisterForModEvent("skynet_vrik_trigger_dialogue_transform_release", "OnVrikTriggerDialogueTransformRelease")
+    VRIK.VrikAddGestureAction("skynet_vrik_trigger_dialogue_transform_release", "SkyrimNet: Stop Dialogue Transform Input")
 EndFunction
   
-; Existing event for narration continuation
+Event OnVrikTriggerDialogueTransform(string eventName, string strArg, float numArg, Form sender)
+    SkyrimNetApi.TriggerVoiceDialogueTransformPressed()
+EndEvent
+
+Event OnVrikTriggerDialogueTransformRelease(string eventName, string strArg, float numArg, Form sender)
+    SkyrimNetApi.TriggerVoiceDialogueTransformReleased(1.0)
+EndEvent
+
 Event OnVrikContinueNarration(string eventName, string strArg, float numArg, Form sender)
     SkyrimNetApi.TriggerContinueNarration()
 EndEvent  
   
-; New event for toggling GameMaster
 Event OnVrikToggleGameMaster(string eventName, string strArg, float numArg, Form sender)
     SkyrimNetApi.TriggerToggleGameMaster()
 EndEvent
   
-; New event for triggering voice input (start recording)
 Event OnVrikTriggerVoiceInput(string eventName, string strArg, float numArg, Form sender)
     SkyrimNetApi.TriggerRecordSpeechPressed()
 EndEvent
   
-; New event for triggering voice input release (stop recording)
 Event OnVrikTriggerVoiceRelease(string eventName, string strArg, float numArg, Form sender)
     SkyrimNetApi.TriggerRecordSpeechReleased(2.0)
 EndEvent
   
-; New event for triggering direct input (start recording)
 Event OnVrikTriggerDirectInput(string eventName, string strArg, float numArg, Form sender)
     SkyrimNetApi.TriggerVoiceDirectInputPressed()
 EndEvent
   
-; New event for triggering direct input release (stop recording)
 Event OnVrikTriggerDirectRelease(string eventName, string strArg, float numArg, Form sender)
     SkyrimNetApi.TriggerVoiceDirectInputReleased(2.0)
 EndEvent
   
-; New event for triggering autonomous player thought
 Event OnVrikTriggerPlayerThought(string eventName, string strArg, float numArg, Form sender)
     SkyrimNetApi.TriggerPlayerThought()
 EndEvent
   
-; New event for triggering autonomous player dialogue
 Event OnVrikTriggerPlayerDialogue(string eventName, string strArg, float numArg, Form sender)
     SkyrimNetApi.TriggerPlayerDialogue()
 EndEvent

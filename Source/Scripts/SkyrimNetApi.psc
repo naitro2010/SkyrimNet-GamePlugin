@@ -47,6 +47,15 @@ int function RegisterTag(String tagName, String eligibilityScriptName, String el
 ; Returns true if the action exists, false otherwise
 bool function IsActionRegistered(String actionName) Global Native
 
+; Makes the specified actor run the specified action. Arguments can be supplied as a json string. Runs the action irrespective of cooldowns or eligibility.
+int function ExecuteAction(string actionName, Actor akOriginator, string argsJson) global native
+
+; Sets the cooldown for the specified action
+int function SetActionCooldown(string actionName, int cooldownTimeSeconds) global native
+
+; Gets the remaining cooldown time for the specified action in seconds. Returns -1 if no cooldown is set.
+int function GetRemainingCooldown(string actionName) global native
+
 ; -----------------------------------------------------------------------------
 ; --- Event Management ---
 ; -----------------------------------------------------------------------------
@@ -101,7 +110,7 @@ int function ClearAllPackagesGlobally() Global Native
 ; Cancel any pending package removal tasks for an actor
 int function CancelPendingPackageTasks(Actor akActor) Global Native
 
-; Check if an actor has a specific package applied
+; Check if an actor currently has a specific skyrimnet package applied
 int function HasPackage(Actor akActor, String packageName) Global Native
 
 ; -----------------------------------------------------------------------------
@@ -151,6 +160,12 @@ String function GetConfigString(String configName, String path, String defaultVa
 int function GetConfigInt(String configName, String path, int defaultValue) Global Native
 bool function GetConfigBool(String configName, String path, bool defaultValue) Global Native
 float function GetConfigFloat(String configName, String path, float defaultValue) Global Native
+
+; Utility functions to set configuration values
+; - name: The name of the configuration section to modify. Options:
+;       game, OpenRouter, XTTS, Zonos, Piper, STT, ActorFilter, Phonetic, Hotkey, furniture, PlayerDialogue, VirtualEntities, Entity, Memory, ItemCustomization, Actions, DynamicBio, Events, VastAI, WebServer, VoiceSamples, SpellCustomization
+; - jsonPath: The partial json, of the values to apply to the config
+bool function PatchConfig(String name, String jsonPatch) Global Native
 
 ; Utility functions to get build information
 ; Returns the SkyrimNet version string (e.g., "0.0.1.0")
