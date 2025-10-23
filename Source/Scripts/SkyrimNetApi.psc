@@ -136,10 +136,15 @@ int function SendCustomPromptToLLM(String promptName, float temperature, int max
 ; If targetActor is specified, the speaker will address that specific target
 ; If targetActor is not specified, the speaker will address everyone nearby (general announcement)
 ; 
+; Special behavior: If content is empty (""), the event will be registered as a short-lived (ephemeral) event
+; that appears in scene context but does not persist to the database. This is useful for triggering
+; immediate responses without cluttering event history.
+; 
 ; Examples:
 ; DirectNarration("A wolf howls in the distance") ; System selects speaker, addresses all
 ; DirectNarration("The shopkeeper drops a bottle", shopkeeperRef) ; Shopkeeper speaks to all
 ; DirectNarration("The guard thinks that the player looks tired", guardRef, Game.GetPlayer()) ; Guard speaks to player
+; DirectNarration("", someActor) ; Trigger immediate response without persistent event
 ; 
 ; Returns 0 on success, 1 on failure
 int function DirectNarration(String content, Actor originatorActor = None, Actor targetActor = None) Global Native
