@@ -443,6 +443,9 @@ int function TriggerPlayerDialogue() Global Native
 ; Sends a line of player dialogue directly to TTS, without prompting the LLM or saving to context
 int function TriggerPlayerTTS(String dialogue) Global Native
 
+; Polling API for player TTS completion (for DBVO integration)
+bool function IsPlayerTTSFinished() Global Native
+
 ; -----------------------------------------------------------------------------
 ; --- Events ---
 ; -----------------------------------------------------------------------------
