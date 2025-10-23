@@ -548,13 +548,35 @@ Event OnPlayDBVOTopic(string eventName, string strArg, float numArg, Form sender
         return
     endif
 
-    ; Generate and play TTS audio for the selected line of dialogue
+    ; Kick off player TTS asynchronously and begin monitoring
     SkyrimNetApi.TriggerPlayerTTS(strArg)
 
-    ; Additional delay over what DBVO provides, to account for TTS generation time
-    Float _delay = SkyrimNetApi.GetConfigFloat("game", "dbvo.additionalDelay", 0.5)
-    Utility.WaitMenuMode(_delay)
+    ; Poll until audio finishes playing, yielding in menu mode
+    Float _timeout = 60.0 ; safety cap (seconds)
+    Float _elapsed = 0.0
+    Float _interval = 0.1 ; 100ms polling
+    Bool _isReady = false
 
-    ; Callback to dialoguemenu.swf. It pauses for a time based on the length of the text and then proceeds with the NPC response.
-    UI.InvokeString("Dialogue Menu", "_root.DialogueMenu_mc.startTopicClickedTimer", "dummy")
+    while _elapsed < _timeout && !_isReady
+        if SkyrimNetApi.IsPlayerTTSFinished()
+            ; Audio has finished playing - proceed immediately
+            _isReady = true
+        else
+            Utility.WaitMenuMode(_interval)
+            _elapsed += _interval
+        endif
+    endwhile
+
+    ; Check if we timed out
+    if !_isReady
+        Debug.Notification("Warning: Player TTS timed out after " + _timeout + " seconds")
+        skynet.Warn("Player TTS timed out after " + _timeout + " seconds")
+    endif
+
+    ; Wait to give a natural pause between player and NPC speech
+    Float _speech_break = 0.3
+    Utility.WaitMenuMode(_speech_break)
+
+    ; Proceed with DBVO callback
+    UI.InvokeString("Dialogue Menu", "_root.DialogueMenu_mc.startTopicClickedTimer", "off")
 EndEvent
