@@ -567,6 +567,12 @@ Event OnPlayDBVOTopic(string eventName, string strArg, float numArg, Form sender
         endif
     endwhile
 
+    ; Check if we timed out
+    if !_isReady
+        Debug.Notification("Warning: Player TTS timed out after " + _timeout + " seconds")
+        skynet.Warn("Player TTS timed out after " + _timeout + " seconds")
+    endif
+
     ; Wait to give a natural pause between player and NPC speech
     Float _speech_break = 0.3
     Utility.WaitMenuMode(_speech_break)
