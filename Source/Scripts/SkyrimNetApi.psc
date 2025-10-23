@@ -185,6 +185,10 @@ bool function IsRunningVR() Global Native
 ; Returns the number of speech tasks currently queued for processing
 int function GetSpeechQueueSize() Global Native
 
+; Get the time in milliseconds since the last audio finished playing
+; Returns the number of milliseconds since the last audio ended, or 0 if no audio has played yet
+int function GetTimeSinceLastAudioEnded() Global Native
+
 ; Render a prompt template with a custom variable
 ; - templateName: The name of the template file to render (e.g., "my_custom_template")
 ; - variableName: The name of the variable to set (can be empty to render without custom variables)
