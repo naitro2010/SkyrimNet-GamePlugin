@@ -47,6 +47,10 @@ int function RegisterTag(String tagName, String eligibilityScriptName, String el
 ; Returns true if the action exists, false otherwise
 bool function IsActionRegistered(String actionName) Global Native
 
+; Unregister an action from the action library
+; Returns 0 on success, 1 on failure (action not found)
+int function UnregisterAction(String actionName) Global Native
+
 ; Makes the specified actor run the specified action. Arguments can be supplied as a json string. Runs the action irrespective of cooldowns or eligibility.
 int function ExecuteAction(string actionName, Actor akOriginator, string argsJson) global native
 
@@ -203,9 +207,10 @@ String function RenderTemplate(String templateName, String variableName, String 
 
 ; Parse a string with variable substitution using the PromptEngine
 ; - inputStr: The string to parse, containing variable placeholders (e.g., "Hello {{mydata.name}}, welcome to {{mydata.location}}!")
-; - variableName: The name of the variable to set (can be empty to parse without custom variables) (e.g "mydata")
+; - variableName: The name of the variable to set (can be empty to parse without custom variables) (e.g "mydata" or "MyData" - will be converted to lowercase)
 ; - variableValue: The value to assign to the variable (ignored if variableName is empty) (e.g "{\"name\":"Bill\", "location\":\"our home\"}")
 ; Returns the parsed string with variables substituted, or an error message if parsing fails (e.g "Hello Bill, welcome to our home")
+; Note: The variable name will be automatically converted to lowercase for consistency
 String function ParseString(String inputStr, String variableName, String variableValue) Global Native
 
 ; Update the dynamic biography for an actor using the DynamicBioManager
