@@ -1,16 +1,16 @@
 {# Handle the header based on render mode #}
 {% if render_mode == "full" %}
-{{ "# " }}{{ decnpc(actorUUID).name }}{{" Bio" }}
+{{ "# " }}{{ decnpc(actorUUID).name }}'s Character Profile (THIS IS WHO YOU ARE ROLEPLAYING AS)
 {% else if render_mode == "dialogue_target" %}
 {# This prompt is used when the actor is the target in a dialogue. #}
 {% if responseTarget %}
 {% if responseTarget.type == "player" %}
-{{ "# " }}{{ player.name }}'s Bio (Dialogue Target)
+{{ "# " }}{{ player.name }}'s Character Profile (THIS IS WHO YOU'RE TALKING TO)
 {% else %}
-{{ "# " }}{{ decnpc(actorUUID).name }}'s Bio (Dialogue Target)
+{{ "# " }}{{ decnpc(actorUUID).name }}'s Character Profile (THIS IS WHO YOU'RE TALKING TO)
 {% endif %}
 {% else %}
-{{ "# " }}{{ decnpc(actorUUID).name }}'s Bio
+{{ "# " }}{{ decnpc(actorUUID).name }}'s Character Profile
 {% endif %}
 {% endif %}
 {% if render_mode == "full" or render_mode == "dialogue_target" %}
@@ -20,21 +20,24 @@
 {% if decnpc(actorUUID).maxHealth > 0 %}
 {% set healthRatio = decnpc(actorUUID).health / decnpc(actorUUID).maxHealth %}
 {% if healthRatio < 0.25 %}
-- Condition: Gravely wounded and near death
+- Health: Gravely wounded and near death
 {% else if healthRatio < 0.5 %}
-- Condition: Injured and bleeding
+- Health: Injured and bleeding
 {% else if healthRatio < 0.75 %}
-- Condition: Somewhat wounded
+- Health: Somewhat wounded
 {% else if healthRatio <= 0.9 %}
-- Condition: Mostly healthy with minor injuries
+- Health: Mostly healthy with minor injuries
 {% else %}
-- Condition: Healthy and uninjured
+- Health: Healthy and uninjured
 {% endif %}
 {% else %}
-- Condition: Unknown health status
+- Health: Unknown health status
 {% endif %}
-{% if decnpc(actorUUID).maxMagicka > 0 %}
+{% if decnpc(actorUUID).maxMagicka > 0 or is_player(actorUUID) %}
 {% set magickaRatio = decnpc(actorUUID).magicka / decnpc(actorUUID).maxMagicka %}
+{% if decnpc(actorUUID).magicka  == 0 %}
+{% set magickaRatio = 0 %}
+{% endif %}
 {% if magickaRatio < 0.25 %}
 - Magic: Magically drained and exhausted
 {% else if magickaRatio < 0.5 %}

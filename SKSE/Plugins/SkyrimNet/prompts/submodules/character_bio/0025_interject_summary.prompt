@@ -1,3 +1,0 @@
-{% if render_mode == "full" or render_mode == "interject_inline" %}
-{% block interject_summary %}{% endblock %}
-{% endif %} 

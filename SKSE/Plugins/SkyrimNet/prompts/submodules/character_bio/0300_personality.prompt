@@ -1,4 +1,4 @@
 {% if render_mode == "full" %}
-{{ "## Personality" }}
+{{ "## Personality & Psychology" }}
 {% block personality %}{% endblock %}
 {% endif %} 

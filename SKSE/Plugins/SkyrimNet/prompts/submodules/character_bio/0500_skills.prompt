@@ -1,4 +1,4 @@
 {% if render_mode == "full" %}
-{{ "## Skills" }}
+{{ "## Skills & Combat" }}
 {% block skills %}{% endblock %}
 {% endif %} 

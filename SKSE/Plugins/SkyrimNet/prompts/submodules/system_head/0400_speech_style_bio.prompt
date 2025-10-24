@@ -1,0 +1,1 @@
+{{ render_character_profile("speech_style", npc.UUID) }}

@@ -1,4 +1,0 @@
-{% if render_mode == "full" %}
-{{ "## Speech Style" }}
-{% block speech_style %}{% endblock %}
-{% endif %} 
