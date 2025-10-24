@@ -1,5 +1,5 @@
 {{ "## Response Format" }}
-- Respond with only a single concise dialogue line{% if is_narration_enabled() %} and/or brief narrative action{% endif %} from {{ decnpc(npc.UUID).name }}, nothing else.
+- Respond with only a single concise dialogue line{% if is_narration_enabled() %} and/or brief narrative action (Example Format: *{{ decnpc (npc.UUID).name }} smiles softly*){% endif %} from {{ decnpc(npc.UUID).name }}, nothing else.
 {% if render_mode == "transform" %}
 - The line should be in your character's natural speaking voice
 - Keep the response focused and concise
