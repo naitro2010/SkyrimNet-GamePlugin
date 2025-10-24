@@ -1,4 +1,4 @@
-{% if render_mode == "full" or render_mode == "dialogue_target" %}
+{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "dialogue_target" %}
 {{ "## Appearance & Physical State" }}
 {% block appearance %}{% endblock %}
 {% endif %} 

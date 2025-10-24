@@ -1,4 +1,4 @@
-{% if render_mode == "full" %}
+{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
 {{ "### Worn Equipment " }}
 {% set npc_equipment = get_worn_equipment(npc.UUID) %}
 {% for slot, item in npc_equipment %}

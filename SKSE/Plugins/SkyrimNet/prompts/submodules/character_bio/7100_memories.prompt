@@ -1,4 +1,4 @@
-{% if render_mode == "full" or render_mode == "thoughts" %}
+{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
 {% block relevant_memories %}
 {% if length(memories) > 0 %}
 {{ "### "}}{{ decnpc(actorUUID).name }}'s Relevant Memories
