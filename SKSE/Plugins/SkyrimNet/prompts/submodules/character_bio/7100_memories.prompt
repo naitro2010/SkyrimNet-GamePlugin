@@ -1,5 +1,4 @@
 {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
-{% block relevant_memories %}
 {% if length(memories) > 0 %}
 {{ "### "}}{{ decnpc(actorUUID).name }}'s Relevant Memories
 {% for memory in memories %}
@@ -7,5 +6,4 @@
 {% if memory.memory.tags %}{{ memory.memory.tags }}{% endif %}
 {% endfor %}
 {% endif %}
-{% endblock %}
 {% endif %}

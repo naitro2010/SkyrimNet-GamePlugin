@@ -44,7 +44,7 @@ You are speaking audibly, even though no one else is nearby. This could be talki
 
 {% else %}
 {% if length(promptForDialogue) > 0 %}
-Transform "{{ promptForDialogue }}" into a natural dialogue line that {{ decnpc(npc.UUID).name }} would speak. You are speaking audibly.
+Transform "{{ promptForDialogue }}" into a natural dialogue line that {{ decnpc(npc.UUID).name }} would speak. You are speaking audibly. IMPORTANT: You must preserve the intent behind the words that you're transforming, while adapting it to {{ decnpc(npc.UUID).name }}'s character.
 {% else %}
 Speak as {{ decnpc(npc.UUID).name }} would in this moment, responding to the current situation. You are speaking audibly.
 {% endif %}

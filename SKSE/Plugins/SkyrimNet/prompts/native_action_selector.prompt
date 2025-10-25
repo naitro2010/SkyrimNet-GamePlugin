@@ -29,36 +29,17 @@ Only return one line, beginning with "ACTION:" and nothing else.
 "{{ dialogue_request }}
 {{ dialogue_response }}"
 
+{{ "## Nearby Actors" }}
+- {{ decnpc(player.UUID).name }}: {{ render_character_profile("short_inline", player.UUID) }} ({{ decnpc(player.UUID).gender }} {{ decnpc(player.UUID).race }}, (THIS IS THE PLAYER CHARACTER)
+{% for npc in get_nearby_npc_list(player.UUID) %}
+- {{ decnpc(npc.UUID).name }}: {{ render_character_profile("short_inline", npc.UUID) }} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ units_to_meters(npc.distance) }} meters away)
+{% endfor %}
+
 {{ "## Eligible Actions" }}
 {% for action in eligible_actions %}
 - ACTION: {{ action.name }}{% if action.parameterSchema and length(action.parameterSchema) > 0 %} PARAMS_SCHEMA: {{ action.parameterSchema }}{% endif %} — {{ action.description }}
 {% endfor %}
 - ACTION: None - No action directly fits the situation.
-{% if length(eligible_targets) > 0 %}
-{{ "## Eligible Targets" }}
-{% for target in eligible_targets %}
-- {{ target.name }}
-{% endfor %}
-{% endif %}
-{% if length(inventory) > 0 %}
-{{ "## Inventory" }}
-The following items are available to {{ npc.name }}:
-{% for item in inventory %}
-- {{ item.quantity }} × {{ item.name }}
-{% endfor %}
-{% endif %}
-{% if length(weapons) > 0 %}
-{{ "## Known Weapons" }}
-{% for weapon in weapons %}
-- {{ weapon.name }}
-{% endfor %}
-{% endif %}
-{% if length(spells) > 0 %}
-{{ "## Known Spells" }}
-{% for spell in spells %}
-- {{ spell.name }} — {{ spell.description }}
-{% endfor %}
-{% endif %}
 
 {{ "## Context Reminder:" }}
 **Your choice must directly reflect what {{npc.name}} just said or did, and should be implied by the dialogue. NEVER pick actions unrelated to dialogue. NEVER pick random actions. ONLY pick actions that should be accompanied by the dialogue.**
