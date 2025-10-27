@@ -541,6 +541,12 @@ EndFunction
   
 ; Event to intercept DBVO dialogue
 Event OnPlayDBVOTopic(string eventName, string strArg, float numArg, Form sender)
+    ; If DBVO.esp is active, don't interfere with it
+    if Game.GetModByName("DBVO.esp") != 255
+        UI.InvokeString("Dialogue Menu", "_root.DialogueMenu_mc.startTopicClickedTimer", "off")
+        return
+    endif
+
     ; Check which features are enabled
     Bool _playerTTSEnabled = SkyrimNetApi.GetConfigBool("game", "dbvo.enabled", true)
     Bool _voiceSilentNPCs = SkyrimNetApi.GetConfigBool("game", "dbvo.voiceSilentNPCs", true)
