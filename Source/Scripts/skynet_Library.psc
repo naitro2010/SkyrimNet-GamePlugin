@@ -543,7 +543,6 @@ EndFunction
 Event OnPlayDBVOTopic(string eventName, string strArg, float numArg, Form sender)
     ; If DBVO.esp is active, don't interfere with it
     if Game.GetModByName("DBVO.esp") != 255
-        UI.InvokeString("Dialogue Menu", "_root.DialogueMenu_mc.startTopicClickedTimer", "off")
         return
     endif
 
