@@ -94,6 +94,7 @@ Respond ONLY with a JSON object containing:
 - **Activities**: Describe specific actions (e.g., "sold iron daggers" not "did some trading")
 - **Emotions**: Connect feelings to specific triggers or events
 - **Sensory Details**: Include what the character saw, heard, or felt when relevant
+- **Length**: Keep the response as short as is effective to convey what happened. Generally aim for a 2-8 sentence summary.
 
 {{ "### Tag Guidelines:" }}
 Include 5-25 relevant tags focusing on:
