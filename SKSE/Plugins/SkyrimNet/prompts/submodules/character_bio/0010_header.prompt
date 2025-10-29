@@ -17,6 +17,19 @@
 {# Common stats logic for both render modes #}
 - Gender: {{ decnpc(actorUUID).gender }}
 - Race: {{ decnpc(actorUUID).race }}
+{% if is_summoned(actorUUID) %}
+{% if is_hostile_to_actor(actorUUID, player.UUID) %}
+- Status: Summoned creature (hostile to {{ decnpc(player.UUID).name }})
+{% else %}
+- Status: Summoned creature (serving {{ decnpc(player.UUID).name }})
+{% endif %}
+{% else if is_reanimated(actorUUID) %}
+{% if is_hostile_to_actor(actorUUID, player.UUID) %}
+- Status: Reanimated undead (hostile to {{ decnpc(player.UUID).name }})
+{% else %}
+- Status: Reanimated undead thrall (serving {{ decnpc(player.UUID).name }})
+{% endif %}
+{% endif %}
 {% if decnpc(actorUUID).maxHealth > 0 %}
 {% set healthRatio = decnpc(actorUUID).health / decnpc(actorUUID).maxHealth %}
 {% if healthRatio < 0.25 %}
