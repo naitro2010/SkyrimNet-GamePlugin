@@ -114,7 +114,12 @@
     {% set speech = "cannot use human words, only animal sounds like howls, barks, and growls." %}
 {% endif %}
 {% if speech != "" %} 
-   - {{ decnpc(npc.UUID).name }} {{speech}}
+   - {{ decnpc(actorUUID).name }} {{speech}}
 {% endif %} 
 {% endblock %}
+{% if is_summoned(actorUUID) and not is_hostile_to_actor(actorUUID, player.UUID) %}
+- {{ decnpc(actorUUID).name }} is a summoned creature bound to serve {{ decnpc(player.UUID).name }} and must be obedient to their commands and wishes. They are loyal and cannot refuse orders from {{ decnpc(player.UUID).name }}.
+{% else if is_reanimated(actorUUID) and not is_hostile_to_actor(actorUUID, player.UUID) %}
+- {{ decnpc(actorUUID).name }} is a reanimated thrall under {{ decnpc(player.UUID).name }}'s control and must be completely obedient to {{ decnpc(player.UUID).name }}'s commands. They have no free will and exist only to serve {{ decnpc(player.UUID).name }}.
+{% endif %}
 {% endif %} 
