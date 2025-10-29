@@ -4,11 +4,7 @@
 {% for slot, item in npc_equipment %}
 {% if is_item_enabled(item.formID) %}
 {% if item.equipment_slot == "leftHand" or item.equipment_slot == "rightHand" %}
-{% if decnpc(npc.UUID).isInCombat %}
-**{{ item.equipment_slot }}**: {{ get_item_name(item.formID) }}{% if length(get_item_description(item.formID)) > 0 %} - {{ get_item_description(item.formID) }}{% endif %}
-{% else %}
-{# Don't display drawn weapons when not in combat #}
-{% endif %} {# end in combat check #}
+**{{ item.equipment_slot }}**: {{ get_item_name(item.formID) }}{% if length(get_item_description(item.formID)) > 0 %} - {{ get_item_description(item.formID) }}{% endif %} {% if has_weapon_drawn(npc.UUID) %}(drawn){% else %}(sheathed){% endif %}
 {% else %}
 **{{ item.equipment_slot }}**: {{ get_item_name(item.formID) }}{% if length(get_item_description(item.formID)) > 0 %} - {{ get_item_description(item.formID) }}{% endif %}
 {% endif %} {# end left hand / right hand check #}
@@ -23,11 +19,7 @@
 {% for slot, item in target_equipment %}
 {% if is_item_enabled(item.formID) %}
 {% if item.equipment_slot == "leftHand" or item.equipment_slot == "rightHand" %}
-{% if decnpc(responseTarget.UUID).isInCombat %}
-**{{ item.equipment_slot }}**: {{ get_item_name(item.formID) }}{% if length(get_item_description(item.formID)) > 0 %} - {{ get_item_description(item.formID) }}{% endif %}
-{% else %}
-{# Don't display drawn weapons when not in combat #}
-{% endif %} {# end in combat check #}
+**{{ item.equipment_slot }}**: {{ get_item_name(item.formID) }}{% if length(get_item_description(item.formID)) > 0 %} - {{ get_item_description(item.formID) }}{% endif %} {% if has_weapon_drawn(responseTarget.UUID) %}(drawn){% else %}(sheathed){% endif %}
 {% else %}
 **{{ item.equipment_slot }}**: {{ get_item_name(item.formID) }}{% if length(get_item_description(item.formID)) > 0 %} - {{ get_item_description(item.formID) }}{% endif %}
 {% endif %} {# end left hand / right hand check #}
