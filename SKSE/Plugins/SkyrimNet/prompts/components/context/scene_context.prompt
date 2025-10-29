@@ -21,8 +21,21 @@ No one else is nearby.
 {{ "## Current Location" }}
 The scene is taking place in **{{ location }}**
 
-{{ "## Time & Weather" }}
+{{ "## Current Time" }}
 **Time**: {{ gameTime }}
+
+{% if gameTimeJson.hour >= 22 or gameTimeJson.hour <= 5 %}
+- It's currently late at night - most people would be sleeping
+{% else if gameTimeJson.hour >= 6 and gameTimeJson.hour <= 11 %}
+- It's currently morning time
+{% else if gameTimeJson.hour >= 12 and gameTimeJson.hour <= 17 %}
+- It's currently afternoon
+{% else if gameTimeJson.hour >= 18 and gameTimeJson.hour <= 21 %}
+- It's currently evening.
+{% endif %}
+{% endblock %}
+
+{{ "## Current Weather" }}
 **Weather**: {% if is_indoors %}You are indoors and sheltered from the weather. Outside, it is {% endif %}{{ currentWeather.name }}{% if currentWeather.isRaining %} (Raining){% else if currentWeather.isSnowing %} (Snowing){% endif %}
 {% if currentWeather.isRaining and currentWeather.isSnowing %}
 *{% if is_indoors %}Outside, {%endif %}A harsh storm is raging with both rain and snow*
@@ -34,17 +47,7 @@ The scene is taking place in **{{ location }}**
 *{% if is_indoors %}Outside, {%endif %}Strong winds are blowing*
 {% endif %}
 
-{% if gameTimeJson.hour >= 22 or gameTimeJson.hour <= 5 %}
-*It's late at night - most people would be sleeping*
-{% else if gameTimeJson.hour >= 6 and gameTimeJson.hour <= 11 %}
-*It's morning time*
-{% else if gameTimeJson.hour >= 12 and gameTimeJson.hour <= 17 %}
-*It's afternoon*
-{% else if gameTimeJson.hour >= 18 and gameTimeJson.hour <= 21 %}
-*It's evening*
-{% endif %}
-{% endblock %}
-
+{{ "## Current Location" }}
 {% block currentLocation %}
 {{ location }}
 {% endblock %}
