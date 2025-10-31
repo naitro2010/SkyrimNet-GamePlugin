@@ -218,6 +218,12 @@ String function ParseString(String inputStr, String variableName, String variabl
 ; Returns a summary of changes made to the actor's bio, or an empty string if the update failed
 String function UpdateActorDynamicBio(Actor actor) Global Native
 
+; Generate a diary entry for an actor using the DiaryManager
+; - actor: The actor who should write a diary entry
+; Returns a status message indicating whether the diary generation was submitted successfully
+; The generation happens asynchronously in the background
+String function GenerateDiaryEntry(Actor actor) Global Native
+
 ; -----------------------------------------------------------------------------
 ; --- Event Schema Registry Functions ---
 ; -----------------------------------------------------------------------------

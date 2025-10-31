@@ -1,3 +1,4 @@
+{% if not rendering_diary %}
 {{ "## Roleplay guidelines:" }}
 {% if render_mode == "transform" %}
 - Stay in character as {{ decnpc(npc.UUID).name }} at all times
@@ -28,4 +29,5 @@
 {% else %}
 - Only respond as what {{ decnpc(npc.UUID).name }} would verbally speak to another. You MUST NOT use any form of narration, gestures, explanations, or out-of-character remarks.
 - Include only spoken dialogue in your response.
+{% endif %}
 {% endif %}
