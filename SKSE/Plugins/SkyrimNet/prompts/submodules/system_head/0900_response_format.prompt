@@ -1,3 +1,4 @@
+{% if not rendering_diary %}
 {{ "## Response Format" }}
 - Respond with only a single concise dialogue line{% if is_narration_enabled() %} and/or brief narrative action (Example Format: *{{ decnpc (npc.UUID).name }} smiles softly*){% endif %} from {{ decnpc(npc.UUID).name }}, nothing else.
 {% if render_mode == "transform" %}
@@ -5,4 +6,5 @@
 - Keep the response focused and concise
 {% else %}
 - Do not repeat or paraphrase the previous character's line. Respond only as {{ decnpc(npc.UUID).name }}, in your own words that reacts to the most recent dialogue and events.
+{% endif %}
 {% endif %}

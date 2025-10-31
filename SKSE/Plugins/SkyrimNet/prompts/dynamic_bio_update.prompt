@@ -40,6 +40,20 @@ Update the character biography based on recent events and character development.
 {% endfor %}
 {% endif %}
 
+{% set latestDiary = get_latest_diary_entry(actor.UUID) %}
+{% if latestDiary and latestDiary.content %}
+{{ "## Latest Diary Entry" }}
+**Written:** {{ latestDiary.entry_date_str }}  
+**Emotion:** {{ latestDiary.emotion }}  
+**Importance:** {{ latestDiary.importance_score }}
+
+```
+{{ latestDiary.content }}
+```
+
+**Note:** This is the character's most recent diary entry, providing insight into their current state of mind, recent reflections, and emotional state. Use this to inform personality and aspiration updates while maintaining consistency with their self-perception.
+{% endif %}
+
 {{ "## Original Bio Content" }}
 ```
 {{ originalBioContent }}

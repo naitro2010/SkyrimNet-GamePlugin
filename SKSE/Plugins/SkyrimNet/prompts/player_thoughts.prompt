@@ -36,7 +36,7 @@ Current nearby characters:
 [ user ]
 {% if triggeringEvent and triggeringEvent.type %}
 {% if triggeringEvent.type == "book_read" %}
-You just finished reading a book. Respond with your detailed internal thoughts about what you've read, including both a summary of the book's contents and your personal reflections on it. This should be a substantial internal monologue from a first person perspective{% if is_narration_enabled() %} and may include narrative actions `Example: *{{ decnpc(npc.UUID).name }} closes the book thoughtfully*`{% endif %}.
+You just finished reading a book. Respond with your detailed internal thoughts about what you've read, including both a summary of the book's contents and your personal reflections on it. This should be an internal monologue from a first person perspective{% if is_narration_enabled() %} and may include narrative actions `Example: *{{ decnpc(npc.UUID).name }} closes the book thoughtfully*`{% endif %}. Aim for around 100 words or 2-6 lines of dialogue depending upon how relevant the book is to {{ decnpc(npc.UUID).name }}. Not every book needs to have a detailed response, it's okay to be succinct if the book seems unimportant.
 
 {% if triggeringEvent.data %}
 {% set bookData = triggeringEvent.data %}
@@ -44,7 +44,7 @@ Book: "{{ bookData.book_title }}"
 {% if bookData.book_text and length(bookData.book_text) > 0 %}
 Contents: {{ bookData.book_text }}
 
-Provide a thoughtful analysis of this book's contents, what it means to you personally, how it relates to your current situation or knowledge, and any insights or questions it raises. Your thoughts should reflect both understanding of the material and your character's unique perspective on it.
+Provide a thoughtful analysis of this book's contents, what it means to you personally, how it relates to your current situation or knowledge, and any insights or questions it raises. Your thoughts should reflect both understanding of the material and your character's unique perspective on it. Disregard any placeholders in the text. 
 {% else %}
 While the specific contents weren't preserved, reflect on what this book might have contained based on its title and how reading it made you feel.
 {% endif %}
