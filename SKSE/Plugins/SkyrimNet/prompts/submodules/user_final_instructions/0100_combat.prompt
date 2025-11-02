@@ -1,1 +1,0 @@
-{% if decnpc(npc.UUID).isInCombat %}You are currently in combat. Emphasize recent events and dialogue that are related to this in your response.{% endif %}
