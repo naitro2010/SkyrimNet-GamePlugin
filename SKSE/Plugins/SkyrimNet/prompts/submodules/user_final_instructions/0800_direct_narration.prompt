@@ -1,3 +1,7 @@
 {% if triggeringEvent and triggeringEvent.type == "direct_narration" %}
-This event just happened and must be responded to, no matter what: `{{ format_event(triggeringEvent, "verbose") }}`. This event is completely factual.
+{{ "# Direct Narration" }}
+The player has given a specific direction.
+"{{ format_event(triggeringEvent, "verbose") }}"
+
+You must craft dialogue that follows this direction, staying in character. Example: If the direction is "{{ decnpc(npc.UUID).first_name }}finds a coin on the ground", write dialogue about noticing or picking up the coin, matching {{ decnpc(npc.UUID).first_name }}’s personality.
 {% endif %}
