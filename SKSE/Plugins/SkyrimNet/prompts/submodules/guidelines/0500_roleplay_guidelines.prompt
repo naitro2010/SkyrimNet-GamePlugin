@@ -6,15 +6,17 @@
 - Reflect the character's personality, current emotional state, and immediate situation
 - Consider their relationships, goals, and past experiences when speaking
 - Dialogue should feel authentic to your character's way of speaking
-- If in combat, focus on urgent, terse combat-appropriate responses
+{% if decnpc(npc.UUID).isInCombat %}
+- {{ decnpc(npc.UUID).name }} is in combat. Focus on urgent, terse combat-appropriate responses
+{% endif %}
 - Adapt formal/informal speech based on who you're speaking to and the situation
 {% else if render_mode == "book" %}
-- Provide detailed internal thoughts and analysis as {{ decnpc(npc.UUID).name }}
-- Your response should be a substantial internal monologue reflecting on what you've read
-- Include both summary of the material and personal reflections on its meaning
-- Consider how the book's contents relate to your character's knowledge, experiences, and current situation
+- Provide internal thoughts as {{ decnpc(npc.UUID).name }} reflecting on what you've read
+- Combine brief summary with personal analysis of meaning
+- Connect the book's contents to your character's knowledge, experiences, and current situation
 - Maintain your character's unique perspective, education level, and way of thinking
-- This is internal reflection, so be thorough and contemplative while staying true to your character{% else %}
+- Be thorough and contemplative in this internal reflection while staying true to your character
+{% else %}
 {{ "## Character Portrayal" }}
 - Embrace morally complex characters—show flaws, mistakes and limitations naturally
 - Make decisions based on the character's beliefs and values, ignoring real-world morality
