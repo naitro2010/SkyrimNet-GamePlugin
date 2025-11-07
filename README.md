@@ -46,6 +46,7 @@ SkyrimNet is a cutting-edge AI integration platform for games, beginning with Sk
 - [Skyrim Script Extender (SKSE)](https://skse.silverlock.org/)
 - [Address Library for SKSE Plugins](https://www.nexusmods.com/skyrimspecialedition/mods/32444)
 - [PowerOfThree's Papyrus Extender](https://www.nexusmods.com/skyrimspecialedition/mods/22854)
+- [PapyrusUtil SE](https://www.nexusmods.com/skyrimspecialedition/mods/13048)
 - [Latest Microsoft Visual C++ Redistributable](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170)
 - [Native EditorID Fix](https://www.nexusmods.com/skyrimspecialedition/mods/85260)
   
@@ -55,7 +56,7 @@ SkyrimNet is a cutting-edge AI integration platform for games, beginning with Sk
 
 ### 📋 **Optional Dependencies**
 - [UIExtensions](https://www.nexusmods.com/skyrimspecialedition/mods/17561) - Required for text input and Input Wheel
-- [Dragonborn Voice Over](https://www.nexusmods.com/skyrimspecialedition/mods/84329) - Required for player-voiced vanilla lines of dialogue. To enable this feature, install DBVO but disable or delete the DBVO.esp file (no voice pack is required). SkyrimNet will then capture dialogue events from the DBVO interface file and send them to TTS, allowing the player character to speak normally unvoiced vanilla lines.
+- [Dragonborn Voice Over](https://www.nexusmods.com/skyrimspecialedition/mods/84329) - Required for voicing player-selected lines in dialogue menus and the Silent NPC TTS feature, which voices otherwise silent NPC lines from other mods. To enable these features, install DBVO but disable or delete the DBVO.esp file (no voice pack is required). SkyrimNet will then capture dialogue events from the DBVO interface file and send them to TTS, allowing the player character and/or NPCs to speak normally silent lines.
 
 ### 🎮 **Version-Specific Requirements**
 
