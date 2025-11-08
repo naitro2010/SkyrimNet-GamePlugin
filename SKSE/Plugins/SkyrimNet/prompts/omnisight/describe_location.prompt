@@ -1,0 +1,29 @@
+[ user ]
+You are cataloging locations in the world of Skyrim. Provide a detailed, objective description of this location based on the screenshot.
+
+Location Information:
+- Name: {{subject_name}}
+- Cell: {{location_cell}}
+- Setting: {% if is_indoors %}Interior location{% else %}Exterior location{% endif %}
+- Time: {{gameTime}}
+{% if not is_indoors %}- Weather: {{currentWeather.name}}{% if currentWeather.isRaining %} (Raining){% else if currentWeather.isSnowing %} (Snowing){% endif %}{% endif %}
+
+Your description should:
+- Be factual and objective (2-3 paragraphs)
+- Focus on architecture, environment, and atmosphere
+- Note distinctive landmarks, structures, or environmental features
+- Describe lighting conditions based on time ({{gameTime}}){% if not is_indoors %} and weather ({{currentWeather.name}}){% endif %}
+{% if not is_indoors %}{% if currentWeather.isRaining %}- Note any rain effects, wet surfaces, or atmospheric moisture{% else if currentWeather.isSnowing %}- Note any snow effects, snow coverage, or winter atmosphere{% endif %}{% endif %}
+- Mention any visible NPCs, creatures, or objects that characterize the location
+- Consider the {% if is_indoors %}indoor{% else %}outdoor{% endif %} environment in your description
+- Use appropriate Elder Scrolls lore terminology
+- IGNORE any UI elements, menus, or HUD overlays - describe only the location
+- IGNORE any characters, animals, or creatures that are seen in the image. Focus strictly on the location - The design, the objects present, the architecture, and any other notable features
+- Avoid speculation about gameplay mechanics or quests
+
+Describe the visual characteristics and notable features of this location shown in the image.
+[ image ]
+{{imageDataUrl}}
+[ end image ]
+[ end user ]
+
