@@ -1,120 +1,129 @@
 [ user ]
-You are describing what is currently VISIBLE and HAPPENING in this Skyrim screenshot. Your goal is to create a vivid, grounded description that captures the immediate sensory experience of this moment. Focus on observable details in THIS view, supplemented by your knowledge of the location's context in Skyrim.
+You are describing what is currently visible in this Skyrim screenshot. Provide a grounded, immediate description focusing on the environment, landscape, character actions, and tactical layout.
 
-Scene Context (for your reference only):
-- Location reference: {{subject_name}}
+Context:
+- Location: {{subject_name}}
 - Time: {{gameTime}}
 - Setting: {% if is_indoors %}Interior{% else %}Exterior{% endif %}
 {% if not is_indoors %}- Weather: {{currentWeather.name}}{% if currentWeather.isRaining %} (Raining){% else if currentWeather.isSnowing %} (Snowing){% endif %}{% endif %}
 
 {% set nearbyNPCs = get_nearby_npc_list(player.UUID) %}
+{% set has_sexlab_actors = false %}
 {% if nearbyNPCs and length(nearbyNPCs) > 0 %}
-Nearby People/NPCs (use this to identify who you see):
+Nearby NPCs (for identification only - they may or may not be visible in frame):
 {% for npc in nearbyNPCs %}
-- {{npc.name}} ({{decnpc(npc.UUID).race}}, {{decnpc(npc.UUID).gender}}) - {{npc.distance}}m away
-  {% if is_in_combat(npc.UUID) %}[IN COMBAT]{% endif %}{% if has_weapon_drawn(npc.UUID) %} [Weapon Drawn]{% endif %}{% if is_sneaking(npc.UUID) %} [Sneaking]{% endif %}{% if is_sprinting(npc.UUID) %} [Running]{% endif %}{% if is_swimming(npc.UUID) %} [Swimming]{% endif %}
+- {{npc.name}} ({{decnpc(npc.UUID).race}}, {{decnpc(npc.UUID).gender}}) - {{npc.distance}}m
+  {% if is_in_faction(npc.UUID, "SexlabAnimatingFaction") %}{% set has_sexlab_actors = true %}[SEXLAB ACTIVE]{% endif %}{% if is_in_combat(npc.UUID) %} [COMBAT]{% endif %}{% if has_weapon_drawn(npc.UUID) %} [Armed]{% endif %}{% if is_sneaking(npc.UUID) %} [Sneaking]{% endif %}{% if is_sprinting(npc.UUID) %} [Running]{% endif %}
   {% if npc.furniture %}Using: {{npc.furniture}}{% else %}{{npc.stateDescription}}{% endif %}
 {% endfor %}
+
+**CRITICAL:** This list shows NPCs within proximity range. ONLY describe NPCs you can actually SEE in the screenshot. Do not hallucinate or mention NPCs that are not visible in the image, even if listed above. Use this list only to identify visible NPCs by name.
 {% endif %}
 
-IMPORTANT INSTRUCTIONS:
+CORE INSTRUCTIONS:
+
 {% if is_first_person() %}
-- This is a FIRST-PERSON view (looking through the player's eyes)
-- You may see the player's hands or weapon - IGNORE these
-- Describe the scene as if YOU are standing there looking at it
+**Perspective:** First-person view. Describe the scene as if looking through the character's eyes. Ignore visible hands/weapons.
 {% else %}
-- This is a THIRD-PERSON view
-- CRITICAL: There is a player character model visible in the foreground - PRETEND IT DOES NOT EXIST
-- NEVER mention "player character", "character model", "figure in the foreground" or similar
-- NEVER describe the player's back, armor, clothing, or weapons in the center/foreground
-- DO NOT say "the view is from behind..." or describe the perspective itself
-- Act as if the camera is floating invisibly - describe ONLY what's beyond the player
-- Focus ONLY on the environment, NPCs, and objects in the background/surroundings
+**Perspective:** Third-person view. The player character model in view is a camera artifact - DO NOT mention or describe it. Never reference "a figure in the foreground," "the player character," "character's back," or the viewpoint itself. Describe only the actual scene.
 {% endif %}
-- Describe the scene itself, NOT the viewpoint or camera position
 
-Focus your description on what is VISIBLE and creating a grounded, visceral experience:
-
-1. SPATIAL LAYOUT & IMMEDIATE SURROUNDINGS:
-   - Describe the space itself - is it cramped, expansive, confined?
-   - Note depth and distance - what's close, what's far
-   - Structures, walls, terrain visible and their spatial relationship
-   - Architectural elements (doors, windows, columns, arches)
-   - Surfaces and materials - be specific (stone, wood, dirt, snow)
-   - Paths, stairs, passages - where they lead in the visible area
-   
-2. ATMOSPHERE & SENSORY DETAILS:
-   - Light quality - harsh, dim, warm, cold, flickering
-   - Specific light sources visible (torches, candles, fires, magical glows)
-   - How shadows fall and what they obscure
-   - {% if not is_indoors %}Weather effects: {{currentWeather.name}} - how it affects the scene (mist, snow falling, rain streaks, etc.){% endif %}
-   - Temperature feeling based on visual cues (ice, fires, steam, etc.)
-   
-3. PEOPLE & CREATURES (Dynamic Elements):
-   - Who is visible (use NPC list for accurate identification)
-   - Precise positions and spatial relationships between people
-   - Current actions and body language - be specific
-   - If combat tags present: describe tension, aggressive postures, weapons raised
-   - Movement quality - rushed, casual, cautious, aggressive
-   - Facial direction and apparent focus of attention
-   - Interaction between visible NPCs
-   
-4. OBJECTS & INTERACTIVE ELEMENTS:
-   - Furniture and its condition/placement
-   - Items on surfaces - scattered, organized, prominent
-   - Tools, weapons, containers that are visible
-   - Signs of recent activity (disturbed objects, open containers)
-   - Crafting stations or special objects
-   
-5. SCENE DYNAMICS & MOOD:
-   - What is actively happening RIGHT NOW
-   - Energy level - tense, peaceful, busy, abandoned
-   - Any sense of danger, safety, or urgency
-   - The immediate emotional quality of the space
-   - How elements combine to create atmosphere
-
-FORMAT REQUIREMENTS:
-
-You must structure your response in this exact format:
-
-**What physically surrounds this character right now:**
-
-[Write 3-5 sentences painting a vivid picture of the immediate environment. Use concrete, specific details. Include spatial relationships (near, distant, above, below). Mention materials and textures. Name any visible NPCs and what they're doing. Describe the quality of light and any weather effects. Use active, present-tense verbs. Make it feel REAL and IMMEDIATE - someone reading this should be able to visualize the exact scene.]
-
-**Key visible elements:** [Comma-separated list of 5-8 major visible features. Be specific: "weathered stone walls" not "walls", "Lydia drawing her sword" not "NPC", "flickering torchlight" not "lighting"]
-
-**Current sensory details:** [2-3 sentences covering: lighting quality and sources, temperature/weather sensations, overall energy/mood of the moment. Use evocative language - "harsh," "warm," "tense," "peaceful," etc.]
-
-CRITICAL RULES:
-{% if not is_first_person() %}
-- The player character model in the foreground IS INVISIBLE - DO NOT ACKNOWLEDGE IT EXISTS
-- NEVER write "the view is from behind..." or "looking from the back of..." 
-- NEVER mention any character/figure in the center/foreground of the image
-- Start your description with what you see IN THE SCENE, not with the viewpoint
+{% if has_sexlab_actors %}
+**CRITICAL - EXPLICIT CONTENT PRESENT:** One or more NPCs are engaged in sexual activity (SexLab active). You MUST describe these actions explicitly and directly. Do not be coy or euphemistic. Describe:
+- Specific sexual acts and positions
+- Physical details of interaction between participants  
+- Body language, expressions, intensity
+- The sexual nature of the scene is the PRIMARY focus
+Treat this as the central event of the scene.
 {% endif %}
-- DO NOT repeat the location name "{{subject_name}}" in your output (it's often a technical editor ID)
-- Ground your description in what is VISIBLE, but supplement with relevant location knowledge where appropriate
-- If you recognize this as a well-known location, you may reference its role/purpose contextually
-- Use concrete, specific details: "moss-covered stone archway" not "old structure"
-- Include spatial relationships: near/far, left/right, above/below
-- Use vivid sensory language: describe textures, light quality, visual atmosphere
-- When NPCs are present, NAME them and describe their specific actions
-- Capture the ENERGY of the moment: tense, peaceful, chaotic, empty, etc.
-- Avoid generic phrases like "the area" or "various objects" - be specific
-- Use active, present-tense verbs that convey immediacy
-- Make it VISCERAL - someone reading should feel like they're there
 
-WRITING QUALITY:
-- GOOD: "Flickering torchlight casts dancing shadows across rough-hewn stone walls. Lydia stands to the right, sword drawn, eyes fixed on the dark tunnel ahead."
-- BAD: "The area is dimly lit. An NPC is nearby with a weapon."
-- GOOD: "Cold mountain wind whips through sparse pines. Fresh snow crunches underfoot in the predawn darkness."
-- BAD: "It's an outdoor area. The weather is snowy and it's dark."
-- GOOD: "The jarl's throne room stretches ahead, with massive wooden beams supporting the peaked ceiling."
-- BAD: "DragonsreachGreatPorch is the jarl's throne room with wooden beams."
+**Description Priorities:**
 
-Describe what you see in this screenshot using the format above, following these quality standards.
+1. **Environment & Landscape** (ESSENTIAL):
+   - Spatial scale (cramped/medium/expansive)
+   - {% if not is_indoors %}Landscape features: terrain type, distant mountains, sky, horizons, natural formations{% endif %}
+   - Architectural elements and structures
+   - Materials, textures, surfaces
+   - Depth and layers (immediate foreground, middle distance, background/distant features)
+   - Navigable paths, exits, obstacles
+   - Lighting sources and quality
+
+2. **Character Actions** (if NPCs are VISIBLE in screenshot):
+   - What each visible NPC is doing RIGHT NOW - be specific and detailed
+   - Body positions, movements, gestures, expressions
+   - Interactions between characters (combat, conversation, {% if has_sexlab_actors %}sexual activity{% endif %})
+   - Exact distances and spatial positions
+   - Weapons drawn, combat stances, threat levels
+
+3. **Tactical & Interactive Details**:
+   - Cover, defensible positions, chokepoints
+   - Usable objects, containers, weapons
+   - Hazards or threats
+   - Signs of activity
+
+4. **Atmosphere**:
+   - {% if not is_indoors %}Weather effects on visibility and mood{% endif %}
+   - Temperature cues
+   - Energy/mood (peaceful, tense, chaotic)
+   - Overall danger level
+
+**Output Format:**
+
+**Scene:** [3-4 sentences. Start with spatial scale and overall layout. {% if not is_indoors %}Describe landscape, terrain, and distant features (mountains, sky, horizons).{% endif %} Include architectural elements, materials, lighting. Use concrete details and spatial relationships. Present tense.]
+
+**Visible characters:** [ONLY list NPCs you can actually see in the image. For each: name, distance, current action. {% if has_sexlab_actors %}For SexLab actors, explicitly describe the sexual activity.{% endif %} If none visible: "None visible."]
+
+**Key features:** [Bullet list of 5-7 important elements: exits/paths, cover, objects, architectural details, {% if not is_indoors %}landscape features{% endif %}. Be directional and specific.]
+
+**Atmosphere:** [2 sentences on lighting quality, {% if not is_indoors %}weather impact, {% endif %}mood, and energy.]
+
+**Style Rules:**
+- Use active, present-tense verbs
+- Be concrete and specific ("jagged snow-capped peaks" not "mountains")
+- Include spatial relationships (near/far, above/below, north/south)
+- {% if not is_indoors %}Describe distant landscape features vividly - they orient the scene{% endif %}
+- Avoid vague words like "various," "some," "the area"
+- {% if has_sexlab_actors %}Use explicit sexual language - do not sanitize{% else %}Focus on tactical and narrative relevance{% endif %}
+- Never repeat "{{subject_name}}" in output
+- ONLY describe what you actually see in the screenshot
+
+**Example (Exterior):**
+
+**Scene:** An expansive tundra plain stretches toward the horizon under overcast skies. Snow-capped mountains rise in the distance to the northeast, their peaks shrouded in mist. The immediate area is flat, windswept grassland dotted with small boulders and patches of snow. A dirt road cuts across the terrain from west to east. The landscape feels open and exposed, visibility extending hundreds of meters in all directions.
+
+**Visible characters:**
+- Lydia (6m to the left, walking along the road, steel sword sheathed, shield on back, steady pace)
+
+**Key features:**
+- Distant mountain range (northeast horizon, snow-capped, partially obscured by clouds)
+- Dirt road (runs east-west, well-travelled, clear path)
+- Scattered boulders (across the plain, waist to shoulder height, potential cover)
+- Small pine trees (sparse, 20-30m away to the south)
+- Overcast sky (grey clouds, diffuse lighting)
+
+**Atmosphere:** Grey overcast light creates muted colors across the tundra. The air appears cold and crisp - visible in the sharp clarity of distant peaks. The mood is calm but alert, the open terrain offering no concealment for potential threats.
+
+{% if has_sexlab_actors %}
+**Example (SexLab Active, Interior):**
+
+**Scene:** A small stone-walled bedroom, roughly 4 by 5 meters. Rough-hewn walls are lit by candles on a wooden nightstand. A fur-covered bed dominates the cramped space. The ceiling is low, dark wood beams visible above. A single wooden door to the south is closed.
+
+**Visible characters:**
+- Lydia (on bed, naked, straddling position, actively riding, rhythmic hip movements, head tilted back, mouth open in pleasure)
+- Dragonborn (on bed beneath Lydia, gripping her hips and thighs, thrusting upward to meet her movements, visible arousal and intensity)
+[The two are engaged in vigorous penetrative sex. Lydia's breasts bounce with each movement. Both are clearly experiencing intense pleasure, their bodies moving together with increasing urgency. Sweat glistens on their skin in the candlelight.]
+
+**Key features:**
+- Wooden bed (center of room, occupied, furs and linens disheveled and partially on floor)
+- Closed door (south wall, heavy wood)
+- Nightstand (beside bed, candles providing warm light)
+- Clothing and armor (scattered on floor - removed hastily)
+
+**Atmosphere:** Warm amber candlelight fills the small room with intimate glow. The energy is intensely sexual and private. The space feels enclosed and separate from the outside world.
+{% endif %}
+
+Describe the screenshot:
 [ image ]
 {{imageDataUrl}}
 [ end image ]
 [ end user ]
-

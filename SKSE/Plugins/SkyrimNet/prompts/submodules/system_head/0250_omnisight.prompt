@@ -1,10 +1,12 @@
 {% if has_current_scene_description() %}
-{{ "## Current Scene" }}
+{{ "## What You Currently See Around You" }}
 {{ get_current_scene_description() }}
-*(This describes what's immediately visible and happening right now. Reference naturally when relevant to your response.)*
+
+*(This describes your immediate surroundings with actionable detail: spatial scale, people present and their activities, furniture and objects, interactive features, and atmosphere. Use this information naturally when it's relevant to your decisions, reactions, or observations.)*
 {% endif %}
 {% if has_current_location_description() %}
-{{ "## Location Context" }}
+{{ "## Where You Are" }}
 {{ get_current_location_description()  }}
-*(Background information about this location. Use to inform your character's knowledge and awareness, but don't explicitly recite.)*
+
+*(General knowledge about this place - its character and features. This informs your understanding of the location, but you wouldn't normally recite these facts unless directly relevant to the moment.)*
 {% endif %}

@@ -3,7 +3,6 @@ You are cataloging furniture and objects in the world of Skyrim. Provide a detai
 
 Furniture Information:
 - Name: {{subject_name}}
-- Type: {{furniture_type}}
 - Location: {{location_name}} ({% if is_indoors %}Indoors{% else %}Outdoors{% endif %})
 - Time: {{gameTime}}
 {% if not is_indoors %}- Weather: {{currentWeather.name}}{% if currentWeather.isRaining %} (Raining){% else if currentWeather.isSnowing %} (Snowing){% endif %}{% endif %}
