@@ -1,26 +1,55 @@
 [user]
-You are cataloging characters in the world of Skyrim. Provide a detailed, objective description of this character based on the screenshot.
+You are cataloging characters in the world of Skyrim. Provide a detailed, objective visual description of this character based on the screenshot.
 
 Character Information:
-- Name: {{subject_name}}
 - Race: {{race}}
 - Gender: {{gender}}
-{% if is_unique %}- This is a unique, named character{% endif %}
 
 Your description should:
 - Be factual and objective (2-3 paragraphs)
-- Focus ONLY on the character itself, not the background or environment
-- Describe visual appearance (facial features, clothing, armor, weapons, overall appearance)
-- Note distinctive characteristics, scars, markings, or equipment
-- Describe their apparent demeanor or posture
-- Use appropriate Elder Scrolls lore terminology
-- IGNORE any UI elements, menus, HUD overlays, background scenery, or environmental details - describe ONLY the character
-- Avoid speculation about gameplay mechanics or stats
-- Do NOT reference the image positioning, framing, scene, or view - write as if directly observing the character
+- Describe ONLY what is on the character's body: facial features, hair, skin, build, clothing, armor, weapons, visible scars/markings
+- Include anatomical details when visible (see guidelines below)
+- Note their physical posture and apparent demeanor
+- Use appropriate Elder Scrolls lore terminology for equipment and racial features
+
+ANATOMICAL DESCRIPTION GUIDELINES:
+When describing body features, use objective, clinical terminology:
+- ✅ Body proportions: "broad-shouldered," "slender build," "muscular physique," "athletic frame," "heavyset," "lithe"
+- ✅ Chest/bust: "small-chested," "modest bust," "full-figured," "large bust," "flat-chested," "well-endowed"
+- ✅ Body shape: "curvaceous," "lean," "stocky," "toned," "soft," "defined musculature"
+- ✅ Visible anatomy: "bare-chested," "exposed torso," "unclothed," "nude," "partially clothed"
+- ✅ Condition: "toned abdomen," "muscular arms," "scarred torso," "defined legs"
+
+Use factual, descriptive language appropriate for character documentation. Describe what is visible without embellishment.
+
+CRITICAL RESTRICTIONS - DO NOT include:
+- ❌ The character's name (even if visible in UI)
+- ❌ Floor, ground, or what they're standing on (rugs, pelts, stone, etc.)
+- ❌ Background scenery, walls, furniture, or environment
+- ❌ Other people, creatures, or objects not worn/held by the character
+- ❌ Lighting, weather, or atmospheric conditions
+- ❌ UI elements, menus, HUD overlays, health bars, or game interface
+- ❌ Image framing, camera angle, or screenshot composition
+- ❌ Speculation about gameplay mechanics, stats, or character backstory
+
+FOCUS AREAS - DO include:
+- ✅ Body type, build, musculature, proportions
+- ✅ Anatomical features: chest size, body shape, muscle definition, visible anatomy if unclothed
+- ✅ Facial structure, features, expression, scars, tattoos, war paint
+- ✅ Hair style, color, length, grooming (including body hair if visible)
+- ✅ Skin tone, texture, visible wear or weathering, blemishes, scars, markings
+- ✅ Clothing details: material, color, condition, style, fasteners, coverage
+- ✅ State of dress: fully clothed, partially clothed, unclothed, what areas are covered/exposed
+- ✅ Armor pieces: type, coverage, ornamentation, wear
+- ✅ Weapons or tools: what they're holding or have sheathed/strapped to their body
+- ✅ Jewelry, accessories, pouches, or items attached to their person
+- ✅ Posture: stance, how they hold themselves, tension or relaxation in body
+- ✅ Overall impression: weathered, pristine, battle-worn, well-groomed, etc.
+
+Write as if conducting a close physical examination of the character themselves, describing only what is part of their body or directly worn/carried on their person. Be thorough and objective, including all visible physical characteristics regardless of state of dress.
 
 Describe the visual characteristics and notable features of this character.
 [image]
 {{imageDataUrl}}
 [end image]
 [end user]
-
