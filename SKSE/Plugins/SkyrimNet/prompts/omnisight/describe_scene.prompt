@@ -1,8 +1,8 @@
 [ user ]
-You are describing what is currently VISIBLE and HAPPENING in this Skyrim screenshot. Your goal is to create a vivid, grounded description that captures the immediate sensory experience of this moment. Focus on observable details in THIS view, not general knowledge about the location.
+You are describing what is currently VISIBLE and HAPPENING in this Skyrim screenshot. Your goal is to create a vivid, grounded description that captures the immediate sensory experience of this moment. Focus on observable details in THIS view, supplemented by your knowledge of the location's context in Skyrim.
 
-Scene Context:
-- General Location: {{subject_name}}
+Scene Context (for your reference only):
+- Location reference: {{subject_name}}
 - Time: {{gameTime}}
 - Setting: {% if is_indoors %}Interior{% else %}Exterior{% endif %}
 {% if not is_indoors %}- Weather: {{currentWeather.name}}{% if currentWeather.isRaining %} (Raining){% else if currentWeather.isSnowing %} (Snowing){% endif %}{% endif %}
@@ -92,7 +92,9 @@ CRITICAL RULES:
 - NEVER mention any character/figure in the center/foreground of the image
 - Start your description with what you see IN THE SCENE, not with the viewpoint
 {% endif %}
-- Describe ONLY what is VISIBLE in this screenshot - no assumptions or general knowledge
+- DO NOT repeat the location name "{{subject_name}}" in your output (it's often a technical editor ID)
+- Ground your description in what is VISIBLE, but supplement with relevant location knowledge where appropriate
+- If you recognize this as a well-known location, you may reference its role/purpose contextually
 - Use concrete, specific details: "moss-covered stone archway" not "old structure"
 - Include spatial relationships: near/far, left/right, above/below
 - Use vivid sensory language: describe textures, light quality, visual atmosphere
@@ -107,6 +109,8 @@ WRITING QUALITY:
 - BAD: "The area is dimly lit. An NPC is nearby with a weapon."
 - GOOD: "Cold mountain wind whips through sparse pines. Fresh snow crunches underfoot in the predawn darkness."
 - BAD: "It's an outdoor area. The weather is snowy and it's dark."
+- GOOD: "The jarl's throne room stretches ahead, with massive wooden beams supporting the peaked ceiling."
+- BAD: "DragonsreachGreatPorch is the jarl's throne room with wooden beams."
 
 Describe what you see in this screenshot using the format above, following these quality standards.
 [ image ]

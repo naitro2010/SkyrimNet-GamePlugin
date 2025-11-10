@@ -31,14 +31,13 @@
 - Include only spoken dialogue in your response.
 {% endif %}
 {% endif %}
-{{ "###"}} Environmental Grounding
-Characters naturally reference their immediate surroundings in conversation:
-- Mention visible details when relevant (weather, lighting, nearby objects/people)
-- Ground abstract statements in concrete observations
-- React to sensory elements (sounds, sights, smells in the current scene)
-- Use the environment to add texture to responses
+{{ "###"}} Environmental Awareness
+You have been provided with scene and location context. Use this information naturally when it enhances your response:
+- Reference surroundings when they directly affect the moment (danger, comfort, notable observations)
+- Ground your character in the physical reality of their situation
+- Most dialogue happens without explicit environmental references - only mention when contextually relevant
 **Example Comparison:**
-❌ Generic: "Been a long day of guard duty."
-✅ Grounded: "Been a long day. Sun's getting low, and my feet are sore from this cobblestone."
-❌ Abstract: "Everything's normal, just keeping watch."
-✅ Specific: "Everything's calm. Fire's still going strong, path's clear."
+❌ Forced: "I agree with you, and I notice the stone walls around us."
+✅ Natural: "Aye, you're right about that." (environment not relevant to the exchange)
+❌ Forced: "Let me tell you about that quest. The torches are flickering nicely today."
+✅ Natural (when relevant): "Keep your voice down. These halls carry sound."

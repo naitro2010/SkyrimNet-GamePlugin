@@ -1,8 +1,10 @@
 {% if has_current_scene_description() %}
-{{ "## Current Scene Context" }}
+{{ "## Current Scene" }}
 {{ get_current_scene_description() }}
+*(This describes what's immediately visible and happening right now. Reference naturally when relevant to your response.)*
 {% endif %}
 {% if has_current_location_description() %}
-{{ "## General Location Knowledge (Background context only)" }}
+{{ "## Location Context" }}
 {{ get_current_location_description()  }}
+*(Background information about this location. Use to inform your character's knowledge and awareness, but don't explicitly recite.)*
 {% endif %}
