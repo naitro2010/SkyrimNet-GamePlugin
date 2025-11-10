@@ -9,15 +9,21 @@ Context:
 
 {% set nearbyNPCs = get_nearby_npc_list(player.UUID) %}
 {% set has_sexlab_actors = false %}
+{% if is_in_faction(player.UUID, "SexlabAnimatingFaction") %}
+{% set has_sexlab_actors = true %}
+Player Character (Predominately visible):
+- {{player.name}} ({{decnpc(player.UUID).race}}, {{decnpc(player.UUID).gender}}) [HAVING SEX OR MASTURBATING]{% if is_in_combat(player.UUID) %} [COMBAT]{% endif %}{% if has_weapon_drawn(player.UUID) %} [Armed]{% endif %}{% if is_sneaking(player.UUID) %} [Sneaking]{% endif %}{% if is_sprinting(player.UUID) %} [Running]{% endif %}
+
+{% endif %}
 {% if nearbyNPCs and length(nearbyNPCs) > 0 %}
-Nearby NPCs (for identification only - they may or may not be visible in frame):
+Nearby People (for identification only - they may or may not be visible in frame):
 {% for npc in nearbyNPCs %}
 - {{npc.name}} ({{decnpc(npc.UUID).race}}, {{decnpc(npc.UUID).gender}}) - {{npc.distance}}m
-  {% if is_in_faction(npc.UUID, "SexlabAnimatingFaction") %}{% set has_sexlab_actors = true %}[SEXLAB ACTIVE]{% endif %}{% if is_in_combat(npc.UUID) %} [COMBAT]{% endif %}{% if has_weapon_drawn(npc.UUID) %} [Armed]{% endif %}{% if is_sneaking(npc.UUID) %} [Sneaking]{% endif %}{% if is_sprinting(npc.UUID) %} [Running]{% endif %}
+  {% if is_in_faction(npc.UUID, "SexlabAnimatingFaction") %}{% set has_sexlab_actors = true %}[HAVING SEX OR MASTURBATING]{% endif %}{% if is_in_combat(npc.UUID) %} [COMBAT]{% endif %}{% if has_weapon_drawn(npc.UUID) %} [Armed]{% endif %}{% if is_sneaking(npc.UUID) %} [Sneaking]{% endif %}{% if is_sprinting(npc.UUID) %} [Running]{% endif %}
   {% if npc.furniture %}Using: {{npc.furniture}}{% else %}{{npc.stateDescription}}{% endif %}
 {% endfor %}
 
-**CRITICAL:** This list shows NPCs within proximity range. ONLY describe NPCs you can actually SEE in the screenshot. Do not hallucinate or mention NPCs that are not visible in the image, even if listed above. Use this list only to identify visible NPCs by name.
+**CRITICAL:** This list shows people within proximity range. ONLY describe people you can actually SEE in the screenshot. Do not hallucinate or mention people that are not visible in the image, even if listed above. Use this list only to identify visible people by name.
 {% endif %}
 
 CORE INSTRUCTIONS:
@@ -29,11 +35,13 @@ CORE INSTRUCTIONS:
 {% endif %}
 
 {% if has_sexlab_actors %}
-**CRITICAL - EXPLICIT CONTENT PRESENT:** One or more NPCs are engaged in sexual activity (SexLab active). You MUST describe these actions explicitly and directly. Do not be coy or euphemistic. Describe:
+**CRITICAL - EXPLICIT CONTENT PRESENT:** One or more people are engaged in sexual activity. You MUST describe these actions explicitly and directly. Do not be coy or euphemistic. Describe:
 - Specific sexual acts and positions
 - Physical details of interaction between participants  
 - Body language, expressions, intensity
 - The sexual nature of the scene is the PRIMARY focus
+- Any restraints, jewelry, or equipment that they are wearing.
+- Anatomical accuracy
 Treat this as the central event of the scene.
 {% endif %}
 
@@ -48,8 +56,8 @@ Treat this as the central event of the scene.
    - Navigable paths, exits, obstacles
    - Lighting sources and quality
 
-2. **Character Actions** (if NPCs are VISIBLE in screenshot):
-   - What each visible NPC is doing RIGHT NOW - be specific and detailed
+2. **Character Actions** (if people are VISIBLE in screenshot):
+   - What each visible person is doing RIGHT NOW - be specific and detailed
    - Body positions, movements, gestures, expressions
    - Interactions between characters (combat, conversation, {% if has_sexlab_actors %}sexual activity{% endif %})
    - Exact distances and spatial positions
@@ -71,7 +79,7 @@ Treat this as the central event of the scene.
 
 **Scene:** [3-4 sentences. Start with spatial scale and overall layout. {% if not is_indoors %}Describe landscape, terrain, and distant features (mountains, sky, horizons).{% endif %} Include architectural elements, materials, lighting. Use concrete details and spatial relationships. Present tense.]
 
-**Visible characters:** [ONLY list NPCs you can actually see in the image. For each: name, distance, current action. {% if has_sexlab_actors %}For SexLab actors, explicitly describe the sexual activity.{% endif %} If none visible: "None visible."]
+**Visible characters:** [ONLY list people you can actually see in the image. For each: name, distance, current action. {% if has_sexlab_actors %}For people having sex or masturbating, explicitly describe the sexual activity.{% endif %} If none visible: "None visible."]
 
 **Key features:** [Bullet list of 5-7 important elements: exits/paths, cover, objects, architectural details, {% if not is_indoors %}landscape features{% endif %}. Be directional and specific.]
 
@@ -104,7 +112,7 @@ Treat this as the central event of the scene.
 **Atmosphere:** Grey overcast light creates muted colors across the tundra. The air appears cold and crisp - visible in the sharp clarity of distant peaks. The mood is calm but alert, the open terrain offering no concealment for potential threats.
 
 {% if has_sexlab_actors %}
-**Example (SexLab Active, Interior):**
+**Example (Having sex or masturbating, Interior):**
 
 **Scene:** A small stone-walled bedroom, roughly 4 by 5 meters. Rough-hewn walls are lit by candles on a wooden nightstand. A fur-covered bed dominates the cramped space. The ceiling is low, dark wood beams visible above. A single wooden door to the south is closed.
 
