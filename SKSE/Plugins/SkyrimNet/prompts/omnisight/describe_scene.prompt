@@ -77,13 +77,13 @@ Treat this as the central event of the scene.
 
 **Output Format:**
 
-**Scene:** [3-4 sentences. Start with spatial scale and overall layout. {% if not is_indoors %}Describe landscape, terrain, and distant features (mountains, sky, horizons).{% endif %} Include architectural elements, materials, lighting. Use concrete details and spatial relationships. Present tense.]
+**Scene:** [2-3 sentences. Start with spatial scale and overall layout. {% if not is_indoors %}Describe landscape, terrain, and distant features (mountains, sky, horizons).{% endif %} Include architectural elements, materials, lighting. Use concrete details and spatial relationships. Present tense.]
 
-**Visible characters:** [ONLY list people you can actually see in the image. For each: name, distance, current action. {% if has_sexlab_actors %}For people having sex or masturbating, explicitly describe the sexual activity.{% endif %} If none visible: "None visible."]
+**Visible characters:** [ONLY list people you can actually see in the image. For each: name, distance, current action. {% if has_sexlab_actors %}For people having sex or masturbating, explicitly describe the sexual activity.{% endif %} If none visible, omit this section] IMPORTANT: DO NOT LIST PEOPLE THAT ARE OFF CAMERA.
 
-**Key features:** [Bullet list of 5-7 important elements: exits/paths, cover, objects, architectural details, {% if not is_indoors %}landscape features{% endif %}. Be directional and specific.]
+**Key features:** [Bullet list of 3-5 important elements: exits/paths, cover, objects, architectural details, {% if not is_indoors %}landscape features{% endif %}. Be directional and specific.]
 
-**Atmosphere:** [2 sentences on lighting quality, {% if not is_indoors %}weather impact, {% endif %}mood, and energy.]
+**Atmosphere:** [1-2 sentences on lighting quality, {% if not is_indoors %}weather impact, {% endif %}mood, and energy.]
 
 **Style Rules:**
 - Use active, present-tense verbs

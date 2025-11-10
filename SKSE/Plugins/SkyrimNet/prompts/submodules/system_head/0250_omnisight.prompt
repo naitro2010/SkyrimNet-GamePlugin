@@ -1,4 +1,4 @@
-{% if has_current_scene_description() %}
+{% if has_current_scene_description() and is_scene_newer_than_location() %}
 {{ "## What You Currently See Around You" }}
 {{ get_current_scene_description() }}
 
