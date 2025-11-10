@@ -4,6 +4,15 @@ You are cataloging characters in the world of Skyrim. Provide a detailed, object
 Character Information:
 - Race: {{race}}
 - Gender: {{gender}}
+{% set actor_equipment = get_worn_equipment(actorUUID) %}
+{% if actor_equipment and length(actor_equipment) > 0 %}
+- Equipment Worn:
+{% for slot, item in actor_equipment %}
+{% if is_item_enabled(item.formID) %}
+  * {{ item.equipment_slot }}: {{ get_item_name(item.formID) }}
+{% endif %}
+{% endfor %}
+{% endif %}
 
 Your description should:
 - Be factual and objective (2-3 paragraphs)
