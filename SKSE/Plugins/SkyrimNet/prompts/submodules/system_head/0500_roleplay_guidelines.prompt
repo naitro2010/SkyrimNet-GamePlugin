@@ -31,3 +31,14 @@
 - Include only spoken dialogue in your response.
 {% endif %}
 {% endif %}
+{{ "###"}} Environmental Grounding
+Characters naturally reference their immediate surroundings in conversation:
+- Mention visible details when relevant (weather, lighting, nearby objects/people)
+- Ground abstract statements in concrete observations
+- React to sensory elements (sounds, sights, smells in the current scene)
+- Use the environment to add texture to responses
+**Example Comparison:**
+❌ Generic: "Been a long day of guard duty."
+✅ Grounded: "Been a long day. Sun's getting low, and my feet are sore from this cobblestone."
+❌ Abstract: "Everything's normal, just keeping watch."
+✅ Specific: "Everything's calm. Fire's still going strong, path's clear."

@@ -1,0 +1,116 @@
+[ user ]
+You are describing what is currently VISIBLE and HAPPENING in this Skyrim screenshot. Your goal is to create a vivid, grounded description that captures the immediate sensory experience of this moment. Focus on observable details in THIS view, not general knowledge about the location.
+
+Scene Context:
+- General Location: {{subject_name}}
+- Time: {{gameTime}}
+- Setting: {% if is_indoors %}Interior{% else %}Exterior{% endif %}
+{% if not is_indoors %}- Weather: {{currentWeather.name}}{% if currentWeather.isRaining %} (Raining){% else if currentWeather.isSnowing %} (Snowing){% endif %}{% endif %}
+
+{% set nearbyNPCs = get_nearby_npc_list(player.UUID) %}
+{% if nearbyNPCs and length(nearbyNPCs) > 0 %}
+Nearby People/NPCs (use this to identify who you see):
+{% for npc in nearbyNPCs %}
+- {{npc.name}} ({{decnpc(npc.UUID).race}}, {{decnpc(npc.UUID).gender}}) - {{npc.distance}}m away
+  {% if is_in_combat(npc.UUID) %}[IN COMBAT]{% endif %}{% if has_weapon_drawn(npc.UUID) %} [Weapon Drawn]{% endif %}{% if is_sneaking(npc.UUID) %} [Sneaking]{% endif %}{% if is_sprinting(npc.UUID) %} [Running]{% endif %}{% if is_swimming(npc.UUID) %} [Swimming]{% endif %}
+  {% if npc.furniture %}Using: {{npc.furniture}}{% else %}{{npc.stateDescription}}{% endif %}
+{% endfor %}
+{% endif %}
+
+IMPORTANT INSTRUCTIONS:
+{% if is_first_person() %}
+- This is a FIRST-PERSON view (looking through the player's eyes)
+- You may see the player's hands or weapon - IGNORE these
+- Describe the scene as if YOU are standing there looking at it
+{% else %}
+- This is a THIRD-PERSON view
+- CRITICAL: There is a player character model visible in the foreground - PRETEND IT DOES NOT EXIST
+- NEVER mention "player character", "character model", "figure in the foreground" or similar
+- NEVER describe the player's back, armor, clothing, or weapons in the center/foreground
+- DO NOT say "the view is from behind..." or describe the perspective itself
+- Act as if the camera is floating invisibly - describe ONLY what's beyond the player
+- Focus ONLY on the environment, NPCs, and objects in the background/surroundings
+{% endif %}
+- Describe the scene itself, NOT the viewpoint or camera position
+
+Focus your description on what is VISIBLE and creating a grounded, visceral experience:
+
+1. SPATIAL LAYOUT & IMMEDIATE SURROUNDINGS:
+   - Describe the space itself - is it cramped, expansive, confined?
+   - Note depth and distance - what's close, what's far
+   - Structures, walls, terrain visible and their spatial relationship
+   - Architectural elements (doors, windows, columns, arches)
+   - Surfaces and materials - be specific (stone, wood, dirt, snow)
+   - Paths, stairs, passages - where they lead in the visible area
+   
+2. ATMOSPHERE & SENSORY DETAILS:
+   - Light quality - harsh, dim, warm, cold, flickering
+   - Specific light sources visible (torches, candles, fires, magical glows)
+   - How shadows fall and what they obscure
+   - {% if not is_indoors %}Weather effects: {{currentWeather.name}} - how it affects the scene (mist, snow falling, rain streaks, etc.){% endif %}
+   - Temperature feeling based on visual cues (ice, fires, steam, etc.)
+   
+3. PEOPLE & CREATURES (Dynamic Elements):
+   - Who is visible (use NPC list for accurate identification)
+   - Precise positions and spatial relationships between people
+   - Current actions and body language - be specific
+   - If combat tags present: describe tension, aggressive postures, weapons raised
+   - Movement quality - rushed, casual, cautious, aggressive
+   - Facial direction and apparent focus of attention
+   - Interaction between visible NPCs
+   
+4. OBJECTS & INTERACTIVE ELEMENTS:
+   - Furniture and its condition/placement
+   - Items on surfaces - scattered, organized, prominent
+   - Tools, weapons, containers that are visible
+   - Signs of recent activity (disturbed objects, open containers)
+   - Crafting stations or special objects
+   
+5. SCENE DYNAMICS & MOOD:
+   - What is actively happening RIGHT NOW
+   - Energy level - tense, peaceful, busy, abandoned
+   - Any sense of danger, safety, or urgency
+   - The immediate emotional quality of the space
+   - How elements combine to create atmosphere
+
+FORMAT REQUIREMENTS:
+
+You must structure your response in this exact format:
+
+**What physically surrounds this character right now:**
+
+[Write 3-5 sentences painting a vivid picture of the immediate environment. Use concrete, specific details. Include spatial relationships (near, distant, above, below). Mention materials and textures. Name any visible NPCs and what they're doing. Describe the quality of light and any weather effects. Use active, present-tense verbs. Make it feel REAL and IMMEDIATE - someone reading this should be able to visualize the exact scene.]
+
+**Key visible elements:** [Comma-separated list of 5-8 major visible features. Be specific: "weathered stone walls" not "walls", "Lydia drawing her sword" not "NPC", "flickering torchlight" not "lighting"]
+
+**Current sensory details:** [2-3 sentences covering: lighting quality and sources, temperature/weather sensations, overall energy/mood of the moment. Use evocative language - "harsh," "warm," "tense," "peaceful," etc.]
+
+CRITICAL RULES:
+{% if not is_first_person() %}
+- The player character model in the foreground IS INVISIBLE - DO NOT ACKNOWLEDGE IT EXISTS
+- NEVER write "the view is from behind..." or "looking from the back of..." 
+- NEVER mention any character/figure in the center/foreground of the image
+- Start your description with what you see IN THE SCENE, not with the viewpoint
+{% endif %}
+- Describe ONLY what is VISIBLE in this screenshot - no assumptions or general knowledge
+- Use concrete, specific details: "moss-covered stone archway" not "old structure"
+- Include spatial relationships: near/far, left/right, above/below
+- Use vivid sensory language: describe textures, light quality, visual atmosphere
+- When NPCs are present, NAME them and describe their specific actions
+- Capture the ENERGY of the moment: tense, peaceful, chaotic, empty, etc.
+- Avoid generic phrases like "the area" or "various objects" - be specific
+- Use active, present-tense verbs that convey immediacy
+- Make it VISCERAL - someone reading should feel like they're there
+
+WRITING QUALITY:
+- GOOD: "Flickering torchlight casts dancing shadows across rough-hewn stone walls. Lydia stands to the right, sword drawn, eyes fixed on the dark tunnel ahead."
+- BAD: "The area is dimly lit. An NPC is nearby with a weapon."
+- GOOD: "Cold mountain wind whips through sparse pines. Fresh snow crunches underfoot in the predawn darkness."
+- BAD: "It's an outdoor area. The weather is snowy and it's dark."
+
+Describe what you see in this screenshot using the format above, following these quality standards.
+[ image ]
+{{imageDataUrl}}
+[ end image ]
+[ end user ]
+

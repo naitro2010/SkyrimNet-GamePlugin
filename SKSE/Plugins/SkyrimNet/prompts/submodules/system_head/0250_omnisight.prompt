@@ -1,0 +1,8 @@
+{% if has_current_scene_description() %}
+{{ "## Current Scene Context" }}
+{{ get_current_scene_description() }}
+{% endif %}
+{% if has_current_location_description() %}
+{{ "## General Location Knowledge (Background context only)" }}
+{{ get_current_location_description()  }}
+{% endif %}

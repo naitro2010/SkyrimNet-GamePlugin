@@ -1,27 +1,55 @@
 [ user ]
-You are cataloging locations in the world of Skyrim. Provide a detailed, objective description of this location based on the screenshot.
+You are cataloging "{{subject_name}}" for a visual location database in Skyrim. Use BOTH your knowledge of this location from Elder Scrolls lore AND the visual evidence in this screenshot to create a comprehensive description.
 
-Location Information:
+Location Context:
 - Name: {{subject_name}}
-- Cell: {{location_cell}}
-- Setting: {% if is_indoors %}Interior location{% else %}Exterior location{% endif %}
-- Time: {{gameTime}}
-{% if not is_indoors %}- Weather: {{currentWeather.name}}{% if currentWeather.isRaining %} (Raining){% else if currentWeather.isSnowing %} (Snowing){% endif %}{% endif %}
+- Type: {% if is_indoors %}Interior{% else %}Exterior{% endif %}
+- Current Position: {{location_name}}
 
-Your description should:
-- Be factual and objective (2-3 paragraphs)
-- Focus on architecture, environment, and atmosphere
-- Note distinctive landmarks, structures, or environmental features
-- Describe lighting conditions based on time ({{gameTime}}){% if not is_indoors %} and weather ({{currentWeather.name}}){% endif %}
-{% if not is_indoors %}{% if currentWeather.isRaining %}- Note any rain effects, wet surfaces, or atmospheric moisture{% else if currentWeather.isSnowing %}- Note any snow effects, snow coverage, or winter atmosphere{% endif %}{% endif %}
-- Mention any visible NPCs, creatures, or objects that characterize the location
-- Consider the {% if is_indoors %}indoor{% else %}outdoor{% endif %} environment in your description
-- Use appropriate Elder Scrolls lore terminology
-- IGNORE any UI elements, menus, or HUD overlays - describe only the location
-- IGNORE any characters, animals, or creatures that are seen in the image. Focus strictly on the location - The design, the objects present, the architecture, and any other notable features
-- Avoid speculation about gameplay mechanics or quests
+{% set nearbyNPCs = get_nearby_npc_list(player.UUID) %}
+{% if nearbyNPCs and length(nearbyNPCs) > 0 %}
+Permanent Residents/NPCs (helps identify the location's purpose):
+{% for npc in nearbyNPCs %}
+- {{npc.name}}{% if npc.furniture %} (typically found {{npc.stateDescription}}){% endif %}
+{% endfor %}
+{% endif %}
 
-Describe the visual characteristics and notable features of this location shown in the image.
+YOUR TASK:
+Combine your knowledge of "{{subject_name}}" from Skyrim lore with what you observe in the screenshot to describe:
+
+1. WHAT THIS LOCATION IS:
+   - Its identity and purpose in Skyrim
+   - What type of place it is (home, shop, guild hall, dungeon, landmark, etc.)
+   - Who owns/controls it (if applicable)
+   - Its significance or role in the game world
+
+2. PHYSICAL CHARACTERISTICS (from screenshot):
+   - Architectural style (Nordic, Imperial, Dwemer, Falmer, etc.)
+   - Building materials visible (stone, wood, metal, etc.)
+   - Key structural features (doors, windows, columns, stairs)
+   - {% if is_indoors %}Interior layout and room organization{% else %}Terrain and natural features{% endif %}
+   - Permanent fixtures and furnishings
+   - Distinctive objects or decorations
+
+3. DEFINING FEATURES:
+   - What makes this location recognizable or unique
+   - Architectural details that characterize it
+   - Color schemes and visual themes
+   - {% if not is_indoors %}Geographic context (mountains, forests, water, nearby landmarks){% endif %}
+
+IMPORTANT RULES:
+- Combine lore knowledge with visual confirmation - if you know what this place is, say so
+- Start directly describing the place (no preamble like "This location is...")
+- Focus on PERMANENT features, not temporary conditions
+- DO NOT describe: NPCs in detail (mention them as residents only), current lighting/shadows, weather effects, UI elements
+- Use present tense for permanent features
+
+EXAMPLE GOOD OUTPUT:
+"Dragonsreach serves as the jarl's palace and seat of power in Whiterun. The great hall features soaring Nordic timber construction with massive wooden beams and a raised throne platform. Stone walls are adorned with mounted animal heads and banners, while a long central fire pit runs the length of the hall..."
+
+FORMAT: Write 2-3 paragraphs combining your knowledge of {{subject_name}} with visual observations.
+
+Describe what {{subject_name}} is and what makes it distinctive.
 [ image ]
 {{imageDataUrl}}
 [ end image ]
