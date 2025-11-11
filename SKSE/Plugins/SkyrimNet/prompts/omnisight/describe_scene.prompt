@@ -1,97 +1,76 @@
 [ user ]
-You are describing what is currently visible in this Skyrim screenshot. Provide a grounded, immediate description focusing on the environment, landscape, character actions, and tactical layout.
+You are describing what is currently visible in this Skyrim screenshot. Provide a grounded, immediate description focusing on the environment, visible objects, and character actions. Do not speculate about gameplay or affordances.
 
-Context:
+{{"## "}} Context:
 - Location: {{subject_name}}
 - Time: {{gameTime}}
 - Setting: {% if is_indoors %}Interior{% else %}Exterior{% endif %}
 {% if not is_indoors %}- Weather: {{currentWeather.name}}{% if currentWeather.isRaining %} (Raining){% else if currentWeather.isSnowing %} (Snowing){% endif %}{% endif %}
 
-{% set nearbyNPCs = get_nearby_npc_list(player.UUID) %}
-{% if nearbyNPCs and length(nearbyNPCs) > 0 %}
-Nearby People (for identification only - they may or may not be visible in frame):
-{% for npc in nearbyNPCs %}
-- {{npc.name}} ({{decnpc(npc.UUID).race}}, {{decnpc(npc.UUID).gender}}) - {{npc.distance}}m
-  {% if is_in_combat(npc.UUID) %} [COMBAT]{% endif %}{% if has_weapon_drawn(npc.UUID) %} [Armed]{% endif %}{% if is_sneaking(npc.UUID) %} [Sneaking]{% endif %}{% if is_sprinting(npc.UUID) %} [Running]{% endif %}
-  {% if npc.furniture %}Using: {{npc.furniture}}{% else %}{{npc.stateDescription}}{% endif %}
+{% set visibleNPCs = get_visible_npc_list(player.UUID) %}
+{% if visibleNPCs and length(visibleNPCs) > 0 %}
+{{"## "}} Visible People (authoritative list; everyone below is on-camera):
+{% for npc in visibleNPCs %}
+{% set pos = get_actor_position_relative_to_camera(npc.UUID) %}
+- {{npc.name}} ({{decnpc(npc.UUID).race}}, {{decnpc(npc.UUID).gender}}) — {{pos.meters}}m, {{pos.cardinalDirection}} {% if is_in_combat(npc.UUID) %}[COMBAT] {% endif %}{% if has_weapon_drawn(npc.UUID) %}[Armed] {% endif %}{% if is_swimming(npc.UUID) %}[Swimming]{% else if is_sprinting(npc.UUID) %}[Running]{% else if is_sneaking(npc.UUID) %}[Sneaking]{% endif %}
 {% endfor %}
-
-**CRITICAL:** This list shows people within proximity range. ONLY describe people you can actually SEE in the screenshot. Do not hallucinate or mention people that are not visible in the image, even if listed above. Use this list only to identify visible people by name.
+{% else %}
+{{"## "}} Visible People: (none detected)
 {% endif %}
 
-CORE INSTRUCTIONS:
+{{"## "}} CORE INSTRUCTIONS:
 
-{% if is_first_person() %}
+{% if is_first_person() or is_vr() %}
 **Perspective:** First-person view. Describe the scene as if looking through the character's eyes. Ignore visible hands/weapons.
 {% else %}
-**Perspective:** Third-person view. The player character model in view is a camera artifact - DO NOT mention or describe it. Never reference "a figure in the foreground," "the player character," "character's back," or the viewpoint itself. Describe only the actual scene.
+**Perspective:** Third-person view. The player character model in view is a camera artifact—DO NOT mention or describe it. Never reference the viewpoint itself.
 {% endif %}
+
+**UI & Speaker Discipline (critical):**
+- Subtitles, speaker tags, floating nameplates, compass text, quest markers, and HUD elements are **not** reliable indicators of who is visible.
+- If a subtitle shows a speaker name that is **not** in the **Visible People** list, treat it as **off-camera** information and **do not include that name anywhere in the output**. Do **not** assign that name to any on-screen person.
+
+**ABSOLUTE NAMING RULES:**
+1) Only identify a person by **name** if that exact name appears verbatim in the **Visible People** list above.  
+2) Do **not** rename, invent, merge, or substitute identities.  
+3) If you perceive a person who is **not** in the list, do **not** mention them at all.  
+4) When listing people, **copy the name exactly** as written in the **Visible People** list.
 
 **Description Priorities:**
 
-1. **Environment & Landscape** (ESSENTIAL):
-   - Spatial scale (cramped/medium/expansive)
-   - {% if not is_indoors %}Landscape features: terrain type, distant mountains, sky, horizons, natural formations{% endif %}
-   - Architectural elements and structures
-   - Materials, textures, surfaces
-   - Depth and layers (immediate foreground, middle distance, background/distant features)
-   - Navigable paths, exits, obstacles
-   - Lighting sources and quality
+1. **Environment & Objects** (ESSENTIAL):
+   - Spatial scale (cramped/medium/expansive) and overall layout
+   - Architecture, materials, textures, and light sources/quality
+   - **Fold in concrete scene details**: shelves/tables/bar tops and what’s on them; doors/arches/windows and their state; pillars/beams/hearths; hanging items; floor/wall surfaces; {% if not is_indoors %}terrain/skyline/distant scenery{% endif %}. Use fixtures to anchor locations (bar, doorway, hearth, pillar, window, shelf). No numbers or compass directions.
 
-2. **Character Actions** (if people are VISIBLE in screenshot):
-   - What each visible person is doing RIGHT NOW - be specific and detailed
-   - Body positions, movements, gestures, expressions
-   - Interactions between characters (combat, conversation)
-   - Exact distances and spatial positions
-   - Weapons drawn, combat stances, threat levels
+2. **Character Actions** (only for people in **Visible People**):
+   - Immediate action, pose, gestures, gaze, speech
+   - Clothing/gear that is clearly visible (aprons, armor, weapons sheathed/drawn)
+   - Placement described via **scene fixtures** only (e.g., “behind the bar,” “by the side door”)
+   - Threat/readiness level if evident (calm, wary, hostile)
 
-3. **Tactical & Interactive Details**:
-   - Cover, defensible positions, chokepoints
-   - Usable objects, containers, weapons
-   - Hazards or threats
-   - Signs of activity
-
-4. **Atmosphere**:
-   - {% if not is_indoors %}Weather effects on visibility and mood{% endif %}
-   - Temperature cues
-   - Energy/mood (peaceful, tense, chaotic)
-   - Overall danger level
+3. **Atmosphere**:
+   - {% if not is_indoors %}Weather effects{% endif %}, temperature cues
+   - Mood/energy and overall danger level
 
 **Output Format:**
 
-**Scene:** [2-3 sentences. Start with spatial scale and overall layout. {% if not is_indoors %}Describe landscape, terrain, and distant features (mountains, sky, horizons).{% endif %} Include architectural elements, materials, lighting. Use concrete details and spatial relationships. Present tense.]
+**Scene:** [3–6 sentences. Start with scale and layout, then weave in **specific visible objects and structures** (shelves, doors, items on counters, hanging meats/herbs, barrels, windows, torches/hearth) with one concrete visual detail each (material, color, wear, state). Keep it strictly factual and present tense.]
 
-**Visible characters:** [ONLY list people you can actually see in the image. For each: name, distance, current action. If none visible, omit this section] IMPORTANT: DO NOT LIST PEOPLE THAT ARE OFF CAMERA.
+{% if visibleNPCs and length(visibleNPCs) > 0 %}
+**Visible characters:**  
+[For each person from **Visible People**, write **one or two vivid sentences** using their **exact name**. Describe action, body language, interaction with props/people, visible clothing/gear, and placement via fixtures only—no distances or directions.]
+{% endif %}
 
-**Key features:** [Bullet list of 3-5 important elements: exits/paths, cover, objects, architectural details, {% if not is_indoors %}landscape features{% endif %}. Be directional and specific.]
-
-**Atmosphere:** [1-2 sentences on lighting quality, {% if not is_indoors %}weather impact, {% endif %}mood, and energy.]
+**Atmosphere:** [1–2 sentences on lighting, {% if not is_indoors %}weather impact, {% endif %}mood, energy.]
 
 **Style Rules:**
-- Use active, present-tense verbs
-- Be concrete and specific ("jagged snow-capped peaks" not "mountains")
-- Include spatial relationships (near/far, above/below, north/south)
-- {% if not is_indoors %}Describe distant landscape features vividly - they orient the scene{% endif %}
-- Avoid vague words like "various," "some," "the area"
-- Focus on atmospheric and narrative relevance
-- Never repeat "{{subject_name}}" in output
-- ONLY describe what you actually see in the screenshot
-
-**Example (Exterior):**
-
-**Scene:** An expansive tundra plain stretches toward the horizon under overcast skies. Snow-capped mountains rise in the distance to the northeast, their peaks shrouded in mist. The immediate area is flat, windswept grassland dotted with small boulders and patches of snow. A dirt road cuts across the terrain from west to east. The landscape feels open and exposed, visibility extending hundreds of meters in all directions.
-
-**Visible characters:**
-- Lydia (6m to the left, walking along the road, steel sword sheathed, shield on back, steady pace)
-
-**Key features:**
-- Distant mountain range (northeast horizon, snow-capped, partially obscured by clouds)
-- Dirt road (runs east-west, well-travelled, clear path)
-- Scattered boulders (across the plain, waist to shoulder height, potential cover)
-- Small pine trees (sparse, 20-30m away to the south)
-- Overcast sky (grey clouds, diffuse lighting)
-
-**Atmosphere:** Grey overcast light creates muted colors across the tundra. The air appears cold and crisp - visible in the sharp clarity of distant peaks. The mood is calm but alert, the open terrain offering no concealment for potential threats.
+- Active, present tense; concrete details
+- Anchor with scene fixtures (bar/hearth/doorway/pillar/shelf/window); **do not** use meters/steps or N/S/E/W
+- Avoid vague words like “various/some”
+- Never repeat “{{subject_name}}”
+- ONLY describe what is visible on-screen
+- Never infer or guess identities from UI elements
 
 Describe the screenshot:
 [ image ]
