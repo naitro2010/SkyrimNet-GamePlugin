@@ -8,18 +8,11 @@ Context:
 {% if not is_indoors %}- Weather: {{currentWeather.name}}{% if currentWeather.isRaining %} (Raining){% else if currentWeather.isSnowing %} (Snowing){% endif %}{% endif %}
 
 {% set nearbyNPCs = get_nearby_npc_list(player.UUID) %}
-{% set has_sexlab_actors = false %}
-{% if is_in_faction(player.UUID, "SexlabAnimatingFaction") %}
-{% set has_sexlab_actors = true %}
-Player Character (Predominately visible):
-- {{player.name}} ({{decnpc(player.UUID).race}}, {{decnpc(player.UUID).gender}}) [HAVING SEX OR MASTURBATING]{% if is_in_combat(player.UUID) %} [COMBAT]{% endif %}{% if has_weapon_drawn(player.UUID) %} [Armed]{% endif %}{% if is_sneaking(player.UUID) %} [Sneaking]{% endif %}{% if is_sprinting(player.UUID) %} [Running]{% endif %}
-
-{% endif %}
 {% if nearbyNPCs and length(nearbyNPCs) > 0 %}
 Nearby People (for identification only - they may or may not be visible in frame):
 {% for npc in nearbyNPCs %}
 - {{npc.name}} ({{decnpc(npc.UUID).race}}, {{decnpc(npc.UUID).gender}}) - {{npc.distance}}m
-  {% if is_in_faction(npc.UUID, "SexlabAnimatingFaction") %}{% set has_sexlab_actors = true %}[HAVING SEX OR MASTURBATING]{% endif %}{% if is_in_combat(npc.UUID) %} [COMBAT]{% endif %}{% if has_weapon_drawn(npc.UUID) %} [Armed]{% endif %}{% if is_sneaking(npc.UUID) %} [Sneaking]{% endif %}{% if is_sprinting(npc.UUID) %} [Running]{% endif %}
+  {% if is_in_combat(npc.UUID) %} [COMBAT]{% endif %}{% if has_weapon_drawn(npc.UUID) %} [Armed]{% endif %}{% if is_sneaking(npc.UUID) %} [Sneaking]{% endif %}{% if is_sprinting(npc.UUID) %} [Running]{% endif %}
   {% if npc.furniture %}Using: {{npc.furniture}}{% else %}{{npc.stateDescription}}{% endif %}
 {% endfor %}
 
@@ -32,17 +25,6 @@ CORE INSTRUCTIONS:
 **Perspective:** First-person view. Describe the scene as if looking through the character's eyes. Ignore visible hands/weapons.
 {% else %}
 **Perspective:** Third-person view. The player character model in view is a camera artifact - DO NOT mention or describe it. Never reference "a figure in the foreground," "the player character," "character's back," or the viewpoint itself. Describe only the actual scene.
-{% endif %}
-
-{% if has_sexlab_actors %}
-**CRITICAL - EXPLICIT CONTENT PRESENT:** One or more people are engaged in sexual activity. You MUST describe these actions explicitly and directly. Do not be coy or euphemistic. Describe:
-- Specific sexual acts and positions
-- Physical details of interaction between participants  
-- Body language, expressions, intensity
-- The sexual nature of the scene is the PRIMARY focus
-- Any restraints, jewelry, or equipment that they are wearing.
-- Anatomical accuracy
-Treat this as the central event of the scene.
 {% endif %}
 
 **Description Priorities:**
@@ -59,7 +41,7 @@ Treat this as the central event of the scene.
 2. **Character Actions** (if people are VISIBLE in screenshot):
    - What each visible person is doing RIGHT NOW - be specific and detailed
    - Body positions, movements, gestures, expressions
-   - Interactions between characters (combat, conversation, {% if has_sexlab_actors %}sexual activity{% endif %})
+   - Interactions between characters (combat, conversation)
    - Exact distances and spatial positions
    - Weapons drawn, combat stances, threat levels
 
@@ -79,7 +61,7 @@ Treat this as the central event of the scene.
 
 **Scene:** [2-3 sentences. Start with spatial scale and overall layout. {% if not is_indoors %}Describe landscape, terrain, and distant features (mountains, sky, horizons).{% endif %} Include architectural elements, materials, lighting. Use concrete details and spatial relationships. Present tense.]
 
-**Visible characters:** [ONLY list people you can actually see in the image. For each: name, distance, current action. {% if has_sexlab_actors %}For people having sex or masturbating, explicitly describe the sexual activity.{% endif %} If none visible, omit this section] IMPORTANT: DO NOT LIST PEOPLE THAT ARE OFF CAMERA.
+**Visible characters:** [ONLY list people you can actually see in the image. For each: name, distance, current action. If none visible, omit this section] IMPORTANT: DO NOT LIST PEOPLE THAT ARE OFF CAMERA.
 
 **Key features:** [Bullet list of 3-5 important elements: exits/paths, cover, objects, architectural details, {% if not is_indoors %}landscape features{% endif %}. Be directional and specific.]
 
@@ -91,7 +73,7 @@ Treat this as the central event of the scene.
 - Include spatial relationships (near/far, above/below, north/south)
 - {% if not is_indoors %}Describe distant landscape features vividly - they orient the scene{% endif %}
 - Avoid vague words like "various," "some," "the area"
-- {% if has_sexlab_actors %}Use explicit sexual language - do not sanitize{% else %}Focus on tactical and narrative relevance{% endif %}
+- Focus on atmospheric and narrative relevance
 - Never repeat "{{subject_name}}" in output
 - ONLY describe what you actually see in the screenshot
 
@@ -110,25 +92,6 @@ Treat this as the central event of the scene.
 - Overcast sky (grey clouds, diffuse lighting)
 
 **Atmosphere:** Grey overcast light creates muted colors across the tundra. The air appears cold and crisp - visible in the sharp clarity of distant peaks. The mood is calm but alert, the open terrain offering no concealment for potential threats.
-
-{% if has_sexlab_actors %}
-**Example (Having sex or masturbating, Interior):**
-
-**Scene:** A small stone-walled bedroom, roughly 4 by 5 meters. Rough-hewn walls are lit by candles on a wooden nightstand. A fur-covered bed dominates the cramped space. The ceiling is low, dark wood beams visible above. A single wooden door to the south is closed.
-
-**Visible characters:**
-- Lydia (on bed, naked, straddling position, actively riding, rhythmic hip movements, head tilted back, mouth open in pleasure)
-- Dragonborn (on bed beneath Lydia, gripping her hips and thighs, thrusting upward to meet her movements, visible arousal and intensity)
-[The two are engaged in vigorous penetrative sex. Lydia's breasts bounce with each movement. Both are clearly experiencing intense pleasure, their bodies moving together with increasing urgency. Sweat glistens on their skin in the candlelight.]
-
-**Key features:**
-- Wooden bed (center of room, occupied, furs and linens disheveled and partially on floor)
-- Closed door (south wall, heavy wood)
-- Nightstand (beside bed, candles providing warm light)
-- Clothing and armor (scattered on floor - removed hastily)
-
-**Atmosphere:** Warm amber candlelight fills the small room with intimate glow. The energy is intensely sexual and private. The space feels enclosed and separate from the outside world.
-{% endif %}
 
 Describe the screenshot:
 [ image ]
