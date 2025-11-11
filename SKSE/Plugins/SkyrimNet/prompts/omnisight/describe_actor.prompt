@@ -1,0 +1,74 @@
+[user]
+You are cataloging characters in the world of Skyrim. Provide a detailed, objective visual description of this character based on the screenshot.
+
+Character Information:
+- Race: {{race}}
+- Gender: {{gender}}
+{% set actor_equipment = get_worn_equipment(actorUUID) %}
+{% if actor_equipment and length(actor_equipment) > 0 %}
+- Equipment Worn (reference only - describe ONLY what you can actually see in the screenshot):
+{% for slot, item in actor_equipment %}
+{% if is_item_enabled(item.formID) %}
+  * {{ item.equipment_slot }}: {{ get_item_name(item.formID) }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if has_weapon_drawn(actorUUID) %}
+- Weapon State: Weapon is DRAWN (ready for combat, visible in hands)
+{% else %}
+- Weapon State: Weapon is SHEATHED (at rest, may not be visible depending on angle/clothing)
+{% endif %}
+
+IMPORTANT: The equipment list above is for reference only. Only describe items that are ACTUALLY VISIBLE in the screenshot. If a weapon is sheathed or hidden by clothing/armor, do not describe it unless you can see it. If equipment is obscured by the camera angle or covered by other items, omit it from your description.
+
+Your description should:
+- Be factual and objective (2-3 paragraphs)
+- Describe ONLY what is on the character's body: facial features, hair, skin, build, clothing, armor, weapons, visible scars/markings
+- Include anatomical details when visible (see guidelines below)
+- Note their physical posture and apparent demeanor
+- Use appropriate Elder Scrolls lore terminology for equipment and racial features
+
+ANATOMICAL DESCRIPTION GUIDELINES:
+When describing body features, use objective, clinical terminology:
+- ✅ Body proportions: "broad-shouldered," "slender build," "muscular physique," "athletic frame," "heavyset," "lithe"
+- ✅ Chest/bust: "small-chested," "modest bust," "full-figured," "large bust," "flat-chested," "well-endowed"
+- ✅ Body shape: "curvaceous," "lean," "stocky," "toned," "soft," "defined musculature"
+- ✅ Visible anatomy: "bare-chested," "exposed torso," "unclothed," "nude," "partially clothed"
+- ✅ Condition: "toned abdomen," "muscular arms," "scarred torso," "defined legs"
+
+Use factual, descriptive language appropriate for character documentation. Describe what is visible without embellishment.
+
+CRITICAL RESTRICTIONS - DO NOT include:
+- ❌ The character's name (even if visible in UI)
+- ❌ Floor, ground, or what they're standing on (rugs, pelts, stone, etc.)
+- ❌ Background scenery, walls, furniture, or environment
+- ❌ Other people, creatures, or objects not worn/held by the character
+- ❌ Lighting, weather, or atmospheric conditions
+- ❌ UI elements, menus, HUD overlays, health bars, or game interface
+- ❌ Image framing, camera angle, or screenshot composition
+- ❌ Speculation about gameplay mechanics, stats, or character backstory
+
+FOCUS AREAS - DO include (ONLY if visible in the screenshot):
+- ✅ Body type, build, musculature, proportions
+- ✅ Anatomical features: chest size, body shape, muscle definition, visible anatomy if unclothed
+- ✅ Facial structure, features, expression, scars, tattoos, war paint
+- ✅ Hair style, color, length, grooming (including body hair if visible)
+- ✅ Skin tone, texture, visible wear or weathering, blemishes, scars, markings
+- ✅ Clothing details: material, color, condition, style, fasteners, coverage (only describe what you can see)
+- ✅ State of dress: fully clothed, partially clothed, unclothed, what areas are covered/exposed
+- ✅ Armor pieces: type, coverage, ornamentation, wear (only describe visible pieces)
+- ✅ Weapons or tools: ONLY describe weapons if drawn/in hands OR clearly visible when sheathed; do not assume visibility
+- ✅ Weapon readiness: if weapon is drawn (clearly in hand), if sheathed (only mention if you can see it)
+- ✅ Jewelry, accessories, pouches, or items: only if clearly visible and not hidden by clothing/armor
+- ✅ Posture: stance, how they hold themselves, tension or relaxation in body
+- ✅ Overall impression: weathered, pristine, battle-worn, well-groomed, etc.
+
+Write as if conducting a close physical examination of the character themselves, describing only what is part of their body or directly worn/carried on their person. Be thorough and objective, including all visible physical characteristics regardless of state of dress.
+
+CRITICAL: Base your description ENTIRELY on what you can see in the screenshot. The equipment list is metadata for reference - use it to identify items, but ONLY describe equipment that is actually visible in the image. Do not describe or mention items that are hidden, obscured, or not visible from the current angle.
+
+Describe the visual characteristics and notable features of this character.
+[image]
+{{imageDataUrl}}
+[end image]
+[end user]
