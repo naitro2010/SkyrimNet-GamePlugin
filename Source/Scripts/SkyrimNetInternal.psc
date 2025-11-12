@@ -390,6 +390,14 @@ Function RentRoom_Execute(Actor akActor, string contextJson, string paramsJson) 
     skynet.libs.RentRoom_Execute(akActor, paramsJson)
 EndFunction
 
+Function ResetFacialAnimations(Actor akActor) global
+    if (akActor.IsOnMount())
+        akActor.RegenerateHead()
+    else
+        akActor.QueueNiNodeUpdate()
+    endif
+EndFunction
+
 ; bool Function GiveBanditBounty_IsEligible(Actor akActor, string contextJson, string paramsJson) global
 ;     Debug.Trace("[SkyrimNetInternal] GiveBanditBounty_IsEligible called for " + akActor.GetDisplayName())
 
