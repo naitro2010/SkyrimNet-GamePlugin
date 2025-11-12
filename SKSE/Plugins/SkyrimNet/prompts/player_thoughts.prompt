@@ -65,7 +65,15 @@ Respond with only a succinct internal thought from a first person perspective{% 
 {% endif %}
 {% endif %}
 
-{% if is_narration_enabled() %}Remember to ONLY use asterick's * if you are emphasizing a narrative element / action aside from {{ decnpc(npc.UUID).name }}'s thoughts. Do not use them otherwise.{% endif %}
+{% if is_narration_enabled() %}
+CRITICAL FORMATTING RULES:
+- Asterisks (*) are ONLY for brief physical actions or expressions, like: *{{ player.name }} closes the book* or * {{ player.name }} frowns*
+- Your actual THOUGHTS must NEVER be wrapped in asterisks
+- Thoughts are plain text from first-person perspective
+- CORRECT example: "I wonder what that noise was... *{{ player.name }} glances toward the door* Could be trouble."
+- INCORRECT example: "*I wonder what that noise was*" (thoughts should not be in asterisks)
+- Most responses should be pure thought with NO asterisks at all
+{% endif %}
 Remember, you are thinking to yourself, not speaking audibly. Your response must be from a first person perspective, and will not be spoken audibly to another character. Do not include any preamble, or indicator that this is a thought.
 {% if triggeringEvent and triggeringEvent.type == "book_read" %}For book reading, provide a detailed internal analysis and reflection. Vary the length based upon how significant the text is to {{ player.name }} personally. Books and notes that are not particularly relevant should have short responses, where particularly relevant texts should have several paragraphs. Err towards keeping them shorter if you're not sure, or they're not highly and directly relevant.
 {% else %}
