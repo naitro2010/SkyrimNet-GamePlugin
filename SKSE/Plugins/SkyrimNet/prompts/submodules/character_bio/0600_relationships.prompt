@@ -2,11 +2,11 @@
 {{ "## Relationships" }}
 {% block relationships %}{% endblock %}
 {{ "### " }}Travel History with {{ player.name }}
-{% if is_follower(npc.UUID) %} -{{ decnpc(npc.UUID).first_name }} is a member of {{ player.name }}'s party, and is currently actively traveling in the group.
+{% if is_follower(npc.UUID) %} -{{ decnpc(actorUUID).name }} is a member of {{ player.name }}'s party, and is currently actively traveling in the group.
 {% else %}
-{% if is_in_faction(npc.UUID, "DismissedFollowerFaction") %} -{{ decnpc(npc.UUID).first_name }} has been a member of {{ player.name }}'s party, but is currently not traveling in the group, and will stay behind.
+{% if is_in_faction(npc.UUID, "DismissedFollowerFaction") %} -{{ decnpc(actorUUID).name }} has been a member of {{ player.name }}'s party, but is currently not traveling in the group, and will stay behind.
 {% else %}
-- {{ decnpc(npc.UUID).first_name }} has never been a member of the group and does not ever travel together with {{ player.name }}.
+- {{ decnpc(actorUUID).name }} has never been a member of {{ player.name }}'s party and does not ever travel together with {{ player.name }}.
 {% endif %}
 {% endif %}
 {% endif %} 
