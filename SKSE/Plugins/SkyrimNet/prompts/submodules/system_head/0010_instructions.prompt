@@ -1,3 +1,4 @@
+{{ "# Instructions" }}
 {% if render_mode == "transform" %}
 {% if length(promptForDialogue) > 0 %}
 Your task is to:
@@ -15,9 +16,13 @@ Your task is to:
 {% endif %}
 {% else %}
 
-Respond with an in-character line{% if is_narration_enabled() %} or necessary action{% endif %}  from {{ decnpc(npc.UUID).name }}'s perspective, and is consistent with their character. The line must:
-- Be directly react to the triggering event
-- Suit this character and this moment
+Your task is to craft immersive dialogue for {{ decnpc(actorUUID).name }}.
+
+Your response must:
+- Be uniquely tailored to this character and this moment
+- Be entirely in character and avoid all out-of-character commentary
+- Consider recent events, surroundings, or immediate concerns
+- Directly react to the triggering event
 {% if responseTarget and responseTarget.UUID != 0%}
 - Be clearly directed at {% if responseTarget.type == "player" %}{{ player.name }}{% else if responseTarget.type == "npc" %}{{ decnpc(responseTarget.UUID).name }}{% else %}everyone in the area{% endif %}
 {% endif %}

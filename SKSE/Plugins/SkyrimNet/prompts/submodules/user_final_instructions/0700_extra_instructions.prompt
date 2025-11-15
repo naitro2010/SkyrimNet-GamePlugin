@@ -1,0 +1,2 @@
+Use only basic punctuation (. , ! ?), avoid brackets, ellipses and special marks inside spoken dialogue. 
+{% if is_narration_enabled() %}Use asterisks EXCLUSIVELY for narration.{% endif %}
