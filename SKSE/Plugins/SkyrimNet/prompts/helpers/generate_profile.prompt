@@ -40,6 +40,7 @@ Your output should be efficient, direct, and usable as behavioral and dialogue g
 
 {% endif %}
 Please generate a character profile with the following sections in JSON format:
+{% raw %}
 {
   "summary": "Concise summary of the character's role, personality, and primary traits. Include only what would be perceptible by others.",
   "personality": "Clear, precise description of personality, core values, emotional tone, biases, and typical behavior.",
@@ -52,5 +53,6 @@ Please generate a character profile with the following sections in JSON format:
   "speech_style": "Clear instructions on speaking style, tone, mannerisms, and emotional delivery. Do not directly reference the speech type, but use it as guidance. Avoid including pet names or nicknames in the speech style.",
   "interject_summary": "Specific description of what topics, situations, or conversation themes would motivate this character to interject or join conversations. Be specific to their personality, expertise, interests, and concerns rather than generic."
 }
+{% endraw %}
 
 Base the profile on the provided game data, faction memberships, and recent events. {% if has_user_input %}Also strongly consider the additional input provided above when creating the character profile. {% endif %}Make it detailed and lore-appropriate for The Elder Scrolls universe. 

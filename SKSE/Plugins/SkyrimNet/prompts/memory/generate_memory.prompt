@@ -38,7 +38,7 @@ Create a coherent memory from the perspective of {{ actor_name }}. The memory sh
 
 {{ "## Response Format" }}
 Respond ONLY with a JSON object containing:
-
+{% raw %}
 ```json
 {
   "content": "First-person memory narrative describing the events and the actor's thoughts/feelings",
@@ -49,6 +49,7 @@ Respond ONLY with a JSON object containing:
   "type": "EXPERIENCE"
 }
 ```
+{% endraw %}
 
 {{ "### Memory Types:" }}
 - **EXPERIENCE**: General activities and interactions

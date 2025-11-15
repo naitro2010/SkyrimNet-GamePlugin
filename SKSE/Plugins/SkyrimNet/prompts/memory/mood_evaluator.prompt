@@ -48,6 +48,7 @@ Consider:
 
 {{ "# OUTPUT FORMAT" }}
 Return a JSON object with the following structure:
+{% raw %}
 ```json
 {
   "primaryMood": "<primary mood>",
@@ -57,6 +58,7 @@ Return a JSON object with the following structure:
   "towardPlayer": "<positive|neutral|negative|unknown>"
 }
 ```
+{% endraw %}
 
 Primary mood must be one of the available moods listed above.
 Secondary mood is optional and can be more specific or left as an empty string.

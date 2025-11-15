@@ -40,6 +40,7 @@ Summarize these events into a memory from {{ decnpc(actorUUID).name }}'s perspec
 
 {{ "# OUTPUT FORMAT" }}
 Return a JSON object with the following structure:
+{% raw %}
 ```json
 {
   "summary": "<brief memory summary (1-2 sentences)>",
@@ -49,4 +50,5 @@ Return a JSON object with the following structure:
   "memoryType": "<short|mid|long>"
 }
 ```
+{% endraw %}
 [ end user ] 

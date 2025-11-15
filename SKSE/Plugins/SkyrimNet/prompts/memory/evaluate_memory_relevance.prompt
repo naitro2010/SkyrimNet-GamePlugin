@@ -43,6 +43,7 @@ Evaluate which of the above events would be relevant to form memories for this N
 
 {{ "# OUTPUT FORMAT" }}
 Return a JSON object with the following structure:
+{% raw %}
 ```json
 {
   "relevantEvents": [
@@ -56,7 +57,7 @@ Return a JSON object with the following structure:
   ]
 }
 ```
-
+{% endraw %}
 Emotional impact should be one of: {{ join(moodsList, ", ") }}
 Importance score should be between 0-10, with 10 being extremely important to the NPC.
 [ end user ] 
