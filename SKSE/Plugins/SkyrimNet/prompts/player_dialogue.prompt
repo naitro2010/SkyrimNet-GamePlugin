@@ -29,37 +29,35 @@ Current nearby characters:
 {% endif %}
 
 [ user ]
+{{ render_subcomponent("guidelines", "transform") }}
+
+{{ "# FINAL INSTRUCTIONS" }}
+
 {% if triggeringEvent and triggeringEvent.type %}
-You just experienced a {{ triggeringEvent.type }} event. Respond with only a single concise dialogue line{% if is_narration_enabled() %} and/or brief narrative action{% endif %} that {{ decnpc(npc.UUID).name }} would speak aloud in reaction to this event.
-
+React audibly to this {{ triggeringEvent.type }} event with a single concise line{% if is_narration_enabled() %} and/or brief action{% endif %}.
 {% if triggeringEvent.data %}
-Consider the event details in your response: {{ format_event(triggeringEvent, "recent_events") }}
-{% endif %}
-
-{% if nearbyNPCs and length(nearbyNPCs) > 0 %}
-You are speaking audibly and can be heard by nearby characters. Speak as {{ decnpc(npc.UUID).name }} would in this moment.
-{% else %}
-You are speaking audibly, even though no one else is nearby. This could be talking to yourself, muttering, or exclaiming in reaction to the event.
+Event: {{ format_event(triggeringEvent, "recent_events") }}
 {% endif %}
 
 {% else %}
-{% if length(promptForDialogue) > 0 %}
-Transform the input "{{ promptForDialogue }}" into a natural dialogue line that {{ decnpc(npc.UUID).name }} would speak. You are speaking audibly. IMPORTANT: You must preserve the intent behind the words that you're transforming, while adapting it to {{ decnpc(npc.UUID).name }}'s character.
-{% else %}
-Speak as {{ decnpc(npc.UUID).name }} would in this moment, responding to the current situation. You are speaking audibly.
-Respond with only a brief dialogue {% if is_narration_enabled() %} or brief narrative action{% endif %} from {{ decnpc(npc.UUID).name }} in response to the current dialogue and situation, nothing else. Generally aim for no more than 2-4 sentences. Avoid making up details that are not present within the prompt you are provided.
+  {% if length(promptForDialogue) > 0 %}
+You have been provided with this input, which is a rough draft of something {{ decnpc(npc.UUID).name }} is about to say aloud: "{{ promptForDialogue }}"
+This line is spoken BY {{ decnpc(npc.UUID).name }}.  
+
+Your ONLY task now is to rewrite this line as natural spoken dialogue that {{ decnpc(npc.UUID).name }} actually says in the current scene.
+
+Hard constraints for this response:
+- IMPORTANT: You MUST say something conveying the draft "{{ promptForDialogue }}". Sticking to this is more important than scene continuity.
+- DO NOT mention the original sentence or describe that you are transforming it.
+- Aim for the length of your response to be 1-3 sentences. Avoid making up details not present in the prompt.
+  {% else %}
+Respond with brief dialogue{% if is_narration_enabled() %} and/or brief action{% endif %} to the current situation, nothing else. Aim for 1–3 sentences. Avoid making up details not present in the prompt.
+  {% endif %}
 {% endif %}
 
-{% if nearbyNPCs and length(nearbyNPCs) > 0 %}
-You are speaking audibly and can be heard by nearby characters.
-{% else %}
-You are speaking audibly, even though no one else is nearby.
-{% endif %}
+{% if not is_narration_enabled() %}
+For this response, include only spoken dialogue without any narration, asterisks, brackets, or ellipses.
 {% endif %}
 
 {{ render_subcomponent("user_final_instructions", "transform") }}
-
-{% if not is_narration_enabled() %}
-You must ONLY respond with dialogue. Do not include any form of narration, explanation, or any sort of non-speech content.
-{% endif %}
-[ end user ] 
+[ end user ]

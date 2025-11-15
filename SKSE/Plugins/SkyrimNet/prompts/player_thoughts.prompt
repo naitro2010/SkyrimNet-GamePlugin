@@ -34,51 +34,96 @@ Current nearby characters:
 {% endif %}
 
 [ user ]
+{{ render_subcomponent("guidelines", "thoughts") }}
+
+{{ "# FINAL INSTRUCTIONS" }}
+
 {% if triggeringEvent and triggeringEvent.type %}
-{% if triggeringEvent.type == "book_read" %}
-You just finished reading a book. Respond with your detailed internal thoughts about what you've read, including both a summary of the book's contents and your personal reflections on it. This should be an internal monologue from a first person perspective{% if is_narration_enabled() %} and may include narrative actions `Example: *{{ decnpc(npc.UUID).name }} closes the book thoughtfully*`{% endif %}. Aim for around 100 words or 2-6 lines of dialogue depending upon how relevant the book is to {{ decnpc(npc.UUID).name }}. Not every book needs to have a detailed response, it's okay to be succinct if the book seems unimportant.
+  {% if triggeringEvent.type == "book_read" %}
+You just finished reading a book. Respond with internal thoughts summarizing the contents and your personal reflection on it.
 
 {% if triggeringEvent.data %}
-{% set bookData = triggeringEvent.data %}
+  {% set bookData = triggeringEvent.data %}
 Book: "{{ bookData.book_title }}"
-{% if bookData.book_text and length(bookData.book_text) > 0 %}
+  {% if bookData.book_text and length(bookData.book_text) > 0 %}
 Contents: {{ bookData.book_text }}
 
-Provide a thoughtful analysis of this book's contents, what it means to you personally, how it relates to your current situation or knowledge, and any insights or questions it raises. Your thoughts should reflect both understanding of the material and your character's unique perspective on it. Disregard any placeholders in the text. 
-{% else %}
-While the specific contents weren't preserved, reflect on what this book might have contained based on its title and how reading it made you feel.
+Analyze what this means to you, how it relates to your situation, and insights or questions it raises. Disregard any placeholders in the text.
+  {% else %}
+Reflect on what this book might have contained based on its title.
+  {% endif %}
 {% endif %}
-{% endif %}
-{% else %}
-You just experienced a {{ triggeringEvent.type }} event. Respond with only a succinct internal thought from a first person perspective{% if is_narration_enabled() %} and/or brief supplemental narrative action `Example: *{{ decnpc(npc.UUID).name }} smiles warily*`{% endif %} from {{ decnpc(npc.UUID).name }}'s perspective, reacting to this specific event.
 
+Length based on relevance to {{ decnpc(npc.UUID).name }}:
+- 1–2 sentences for unimportant books
+- 2–6 sentences for moderately interesting books
+- Expand when deeply relevant to your character or situation
+- When uncertain, keep it shorter.
+
+  {% else %}
+React internally to this {{ triggeringEvent.type }} event{% if is_narration_enabled() %} with succinct thought{% if triggeringEvent.data %} and/or brief action{% endif %}{% endif %}.
 {% if triggeringEvent.data %}
-Consider the event details in your thought: {{ format_event(triggeringEvent, "verbose") }}
-{% endif %}
-{% endif %}
-
-{% else %}
-{% if length(promptForThoughts) > 0 %}
-Respond with only a succinct internal thought from a first person perspective{% if is_narration_enabled() %} and/or brief supplemental narrative action `Example: *{{ decnpc(npc.UUID).name }} smiles warily*`{% endif %} from {{ decnpc(npc.UUID).name }}'s perspective about their current thought focus, which is "{{ promptForThoughts }}". IMPORTANT: Your response MUST be about this subject.
-{% else %}
-Respond with only a succinct internal thought from a first person perspective{% if is_narration_enabled() %} and/or brief supplemental narrative action `Example: *{{ decnpc(npc.UUID).name }} smiles warily*`{% endif %} from {{ decnpc(npc.UUID).name }}'s perspective about the current situation.
-{% endif %}
+Event: {{ format_event(triggeringEvent, "verbose") }}
 {% endif %}
 
-{% if is_narration_enabled() %}
-CRITICAL FORMATTING RULES:
-- Asterisks (*) are ONLY for brief physical actions or expressions, like: *{{ player.name }} closes the book* or * {{ player.name }} frowns*
-- Your actual THOUGHTS must NEVER be wrapped in asterisks
-- Thoughts are plain text from first-person perspective
-- CORRECT example: "I wonder what that noise was... *{{ player.name }} glances toward the door* Could be trouble."
-- INCORRECT example: "*I wonder what that noise was*" (thoughts should not be in asterisks)
-- Most responses should be pure thought with NO asterisks at all
-{% endif %}
-Remember, you are thinking to yourself, not speaking audibly. Your response must be from a first person perspective, and will not be spoken audibly to another character. Do not include any preamble, or indicator that this is a thought.
-{% if triggeringEvent and triggeringEvent.type == "book_read" %}For book reading, provide a detailed internal analysis and reflection. Vary the length based upon how significant the text is to {{ player.name }} personally. Books and notes that are not particularly relevant should have short responses, where particularly relevant texts should have several paragraphs. Err towards keeping them shorter if you're not sure, or they're not highly and directly relevant.
+GROUNDING RULES:
+- Base your thoughts ONLY on: your character profile, the listed memories, the scene description, and the most recent dialogue/events.
+- Do NOT invent new people, places, factions, items, powers, or past events.
+- Do NOT assume specific future outcomes that have not happened yet; you may worry about them only in general terms.
+
+FOCUS:
+- Focus on what JUST CHANGED for you because of this event.
+- You may add a new reaction, realization, question, or intention, but it must follow logically from the information you already have.
+- Keep it to 1–2 sentences.
+  {% endif %}
+
 {% else %}
-Include only the first person thought, and nothing else.
+  {% if length(promptForThoughts) > 0 %}
+You are forming a single internal thought.
+
+SUBJECT:
+{{ promptForThoughts }}
+
+PRIORITY RULES (follow in this order):
+1) Your thought MUST be directly and obviously about the SUBJECT above.
+2) Stay completely in character as {{ decnpc(npc.UUID).name }}.
+3) Follow the style and formatting rules below.
+
+If any other instructions seem to conflict with staying on the SUBJECT, you MUST follow the SUBJECT.
+
+GROUNDING RULES:
+- Base your thought ONLY on: your character profile, the listed memories, the scene description, and the most recent dialogue/events.
+- Do NOT invent new people, places, factions, items, powers, or past events.
+- Do NOT assume detailed future events; you may think in general terms about what you hope or fear.
+
+CONTENT RULES:
+- Do NOT re-tell the full chain of past events; assume you already remember them clearly.
+- You may lightly reference past events only if it is necessary to express your thought about the SUBJECT.
+- Do NOT drift into unrelated worries or plans that are not clearly connected to the SUBJECT.
+- You MAY refine a feeling, make a small decision, or notice a detail, but it must all stay on-topic.
+
+STYLE:
+- Internal thought only: no spoken dialogue, no quotation marks, no asterisks.
+- 1–2 sentences maximum.
+
+  {% else %}
+You have already clearly remembered everything that has happened so far. Do NOT re-tell any of those events.
+
+Think internally about what you will do NEXT in this situation.
+
+GROUNDING RULES:
+- Base your thoughts ONLY on: your character profile, the listed memories, the scene description, and the most recent dialogue/events.
+- Do NOT invent new named NPCs, locations, factions, items, or specific incidents.
+- Keep future thinking vague and grounded (for example: deciding to speak to someone you already know, to return to a known place, or to rest), not detailed predictions.
+
+Hard constraints for this response:
+- Your ONLY task now is to form a brief internal thought about next steps, plans, or priorities you are considering.
+- Do NOT summarize past events; assume you remember them already.
+- If you cannot add a fully new plan without making things up, focus on clarifying which of your existing worries or options feels most important right now.
+- You must keep your response length to 1–2 sentences.
+  {% endif %}
 {% endif %}
 
+{# Only attach generic final instructions when we're NOT in a focused-thought mode #}
 {{ render_subcomponent("user_final_instructions", "thoughts") }}
-[ end user ] 
+[ end user ]
