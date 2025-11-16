@@ -49,9 +49,9 @@ Your ONLY task now is to rewrite this line as natural spoken dialogue that {{ de
 Hard constraints for this response:
 - IMPORTANT: You MUST say something conveying the draft "{{ promptForDialogue }}". Sticking to this is more important than scene continuity.
 - DO NOT mention the original sentence or describe that you are transforming it.
-- Aim for the length of your response to be 1-3 sentences. Avoid making up details not present in the prompt.
+- Aim for the length of your response to be 8-45 words. Avoid making up details not present in the prompt.
   {% else %}
-Respond with brief dialogue{% if is_narration_enabled() %} and/or brief action{% endif %} to the current situation, nothing else. Aim for 1–3 sentences. Avoid making up details not present in the prompt.
+Respond with brief dialogue{% if is_narration_enabled() %} and/or brief action{% endif %} to the current situation, nothing else. Aim for 8-45 words. Avoid making up details not present in the prompt.
   {% endif %}
 {% endif %}
 

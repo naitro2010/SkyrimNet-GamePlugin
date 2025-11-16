@@ -55,8 +55,8 @@ Reflect on what this book might have contained based on its title.
 {% endif %}
 
 Length based on relevance to {{ decnpc(npc.UUID).name }}:
-- 1–2 sentences for unimportant books
-- 2–6 sentences for moderately interesting books
+- 8-30 words for unimportant books
+- 16-90 words for moderately interesting books
 - Expand when deeply relevant to your character or situation
 - When uncertain, keep it shorter.
 
@@ -74,7 +74,7 @@ GROUNDING RULES:
 FOCUS:
 - Focus on what JUST CHANGED for you because of this event.
 - You may add a new reaction, realization, question, or intention, but it must follow logically from the information you already have.
-- Keep it to 1–2 sentences.
+- Keep it to 8-30 words.
   {% endif %}
 
 {% else %}
@@ -104,7 +104,7 @@ CONTENT RULES:
 
 STYLE:
 - Internal thought only: no spoken dialogue, no quotation marks, no asterisks.
-- 1–2 sentences maximum.
+- 8-30 words maximum.
 
   {% else %}
 You have already clearly remembered everything that has happened so far. Do NOT re-tell any of those events.
@@ -120,7 +120,7 @@ Hard constraints for this response:
 - Your ONLY task now is to form a brief internal thought about next steps, plans, or priorities you are considering.
 - Do NOT summarize past events; assume you remember them already.
 - If you cannot add a fully new plan without making things up, focus on clarifying which of your existing worries or options feels most important right now.
-- You must keep your response length to 1–2 sentences.
+- You must keep your response length to 8-30 words.
   {% endif %}
 {% endif %}
 

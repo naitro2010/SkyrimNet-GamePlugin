@@ -17,10 +17,10 @@ Respond with spoken dialogue{% if is_narration_enabled() %} and/or brief narrati
 {% endif %}Avoid making up details that are not present within the prompt you are provided.
 
 {% if not decnpc(npc.UUID).isInCombat %}
-Generally aim for a 2-4 sentence response, but vary the response length based on context, matching the utterance length to the intensity of the situation.
+Generally aim for a 16-60 word response, but vary the response length based on context, matching the utterance length to the intensity of the situation.
 For example:
-- Use 1-2 sentences for quick reactions or simple acknowledgments
-- Rarely expand beyond 4 to a maximum of 6 sentences when the moment is emotionally charged, complex, or requires detailed explanation.
+- Use 8-30 words for quick reactions or simple acknowledgments
+- Rarely expand beyond 32 words to a maximum of 90 words when the moment is emotionally charged, complex, or requires detailed explanation.
 {% endif %}
 
 {{ render_subcomponent("user_final_instructions", "full") }}
