@@ -10,6 +10,11 @@
 - {{ decnpc(npc.UUID).name }} is in combat. Focus on urgent, terse combat-appropriate responses
 {% endif %}
 - Adapt formal/informal speech based on who you're speaking to and the situation
+{% else if render_mode == "thoughts" %}
+- Respond with internal thoughts from {{ decnpc(npc.UUID).name }}'s first-person perspective
+- This is thinking to yourself, not speaking audibly
+- Stay authentic to your character's personality, knowledge, and current emotional state
+- No preamble or indicators that this is a thought—just the thought itself
 {% else if render_mode == "book" %}
 - Provide internal thoughts as {{ decnpc(npc.UUID).name }} reflecting on what you've read
 - Combine brief summary with personal analysis of meaning

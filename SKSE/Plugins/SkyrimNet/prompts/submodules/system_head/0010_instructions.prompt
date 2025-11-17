@@ -16,8 +16,11 @@ Your task is to:
 {% endif %}
 {% else %}
 
-Your task is to craft immersive dialogue for {{ decnpc(actorUUID).name }}.
-
+{% if render_mode == "thoughts" %}
+Your task is to craft immersive thoughts for {{ decnpc(npc.UUID).name }}.
+{% else %}
+Your task is to craft immersive dialogue for {{ decnpc(npc.UUID).name }}.
+{% endif %}
 Your response must:
 - Be uniquely tailored to this character and this moment
 - Be entirely in character and avoid all out-of-character commentary
