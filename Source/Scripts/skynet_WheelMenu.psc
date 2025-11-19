@@ -34,6 +34,7 @@ Function DisplayWheel() global
         ; Direct player dialogue processing
         SkyrimNetApi.TriggerPlayerDialogue()
     elseif result == 6
+        ; Utilities submenu
         skynet_WheelMenu.DisplayUtilities()
     endif
 
@@ -43,6 +44,13 @@ Function DisplayUtilities() global
 
     string labels = "Go Back,Toggle GameMaster,Toggle NPC Reactions,Continue Narration,Toggle Continuous Mode,Toggle Whisper Mode"
     string options = "Go Back,Toggle GameMaster,Toggle NPC Reactions,Continue Narration,Toggle Continuous Mode,Toggle Whisper Mode"
+
+    ; Option 6: White/Blacklist management only if there's a target under the crosshair
+    Actor akTarget = GetTargetFromCrosshair()
+    If akTarget
+        labels += ",White/Blacklist Mgmt"
+        options += ",White/Blacklist Mgmt"
+    EndIf
 
     int result = skynet_WheelMenu.MenuWheel(StringUtil.Split(options, ","), StringUtil.Split(labels, ","))
 
@@ -63,8 +71,67 @@ Function DisplayUtilities() global
     elseif result == 5
         ; Toggle whisper mode
         SkyrimNetApi.TriggerToggleWhisperMode()
+    elseif result == 6
+        ; White/Blacklist management submenu
+        ; This option only appears if there's a target under the crosshair
+        skynet_WheelMenu.DisplayFactionManagement(akTarget)
     endif
+EndFunction
 
+Function DisplayFactionManagement(Actor akTarget) global
+    Faction ActorWhitelistFaction = Game.GetFormFromFile(0x12DA, "SkyrimNet.esp") as Faction
+    Faction ActorBlacklistFaction = Game.GetFormFromFile(0x12DB, "SkyrimNet.esp") as Faction
+
+    UIMenuBase wheelMenu = uiextensions.GetMenu("UIWheelMenu")
+    If akTarget.IsInFaction(ActorWhitelistFaction)
+        wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 0, "Actor: Clear", "Remove from Whitelist")
+        wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 1, "Actor: Blacklist", akTarget.GetDisplayName() + " -> Blacklist")
+    ElseIf akTarget.IsInFaction(ActorBlacklistFaction)
+        wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 0, "Actor: Clear", "Remove from Blacklist")
+        wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 1, "Actor: Whitelist", akTarget.GetDisplayName() + " -> Whitelist")
+    Else
+        wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 0, "Actor: Whitelist", akTarget.GetDisplayName() + " -> Whitelist")
+        wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 1, "Actor: Blacklist", akTarget.GetDisplayName() + " -> Blacklist")
+    EndIf
+
+    ;/
+    If akTarget.IsInFaction(MemoryWhitelistFaction)
+        wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 4, "Memory: Clear", "Remove from Whitelist")
+        wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 5, "Memory: Blacklist", akTarget.GetDisplayName() + " -> Blacklist")
+    ElseIf akTarget.IsInFaction(MemoryBlacklistFaction)
+        wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 4, "Memory: Clear", "Remove from Blacklist")
+        wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 5, "Memory: Whitelist", akTarget.GetDisplayName() + " -> Whitelist")
+    Else
+        wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 4, "Memory: Whitelist", akTarget.GetDisplayName() + " -> Whitelist")
+        wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 5, "Memory: Blacklist", akTarget.GetDisplayName() + " -> Blacklist")
+    EndIf
+    /;
+
+    int result = wheelMenu.OpenMenu()
+    If akTarget.IsInFaction(ActorWhitelistFaction)
+        ; Actor is whitelisted
+        If result == 0
+            akTarget.RemoveFromFaction(ActorWhitelistFaction)
+        ElseIf result == 1
+            akTarget.RemoveFromFaction(ActorWhitelistFaction)
+            akTarget.AddToFaction(ActorBlacklistFaction)
+        EndIf
+    ElseIf akTarget.IsInFaction(ActorBlacklistFaction)
+        ; Actor is blacklisted
+        If result == 0
+            akTarget.RemoveFromFaction(ActorBlacklistFaction)
+        ElseIf result == 1
+            akTarget.RemoveFromFaction(ActorBlacklistFaction)
+            akTarget.AddToFaction(ActorWhitelistFaction)
+        EndIf
+    Else
+        ; Actor is neither whitelisted nor blacklisted
+        If result == 0
+            akTarget.AddToFaction(ActorWhitelistFaction)
+        ElseIf result == 1
+            akTarget.AddToFaction(ActorBlacklistFaction)
+        EndIf
+    EndIf
 EndFunction
 
 int Function MenuWheel(String[] options, string[] labels) global
@@ -78,4 +145,24 @@ int Function MenuWheel(String[] options, string[] labels) global
         i += 1
     endwhile 
     return wheelMenu.OpenMenu()
+EndFunction
+
+UIMenuBase Function SetWheelEntry(UIMenuBase menu, int menuIndex, string label, string text, bool enabled = true) global
+    if(menuIndex > 7)
+        ; Menu index out of bounds
+        return menu
+    endif
+    menu.SetPropertyIndexbool(PropertyName = "optionEnabled", index = menuIndex, value = enabled)
+    menu.SetPropertyIndexString(PropertyName = "optionText", index = menuIndex, value = text)
+    menu.SetPropertyIndexString(PropertyName = "optionLabelText", index = menuIndex, value = label)
+    return menu
+EndFunction
+
+Actor Function GetTargetFromCrosshair() global
+    Actor targetRef = (Game.GetCurrentCrosshairRef() as Actor)
+    If targetRef
+		Return targetRef
+    Else
+        Return None
+	EndIf
 EndFunction
