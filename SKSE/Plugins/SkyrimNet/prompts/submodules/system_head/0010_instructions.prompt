@@ -24,7 +24,6 @@ Your task is to craft immersive dialogue for {{ decnpc(npc.UUID).name }}.
 Your response must:
 - Be uniquely tailored to this character and this moment
 - Be entirely in character and avoid all out-of-character commentary
-- Consider recent events, surroundings, or immediate concerns
 - Directly react to the triggering event
 {% if responseTarget and responseTarget.UUID != 0%}
 - Be clearly directed at {% if responseTarget.type == "player" %}{{ player.name }}{% else if responseTarget.type == "npc" %}{{ decnpc(responseTarget.UUID).name }}{% else %}everyone in the area{% endif %}
