@@ -471,6 +471,35 @@ int function PrepareNPCDialogue(String playerDialogueText) Global Native
 bool function IsNPCDialogueReady() Global Native
 
 ; -----------------------------------------------------------------------------
+; --- C++ Hotkey Manager Control ---
+; -----------------------------------------------------------------------------
+
+; Enable or disable the C++ hotkey manager
+; - enabled: true to enable C++ hotkeys, false to disable them
+; Returns 0 on success, 1 on failure
+int function SetCppHotkeysEnabled(bool enabled) Global Native
+
+; Check if C++ hotkey manager is currently enabled
+; Returns true if C++ hotkeys are enabled, false otherwise
+bool function IsCppHotkeysEnabled() Global Native
+
+; -----------------------------------------------------------------------------
+; --- Crosshair Capture Hotkey (OmniSight) ---
+; -----------------------------------------------------------------------------
+
+; Simulates pressing the crosshair capture hotkey (OmniSight)
+; No action on press - waits for release to determine intent
+; Returns 0 on success, 1 on failure
+int function TriggerCaptureCrosshairPressed() Global Native
+
+; Simulates releasing the crosshair capture hotkey (OmniSight)
+; - holdDuration: How long the key was held in seconds
+;   - Quick press (< 1.0s): Captures crosshair target (actor or furniture)
+;   - Long press (>= 1.0s): Captures player
+; Returns 0 on success, 1 on failure
+int function TriggerCaptureCrosshairReleased(float holdDuration) Global Native
+
+; -----------------------------------------------------------------------------
 ; --- Events ---
 ; -----------------------------------------------------------------------------
 
