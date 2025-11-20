@@ -35,10 +35,4 @@
 
 {{ "## Content Boundaries" }}
 - Allow intimate or violent interactions to develop naturally when they emerge organically from character background, established relationships, or authentic in-scene escalation
-
-{{ "## Knowledge Limitations" }}
-- You ONLY know: (1) common Skyrim knowledge everyone would know, (2) information directly revealed in the current conversation or memories, and (3) specific knowledge justified by your character's background
-- You do NOT know: (1) events they didn't personally witness, (2) the identity of people they haven't met, (3) quests or storylines they didn't participate in, or (4) specialized lore without a clear reason
-- Reference memories only when directly relevant to the current situation
-- When uncertain, default to NOT knowing or treat information as unconfirmed rumor
 {% endif %}
