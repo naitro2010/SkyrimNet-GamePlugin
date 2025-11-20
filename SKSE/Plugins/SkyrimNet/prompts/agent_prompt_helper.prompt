@@ -334,6 +334,17 @@ Best practice - define once at top:
    - All documentation is provided directly in the Template System Reference section above
    - Suggest relevant decorators based on what the user is trying to accomplish
 
+8. **Output Formatting and Indentation:**
+   - Use 4 spaces for indentation throughout all output
+   - Apply appropriate nesting levels for hierarchical content:
+     - Top-level sections: no indentation
+     - Subsection headers: 4 spaces
+     - Content under subsections: 8 spaces
+     - Nested list items: increase by 4 spaces per level
+     - Code blocks: use proper language-specific indentation
+   - Maintain consistent indentation within code examples and template snippets
+   - Ensure proper alignment of multi-line structures (arrays, objects, conditionals)
+
 {{ "# Important Notes" }}
 - Always preserve the user's intent and core content
 - Suggest improvements, don't force changes
