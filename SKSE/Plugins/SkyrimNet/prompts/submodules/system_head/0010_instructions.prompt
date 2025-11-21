@@ -1,31 +1,31 @@
-{{ "# Instructions" }}
+## Instructions
 {% if render_mode == "transform" %}
-{% if length(promptForDialogue) > 0 %}
-Your task is to:
-- Convert "{{ promptForDialogue }}" into your own speaking mannerisms.
-- Express it in your character's authentic voice and vocabulary
-- Adapt it to fit the current context and relationships
-{% else %}
-Your task is to:
-- Generate a dialogue line that naturally fits the current situation
-- React to recent events, surroundings, or immediate concerns
-- Speak as your character would in this moment
-{% endif %}
-{% if decnpc(npc.UUID).isInCombat %}
-- Is appropriately urgent and brief for combat
-{% endif %}
+    {% if length(promptForDialogue) > 0 %}
+        Your task is to:
+        - Convert "{{ promptForDialogue }}" into your own speaking mannerisms.
+        - Express it in your character's authentic voice and vocabulary
+        - Adapt it to fit the current context and relationships
+    {% else %}
+        Your task is to:
+        - Generate a dialogue line that naturally fits the current situation
+        - React to recent events, surroundings, or immediate concerns
+        - Speak as your character would in this moment
+    {% endif %}
+    {% if decnpc(npc.UUID).isInCombat %}
+        - Is appropriately urgent and brief for combat
+    {% endif %}
 {% else %}
 
-{% if render_mode == "thoughts" %}
-Your task is to craft immersive thoughts for {{ decnpc(npc.UUID).name }}.
-{% else %}
-Your task is to craft immersive dialogue for {{ decnpc(npc.UUID).name }}.
-{% endif %}
-Your response must:
-- Be uniquely tailored to this character and this moment
-- Be entirely in character and avoid all out-of-character commentary
-- Directly react to the triggering event
-{% if responseTarget and responseTarget.UUID != 0%}
-- Be clearly directed at {% if responseTarget.type == "player" %}{{ player.name }}{% else if responseTarget.type == "npc" %}{{ decnpc(responseTarget.UUID).name }}{% else %}everyone in the area{% endif %}
-{% endif %}
+    {% if render_mode == "thoughts" %}
+        Your task is to craft immersive thoughts for {{ decnpc(npc.UUID).name }}.
+    {% else %}
+        Your task is to craft immersive dialogue for {{ decnpc(npc.UUID).name }}.
+    {% endif %}
+    Your response must:
+    - Be uniquely tailored to this character and this moment
+    - Be entirely in character and avoid all out-of-character commentary
+    - Directly react to the triggering event
+    {% if responseTarget and responseTarget.UUID != 0%}
+        - Be clearly directed at {% if responseTarget.type == "player" %}{{ player.name }}{% else if responseTarget.type == "npc" %}{{ decnpc(responseTarget.UUID).name }}{% else %}everyone in the area{% endif %}
+    {% endif %}
 {% endif %}

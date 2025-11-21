@@ -1,30 +1,30 @@
-You are an expert on the Elder Scrolls universe, especially Skyrim. Your task is to analyze recent events, and create coherent memories for NPC's within the game. 
+You are an expert on the Elder Scrolls universe, especially Skyrim. Your task is to analyze recent events, and create coherent memories for NPC's within the game.
 
 {# include the setting in memory generation #}
 {{ render_template("submodules\\system_head\\0010_setting") }}
 
 Generate a first-person memory for {{ actor_name }} based on the provided events.
 
-{{ "## Context" }}
+## Context
 - **Actor:** {{ actor_name }} (THIS IS YOU)
 - **Current Location:** {{ current_location }}
 - **Number of Events:** {{ num_events }}
 
 {{ render_character_profile("full", actor_uuid) }}
 
-{{ "## Actors Involved" }}
+## Actors Involved
 The following actors are involved in these memories:
 {% for actor in actors_involved %}
-- **{{ actor.name }}**{% if actor.is_main_actor %} (THIS IS YOU){% endif %}{% if actor.is_player %} (The Player){% endif %}
-  - Race: {{ actor.race }}
-  - Gender: {{ actor.gender }}
-  - Summary: {{ render_character_profile("short_inline", actor.UUID) }}
+    - **{{ actor.name }}**{% if actor.is_main_actor %} (THIS IS YOU){% endif %}{% if actor.is_player %} (The Player){% endif %}
+        - Race: {{ actor.race }}
+        - Gender: {{ actor.gender }}
+        - Summary: {{ render_character_profile("short_inline", actor.UUID) }}
 {% endfor %}
 
-{{ "## Recent Events" }}
+## Recent Events
 {{ render_template("components\\event_history_verbose") }}
 
-{{ "## Instructions" }}
+## Instructions
 Create a coherent memory from the perspective of {{ actor_name }}. The memory should:
 1. Be written in first person ("I", "me", "my")
 2. Describe what happened from the actor's perspective
@@ -36,7 +36,7 @@ Create a coherent memory from the perspective of {{ actor_name }}. The memory sh
 8. Don't include times such as "Last week". All memories should be a present tense recollection.
 9. IMPORTANT: Be specific about what happened in graphic and vivid detail. Don't allude to things that happened, be specific. This memory will be used later to help an LLM understand what happened.
 
-{{ "## Response Format" }}
+## Response Format
 Respond ONLY with a JSON object containing:
 {% raw %}
 ```json
@@ -51,16 +51,16 @@ Respond ONLY with a JSON object containing:
 ```
 {% endraw %}
 
-{{ "### Memory Types:" }}
+### Memory Types:
 - **EXPERIENCE**: General activities and interactions
-- **RELATIONSHIP**: Social interactions with other characters  
+- **RELATIONSHIP**: Social interactions with other characters
 - **KNOWLEDGE**: Learning new information or skills
 - **LOCATION**: Significant experiences tied to places
 - **SKILL**: Achievements, practice, or skill development
 - **TRAUMA**: Negative or distressing experiences
 - **JOY**: Positive, uplifting experiences
 
-{{ "### Importance Score Guidelines:" }}
+### Importance Score Guidelines:
 **High Importance (0.7-1.0):**
 - Life-threatening or dangerous situations
 - Major emotional events (love, loss, betrayal, triumph)
@@ -89,7 +89,7 @@ Respond ONLY with a JSON object containing:
 - Environmental observations without personal impact
 - Background events that don't directly involve you
 
-{{ "### Content Guidelines:" }}
+### Content Guidelines:
 - **Names**: Always include specific character names when mentioned
 - **Locations**: Use full location names (e.g., "Arcadia's Cauldron in Whiterun" not just "the shop").
 - **Activities**: Describe specific actions (e.g., "sold iron daggers" not "did some trading")
@@ -97,11 +97,11 @@ Respond ONLY with a JSON object containing:
 - **Sensory Details**: Include what the character saw, heard, or felt when relevant
 - **Length**: Keep the response as short as is effective to convey what happened. Generally aim for a 2-8 sentence summary.
 
-{{ "### Tag Guidelines:" }}
+### Tag Guidelines:
 Include 5-25 relevant tags focusing on:
 - Character names mentioned (e.g., "belethor", "guards", "arcadia")
 - Specific locations (e.g., "whiterun", "dragonsreach", "marketplace")
 - Key activities (e.g., "trading", "combat", "conversation", "quest", "sex")
 - Important items or subjects (e.g., "thalmor", "nord", "selling", "trouble")
-- Emotional themes (e.g., "pride", "fear", "anger", "friendship") 
+- Emotional themes (e.g., "pride", "fear", "anger", "friendship")
 Use as many tags as is necessary in order to thoroughly tag the memory, up to the limit.
