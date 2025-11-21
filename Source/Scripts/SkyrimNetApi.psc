@@ -164,6 +164,13 @@ bool function GetJsonBool(String jsonString, String key, bool defaultValue) Glob
 float function GetJsonFloat(String jsonString, String key, float defaultValue) Global Native
 Actor function GetJsonActor(String jsonString, String key, Actor defaultValue) Global Native
 
+; Joins a list of strings into a comma/and-separated list with optional noun phrase
+; - strings: The array of strings to join (e.g., ["apple", "orange", "banana"])
+; - noun: Optional array with [singular, plural] forms (e.g., ["creature", "creatures"])
+;         If provided, appends " is <singular>" for 1 item or " are <plural>" for multiple
+; Returns: The joined string (e.g., "apple, orange and banana" or "apple is creature")
+String function JoinStrings(String[] strings, String[] noun) Global Native
+
 ; Utility functions to access configuration values
 String function GetConfigString(String configName, String path, String defaultValue) Global Native
 int function GetConfigInt(String configName, String path, int defaultValue) Global Native
