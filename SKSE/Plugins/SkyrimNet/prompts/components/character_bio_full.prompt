@@ -1,35 +1,35 @@
-{{ "# " }}{{ decnpc(npc.UUID).name }}{{" Bio" }}
+## {{ decnpc(npc.UUID).name }} Bio
 - Gender: {{ decnpc(npc.UUID).gender }}
 - Race: {{ decnpc(npc.UUID).race }}
-{{ "## Background" }}
+## Background
 {% block background %}{% endblock %}
 
-{{ "## Personality" }}
+## Personality
 {% block personality %}{% endblock %}
 
-{{ "## Appearance" }}
+## Appearance
 {% block appearance %}{% endblock %}
 
-{{ "## Aspirations" }}
+## Aspirations
 {% block aspirations %}{% endblock %}
 
-{{ "## Relationships" }}
+## Relationships
 {% block relationships %}{% endblock %}
 
-{{ "## Occupation" }}
+## Occupation
 {% block occupation %}{% endblock %}
 
-{{ "## Skills" }}
+## Skills
 {% block skills %}{% endblock %}
 
-{{ "## Speech Style" }}
+## Speech Style
 {% block speech_style %}{% endblock %}
 
-{{ "## General World Knowledge" }}
+## General World Knowledge
 {% block quest_integrations %}
 {% for quest in get_all_active_quests() %}
-{% if quest.editorID and prompt_file_exists(quest.editorID, "quests") %}
-{{ render_quest_template(quest.editorID) }}
-{% endif %}
+    {% if quest.editorID and prompt_file_exists(quest.editorID, "quests") %}
+        {{ render_quest_template(quest.editorID) }}
+    {% endif %}
 {% endfor %}
 {% endblock %}

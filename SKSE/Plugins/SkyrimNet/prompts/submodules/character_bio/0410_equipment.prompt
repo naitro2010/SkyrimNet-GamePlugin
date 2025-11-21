@@ -1,29 +1,29 @@
 {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "equipment" %}
-{{ "### Worn Equipment " }}
-{% set npc_equipment = get_worn_equipment(npc.UUID) %}
-{% for slot, item in npc_equipment %}
-{% if is_item_enabled(item.formID) %}
-{% if item.equipment_slot == "leftHand" or item.equipment_slot == "rightHand" %}
-**{{ item.equipment_slot }}**: {{ get_item_name(item.formID) }}{% if length(get_item_description(item.formID)) > 0 %} - {{ get_item_description(item.formID) }}{% endif %} {% if has_weapon_drawn(npc.UUID) %}(drawn){% else %}(sheathed){% endif %}
-{% else %}
-**{{ item.equipment_slot }}**: {{ get_item_name(item.formID) }}{% if length(get_item_description(item.formID)) > 0 %} - {{ get_item_description(item.formID) }}{% endif %}
-{% endif %} {# end left hand / right hand check #}
-{% endif %}{# end is item enabled #}
-{% endfor %}
+    ### Worn Equipment
+    {% set npc_equipment = get_worn_equipment(npc.UUID) %}
+    {% for slot, item in npc_equipment %}
+        {% if is_item_enabled(item.formID) %}
+            {% if item.equipment_slot == "leftHand" or item.equipment_slot == "rightHand" %}
+                **{{ item.equipment_slot }}**: {{ get_item_name(item.formID) }}{% if length(get_item_description(item.formID)) > 0 %} - {{ get_item_description(item.formID) }}{% endif %} {% if has_weapon_drawn(npc.UUID) %}(drawn){% else %}(sheathed){% endif %}
+            {% else %}
+                **{{ item.equipment_slot }}**: {{ get_item_name(item.formID) }}{% if length(get_item_description(item.formID)) > 0 %} - {{ get_item_description(item.formID) }}{% endif %}
+            {% endif %} {# end left hand / right hand check #}
+        {% endif %}{# end is item enabled #}
+    {% endfor %}
 {% endif %} {# End render_mode check #}
 
 {% if render_mode == "dialogue_target" %}
-{% if responseTarget and responseTarget.UUID != 0 %}
-{{ "### Worn Equipment " }}
-{% set target_equipment = get_worn_equipment(responseTarget.UUID) %}
-{% for slot, item in target_equipment %}
-{% if is_item_enabled(item.formID) %}
-{% if item.equipment_slot == "leftHand" or item.equipment_slot == "rightHand" %}
-**{{ item.equipment_slot }}**: {{ get_item_name(item.formID) }}{% if length(get_item_description(item.formID)) > 0 %} - {{ get_item_description(item.formID) }}{% endif %} {% if has_weapon_drawn(responseTarget.UUID) %}(drawn){% else %}(sheathed){% endif %}
-{% else %}
-**{{ item.equipment_slot }}**: {{ get_item_name(item.formID) }}{% if length(get_item_description(item.formID)) > 0 %} - {{ get_item_description(item.formID) }}{% endif %}
-{% endif %} {# end left hand / right hand check #}
-{% endif %}{# end is item enabled #}
-{% endfor %}
-{% endif %}
+    {% if responseTarget and responseTarget.UUID != 0 %}
+        ### Worn Equipment
+        {% set target_equipment = get_worn_equipment(responseTarget.UUID) %}
+        {% for slot, item in target_equipment %}
+            {% if is_item_enabled(item.formID) %}
+                {% if item.equipment_slot == "leftHand" or item.equipment_slot == "rightHand" %}
+                    **{{ item.equipment_slot }}**: {{ get_item_name(item.formID) }}{% if length(get_item_description(item.formID)) > 0 %} - {{ get_item_description(item.formID) }}{% endif %} {% if has_weapon_drawn(responseTarget.UUID) %}(drawn){% else %}(sheathed){% endif %}
+                {% else %}
+                    **{{ item.equipment_slot }}**: {{ get_item_name(item.formID) }}{% if length(get_item_description(item.formID)) > 0 %} - {{ get_item_description(item.formID) }}{% endif %}
+                {% endif %} {# end left hand / right hand check #}
+            {% endif %}{# end is item enabled #}
+        {% endfor %}
+    {% endif %}
 {% endif %} {# end render mode check #}

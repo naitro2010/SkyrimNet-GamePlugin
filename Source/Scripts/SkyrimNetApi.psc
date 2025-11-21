@@ -164,6 +164,13 @@ bool function GetJsonBool(String jsonString, String key, bool defaultValue) Glob
 float function GetJsonFloat(String jsonString, String key, float defaultValue) Global Native
 Actor function GetJsonActor(String jsonString, String key, Actor defaultValue) Global Native
 
+; Joins a list of strings into a comma/and-separated list with optional noun phrase
+; - strings: The array of strings to join (e.g., ["apple", "orange", "banana"])
+; - noun: Optional array with [singular, plural] forms (e.g., ["creature", "creatures"])
+;         If provided, appends " is <singular>" for 1 item or " are <plural>" for multiple
+; Returns: The joined string (e.g., "apple, orange and banana" or "apple is creature")
+String function JoinStrings(String[] strings, String[] noun) Global Native
+
 ; Utility functions to access configuration values
 String function GetConfigString(String configName, String path, String defaultValue) Global Native
 int function GetConfigInt(String configName, String path, int defaultValue) Global Native
@@ -469,6 +476,35 @@ int function PrepareNPCDialogue(String playerDialogueText) Global Native
 
 ; Check if NPC dialogue (vanilla or TTS-generated) is ready to play
 bool function IsNPCDialogueReady() Global Native
+
+; -----------------------------------------------------------------------------
+; --- C++ Hotkey Manager Control ---
+; -----------------------------------------------------------------------------
+
+; Enable or disable the C++ hotkey manager
+; - enabled: true to enable C++ hotkeys, false to disable them
+; Returns 0 on success, 1 on failure
+int function SetCppHotkeysEnabled(bool enabled) Global Native
+
+; Check if C++ hotkey manager is currently enabled
+; Returns true if C++ hotkeys are enabled, false otherwise
+bool function IsCppHotkeysEnabled() Global Native
+
+; -----------------------------------------------------------------------------
+; --- Crosshair Capture Hotkey (OmniSight) ---
+; -----------------------------------------------------------------------------
+
+; Simulates pressing the crosshair capture hotkey (OmniSight)
+; No action on press - waits for release to determine intent
+; Returns 0 on success, 1 on failure
+int function TriggerCaptureCrosshairPressed() Global Native
+
+; Simulates releasing the crosshair capture hotkey (OmniSight)
+; - holdDuration: How long the key was held in seconds
+;   - Quick press (< 1.0s): Captures crosshair target (actor or furniture)
+;   - Long press (>= 1.0s): Captures player
+; Returns 0 on success, 1 on failure
+int function TriggerCaptureCrosshairReleased(float holdDuration) Global Native
 
 ; -----------------------------------------------------------------------------
 ; --- Events ---

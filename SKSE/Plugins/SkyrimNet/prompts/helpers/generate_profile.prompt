@@ -5,18 +5,18 @@ Use Skyrim lore to enrich sparse input where appropriate, based on realistic in-
 
 Your output should be efficient, direct, and usable as behavioral and dialogue guidance for an LLM-controlled NPC.
 
-{{ "## Guidelines:" }}
+## Guidelines:
 * Use Skyrim lore confidently to enrich grounded context. All additions must remain immersive and plausible for the {{ actor_name }}'s role, location, and relationships.
 * Maintain accuracy with published Skyrim lore, combined with the provided input. Do not make up lore.
 * Prioritize brevity, clarity, and roleplay utility. Avoid vague qualifiers like "might," "could," or "occasionally."
 * Do not instruct the LLM to say anything. Instead, describe the knowledge the {{ actor_name }} has access to in-world.
 
-{{ "### Speech Style Guidelines:" }}
+### Speech Style Guidelines:
 * Describe tone, sentence rhythm, accent, and delivery style.
 * Do not include nicknames or pet names like "love" or "dear" in the speech style.
 * Focus on practical cues for tone: clipped, warm, formal, terse, etc.
 
-{{ "## Character Information" }}
+## Character Information
 - Name: {{ actor_name }}
 - Race: {{ actor_race }}
 - Sex: {{ actor_sex }}
@@ -25,17 +25,17 @@ Your output should be efficient, direct, and usable as behavioral and dialogue g
 - Voice Type: {{ actor_voice_id }}
 
 {% if num_factions > 0 %}
-{{ "### Faction Memberships" }}
+### Faction Memberships
 {% for faction in factions %}
-- {{ faction.name }} (Rank: {{ faction.rank }})
+    - {{ faction.name }} (Rank: {{ faction.rank }})
 {% endfor %}
 
 {% endif %}
-{{ "## Recent Events" }}
+## Recent Events
 {{ render_template("components\\event_history_verbose") }}
 
 {% if has_user_input %}
-{{ "## Additional Input" }}
+## Additional Input
 {{ user_input }}
 
 {% endif %}
@@ -55,4 +55,4 @@ Please generate a character profile with the following sections in JSON format:
 }
 {% endraw %}
 
-Base the profile on the provided game data, faction memberships, and recent events. {% if has_user_input %}Also strongly consider the additional input provided above when creating the character profile. {% endif %}Make it detailed and lore-appropriate for The Elder Scrolls universe. 
+Base the profile on the provided game data, faction memberships, and recent events. {% if has_user_input %}Also strongly consider the additional input provided above when creating the character profile. {% endif %}Make it detailed and lore-appropriate for The Elder Scrolls universe.

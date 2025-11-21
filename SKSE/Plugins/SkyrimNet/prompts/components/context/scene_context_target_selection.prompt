@@ -1,9 +1,9 @@
 {% block setup %}
 {% endblock %}
-{{ "## Nearby People" }}
+## Nearby People
 {% block nearbyNpcs %}
 {% endblock %}
 
-{{ "## Current Location" }}
+## Current Location
 {% block currentLocation %}
 {% endblock %}

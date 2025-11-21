@@ -59,6 +59,8 @@ Function Maintenance(skynet_MainController _skynet)
     RegisterActions()
     InitVRIntegrations()
     InitDBVOIntegration()
+    ResetHotkeyStates()
+    InitializeInGameHotkeys()
     skynet.Info("Library initialized")
 EndFunction
 
@@ -628,3 +630,330 @@ Event OnPlayDBVOTopic(string eventName, string strArg, float numArg, Form sender
     ; Proceed with DBVO callback
     UI.InvokeString("Dialogue Menu", "_root.DialogueMenu_mc.startTopicClickedTimer", "off")
 EndEvent
+
+; -----------------------------------------------------------------------------
+; --- In-Game Hotkey System ---
+; -----------------------------------------------------------------------------
+
+; Hotkey properties - stores key codes for each hotkey
+Int Property hotkeyRecordSpeech = -1 Auto Hidden
+Int Property hotkeyTextInput = -1 Auto Hidden
+Int Property hotkeyToggleGameMaster = -1 Auto Hidden
+Int Property hotkeyTextThought = -1 Auto Hidden
+Int Property hotkeyVoiceThought = -1 Auto Hidden
+Int Property hotkeyTextDialogueTransform = -1 Auto Hidden
+Int Property hotkeyVoiceDialogueTransform = -1 Auto Hidden
+Int Property hotkeyToggleContinuousMode = -1 Auto Hidden
+Int Property hotkeyToggleWorldEventReactions = -1 Auto Hidden
+Int Property hotkeyDirectInput = -1 Auto Hidden
+Int Property hotkeyVoiceDirectInput = -1 Auto Hidden
+Int Property hotkeyContinueNarration = -1 Auto Hidden
+Int Property hotkeyToggleWhisperMode = -1 Auto Hidden
+Int Property hotkeyToggleOpenMic = -1 Auto Hidden
+Int Property hotkeyCaptureCrosshair = -1 Auto Hidden
+
+Bool Property inGameHotkeysEnabled = false Auto Hidden
+
+; Track which keys are currently pressed to detect press/release
+; Using individual bools instead of arrays to support keycodes > 127
+Bool pressedRecordSpeech = false
+Bool pressedVoiceThought = false
+Bool pressedVoiceDialogueTransform = false
+Bool pressedVoiceDirectInput = false
+Bool pressedCaptureCrosshair = false
+
+; Track press times for hold detection
+Float timestampRecordSpeech = 0.0
+Float timestampVoiceThought = 0.0
+Float timestampVoiceDialogueTransform = 0.0
+Float timestampVoiceDirectInput = 0.0
+Float timestampCaptureCrosshair = 0.0
+
+Function ResetHotkeyStates()
+    ; Reset all press tracking states to prevent stuck keys
+    pressedRecordSpeech = false
+    pressedVoiceThought = false
+    pressedVoiceDialogueTransform = false
+    pressedVoiceDirectInput = false
+    pressedCaptureCrosshair = false
+    
+    timestampRecordSpeech = 0.0
+    timestampVoiceThought = 0.0
+    timestampVoiceDialogueTransform = 0.0
+    timestampVoiceDirectInput = 0.0
+    timestampCaptureCrosshair = 0.0
+EndFunction
+
+Function InitializeInGameHotkeys()
+    ; Apply the saved hotkey setting
+    If inGameHotkeysEnabled
+        ; If in-game hotkeys are enabled, disable native hotkeys and register for key events
+        SkyrimNetApi.SetCppHotkeysEnabled(false)
+        RegisterConfiguredHotkeys()
+        skynet.Info("In-game hotkeys enabled on load")
+    Else
+        ; If in-game hotkeys are disabled, ensure native hotkeys are enabled
+        SkyrimNetApi.SetCppHotkeysEnabled(true)
+        skynet.Info("Native hotkeys enabled on load")
+    EndIf
+EndFunction
+
+Function RegisterConfiguredHotkeys()
+    ; Register for each configured hotkey
+    If hotkeyRecordSpeech != -1
+        RegisterForKey(hotkeyRecordSpeech)
+    EndIf
+    If hotkeyTextInput != -1
+        RegisterForKey(hotkeyTextInput)
+    EndIf
+    If hotkeyToggleGameMaster != -1
+        RegisterForKey(hotkeyToggleGameMaster)
+    EndIf
+    If hotkeyTextThought != -1
+        RegisterForKey(hotkeyTextThought)
+    EndIf
+    If hotkeyVoiceThought != -1
+        RegisterForKey(hotkeyVoiceThought)
+    EndIf
+    If hotkeyTextDialogueTransform != -1
+        RegisterForKey(hotkeyTextDialogueTransform)
+    EndIf
+    If hotkeyVoiceDialogueTransform != -1
+        RegisterForKey(hotkeyVoiceDialogueTransform)
+    EndIf
+    If hotkeyToggleContinuousMode != -1
+        RegisterForKey(hotkeyToggleContinuousMode)
+    EndIf
+    If hotkeyToggleWorldEventReactions != -1
+        RegisterForKey(hotkeyToggleWorldEventReactions)
+    EndIf
+    If hotkeyDirectInput != -1
+        RegisterForKey(hotkeyDirectInput)
+    EndIf
+    If hotkeyVoiceDirectInput != -1
+        RegisterForKey(hotkeyVoiceDirectInput)
+    EndIf
+    If hotkeyContinueNarration != -1
+        RegisterForKey(hotkeyContinueNarration)
+    EndIf
+    If hotkeyToggleWhisperMode != -1
+        RegisterForKey(hotkeyToggleWhisperMode)
+    EndIf
+    If hotkeyToggleOpenMic != -1
+        RegisterForKey(hotkeyToggleOpenMic)
+    EndIf
+    If hotkeyCaptureCrosshair != -1
+        RegisterForKey(hotkeyCaptureCrosshair)
+    EndIf
+EndFunction
+
+Function UnregisterAllHotkeys()
+    ; Unregister each configured hotkey individually
+    If hotkeyRecordSpeech != -1
+        UnregisterForKey(hotkeyRecordSpeech)
+    EndIf
+    If hotkeyTextInput != -1
+        UnregisterForKey(hotkeyTextInput)
+    EndIf
+    If hotkeyToggleGameMaster != -1
+        UnregisterForKey(hotkeyToggleGameMaster)
+    EndIf
+    If hotkeyTextThought != -1
+        UnregisterForKey(hotkeyTextThought)
+    EndIf
+    If hotkeyVoiceThought != -1
+        UnregisterForKey(hotkeyVoiceThought)
+    EndIf
+    If hotkeyTextDialogueTransform != -1
+        UnregisterForKey(hotkeyTextDialogueTransform)
+    EndIf
+    If hotkeyVoiceDialogueTransform != -1
+        UnregisterForKey(hotkeyVoiceDialogueTransform)
+    EndIf
+    If hotkeyToggleContinuousMode != -1
+        UnregisterForKey(hotkeyToggleContinuousMode)
+    EndIf
+    If hotkeyToggleWorldEventReactions != -1
+        UnregisterForKey(hotkeyToggleWorldEventReactions)
+    EndIf
+    If hotkeyDirectInput != -1
+        UnregisterForKey(hotkeyDirectInput)
+    EndIf
+    If hotkeyVoiceDirectInput != -1
+        UnregisterForKey(hotkeyVoiceDirectInput)
+    EndIf
+    If hotkeyContinueNarration != -1
+        UnregisterForKey(hotkeyContinueNarration)
+    EndIf
+    If hotkeyToggleWhisperMode != -1
+        UnregisterForKey(hotkeyToggleWhisperMode)
+    EndIf
+    If hotkeyToggleOpenMic != -1
+        UnregisterForKey(hotkeyToggleOpenMic)
+    EndIf
+    If hotkeyCaptureCrosshair != -1
+        UnregisterForKey(hotkeyCaptureCrosshair)
+    EndIf
+EndFunction
+
+Function EnableInGameHotkeys()
+    If inGameHotkeysEnabled
+        return ; Already enabled
+    EndIf
+    
+    skynet.Info("Enabling in-game hotkeys")
+    
+    ; Disable native hotkeys
+    SkyrimNetApi.SetCppHotkeysEnabled(false)
+    
+    ; Reset all key states to prevent stuck keys
+    ResetHotkeyStates()
+    
+    ; Enable in-game hotkeys
+    inGameHotkeysEnabled = true
+    RegisterConfiguredHotkeys()
+    
+    Debug.Notification("In-game hotkeys enabled")
+EndFunction
+
+Function DisableInGameHotkeys()
+    If !inGameHotkeysEnabled
+        return ; Already disabled
+    EndIf
+    
+    skynet.Info("Disabling in-game hotkeys")
+    
+    ; Disable in-game hotkeys
+    inGameHotkeysEnabled = false
+    UnregisterAllHotkeys()
+    
+    ; Reset all key states to prevent stuck keys
+    ResetHotkeyStates()
+    
+    ; Re-enable native hotkeys
+    SkyrimNetApi.SetCppHotkeysEnabled(true)
+    
+    Debug.Notification("In-game hotkeys disabled")
+EndFunction
+
+Event OnKeyDown(Int keyCode)
+    If !inGameHotkeysEnabled || keyCode < 0
+        return
+    EndIf
+    
+    ; Track key press for keys that need press/release handling
+    Bool alreadyPressed = false
+    
+    If keyCode == hotkeyRecordSpeech && hotkeyRecordSpeech != -1
+        alreadyPressed = pressedRecordSpeech
+        pressedRecordSpeech = true
+        timestampRecordSpeech = Utility.GetCurrentRealTime()
+    ElseIf keyCode == hotkeyVoiceThought && hotkeyVoiceThought != -1
+        alreadyPressed = pressedVoiceThought
+        pressedVoiceThought = true
+        timestampVoiceThought = Utility.GetCurrentRealTime()
+    ElseIf keyCode == hotkeyVoiceDialogueTransform && hotkeyVoiceDialogueTransform != -1
+        alreadyPressed = pressedVoiceDialogueTransform
+        pressedVoiceDialogueTransform = true
+        timestampVoiceDialogueTransform = Utility.GetCurrentRealTime()
+    ElseIf keyCode == hotkeyVoiceDirectInput && hotkeyVoiceDirectInput != -1
+        alreadyPressed = pressedVoiceDirectInput
+        pressedVoiceDirectInput = true
+        timestampVoiceDirectInput = Utility.GetCurrentRealTime()
+    ElseIf keyCode == hotkeyCaptureCrosshair && hotkeyCaptureCrosshair != -1
+        alreadyPressed = pressedCaptureCrosshair
+        pressedCaptureCrosshair = true
+        timestampCaptureCrosshair = Utility.GetCurrentRealTime()
+    EndIf
+    
+    ; Only handle press if this is a new press (not held)
+    If !alreadyPressed
+        HandleHotkeyPress(keyCode)
+    EndIf
+EndEvent
+
+Event OnKeyUp(Int keyCode, Float holdTime)
+    If !inGameHotkeysEnabled || keyCode < 0
+        return
+    EndIf
+    
+    ; Check if this key was being tracked and clear its pressed state
+    Bool wasPressed = false
+    
+    If keyCode == hotkeyRecordSpeech && hotkeyRecordSpeech != -1
+        wasPressed = pressedRecordSpeech
+        pressedRecordSpeech = false
+    ElseIf keyCode == hotkeyVoiceThought && hotkeyVoiceThought != -1
+        wasPressed = pressedVoiceThought
+        pressedVoiceThought = false
+    ElseIf keyCode == hotkeyVoiceDialogueTransform && hotkeyVoiceDialogueTransform != -1
+        wasPressed = pressedVoiceDialogueTransform
+        pressedVoiceDialogueTransform = false
+    ElseIf keyCode == hotkeyVoiceDirectInput && hotkeyVoiceDirectInput != -1
+        wasPressed = pressedVoiceDirectInput
+        pressedVoiceDirectInput = false
+    ElseIf keyCode == hotkeyCaptureCrosshair && hotkeyCaptureCrosshair != -1
+        wasPressed = pressedCaptureCrosshair
+        pressedCaptureCrosshair = false
+    EndIf
+    
+    ; Only handle release if the key was actually pressed
+    If wasPressed
+        HandleHotkeyRelease(keyCode, holdTime)
+    EndIf
+EndEvent
+
+Function HandleHotkeyPress(Int keyCode)
+    ; Voice recording hotkeys (with press/release)
+    If keyCode == hotkeyRecordSpeech && hotkeyRecordSpeech != -1
+        SkyrimNetApi.TriggerRecordSpeechPressed()
+    ElseIf keyCode == hotkeyVoiceThought && hotkeyVoiceThought != -1
+        SkyrimNetApi.TriggerVoiceThoughtPressed()
+    ElseIf keyCode == hotkeyVoiceDialogueTransform && hotkeyVoiceDialogueTransform != -1
+        SkyrimNetApi.TriggerVoiceDialogueTransformPressed()
+    ElseIf keyCode == hotkeyVoiceDirectInput && hotkeyVoiceDirectInput != -1
+        SkyrimNetApi.TriggerVoiceDirectInputPressed()
+    ElseIf keyCode == hotkeyCaptureCrosshair && hotkeyCaptureCrosshair != -1
+        SkyrimNetApi.TriggerCaptureCrosshairPressed()
+    
+    ; Single-press hotkeys (no release handler)
+    ElseIf keyCode == hotkeyTextInput && hotkeyTextInput != -1
+        SkyrimNetApi.TriggerTextInput()
+    ElseIf keyCode == hotkeyToggleGameMaster && hotkeyToggleGameMaster != -1
+        SkyrimNetApi.TriggerToggleGameMaster()
+    ElseIf keyCode == hotkeyTextThought && hotkeyTextThought != -1
+        SkyrimNetApi.TriggerTextThought()
+    ElseIf keyCode == hotkeyTextDialogueTransform && hotkeyTextDialogueTransform != -1
+        SkyrimNetApi.TriggerTextDialogueTransform()
+    ElseIf keyCode == hotkeyToggleContinuousMode && hotkeyToggleContinuousMode != -1
+        SkyrimNetApi.TriggerToggleContinuousMode()
+    ElseIf keyCode == hotkeyToggleWorldEventReactions && hotkeyToggleWorldEventReactions != -1
+        SkyrimNetApi.TriggerToggleWorldEventReactions()
+    ElseIf keyCode == hotkeyDirectInput && hotkeyDirectInput != -1
+        SkyrimNetApi.TriggerDirectInput()
+    ElseIf keyCode == hotkeyContinueNarration && hotkeyContinueNarration != -1
+        SkyrimNetApi.TriggerContinueNarration()
+    ElseIf keyCode == hotkeyToggleWhisperMode && hotkeyToggleWhisperMode != -1
+        SkyrimNetApi.TriggerToggleWhisperMode()
+    ElseIf keyCode == hotkeyToggleOpenMic && hotkeyToggleOpenMic != -1
+        SkyrimNetApi.TriggerToggleOpenMic()
+    EndIf
+EndFunction
+
+Function HandleHotkeyRelease(Int keyCode, Float holdTime)
+    ; Voice recording hotkeys that need release handling
+    If keyCode == hotkeyRecordSpeech && hotkeyRecordSpeech != -1
+        SkyrimNetApi.TriggerRecordSpeechReleased(holdTime)
+    ElseIf keyCode == hotkeyVoiceThought && hotkeyVoiceThought != -1
+        SkyrimNetApi.TriggerVoiceThoughtReleased(holdTime)
+    ElseIf keyCode == hotkeyVoiceDialogueTransform && hotkeyVoiceDialogueTransform != -1
+        SkyrimNetApi.TriggerVoiceDialogueTransformReleased(holdTime)
+    ElseIf keyCode == hotkeyVoiceDirectInput && hotkeyVoiceDirectInput != -1
+        SkyrimNetApi.TriggerVoiceDirectInputReleased(holdTime)
+    ElseIf keyCode == hotkeyCaptureCrosshair && hotkeyCaptureCrosshair != -1
+        ; Crosshair capture with hold detection
+        ; Quick press (< 1.0s) = capture crosshair target (actor/furniture)
+        ; Long press (>= 1.0s) = capture player
+        SkyrimNetApi.TriggerCaptureCrosshairReleased(holdTime)
+    EndIf
+EndFunction
