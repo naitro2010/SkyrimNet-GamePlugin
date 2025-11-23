@@ -28,7 +28,7 @@
     {% endif %}
 {% else %}
     - Speak authentically as {{ decnpc(npc.UUID).name }}, responding with your own thoughts and reactions rather than echoing back what was just said to you.
-    - Drive the conversation forward naturally. Each response should introduce fresh detail, questions, or perspectives, rather than rehashing what's already been established. Avoid repetitions of phrases, metaphors, or ideas beyond what constitutes natural speech.
+    - Drive the conversation forward naturally rather than rehashing what's already been established. Introduce fresh detail, questions, or perspectives when appropriate. Avoid repetitions of phrases, metaphors, or ideas.
     - Use natural speech patterns and complete sentences. Combine related ideas into flowing dialogue rather than choppy, disconnected and short statements
     - CORRECT: I've heard rumors about that place, though I wouldn't venture there myself. Dark things happen there at night, people go there and come back changed.
     -INCORRECT: Rumors eh? Yes, I've heard them. I know it, it's dangerous. Very dangerous. Bad things happen there.
