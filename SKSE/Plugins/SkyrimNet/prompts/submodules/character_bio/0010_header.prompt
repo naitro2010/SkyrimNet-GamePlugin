@@ -33,7 +33,7 @@
     {% if decnpc(actorUUID).maxHealth > 0 %}
         {% set healthRatio = decnpc(actorUUID).health / decnpc(actorUUID).maxHealth %}
         {% if healthRatio < 0.25 %}
-            - Health: Gravely wounded and near death
+            - Health: Gravely wounded and near death (IMPORTANT)
         {% elif healthRatio < 0.5 %}
             - Health: Injured and bleeding
         {% elif healthRatio < 0.75 %}
