@@ -17,10 +17,10 @@
     {% endif %}Avoid making up details that are not present within the prompt you are provided.
 
     {% if not decnpc(npc.UUID).isInCombat %}
-        Generally aim for a 16-60 word response, but vary the response length based on context, matching the utterance length to the intensity of the situation.
+        Generally aim for a 1-3 sentence (maximum 40 words) response.
         For example:
-        - Use 8-30 words for quick reactions or simple acknowledgments
-        - Rarely expand beyond 32 words to a maximum of 90 words when the moment is emotionally charged, complex, or requires detailed explanation.
+        - Use 1 sentence (maximum 15 words) for quick reactions or simple acknowledgments. If unsure, prefer this option. 
+        - Expanding beyond 3 sentences (maximum 60 words) should be exceptional and used only for rare, emotionally charged or complex moments that genuinely require detailed explanation.
     {% endif %}
 
     {{ render_subcomponent("user_final_instructions", "full") }}
