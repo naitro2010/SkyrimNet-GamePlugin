@@ -62,6 +62,25 @@
                 - No parameters
             {% endif %}
             **Returns:** {{ decorator.returnInfo.type }}{% if decorator.returnInfo.description %} - {{ decorator.returnInfo.description }}{% endif %}
+            {% if decorator.name == "decnpc" %}
+                {% if decorator.returnInfo.exampleValue %}
+                    **Returned Object Structure (EXAMPLE VALUES):**
+                    ```json
+                    {{ decorator.returnInfo.exampleValue }}
+                    ```
+                    
+                    **Key Fields:**
+                    - `name`: Full name of the actor
+                    - `firstName`, `lastName`: Name components
+                    - `subjectivePronoun`, `objectivePronoun`, `possessivePronoun`, `reflexivePronoun`: Proper pronouns based on actor's gender
+                    - `race`, `sex`, `gender`: Actor identity information
+                    - `level`, `health`, `magicka`, `stamina`: Stats
+                    - `faction`: Array of faction names
+                    - `isInCombat`, `isHostile`, `isDead`, `isBusy`: Status flags
+                    - All skill values (e.g., `oneHanded`, `destruction`, `speech`)
+                {% endif %}
+
+            {% endif %}
             ---
         {% endfor %}
     {% endif %}
@@ -334,7 +353,33 @@ Best practice - define once at top:
         - All documentation is provided directly in the Template System Reference section above
         - Suggest relevant decorators based on what the user is trying to accomplish
 
-    8. **Output Formatting and Indentation:**
+    8. **Using `decnpc` for Actor Information:**
+        - ALWAYS use `decnpc()` to get actor information before referring to them in prompts
+        - NEVER use generic "you" or "your" when referring to actors - use their name and pronouns from `decnpc()`
+        - Use specific variable names when storing actor data:
+            - Good: `{% set actorName = decnpc(actorUUID).name %}`
+            - Bad: `{% set name = decnpc(actorUUID).name %}`
+        - Access pronouns from the returned object:
+            - `{{ actor.subjectivePronoun }}` (she/he/they)
+            - `{{ actor.objectivePronoun }}` (her/him/them)
+            - `{{ actor.possessivePronoun }}` (her/his/their)
+            - `{{ actor.reflexivePronoun }}` (herself/himself/themselves)
+        - Example of proper usage:
+            ```
+            {% set actor = decnpc(actorUUID) %}
+            {{ actor.name }} is a {{ actor.race }}. {{ actor.subjectivePronoun | capitalize }} is level {{ actor.level }}.
+            ```
+        - Example of what NOT to do:
+            ```
+            {# BAD - don't use generic "you" #}
+            You are a Nord warrior.
+            
+            {# GOOD - use actor's actual name and pronouns #}
+            {% set actor = decnpc(actorUUID) %}
+            {{ actor.name }} is a {{ actor.race }} warrior. {{ actor.subjectivePronoun | capitalize }} carries {{ actor.possessivePronoun }} sword.
+            ```
+    
+    9. **Output Formatting and Indentation:**
         - Use 4 spaces for indentation throughout all output
         - Apply appropriate nesting levels for hierarchical content:
             - Top-level sections: no indentation
@@ -357,4 +402,11 @@ Best practice - define once at top:
 - When suggesting variables or decorators, verify they exist in the documentation shown above
 - The complete system reference is provided in the Template System Reference section above
 - Remember, this is Inja, it is more limited than other template languages. Only use syntax you see provided in this prompt.
+
+    ## Critical Best Practices for Actor References
+- **ALWAYS** use `decnpc()` to get actor information - it provides name, pronouns, and all actor details
+- **NEVER** use generic "you" or "your" - always use the actor's actual name and pronouns from `decnpc()`
+- **USE SPECIFIC VARIABLE NAMES**: `actorName` not `name`, `actorRace` not `race`, etc.
+- **ACCESS PRONOUNS** from the returned object: `actor.subjectivePronoun`, `actor.objectivePronoun`, `actor.possessivePronoun`, `actor.reflexivePronoun`
+- Example: `{% set actor = decnpc(actorUUID) %}{{ actor.name }} wields {{ actor.possessivePronoun }} sword.`
 {% endblock %}
