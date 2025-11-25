@@ -124,6 +124,7 @@
                 - You may lightly reference past events only if it is necessary to express your thought about the SUBJECT.
                 - Do NOT drift into unrelated worries or plans that are not clearly connected to the SUBJECT.
                 - You MAY refine a feeling, make a small decision, or notice a detail, but it must all stay on-topic.
+                - **CRITICAL: Advance Internal Monologue** - Never repeat the same core thought, worry, or perspective from your immediately preceding response. Progress to a new realization, related concern, decision, or emotional evolution.
 
             STYLE:
                 - Internal thought only: no spoken dialogue, no quotation marks, no asterisks.
@@ -143,6 +144,7 @@
                 - Your ONLY task now is to form a brief internal thought about next steps, plans, or priorities you are considering.
                 - Do NOT summarize past events; assume you remember them already.
                 - If you cannot add a fully new plan without making things up, focus on clarifying which of your existing worries or options feels most important right now.
+                - **CRITICAL: Advance Internal Focus** - Never dwell on the same core thought, worry, or priority from your immediately preceding response. Progress to a new consideration, related plan, or evolved perspective.
                 - You must keep your response length to 8-30 words.
 
         {% endif %}

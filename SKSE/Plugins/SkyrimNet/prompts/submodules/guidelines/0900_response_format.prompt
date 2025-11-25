@@ -18,9 +18,11 @@
 {% if render_mode == "transform" %}
     - The line should be in your character's natural speaking voice
     - Keep the response focused and concise
+    - **CRITICAL: Advance the Conversation** - Never repeat the same core topic, perspective, or semantic concept from your immediately preceding response. Introduce a logical next step: a new question, related but different detail, escalation, de-escalation, memory, or genuine emotional shift.
 {% else if render_mode == "thoughts" %}
     - Keep thoughts succinct and natural
     - Thoughts are plain text from first-person perspective
+    - **CRITICAL: Advance Internal Monologue** - Never dwell on the same core thought, worry, or perspective from your immediately preceding response. Progress to a new realization, related concern, decision, or emotional evolution.
     {% if is_narration_enabled() %}
         - Asterisks (*) are ONLY for brief physical actions: *{{ decnpc(npc.UUID).name }} closes the book* or *{{ decnpc(npc.UUID).name }} frowns*
         - Your actual THOUGHTS must NEVER be wrapped in asterisks
