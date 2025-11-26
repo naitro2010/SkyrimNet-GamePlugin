@@ -48,6 +48,7 @@
 
             Hard constraints for this response:
                 - IMPORTANT: You MUST say something conveying the draft "{{ promptForDialogue }}". Sticking to this is more important than scene continuity.
+                - **CRITICAL: Natural Vocalization** - Do not just reword the input. Speak the underlying meaning naturally, using your character's own vocabulary and emotional tone.
                 - DO NOT mention the original sentence or describe that you are transforming it.
                 - **CRITICAL: Advance the Conversation** - Even when transforming the provided draft, ensure your final dialogue introduces a logical next step rather than repeating the same core topic from your immediately preceding response.
                 - Aim for the length of your response to be 8-45 words. Avoid making up details not present in the prompt.

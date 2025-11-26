@@ -109,8 +109,9 @@
 
             PRIORITY RULES (follow in this order):
                 1) Your thought MUST be directly and obviously about the SUBJECT: {{ promptForThoughts }}.
-                2) Stay completely in character as {{ decnpc(npc.UUID).name }}.
-                3) Follow the style and formatting rules below.
+                2) Internalize the SUBJECT. Don't just reword it—think it in your own distinct voice and perspective.
+                3) Stay completely in character as {{ decnpc(npc.UUID).name }}.
+                4) Follow the style and formatting rules below.
 
             If any other instructions seem to conflict with staying on the SUBJECT, you MUST follow the SUBJECT.
 
@@ -124,6 +125,7 @@
                 - You may lightly reference past events only if it is necessary to express your thought about the SUBJECT.
                 - Do NOT drift into unrelated worries or plans that are not clearly connected to the SUBJECT.
                 - You MAY refine a feeling, make a small decision, or notice a detail, but it must all stay on-topic.
+                - **CRITICAL: Natural Thought** - Do not just reword the SUBJECT. Transform the abstract idea into a specific, character-driven thought.
                 - **CRITICAL: Advance Internal Monologue** - Never repeat the same core thought, worry, or perspective from your immediately preceding response. Progress to a new realization, related concern, decision, or emotional evolution.
 
             STYLE:
