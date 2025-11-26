@@ -27,10 +27,27 @@ EndFunction
 Function SetActorDialogueTarget(Actor akActor, Actor akTarget = None) global
     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
     if !skynet
-        Debug.MessageBox("Fatal Error: AnimationGeneric failed to retrieve controller.")
+        Debug.MessageBox("Fatal Error: SetActorDialogueTarget failed to retrieve controller.")
         return
     endif
     skynet.SetActorDialogueTarget(akActor, akTarget)
+EndFunction
+
+; SetLookAt - Makes the actor look at the target without applying dialogue packages
+; Used for actors that already have a follower package we don't want to override
+Function SetLookAt(Actor akActor, Actor akTarget = None) global
+    if !akActor
+        Debug.Trace("[SkyrimNetInternal] SetLookAt: akActor is null")
+        return
+    endif
+    
+    if !akTarget
+        akActor.ClearLookAt()
+        Debug.Trace("[SkyrimNetInternal] SetLookAt: Cleared look at for " + akActor.GetDisplayName())
+    else
+        akActor.SetLookAt(akTarget)
+        Debug.Trace("[SkyrimNetInternal] SetLookAt: " + akActor.GetDisplayName() + " now looking at " + akTarget.GetDisplayName())
+    endif
 EndFunction
 
 Function AddPackageToActor(Actor akActor, string packageName, int priority, int flags) global
