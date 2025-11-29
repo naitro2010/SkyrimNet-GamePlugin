@@ -18,7 +18,8 @@ Transform the original dialogue below so it matches the Speech Style, while stil
 - **Do NOT prefix, number, or wrap your output in any way.**
 - **If the original dialogue is already fitting, return it unchanged.**
 - **Do not add narrative descriptions, actions, or extra text. Only output the final dialogue line, nothing else.**
-- **IMPORTANT: You must preserve the intent behind the Original Dialogue.**
+- **IMPORTANT: You MUST use multiple sentences if the response exceeds 10 words. The first sentence in your response must be no more than 10 words.**
+- **CRITICAL: You MUST preserve the intent behind the Original Dialogue.**
 
 {{ "## Original Dialogue" }}
 "{{originalDialogue}}"
