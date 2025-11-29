@@ -409,23 +409,24 @@ EndFunction
 ; --- Cast Spell Action Functions ---
 ; -----------------------------------------------------------------------------
 
-Function CastSpell_Execute(Actor akSource, Actor akTarget, String sHexFormID)
-    Int iFormID = PO3_SKSEFunctions.StringToInt(sHexFormID)
+Function CastSpell_Execute(Actor akSource, Actor akTarget, String sFormID)
+    ; Support both hex (0x0004D3F2) and decimal (316402) format
+    Int iFormID = PO3_SKSEFunctions.StringToInt(sFormID)
 
     If (iFormID == -1)
-        Debug.Trace("CastSpell_Execute: Invalid hex string provided: " + sHexFormID)
+        Debug.Trace("CastSpell_Execute: Invalid form ID string provided: " + sFormID)
         Return
     EndIf
 
     Form foundForm = Game.GetForm(iFormID)
 
     If (foundForm == None)
-        Debug.Trace("CastSpell_Execute: GetForm failed for ID " + sHexFormID + ". Attempting GetFormEx...")
+        Debug.Trace("CastSpell_Execute: GetForm failed for ID " + sFormID + ". Attempting GetFormEx...")
 
         foundForm = Game.GetFormEx(iFormID)
 
         If (foundForm == None)
-            Debug.Trace("CastSpell_Execute: GetFormEx also failed. Form ID " + sHexFormID + " is invalid.")
+            Debug.Trace("CastSpell_Execute: GetFormEx also failed. Form ID " + sFormID + " is invalid.")
             Return
         EndIf
     EndIf
@@ -433,7 +434,7 @@ Function CastSpell_Execute(Actor akSource, Actor akTarget, String sHexFormID)
     Spell spellToCast = foundForm as Spell
 
     If (spellToCast == None)
-        Debug.Trace("CastSpell_Execute: Form ID " + sHexFormID + " exists but is NOT a Spell.")
+        Debug.Trace("CastSpell_Execute: Form ID " + sFormID + " exists but is NOT a Spell.")
         Return
     EndIf
 
