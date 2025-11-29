@@ -153,6 +153,29 @@ int function SendCustomPromptToLLM(String promptName, float temperature, int max
 ; Returns 0 on success, 1 on failure
 int function DirectNarration(String content, Actor originatorActor = None, Actor targetActor = None) Global Native
 
+; Register a persistent event that informs actors without triggering dialogue reactions
+; This function creates an event that NPCs will be aware of for context, but will NOT
+; respond to with dialogue. Use this for:
+; - Background events that add context but shouldn't interrupt scenes
+; - State changes that actors should know about but not react to immediately
+; - Information that should be stored in actor memory without triggering conversation
+; 
+; Unlike DirectNarration, this event type has NPC reactions disabled by default.
+; The event will still be persisted to the database and appear in the event history
+;
+; Content must not be empty - empty content will be rejected and return 1 (failure).
+;
+; If originatorActor is specified, that actor will be associated with the event
+; If targetActor is specified, that actor will also be associated with the event
+;
+; Examples:
+; RegisterPersistentEvent("The sun sets over the mountains") ; General atmospheric event
+; RegisterPersistentEvent("A caravan arrives at the gates", caravanLeaderRef) ; Associated with an actor
+; RegisterPersistentEvent("The player appears tired from travel", None, Game.GetPlayer()) ; Targets the player
+; 
+; Returns 0 on success, 1 on failure (including empty content)
+int function RegisterPersistentEvent(String content, Actor originatorActor = None, Actor targetActor = None) Global Native
+
 ; -----------------------------------------------------------------------------
 ; --- Utility Functions ---
 ; -----------------------------------------------------------------------------
