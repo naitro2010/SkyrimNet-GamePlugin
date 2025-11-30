@@ -37,16 +37,17 @@
 [ user ]
     {{ render_subcomponent("guidelines", "thoughts") }}
 
-    {# Quest Context: Include active quests and objectives as background awareness, not fixation #}
-    {% set activeQuests = get_all_active_quests() %}
-    {% if activeQuests and length(activeQuests) > 0 %}
+    {# Quest Context: Include only player-selected/tracked quests as background awareness, not fixation #}
+    {% set selectedQuests = get_selected_quests() %}
+    {% if selectedQuests and length(selectedQuests) > 0 %}
 
     ## ACTIVE QUESTS:
-    You have {{ length(activeQuests) }} active quest{% if length(activeQuests) != 1 %}s{% endif %}. These are ongoing concerns, but they should NOT dominate your current thought unless directly relevant to this moment.
+    You have {{ length(selectedQuests) }} active quest{% if length(selectedQuests) != 1 %}s{% endif %} that you are currently tracking. These are ongoing concerns, but they should NOT dominate your current thought unless directly relevant to this moment.
 
-    {% for quest in activeQuests %}
+    {% for quest in selectedQuests %}
+        ### {{ quest.name }} ({{ quest.type }})
         {% for objective in quest.objectives %}
-            - {{ quest.name }}: {{ objective.objectiveText }}{% if objective.isCompleted %} (Completed){% endif %}
+            - {{ objective.objectiveText }}{% if objective.isCompleted %} (Completed){% endif %}
         {% endfor %}
     {% endfor %}
 
