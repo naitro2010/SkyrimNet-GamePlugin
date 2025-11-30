@@ -3,7 +3,7 @@
 {% set lastSignificantTime = 0 %}
 
 {% for event in events %}
-{% if isValidActor(event.originatingActor) %}
+{% if isValidActor(event.originatingActor) and event.type != "gamemaster_dialogue" %}
     {% if lastSignificantTime > 0 %}
         {% set timeSinceLastSignificant = event.gameTime - lastSignificantTime %}
     {% else %}
