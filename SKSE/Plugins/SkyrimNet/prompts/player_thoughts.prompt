@@ -42,7 +42,7 @@
     {% if selectedQuests and length(selectedQuests) > 0 %}
 
     ## ACTIVE QUESTS:
-    You have {{ length(selectedQuests) }} active quest{% if length(selectedQuests) != 1 %}s{% endif %} that you are currently tracking. These are ongoing concerns, but they should NOT dominate your current thought unless directly relevant to this moment.
+    You have {{ length(selectedQuests) }} active quest{% if length(selectedQuests) != 1 %}s{% endif %} that you are currently tracking and working towards.
 
     {% for quest in selectedQuests %}
         ### {{ quest.name }} ({{ quest.type }})
