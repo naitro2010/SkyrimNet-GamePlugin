@@ -9,9 +9,15 @@ You are roleplaying as {{ npc.name }}, a {{ npc.gender }} {{ npc.race }} in Skyr
 
 {{ render_template("components\\event_history") }}
 
+{% if preSentDialogue | length > 0 %}
+[ assistant ]
+{{ preSentDialogue }} 
+[ end assistant ]
+{% endif %}
+
 [ user ]
 {{ "## Instructions" }}
-Transform the original dialogue below so it matches the Speech Style, while still fiting {{ npc.name }}'s character, background, and the current situation.  
+Transform the original dialogue below so it matches the Speech Style "{{ npc.universalTranslatorSpeechPattern }}", while still fiting {{ npc.name }}'s character, background, and the current situation.  
 - **Output only the transformed dialogue line.**
 - **Be careful not to replace proper nouns with pronouns.**
 - **Do NOT provide suggestions, explanations, commentary, or alternate versions.**
@@ -20,6 +26,7 @@ Transform the original dialogue below so it matches the Speech Style, while stil
 - **Do not add narrative descriptions, actions, or extra text. Only output the final dialogue line, nothing else.**
 - **IMPORTANT: You MUST use multiple sentences if the response exceeds 10 words. The first sentence in your response must be no more than 10 words.**
 - **CRITICAL: You MUST preserve the intent behind the Original Dialogue.**
+{% if preSentDialogue | length > 0 %}- **CONTINUATION: Continue naturally from what you last said.**{% endif %}
 
 {{ "## Original Dialogue" }}
 "{{originalDialogue}}"
