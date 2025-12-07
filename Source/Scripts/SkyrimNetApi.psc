@@ -277,9 +277,12 @@ String function GenerateDiaryEntry(Actor actor) Global Native
 ;   Example: {"recent_events":"**{{actor}}** learned {{spell_name}} ({{time_desc}})","raw":"{{actor}} learned {{spell_name}}","compact":"{{actor}} learned {{spell_name}}","verbose":"{{actor}} learned the {{spell_level}} level spell {{spell_name}}"}
 ; - isEphemeral: Whether events of this type should be automatically cleaned up (true) or persist (false)
 ; - defaultTTLMs: Default time-to-live in milliseconds for ephemeral events (ignored if isEphemeral is false)
+; - shortLivedEnabled: Whether short-lived scene context events should be created for this type (default true)
+;   Set to false for high-volume events that shouldn't clutter scene context
 ; Returns 0 on success, 1 on failure
 int function RegisterEventSchema(String eventType, String displayName, String description, \
-                                String fieldsJson, String formatTemplatesJson, bool isEphemeral, int defaultTTLMs) Global Native
+                                String fieldsJson, String formatTemplatesJson, bool isEphemeral, int defaultTTLMs, \
+                                bool shortLivedEnabled = true) Global Native
 
 ; Validate event data against a registered schema
 ; - eventType: The event type to validate against
