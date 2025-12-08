@@ -26,7 +26,7 @@ Transform the original dialogue below so it matches the Speech Style "{{ npc.uni
 - **Do not add narrative descriptions, actions, or extra text. Only output the final dialogue line, nothing else.**
 - **IMPORTANT: You MUST use multiple sentences if the response exceeds 10 words. The first sentence in your response must be no more than 10 words.**
 - **CRITICAL: You MUST preserve the intent behind the Original Dialogue.**
-{% if preSentDialogue | length > 0 %}- **CONTINUATION: Continue naturally from what you last said.**{% endif %}
+{% if preSentDialogue | length > 0 %}- **CONTINUATION: You must continue naturally from what you last said as if continuing the same natural line of thought.**{% endif %}
 
 {{ "## Original Dialogue" }}
 "{{originalDialogue}}"
