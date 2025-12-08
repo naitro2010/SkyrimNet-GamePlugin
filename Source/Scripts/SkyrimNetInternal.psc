@@ -20,7 +20,7 @@ Bool Function ClearTimelineMessage() global
     EndIf
 EndFunction
 
-; Returns: 0 = Player Only, 1 = Nearby Actors, 2 = Pinned Actors, -1 = Cancelled/Error
+; Returns: 0 = Player Only, 1 = Nearby Actors, 2 = Pinned Actors, 3 = Target in Crosshair, -1 = Cancelled/Error
 Int Function GetDiaryScopeMessage() global
     Debug.Trace("[SkyrimNetInternal] GetDiaryScopeMessage called")
     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
