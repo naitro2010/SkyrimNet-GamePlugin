@@ -20,6 +20,20 @@ Bool Function ClearTimelineMessage() global
     EndIf
 EndFunction
 
+; Returns: 0 = Player Only, 1 = Nearby Actors, 2 = Pinned Actors, -1 = Cancelled/Error
+Int Function GetDiaryScopeMessage() global
+    Debug.Trace("[SkyrimNetInternal] GetDiaryScopeMessage called")
+    skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
+    if !skynet
+        Debug.MessageBox("Fatal Error: GetDiaryScopeMessage failed to retrieve controller.")
+        return -1
+    endif
+
+    Int _selection = skynet.libs.msgDiaryScope.Show()
+    Debug.Trace("[SkyrimNetInternal] GetDiaryScopeMessage: User selected " + _selection)
+    return _selection
+EndFunction
+
 ; -----------------------------------------------------------------------------
 ; --- Actor & Package Management ---
 ; -----------------------------------------------------------------------------

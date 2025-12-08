@@ -21,6 +21,7 @@ int optionHotkeyContinueNarration
 int optionHotkeyToggleWhisperMode
 int optionHotkeyToggleOpenMic
 int optionHotkeyCaptureCrosshair
+int optionHotkeyGenerateDiaryBio
 
 int useImage
 
@@ -146,6 +147,7 @@ function DisplayHotkeys()
         
         optionHotkeyContinueNarration = AddKeyMapOption("Continue Narration", library.hotkeyContinueNarration)
         optionHotkeyCaptureCrosshair = AddKeyMapOption("Capture Target (Hold: Player)", library.hotkeyCaptureCrosshair)
+        optionHotkeyGenerateDiaryBio = AddKeyMapOption("Generate Diary & Bio", library.hotkeyGenerateDiaryBio)
     else
         AddTextOption("Enable in-game hotkeys to configure", "")
     endif
@@ -226,6 +228,9 @@ event OnOptionKeyMapChange(int option, int keyCode, string conflictControl, stri
     elseif option == optionHotkeyCaptureCrosshair
         library.hotkeyCaptureCrosshair = finalKeyCode
         SetKeyMapOptionValue(option, keyCode)
+    elseif option == optionHotkeyGenerateDiaryBio
+        library.hotkeyGenerateDiaryBio = finalKeyCode
+        SetKeyMapOptionValue(option, keyCode)
     endif
     
     ; Re-register hotkeys to pick up the change immediately
@@ -284,6 +289,9 @@ event OnOptionDefault(int option)
         SetKeyMapOptionValue(option, -1)
     elseif option == optionHotkeyCaptureCrosshair
         library.hotkeyCaptureCrosshair = -1
+        SetKeyMapOptionValue(option, -1)
+    elseif option == optionHotkeyGenerateDiaryBio
+        library.hotkeyGenerateDiaryBio = -1
         SetKeyMapOptionValue(option, -1)
     endif
     

@@ -49,6 +49,7 @@ Idle Property IdleWipeBrow Auto
 MiscObject Property miscGold Auto
 
 Message Property msgClearHistory Auto
+Message Property msgDiaryScope Auto
 
 ; -----------------------------------------------------------------------------
 ; --- Version & Maintenance ---
@@ -693,6 +694,7 @@ Int Property hotkeyContinueNarration = -1 Auto Hidden
 Int Property hotkeyToggleWhisperMode = -1 Auto Hidden
 Int Property hotkeyToggleOpenMic = -1 Auto Hidden
 Int Property hotkeyCaptureCrosshair = -1 Auto Hidden
+Int Property hotkeyGenerateDiaryBio = -1 Auto Hidden
 
 Bool Property inGameHotkeysEnabled = false Auto Hidden
 
@@ -787,6 +789,9 @@ Function RegisterConfiguredHotkeys()
     If hotkeyCaptureCrosshair != -1
         RegisterForKey(hotkeyCaptureCrosshair)
     EndIf
+    If hotkeyGenerateDiaryBio != -1
+        RegisterForKey(hotkeyGenerateDiaryBio)
+    EndIf
 EndFunction
 
 Function UnregisterAllHotkeys()
@@ -835,6 +840,9 @@ Function UnregisterAllHotkeys()
     EndIf
     If hotkeyCaptureCrosshair != -1
         UnregisterForKey(hotkeyCaptureCrosshair)
+    EndIf
+    If hotkeyGenerateDiaryBio != -1
+        UnregisterForKey(hotkeyGenerateDiaryBio)
     EndIf
 EndFunction
 
@@ -979,6 +987,8 @@ Function HandleHotkeyPress(Int keyCode)
         SkyrimNetApi.TriggerToggleWhisperMode()
     ElseIf keyCode == hotkeyToggleOpenMic && hotkeyToggleOpenMic != -1
         SkyrimNetApi.TriggerToggleOpenMic()
+    ElseIf keyCode == hotkeyGenerateDiaryBio && hotkeyGenerateDiaryBio != -1
+        SkyrimNetApi.TriggerGenerateDiaryBio()
     EndIf
 EndFunction
 

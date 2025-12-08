@@ -533,6 +533,16 @@ int function TriggerCaptureCrosshairPressed() Global Native
 int function TriggerCaptureCrosshairReleased(float holdDuration) Global Native
 
 ; -----------------------------------------------------------------------------
+; --- Diary and Bio Generation Hotkey ---
+; -----------------------------------------------------------------------------
+
+; Simulates pressing the generate diary and bio hotkey
+; - Displays a menu to select target scope (Player Only, Nearby Actors, Pinned Actors)
+; - Generates diary entries and dynamic bio updates for all matching actors
+; Returns 0 on success, 1 on failure
+int function TriggerGenerateDiaryBio() Global Native
+
+; -----------------------------------------------------------------------------
 ; --- Events ---
 ; -----------------------------------------------------------------------------
 
