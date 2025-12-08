@@ -28,23 +28,25 @@ You will transform dialogue lines to match {{ npc.name }}'s speech pattern. You 
 [ end assistant ]
 
 [ user ]
-Continue transforming to match the speech pattern "{{ npc.universalTranslatorSpeechPattern }}". 
+Continue transforming to match this speech pattern:
+{{ npc.universalTranslatorSpeechPattern }}
 
 The next part {{ npc.name }} needs to say is:
 "{{originalDialogue}}"
 
-Transform this continuation to match the speech pattern "{{ npc.universalTranslatorSpeechPattern }}" and flow naturally from what was already said. Output only the transformed line.
+Transform this continuation to match the speech pattern above and flow naturally from what was already said. Output only the transformed line.
 [ end user ]
 
 {% else %}
 
 [ user ]
-Transform this line to match the speech pattern "{{ npc.universalTranslatorSpeechPattern }}".
+Transform this line to match this speech pattern:
+{{ npc.universalTranslatorSpeechPattern }}
 
 {{ npc.name }} needs to say:
 "{{originalDialogue}}"
 
-Rewrite it to match the speech pattern "{{ npc.universalTranslatorSpeechPattern }}" while keeping the same meaning. Use the conversation context above to inform your transformation if needed. Output only the transformed line.
+Rewrite it to match the speech pattern above while keeping the same meaning. Use the conversation context to inform your transformation if needed. Output only the transformed line.
 [ end user ]
 
 {% endif %}
