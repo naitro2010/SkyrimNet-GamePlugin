@@ -2,9 +2,10 @@
 {% set lastEventTime = 0 %}
 {% set lastEventLocation = "" %}
 {% set lastSignificantTime = 0 %}
+{% set hasShownGMDialogue = false %}
 {% for event in events %}
 {% if isValidActor(event.originatingActor) %}
-    {% if event.type != "spell" and event.type != "hit" and event.type != "combat" and event.type != "gamemaster_dialogue" %}
+    {% if event.type != "spell" and event.type != "hit" and event.type != "combat" %}
         {% set locationChanged = (lastLocation != "" and event.location != lastLocation) %}
         {% set timeDiff = gameTimeNumeric - event.gameTime %}
         {% if lastSignificantTime > 0 %}
@@ -48,7 +49,14 @@
 [ end user ]
         {% endif %}
 
-        {% if event.originatingActor == npc.UUID and event.type != "player_thoughts" and event.type != "direct_narration" %}
+        {% if event.type == "gamemaster_dialogue" %}
+            {% if not hasShownGMDialogue %}
+[ user ]
+            {{ format_event(event, "verbose") }}
+[ end user ]
+                {% set hasShownGMDialogue = true %}
+            {% endif %}
+        {% else if event.originatingActor == npc.UUID and event.type != "player_thoughts" and event.type != "direct_narration" %}
 [ assistant ]
             {{ format_event(event, "verbose") }}
 [ end assistant ]
