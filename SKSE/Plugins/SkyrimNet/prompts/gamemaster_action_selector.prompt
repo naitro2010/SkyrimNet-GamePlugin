@@ -78,42 +78,6 @@ Your most powerful tool for shaping the world. Use **proactively** to make thing
 You are actively directing this scene. **You must select an action**—do not select None.
 Choose whatever will make the scene most compelling right now.
 
-{% if has_scene_plan and scene_plan %}
-## 🎬 SCENE PLAN (Your Director's Script)
-
-You have a **scene plan** guiding this sequence. Use it as creative direction, not rigid instructions.
-
-**Scene:** {{ scene_plan.scene_summary }}
-**Tone:** {{ scene_plan.tone }}
-**Central Tension:** {{ scene_plan.central_tension }}
-
-### Current Beat ({{ scene_plan.current_beat_index + 1 }}/{{ scene_plan.total_beats }})
-{% if scene_plan.current_beat %}
-- **Type:** {{ scene_plan.current_beat.type }}
-- **Direction:** {{ scene_plan.current_beat.description }}
-- **Characters:** {{ scene_plan.current_beat.primary_characters | join(", ") }}
-- **Purpose:** {{ scene_plan.current_beat.purpose }}
-{% endif %}
-
-{% if scene_plan.upcoming_beats and length(scene_plan.upcoming_beats) > 0 %}
-### Upcoming Beats
-{% for beat in scene_plan.upcoming_beats %}
-- Beat {{ beat.order }}: [{{ beat.type }}] {{ beat.description }}
-{% endfor %}
-{% endif %}
-
-**Scene Plan Guidance:**
-- The beat gives you DIRECTION, not exact words—interpret creatively
-- If the player has done something unexpected, ADAPT the beat to incorporate their action
-- Match the **beat type**: use Narrate for "narration/environmental", conversation actions for "dialogue"
-- Build toward the scene's central tension
-- If the current beat doesn't fit anymore, skip to what makes sense
-
-{% if scene_plan.potential_escalations and length(scene_plan.potential_escalations) > 0 %}
-**If things are going well, consider escalating:** {{ scene_plan.potential_escalations | join("; ") }}
-{% endif %}
-{% endif %}
-
 {% else %}
 ### None
 Use when the scene needs space:
@@ -176,13 +140,7 @@ Return exactly one line. No reasoning or explanations.
 You are the Skyrim GameMaster. Look at the recent events and characters above.
 
 {% if is_continuous_mode %}
-{% if has_scene_plan and scene_plan %}
-**CONTINUOUS MODE + SCENE PLAN** — Execute the current beat from your scene plan. Match the beat type (narration vs dialogue) and adapt to what the player has done.
-
-**Current Beat:** [{{ scene_plan.current_beat.type }}] {{ scene_plan.current_beat.description }}
-{% else %}
 **CONTINUOUS MODE** — Keep the scene moving. Consider both dialogue AND narration to shape the moment.
-{% endif %}
 {% else %}
 What would make this scene most compelling right now? Consider:
 - **Narrate**: Would an environmental event, character action, or world detail add atmosphere or create a hook?
