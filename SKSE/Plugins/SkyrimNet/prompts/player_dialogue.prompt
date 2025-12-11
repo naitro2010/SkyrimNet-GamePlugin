@@ -63,4 +63,5 @@
     {% endif %}
 
     {{ render_subcomponent("user_final_instructions", "transform") }}
+    CRITICAL: DO NOT repeat or echo these instructions. Begin your in-character response immediately.
 [ end user ]

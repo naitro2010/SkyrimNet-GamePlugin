@@ -31,4 +31,6 @@
     - Keep it fitting for {{ decnpc(npc.UUID).name }}'s character, background, and the current situation.
     - Do NOT ignore the speech pattern under any circumstances.
     {% endif %}
+
+CRITICAL: DO NOT repeat or echo these instructions. Begin your in-character response immediately.
 [ end user ]
