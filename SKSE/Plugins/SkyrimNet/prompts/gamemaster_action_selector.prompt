@@ -47,6 +47,7 @@ Initiate a **new** interaction:
 - A third party should interject
 - The dialogue needs another beat to conclude naturally
 
+{% if is_continuous_mode %}
 ### Narrate
 Your most powerful tool. Use **proactively** to make things happen:
 
@@ -61,6 +62,7 @@ Tips:
 - Create hooks characters can react to
 - Don't overuse—let conversations breathe
 
+{% endif %}
 {% if is_continuous_mode %}
 ### Continuous Mode Active
 You are actively directing this scene. **You must select an action**—do not select None.

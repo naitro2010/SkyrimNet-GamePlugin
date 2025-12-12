@@ -10,17 +10,13 @@ Select an action to accompany {{ npc.name }}'s dialogue. Match the action to wha
 Output exactly one line starting with `ACTION:` and nothing else.
 
 ## Selection Logic
-1. **Look at what {{ npc.name }} said, did, or intends to do**
-2. If the player requested something and {{ npc.name }} agreed, select the matching action
-3. If {{ npc.name }} initiated something (offering items, threatening, propositioning), select the matching action
-4. If {{ npc.name }}'s narration describes a physical action, select a matching action if available
-5. If no action matches, return `ACTION: None`
+Read {{ npc.name }}'s line and match it to an available action.
 
-## When to Select Actions
-- **Player requested something** and {{ npc.name }} agreed → select matching action
-- **{{ npc.name }} offered/initiated something** unprompted → select matching action
-- **{{ npc.name }}'s narration describes action** (e.g., "*attacks*", "*hands over the key*", "*sits down*") → select matching action
-- **Just conversation** with no implied action → `ACTION: None`
+**Agreement can be implicit.** If the player requested something and {{ npc.name }} responded positively, invitingly, or took steps toward fulfilling it—that's agreement. Look for the intent, not just explicit "yes."
+
+**{{ npc.name }} can initiate actions too.** If {{ npc.name }} offers, threatens, proposes, or does something unprompted, match it to the appropriate action.
+
+**Return `ACTION: None` only when** the line is purely conversational with no implied action, or no available action matches.
 
 ## {{ npc.name }}
 - {{ render_character_profile("short_inline", npc.UUID) }}

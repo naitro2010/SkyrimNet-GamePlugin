@@ -19,11 +19,13 @@ Event: {{ format_event(triggeringEvent, "recent_events") }}
 {% endif %}
 
 {% elif length(promptForDialogue) > 0 %}
-## Say This In Your Voice
-Draft: "{{ promptForDialogue }}"
+## Transform This Line
+"{{ promptForDialogue }}"
 
-Rewrite this as natural spoken dialogue. Express the same meaning in your own words and emotional tone.
-Do not mention the original or describe that you're transforming it.
+Say this in YOUR voice—same meaning, completely different words. Use your vocabulary, speech patterns, and personality.
+- Keep the same intent and information
+- Don't add new ideas or expand on it
+- Don't paraphrase—transform it as if you thought of it yourself
 
 {% else %}
 Speak naturally to the current situation. React to what's happening around you.

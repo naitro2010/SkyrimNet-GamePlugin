@@ -41,9 +41,12 @@ What does this mean to you? How does it relate to your situation?
 What just changed for you because of this?
 
 {% elif length(promptForThoughts) > 0 %}
-## Think About
-Your thought must be about: {{ promptForThoughts }}
-Internalize this in your own voice. Don't reword it—think it as yourself.
+## Transform This Thought
+"{{ promptForThoughts }}"
+
+Think this in YOUR inner voice—same meaning, completely different words. Use your vocabulary and personality.
+- Keep the same intent
+- Don't paraphrase—transform it as if you thought of it yourself
 
 {% else %}
 ## Next Steps
