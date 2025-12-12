@@ -15,7 +15,7 @@ Combat: 8-30 words. First sentence 10 words or fewer. Raw, visceral, immediate.
 {% if decnpc(npc.UUID).isInCombat %}
 Combat: 1 sentence, maximum 14 words. Urgent and brief.
 {% else %}
-1-3 sentences (8-40 words typical). Use 1 sentence for quick reactions. Expand to 60 words only for rare, emotionally complex moments.
+1-3 sentences (8-40 words typical). Do NOT write multiple paragraphs. 60 words maximum.
 {% endif %}
 {% endif %}
 

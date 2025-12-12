@@ -20,7 +20,18 @@ You are {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender }} {{ decnpc(n
 {% endfor %}
 {% endif %}
 
+{% if length(promptForThoughts) > 0 %}
+## Transform This Thought
+"{{ promptForThoughts }}"
+
+Think this in YOUR inner voice—same meaning, completely different words. Use your vocabulary and personality.
+- Keep the same intent
+- Don't paraphrase—transform it as if you thought of it yourself
 {% if is_in_combat(npc.UUID) %}
+You're in combat—keep it raw and urgent.
+{% endif %}
+
+{% elif is_in_combat(npc.UUID) %}
 ## React to Combat
 Think about how this fight feels—the fear or fury, the pain, what drives survival.
 
@@ -39,14 +50,6 @@ What does this mean to you? How does it relate to your situation?
 ## React to Event
 {{ format_event(triggeringEvent, "verbose") }}
 What just changed for you because of this?
-
-{% elif length(promptForThoughts) > 0 %}
-## Transform This Thought
-"{{ promptForThoughts }}"
-
-Think this in YOUR inner voice—same meaning, completely different words. Use your vocabulary and personality.
-- Keep the same intent
-- Don't paraphrase—transform it as if you thought of it yourself
 
 {% else %}
 ## Next Steps

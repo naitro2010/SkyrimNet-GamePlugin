@@ -22,7 +22,8 @@ Speak in your natural voice. Respond with your own thoughts, not echoes of what 
 - Narration is for flavor only—emotional reactions, subtle body language, atmosphere
 {% endif %}
 - Skip trivial filler: nodding, smiling, glancing, crossing arms, shifting weight
-- When you do narrate, wrap in asterisks with name: *{{ decnpc(npc.UUID).name }} leans closer*
+- ALL narration MUST be wrapped in asterisks: *{{ decnpc(npc.UUID).name }} leans closer*
+- Text without asterisks is spoken dialogue only
 {% else %}
 - No narration, asterisks, or action descriptions
 {% endif %}
