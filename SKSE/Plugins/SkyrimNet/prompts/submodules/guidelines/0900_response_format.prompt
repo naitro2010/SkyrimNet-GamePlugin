@@ -12,12 +12,17 @@ Output {{ decnpc(npc.UUID).name }}'s silent inner monologue—not spoken aloud.
 - No asterisks or actions
 {% endif %}
 {% else %}
-Speak in your natural voice. Give the other person something to respond to—a question, observation, or hook.
+Speak in your natural voice. Respond with your own thoughts, not echoes of what was said.
 {% if is_narration_enabled() %}
-- Narration must be wrapped in asterisks: *{{ decnpc(npc.UUID).name }} does something*
-- Narration should be purposeful, not generic hand-waving—show meaningful action or reaction
-- Always include {{ decnpc(npc.UUID).name }}'s name in narration
-- When in doubt, use dialogue alone
+- **Default to dialogue alone.** Most responses need no narration.
+{% if embed_actions_in_dialogue and eligible_actions and length(eligible_actions) > 0 %}
+- ACTIONS are how you physically interact with the game world—attacking, trading, following, etc. Use them instead of narration for this.
+- Narration is flavor only—emotional color, subtle body language, atmosphere. It doesn't make things happen.
+{% else %}
+- Narration is for flavor only—emotional reactions, subtle body language, atmosphere
+{% endif %}
+- Skip trivial filler: nodding, smiling, glancing, crossing arms, shifting weight
+- When you do narrate, wrap in asterisks with name: *{{ decnpc(npc.UUID).name }} leans closer*
 {% else %}
 - No narration, asterisks, or action descriptions
 {% endif %}
