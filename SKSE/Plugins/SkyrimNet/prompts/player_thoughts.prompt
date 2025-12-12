@@ -52,5 +52,5 @@ Think about what you will do next. Focus on immediate priorities, not detailed p
 {% endif %}
 
 {{ render_subcomponent("user_final_instructions", "thoughts") }}
-Respond in character now.
+Respond with 1-2 sentences of silent internal thought. Do not speak aloud.
 [ end user ]

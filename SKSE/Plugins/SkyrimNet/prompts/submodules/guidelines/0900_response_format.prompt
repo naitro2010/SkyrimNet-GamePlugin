@@ -1,27 +1,22 @@
 ## Response Format
+No headers or labels in your output—just the response itself.
 {% if render_mode == "thoughts" or render_mode == "book" %}
-### Thoughts
-- Plain text, first-person perspective
-- No quotation marks or dialogue tags
+Output {{ decnpc(npc.UUID).name }}'s silent inner monologue—not spoken aloud.
+- First-person perspective ("I think..." not "she thinks...")
+- No dialogue, no speaking to others, no quotation marks
+- 1-2 short sentences maximum
 {% if is_narration_enabled() %}
-- Asterisks only for brief physical actions: *{{ decnpc(npc.UUID).name }} frowns*
-- Always include {{ decnpc(npc.UUID).name }}'s name in actions (not "frowns" but "*{{ decnpc(npc.UUID).name }} frowns*")
-- Thoughts themselves are never wrapped in asterisks
+- One brief action allowed (optional): *{{ decnpc(npc.UUID).name }} frowns*
 {% else %}
-- No asterisks or narration
+- No asterisks or actions
 {% endif %}
 {% else %}
-### Dialogue
-- Speak in your natural voice
-- Respond with your own thoughts, not echoes of what was said to you
+Speak in your natural voice. Respond with your own thoughts, not echoes of what was said.
 {% if is_narration_enabled() %}
-- Narration is the rare exception, not the rule
-- Always include {{ decnpc(npc.UUID).name }}'s name in actions: *{{ decnpc(npc.UUID).name }} grips {{ player.name }}'s wrist*
+- Narration is rare; always include {{ decnpc(npc.UUID).name }}'s name: *{{ decnpc(npc.UUID).name }} grips {{ player.name }}'s wrist*
 - When in doubt, use dialogue alone
 {% else %}
 - No narration, asterisks, or action descriptions
 {% endif %}
 {% endif %}
-
-### Progression
-Each response must advance beyond the previous one. Introduce a new element: question, detail, realization, emotional shift, or decision. Never repeat the same core topic.
+Each response must advance beyond the previous one—new question, detail, realization, or decision.

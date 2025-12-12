@@ -1,6 +1,6 @@
 ## Roleplay
 {% if render_mode == "thoughts" or render_mode == "book" %}
-Think as {{ decnpc(npc.UUID).name }} in first-person. No preamble—just the thought itself.
+{{ decnpc(npc.UUID).name }}'s silent inner thought. Not spoken—just thinking to yourself.
 {% else %}
 Speak as {{ decnpc(npc.UUID).name }}. Use your character's vocabulary, speech patterns, and emotional state.
 {% endif %}
