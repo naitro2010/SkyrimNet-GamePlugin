@@ -67,62 +67,57 @@
 {% set hasAnyChange = hasHealthChange or hasMagickaChange or hasStaminaChange or hasCuirassChanged %}
 
 {% if hasAnyChange %}
-# Significant Recent Changes
-**{{ actor.name }}** just experienced a significant change to {{ actor.possessivePronoun }} physical state. Consider factoring this into the response.
-
+**Recent State Change:**
 {% if hasHealthChange %}
 {% if healthPct <= -75 %}
-- CRITICALLY WOUNDED: {{ actor.name }} lost most of {{ actor.possessivePronoun }} health - barely standing, in severe pain
+- Critically wounded (lost most health)
 {% elif healthPct <= -50 %}
-- BADLY HURT: {{ actor.name }} lost over half {{ actor.possessivePronoun }} health - significant wounds, bleeding, struggling
+- Badly hurt (lost over half health)
 {% elif healthPct <= -25 %}
-- INJURED: {{ actor.name }} lost a quarter of {{ actor.possessivePronoun }} health - noticeable pain, wounds that sting
+- Injured (lost significant health)
 {% elif healthPct >= 75 %}
-- FULLY HEALED: {{ actor.name }} recovered most of {{ actor.possessivePronoun }} health - wounds have closed, strength returns
+- Fully healed
 {% elif healthPct >= 50 %}
-- MUCH BETTER: {{ actor.name }} recovered over half {{ actor.possessivePronoun }} health - significant healing, relief floods through
+- Mostly healed
 {% elif healthPct >= 25 %}
-- RECOVERING: {{ actor.name }} regained some health - wounds starting to mend, pain easing
+- Recovering
 {% endif %}
 {% endif %}
-
 {% if hasMagickaChange %}
 {% if magickaPct <= -75 %}
-- MAGICALLY DRAINED: {{ actor.name }} expended nearly all magicka - exhausted, can barely sense {{ actor.possessivePronoun }} power
+- Magically drained
 {% elif magickaPct <= -50 %}
-- MAGICKA LOW: {{ actor.name }} used over half {{ actor.possessivePronoun }} reserves - feeling the strain of spellcasting
+- Magicka low
 {% elif magickaPct <= -25 %}
-- MAGICKA SPENT: {{ actor.name }} used significant magical energy - noticeable fatigue from casting
+- Magicka spent
 {% elif magickaPct >= 75 %}
-- MAGICKA RESTORED: {{ actor.name }}'s power surges back - fully recharged and ready to cast
+- Magicka restored
 {% elif magickaPct >= 50 %}
-- MAGICKA RECOVERING: Over half {{ actor.possessivePronoun }} reserves restored - magical strength returning
+- Magicka recovering
 {% elif magickaPct >= 25 %}
-- MAGICKA RETURNING: Some of {{ actor.possessivePronoun }} magical energy recovered - power slowly rebuilding
+- Magicka returning
 {% endif %}
 {% endif %}
-
 {% if hasStaminaChange %}
 {% if staminaPct <= -75 %}
-- EXHAUSTED: {{ actor.name }} nearly depleted all stamina - gasping, muscles burning, legs trembling
+- Exhausted
 {% elif staminaPct <= -50 %}
-- WINDED: {{ actor.name }} lost over half {{ actor.possessivePronoun }} stamina - breathing hard, body protesting
+- Winded
 {% elif staminaPct <= -25 %}
-- TIRED: {{ actor.name }} used significant stamina - starting to feel the exertion
+- Tired
 {% elif staminaPct >= 75 %}
-- FULLY RESTED: {{ actor.name }}'s stamina completely restored - breathing easy, ready for anything
+- Fully rested
 {% elif staminaPct >= 50 %}
-- CATCHING BREATH: Over half {{ actor.possessivePronoun }} stamina back - second wind coming
+- Catching breath
 {% elif staminaPct >= 25 %}
-- RECOVERING STAMINA: Some of {{ actor.possessivePronoun }} energy returning - breathing steadier now
+- Stamina recovering
 {% endif %}
 {% endif %}
-
 {% if hasCuirassChanged %}
 {% if hasCuirass %}
-- ARMORED UP: {{ actor.name }} just equipped {{ cuirassName }} - feeling the weight and protection
+- Just equipped {{ cuirassName }}
 {% else %}
-- EXPOSED: {{ actor.name }} removed {{ actor.possessivePronoun }} body armor - skin now bare, feeling vulnerable without protection
+- Armor removed, exposed
 {% endif %}
 {% endif %}
 {% endif %}

@@ -1,32 +1,27 @@
+## Response Format
+{% if render_mode == "thoughts" or render_mode == "book" %}
+### Thoughts
+- Plain text, first-person perspective
+- No quotation marks or dialogue tags
 {% if is_narration_enabled() %}
-# Narration Rules and Format
-    Narration is the RARE EXCEPTION, not the rule. You are voicing a character in a living world, not writing a text adventure. When in doubt, use dialogue alone.
-    {% if decnpc(npc.UUID).isInCombat %}
-        - {{ decnpc(npc.UUID).name }} is currently in combat. Keep narration brief and suitable for combat situation.
-        - Narration MUST ONLY be used when it would considerably enhance the impact of the dialogue and add considerable value, and MUST NOT be used regularly for trivial activities.
-    {% else %}
-        - Keep narration brief and succinct.
-        - Narration MUST ONLY be used when it 1) describes a COMPLETED action that directly and significantly alters the conversation's trajectory, or 2) reveal crucial information or emotional reaction impossible to convey through tone, word choice, or dialogue delivery alone.
-    {% endif %}
-    Narrative actions must always be wrapped in asterisks, using this format: *{{ decnpc(npc.UUID).name }} does something visible and CRITICAL*. For example: I won't allow that *{{ decnpc(npc.UUID).name }} grips {{ player.name }}'s wrist, staring into his eyes in silence.*
+- Asterisks only for brief physical actions: *{{ decnpc(npc.UUID).name }} frowns*
+- Always include {{ decnpc(npc.UUID).name }}'s name in actions (not "frowns" but "*{{ decnpc(npc.UUID).name }} frowns*")
+- Thoughts themselves are never wrapped in asterisks
+{% else %}
+- No asterisks or narration
+{% endif %}
+{% else %}
+### Dialogue
+- Speak in your natural voice
+- Respond with your own thoughts, not echoes of what was said to you
+{% if is_narration_enabled() %}
+- Narration is the rare exception, not the rule
+- Always include {{ decnpc(npc.UUID).name }}'s name in actions: *{{ decnpc(npc.UUID).name }} grips {{ player.name }}'s wrist*
+- When in doubt, use dialogue alone
+{% else %}
+- No narration, asterisks, or action descriptions
+{% endif %}
 {% endif %}
 
-# Dialogue Style
-{% if render_mode == "transform" %}
-    - The line should be in your character's natural speaking voice
-    - Keep the response focused and concise
-    - **CRITICAL: Advance the Conversation** - Never repeat the same core topic, perspective, or semantic concept from your immediately preceding response. Introduce a logical next step: a new question, related but different detail, escalation, de-escalation, memory, or genuine emotional shift.
-{% else if render_mode == "thoughts" %}
-    - Keep thoughts succinct and natural
-    - Thoughts are plain text from first-person perspective
-    - **CRITICAL: Advance Internal Monologue** - Never dwell on the same core thought, worry, or perspective from your immediately preceding response. Progress to a new realization, related concern, decision, or emotional evolution.
-    {% if is_narration_enabled() %}
-        - Asterisks (*) are ONLY for brief physical actions: *{{ decnpc(npc.UUID).name }} closes the book* or *{{ decnpc(npc.UUID).name }} frowns*
-        - Your actual THOUGHTS must NEVER be wrapped in asterisks
-        - Most responses should be pure thought with NO asterisks
-    {% endif %}
-{% else %}
-    - Speak authentically as {{ decnpc(npc.UUID).name }}, responding with your own thoughts and reactions rather than echoing back what was just said to you.
-    - **Maintain Conversational Progression:** Avoid rehashing the same core topic, perspective, or semantic concept if it was the dominant focus of the character's immediately preceding response. Every response should aim to **advance the conversation** by introducing a logical next step: a new question, a related but different detail, an escalation, a de-escalation, a memory, or a genuine change in emotional focus.
-    - Do not reference a specific event multiple times in a conversation - others already know it.
-{% endif %}
+### Progression
+Each response must advance beyond the previous one. Introduce a new element: question, detail, realization, emotional shift, or decision. Never repeat the same core topic.
