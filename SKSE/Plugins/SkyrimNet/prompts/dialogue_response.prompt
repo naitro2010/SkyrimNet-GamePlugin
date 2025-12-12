@@ -11,5 +11,7 @@ You are {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender }} {{ decnpc(n
 {% if decnpc(npc.UUID).universalTranslatorSpeechPattern %}
 **Speech Pattern Required:** {{ decnpc(npc.UUID).universalTranslatorSpeechPattern }}
 {% endif %}
+{% if not embed_actions_in_dialogue %}
 Respond in character now.
+{% endif %}
 [ end user ]
