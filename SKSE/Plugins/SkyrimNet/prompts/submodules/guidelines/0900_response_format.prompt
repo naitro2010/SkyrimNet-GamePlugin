@@ -8,22 +8,29 @@ Output {{ decnpc(npc.UUID).name }}'s silent inner monologue—not spoken aloud.
 - 1-2 short sentences maximum
 {% if is_narration_enabled() %}
 - One brief action allowed (optional), wrapped in asterisks: *{{ decnpc(npc.UUID).name }} frowns*
+- NEVER repeat actions from recent history (no more toe-wiggling if you just did that)
+- Skip body parts already mentioned recently—find something new
 {% else %}
 - No asterisks or actions
 {% endif %}
 {% else %}
 Speak in your natural voice. Respond with your own thoughts, not echoes of what was said.
 {% if is_narration_enabled() %}
-- **Default to dialogue alone.** Most responses need no narration.
+- **Dialogue alone is the norm.** Only add narration for high-impact moments—tension, intimacy, danger.
+- Narration should appear in roughly 1 in 4 responses, not every response.
 {% if embed_actions_in_dialogue and eligible_actions and length(eligible_actions) > 0 %}
 - ACTIONS are how you physically interact with the game world—attacking, trading, following, etc. Use them instead of narration for this.
 - Narration is flavor only—emotional color, subtle body language, atmosphere. It doesn't make things happen.
 {% else %}
 - Narration is for flavor only—emotional reactions, subtle body language, atmosphere
 {% endif %}
-- Skip trivial filler: nodding, smiling, glancing, crossing arms, shifting weight
+- Skip trivial filler: nodding, smiling, glancing, crossing arms, shifting weight, adjusting clothing
+- NEVER repeat narration from recent history—no describing the same body parts or actions twice
+- If the last 2-3 responses had narration, skip it this time
 - ALL narration MUST be wrapped in asterisks: *{{ decnpc(npc.UUID).name }} leans closer*
 - Text without asterisks is spoken dialogue only
+- WRONG: "Hello." She smiled. "How are you?"
+- RIGHT: Hello. *{{ decnpc(npc.UUID).name }} smiles* How are you?
 {% else %}
 - No narration, asterisks, or action descriptions
 {% endif %}
