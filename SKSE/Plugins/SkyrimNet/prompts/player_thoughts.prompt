@@ -58,5 +58,6 @@ Think about what you will do next. Focus on immediate priorities, not detailed p
 {% endif %}
 
 {{ render_subcomponent("user_final_instructions", "thoughts") }}
-Respond with 1-2 sentences of silent internal thought. Do not speak aloud.
+This is private thought—NOT a response to anyone. Do not answer questions or continue dialogue from the conversation history.
+Respond with 1-2 sentences of silent internal thought only. No spoken words.
 [ end user ]
