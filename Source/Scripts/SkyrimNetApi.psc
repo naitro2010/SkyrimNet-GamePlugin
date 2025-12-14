@@ -187,6 +187,13 @@ bool function GetJsonBool(String jsonString, String key, bool defaultValue) Glob
 float function GetJsonFloat(String jsonString, String key, float defaultValue) Global Native
 Actor function GetJsonActor(String jsonString, String key, Actor defaultValue) Global Native
 
+; Find an actor by name among nearby actors (within 4000 units of the player)
+; - actorName: The display name of the actor to find (case-insensitive)
+; Returns: The actor if found, None otherwise
+; Note: "everyone" or empty string returns None (no specific target)
+; This searches both the player and all nearby NPCs
+Actor function FindActorByName(String actorName) Global Native
+
 ; Joins a list of strings into a comma/and-separated list with optional noun phrase
 ; - strings: The array of strings to join (e.g., ["apple", "orange", "banana"])
 ; - noun: Optional array with [singular, plural] forms (e.g., ["creature", "creatures"])

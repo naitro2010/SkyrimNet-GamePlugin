@@ -1,6 +1,7 @@
 Scriptname skynet_Library extends Quest  
 
 skynet_MainController Property skynet Auto Hidden
+skynet_MinAIBridge Property minAIBridge Auto Hidden
 
 ; -----------------------------------------------------------------------------
 ; --- The Library Part of the Library ---
@@ -60,6 +61,7 @@ Function Maintenance(skynet_MainController _skynet)
     RegisterActions()
     InitVRIntegrations()
     InitDBVOIntegration()
+    InitMinAIBridge()
     ResetHotkeyStates()
     InitializeInGameHotkeys()
     skynet.Info("Library initialized")
@@ -588,6 +590,26 @@ Function InitDBVOIntegration()
 
     skynet.Info("Using DBVO integration")
     RegisterForModEvent("PlayDBVOTopic", "OnPlayDBVOTopic")
+EndFunction
+
+; -----------------------------------------------------------------------------
+; ---- MinAI Bridge Integration ----
+; Bridges MinAI-style mod events to SkyrimNet's native API
+; This allows mods that integrate with MinAI to also work with SkyrimNet,
+; even if MinAI is not installed.
+; -----------------------------------------------------------------------------
+
+Function InitMinAIBridge()
+    ; Get the bridge script instance from the same quest
+    minAIBridge = (Self as Quest) as skynet_MinAIBridge
+    
+    if !minAIBridge
+        skynet.Warn("MinAI Bridge script not found on quest - MinAI event bridging disabled")
+        return
+    endif
+    
+    minAIBridge.Maintenance(skynet)
+    skynet.Info("MinAI Bridge initialized")
 EndFunction
   
 ; Event to intercept DBVO dialogue
