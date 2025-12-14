@@ -41,26 +41,41 @@ Initiate a **new** interaction:
 - Someone should approach another (noticed something, has information)
 - The scene is quiet and someone would naturally break silence
 
+**This is your primary tool**—dialogue drives scenes forward.
+
 ### ContinueConversation
 **Maintain** an ongoing exchange:
 - Someone just spoke and another should respond
 - A third party should interject
 - The dialogue needs another beat to conclude naturally
 
+**Topic format**: Brief direction (2-6 words), NOT dialogue. Examples:
+- ✓ "defending the Empire's honor"
+- ✓ "questioning Jon's loyalty"  
+- ✓ "changing the subject to business"
+- ✗ "You've spent too much time with poets, boy..." (too long, this is dialogue)
+
 {% if is_continuous_mode %}
 ### Narrate
-Your most powerful tool. Use **proactively** to make things happen:
+Use **sparingly** when it would meaningfully advance the scene:
+Shape the world actively—make things happen that dialogue alone cannot:
 
-**Environmental**: Weather, sounds, lighting, objects moving, wildlife
-**Character Actions**: Someone spills a drink, adjusts their weapon, exchanges a glance
+**Environmental**: Weather, sounds, lighting, objects moving, wildlife, atmosphere
+**Character Actions**: Someone spills a drink, adjusts their weapon, exchanges a meaningful glance
 **World Events**: Distant sounds, approaching footsteps, someone enters/exits
 **Atmosphere**: Storm clouds gathering, ominous silence, something stirs in darkness
+
+When to use narration over dialogue:
+- Physical events that create hooks for characters to react to
+- Atmosphere or tension that words would undercut
+- Interruptions, arrivals, environmental shifts
+- A beat of silence or observation between exchanges
 
 Tips:
 - Be specific and sensory (seen, heard, smelled, felt)
 - 1-3 sentences maximum
 - Create hooks characters can react to
-- Don't overuse—let conversations breathe
+- **Default to dialogue** when the scene needs someone to speak—narration is for when action or atmosphere serves better
 
 {% endif %}
 {% if is_continuous_mode %}
@@ -107,7 +122,8 @@ Use when the scene needs space:
 ## Style
 - Grounded, gritty, believable—this is Skyrim
 - One compelling interaction beats three forced ones
-- Vary approach: alternate narration and dialogue
+- **Dialogue first**—narration only when it adds something dialogue can't
+- Topics guide direction, characters create the dialogue
 - Let conversations breathe
 
 ---
