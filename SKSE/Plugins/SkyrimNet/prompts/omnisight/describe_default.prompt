@@ -17,6 +17,7 @@
     - IGNORE any UI elements, menus, or HUD overlays - describe only the game world content
     - Avoid speculation about gameplay mechanics
 
+{{ render_subcomponent("omnisight_default", "full") }}
     Describe the visual characteristics and notable features of the subject shown in the image.
     [image]
     {{imageDataUrl}}
