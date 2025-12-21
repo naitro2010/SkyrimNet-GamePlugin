@@ -11,17 +11,19 @@
     {% if is_nude %}
     - State: Character is not wearing body armor (may be partially or fully unclothed)
     {% endif %}
+    {% if not omnisight_captures_equipment %}
     {% set actor_equipment = get_worn_equipment(actorUUID) %}
     {% if actor_equipment and length(actor_equipment) > 0 %}
         - Equipment Worn (reference only - describe ONLY what you can actually see in the screenshot):
         {% for slot, item in actor_equipment %}
             {% if is_item_enabled(item.formID) %}
-                * {{ item.equipment_slot }}: {{ get_item_name(item.formID) }}
+                * {{ item.slot_body_area }}: {{ get_item_name(item.formID) }}
             {% endif %}
         {% endfor %}
     {% endif %}
 
     IMPORTANT: The equipment list above is for reference only. Only describe items that are ACTUALLY VISIBLE in the screenshot. If equipment is obscured by the camera angle or covered by other items, omit it from your description.
+    {% endif %}
 
     WHAT TO DESCRIBE (2-3 detailed paragraphs):
     - Face: eyes, nose, lips, jaw, bone structure, expression lines
@@ -109,6 +111,7 @@
     - Do NOT skip or gloss over any visible body parts - be thorough and descriptive
     {% endif %}
 
+{{ render_subcomponent("omnisight_actor", "full") }}
     Now write a complete physical description of this character based on the image.
     [image]
     {{imageDataUrl}}

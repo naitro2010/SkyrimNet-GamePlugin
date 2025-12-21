@@ -72,6 +72,7 @@
     - ONLY describe what is visible on-screen
     - Never infer or guess identities from UI elements
 
+{{ render_subcomponent("omnisight_scene", "full") }}
     Describe the screenshot:
     [ image ]
     {{imageDataUrl}}
