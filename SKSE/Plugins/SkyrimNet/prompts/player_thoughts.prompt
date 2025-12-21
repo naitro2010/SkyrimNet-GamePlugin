@@ -49,11 +49,11 @@ What does this mean to you? How does it relate to your situation?
 {% elif triggeringEvent and triggeringEvent.type %}
 ## React to Event
 {{ format_event(triggeringEvent, "verbose") }}
-What just changed for you because of this?
+How does this feel? What's your gut reaction? Stay in your body, not your head.
 
 {% else %}
-## Next Steps
-Think about what you will do next. Focus on immediate priorities, not detailed predictions.
+## React
+What are you feeling right now? Fear, desire, confusion, determination? Don't describe what's happening—feel it.
 
 {% endif %}
 

@@ -4,7 +4,7 @@ No headers or labels in your output—just the response itself.
 Output {{ decnpc(npc.UUID).name }}'s silent inner monologue—not spoken aloud.
 - First-person perspective ("I think..." not "she thinks...")
 - No dialogue, no speaking to others, no quotation marks
-- Thoughts are feelings, reactions, emotions, desires—not descriptions of physical actions
+- React emotionally—don't narrate what's happening, feel it
 - 1-2 short sentences maximum
 {% if is_narration_enabled() %}
 - One brief action allowed (optional), wrapped in asterisks: *{{ decnpc(npc.UUID).name }} frowns*
