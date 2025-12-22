@@ -51,14 +51,14 @@
         {% if decnpc(actorUUID).magicka == 0 %}
             {% set magickaRatio = 0 %}
         {% endif %}
-        {% if magickaRatio < 0.25 %}
-            - Magic: Magically drained and exhausted
-        {% elif magickaRatio < 0.5 %}
-            - Magic: Running low on magical energy
-        {% elif magickaRatio < 0.75 %}
-            - Magic: Has some magical energy remaining
-        {% elif magickaRatio <= 0.9 %}
-            - Magic: Nearly full of magical energy
+        {% if magickaRatio < 0.15 %}
+            - Magic: Magically exhausted, barely any reserves left
+        {% elif magickaRatio < 0.35 %}
+            - Magic: Running low on magical reserves
+        {% elif magickaRatio < 0.6 %}
+            - Magic: Moderate magical reserves
+        {% elif magickaRatio < 0.85 %}
+            - Magic: Strong magical reserves
         {% else %}
             - Magic: Full of magical energy
         {% endif %}
