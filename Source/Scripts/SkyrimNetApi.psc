@@ -117,6 +117,9 @@ int function CancelPendingPackageTasks(Actor akActor) Global Native
 ; Check if an actor currently has a specific skyrimnet package applied
 int function HasPackage(Actor akActor, String packageName) Global Native
 
+; Re-apply all SkyrimNet packages to an actor
+int function ReinforcePackages(Actor akActor) Global Native
+
 ; -----------------------------------------------------------------------------
 ; --- LLM Interaction ---
 ; -----------------------------------------------------------------------------
