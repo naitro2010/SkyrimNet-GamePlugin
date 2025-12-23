@@ -51,13 +51,24 @@
     - Name specific colors (ash gray, deep crimson, oiled walnut) not vague ones (dark, colorful, metallic).
     - Describe the ACTUAL visible structure, not assumed construction. If something looks like a single connected plate, don't describe it as "two cups" just because bikinis typically have cups. Describe the shapes you actually see.
     - Use accurate terminology for partial armor. Ab guards protect the abdomen only (not a cuirass). A breastplate covers the chest. Pauldrons cover shoulders. Don't call partial pieces by full-armor names.
-    - Ignore the mannequin body and background - describe only the item itself.
+
+    **Inscriptions, Runes & Patterns:**
+    - ONLY describe inscriptions, runes, engravings, or decorative patterns if you can clearly see them in the image
+    - If present, be specific: "Nordic knotwork along the blade edge", "glowing blue runes on the hilt", "engraved serpent motif on the pommel"
+    - Do NOT invent or assume decorative details. Plain items are plain. Smooth metal is smooth metal.
+    - Vague filler like "ornate pattern", "decorative detailing", or "intricate design" without specifics = hallucination. Don't do it.
+{% if has_mannequin_body %}
+    **CRITICAL - MANNEQUIN WARNING:** This item is rendered on a humanoid mannequin body. You MUST completely ignore the body/mannequin - do NOT describe skin, flesh, body shape, body parts, curves, or any anatomical features. Focus ONLY on the actual clothing/armor item itself. The mannequin is just a display stand, not part of the item.
+{% endif %}
 
     **Bad example:** "A finely crafted item featuring intricate detailing and quality craftsmanship."
     **Good example:** "A locking bondage corset designed to cinch and immobilize the waist. Black leather exterior reinforced with vertical steel stays and gray metal plating at the sides. The front features a central locking mechanism with visible keyhole, connected by riveted seams and silver stitching. The steel stays create visible vertical ridges beneath the leather surface."
 
     **Bad example:** "A sturdy piece of armor with a battle-worn appearance showing signs of use and minor scratches."
     **Good example:** "A heavy infantry cuirass providing torso protection. Gunmetal gray steel with layered horizontal plates over the abdomen. Riveted leather straps at the shoulders secure front and back pieces, with brass buckles at each side. An embossed crest on the chest and flared edges at the waist for mobility."
+
+    **Bad example (hallucinated decoration):** "A decorative metal piece with an ornate pattern is affixed to the front, adding a distinct visual detail."
+    **Why it's bad:** Vague "ornate pattern" with no specifics is invented filler. Either describe the EXACT pattern (Celtic knot, dragon motif, geometric diamonds) or don't mention decoration at all.
 
     Remember: Respond with ONLY the JSON object, no additional text or markdown code fences.
     [image]
