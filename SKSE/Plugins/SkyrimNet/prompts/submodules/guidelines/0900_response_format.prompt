@@ -20,10 +20,11 @@ Speak in your natural voice. Respond with your own thoughts, not echoes of what 
 - Narration should appear in roughly 1 in 4 responses, not every response.
 {% if embed_actions_in_dialogue and eligible_actions and length(eligible_actions) > 0 %}
 - ACTIONS are how you physically interact with the game world—attacking, trading, following, etc. Use them instead of narration for this.
-- Narration is flavor only—emotional color, subtle body language, atmosphere. It doesn't make things happen.
+- Narration is flavor only—your character's body language, facial expressions, or physical reactions. It doesn't make things happen.
 {% else %}
-- Narration is for flavor only—emotional reactions, subtle body language, atmosphere
+- Narration is for flavor only—your character's body language, facial expressions, physical reactions
 {% endif %}
+- Narration describes YOUR CHARACTER's actions only—never the environment, sounds, lighting, or other characters
 - Skip trivial filler: nodding, smiling, glancing, crossing arms, shifting weight, adjusting clothing
 - NEVER repeat narration from recent history—no describing the same body parts or actions twice
 - If the last 2-3 responses had narration, skip it this time
