@@ -65,6 +65,7 @@ SkyrimNet is a cutting-edge AI integration platform for games, beginning with Sk
 
 **Skyrim VR:**
 - [Skyrim VR ESL Support](https://www.nexusmods.com/skyrimspecialedition/mods/106712) - Use instead of BEES
+- [Skyrim VR Refocused](https://www.nexusmods.com/skyrimspecialedition/mods/32737), or a similar mod to make sure Skyrim keeps focus.
 
 
 *⚠️ Important: CUDA Toolkit is required for the CUDA build to load properly*
