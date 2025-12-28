@@ -11,6 +11,11 @@
 
 {% set equipment = get_worn_equipment(actorUUID) %}
 
+{# Check if actor is wearing torso clothing/armor #}
+{% set isClothed = has_key(equipment, "torso") %}
+
+**Torso Clothed:** {% if isClothed %}✓ TRUE - Wearing torso equipment{% else %}✗ FALSE - No torso equipment{% endif %}
+
 **{{ actorName }}'s Current Equipment:**
 
 {% if equipment.head %}
