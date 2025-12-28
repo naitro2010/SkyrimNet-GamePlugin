@@ -53,6 +53,16 @@ Message Property msgClearHistory Auto
 Message Property msgDiaryScope Auto
 
 ; -----------------------------------------------------------------------------
+; --- Test Data for Template Decorator Testing ---
+; -----------------------------------------------------------------------------
+Int Property testInt = 42 Auto
+Float Property testFloat = 3.14159 Auto
+Bool Property testBool = true Auto
+String Property testString = "Hello from SkyrimNet!" Auto
+Int[] Property testIntArray Auto
+String[] Property testStringArray Auto
+
+; -----------------------------------------------------------------------------
 ; --- Version & Maintenance ---
 ; -----------------------------------------------------------------------------
 
@@ -64,7 +74,23 @@ Function Maintenance(skynet_MainController _skynet)
     InitMinAIBridge()
     ResetHotkeyStates()
     InitializeInGameHotkeys()
+    InitTestData()
     skynet.Info("Library initialized")
+EndFunction
+
+Function InitTestData()
+    ; Initialize test arrays for template decorator testing
+    testIntArray = new Int[5]
+    testIntArray[0] = 10
+    testIntArray[1] = 20
+    testIntArray[2] = 30
+    testIntArray[3] = 40
+    testIntArray[4] = 50
+    
+    testStringArray = new String[3]
+    testStringArray[0] = "First"
+    testStringArray[1] = "Second"
+    testStringArray[2] = "Third"
 EndFunction
 
 Function RegisterActions()
