@@ -27,6 +27,10 @@ First, analyze the player's dialogue and determine what type of interaction this
 5. The player currently has {{ crosshairTarget.name }} in their crosshair - this is a strong indicator that they may be addressing {{ decnpc(crosshairTarget.UUID).objective_pronoun }}.
 {% endif %}
 
+Virtual NPC rules:
+- Regular NPCs cannot hear the speech of Virtual NPCs. Do not select an NPC to respond directly to a Virtual NPC.
+- Virtual NPCs may be selected as speaker but may NOT be selected as a target unless the speaker is also a Virtual NPC.
+
 For direct player-to-NPC dialogue, determine the most likely target by considering:
 - Does the player's dialogue directly name or reference a specific NPC?
 - Has the player recently interacted with any of the nearby NPCs?

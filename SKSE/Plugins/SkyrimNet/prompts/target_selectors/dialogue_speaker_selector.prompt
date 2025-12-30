@@ -21,6 +21,8 @@ Only select an NPC if their silence would feel unnatural. Evaluate in order:
 - Silence is natural and preferred over forced dialogue
 - Honor each NPC's Interjection guidance strictly
 - Do NOT select {{ lastSpeaker.name }} as speaker (may be target)
+- Regular NPCs cannot hear the speech of Virtual NPCs. Do not select an NPC to respond directly to a Virtual NPC.
+- Virtual NPCs may be selected as speaker but may NOT be selected as a target unless the speaker is also a Virtual NPC.
 
 {{ get_scene_context(0, 0, "full")}}
 [ end system ]
@@ -34,9 +36,22 @@ Only select an NPC if their silence would feel unnatural. Evaluate in order:
 
 ## Candidates
 {% for candidate in candidateDialogues %}
+{% set is_private_vnpc_candidate = false %}
+{% set virtual_npcs = get_virtual_npc_list(player.UUID) %}
+{% for vnpc in virtual_npcs %}
+{% if vnpc.UUID == candidate.UUID and vnpc.conversationMode != "public" %}
+{% set is_private_vnpc_candidate = true %}
+{% endif %}
+{% endfor %}
+{% if is_private_vnpc_candidate %}
+{{ candidate.id }}. **{{ decnpc(candidate.UUID).name }}** (Virtual NPC)
+   - {{ render_character_profile("short_inline", candidate.UUID) }}
+   - **Interjection**: {{ render_character_profile("interject_inline", candidate.UUID) }}
+{% else %}
 {{ candidate.id }}. **{{ decnpc(candidate.UUID).name }}** ({{ decnpc(candidate.UUID).gender }} {{ decnpc(candidate.UUID).race }}, {{ units_to_meters(candidate.distance) }}m)
    - {{ render_character_profile("short_inline", candidate.UUID) }}
    - **Interjection**: {{ render_character_profile("interject_inline", candidate.UUID) }}
+{% endif %}
 {% endfor %}
 
 Output format: `0` or `[Name]>[target]`
