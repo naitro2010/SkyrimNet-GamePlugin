@@ -62,6 +62,10 @@ Initiate a **new** interaction:
 - Prefer uninvolved NPCs as interjectors over directing speech at the player
 - Let the player choose when to join—don't force them into every conversation
 
+**Virtual NPC Rules:**
+- Regular NPCs cannot hear the speech of Virtual NPCs. Do not select an NPC to respond directly to a Virtual NPC.
+- Virtual NPCs may be selected as speaker but may NOT be selected as a target unless the speaker is also a Virtual NPC.
+
 **Topic format**: Brief direction (2-6 words), NOT dialogue. Examples:
 - ✓ "defending the Empire's honor"
 - ✓ "questioning Jon's loyalty"  
@@ -150,9 +154,22 @@ Use when the scene needs space:
 CRITICAL: Only use characters from this list. Names must match exactly.
 
 {% for npc in get_nearby_npc_list(player.UUID) %}
+{% set is_private_vnpc = false %}
+{% set virtual_npcs = get_virtual_npc_list(player.UUID) %}
+{% for vnpc in virtual_npcs %}
+{% if vnpc.UUID == npc.UUID and vnpc.conversationMode != "public" %}
+{% set is_private_vnpc = true %}
+{% endif %}
+{% endfor %}
+{% if is_private_vnpc %}
+- **{{ decnpc(npc.UUID).name }}** (Virtual NPC)
+  {{ render_character_profile("short_inline", npc.UUID) }}
+  *Interjects when:* {{ render_character_profile("interject_inline", npc.UUID) }}
+{% else %}
 - **{{ decnpc(npc.UUID).name }}** ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ units_to_meters(npc.distance) }}m)
   {{ render_character_profile("short_inline", npc.UUID) }}
   *Interjects when:* {{ render_character_profile("interject_inline", npc.UUID) }}
+{% endif %}
 {% endfor %}
 - **{{ decnpc(player.UUID).name }}** (Player, {{ decnpc(player.UUID).gender }} {{ decnpc(player.UUID).race }})
   {{ render_character_profile("short_inline", player.UUID) }}
